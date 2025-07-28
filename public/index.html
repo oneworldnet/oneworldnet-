@@ -3,61 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>One World Net</title>
+    <title>شبكة الإنترنت الفضائي العالمية</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        body { font-family: 'Cairo', Arial, sans-serif; background: #f7f7fa; margin: 0; }
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.2)), url('images/1.jpg') center/cover no-repeat;
+            color: #fff; text-align: center; padding: 90px 20px 60px 20px;
+        }
+        .hero .logo {
+            width: 120px; height: 120px; border-radius: 50%; margin-bottom: 20px; border: 4px solid #fff; background: #fff;
+        }
+        .hero h1 { font-size: 2.8em; margin: 0 0 20px 0; letter-spacing: 2px; }
+        .hero p { font-size: 1.5em; margin-bottom: 30px; }
+        .features {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin: 50px 0 30px 0;
+        }
+        .feature {
+            background: #fff; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+            padding: 30px 25px; min-width: 260px; max-width: 340px; flex: 1 1 260px; text-align: center;
+        }
+        .feature img { width: 60px; margin-bottom: 15px; }
+        .feature h3 { font-size: 1.3em; margin: 0 0 10px 0; }
+        .feature p { font-size: 1.1em; color: #444; }
+        .gallery {
+            display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; margin: 40px 0;
+        }
+        .gallery img { border-radius: 10px; width: 320px; height: 200px; object-fit: cover; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: transform 0.2s; }
+        .gallery img:hover { transform: scale(1.07); }
+        .contact {
+            background: #fff; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+            max-width: 500px; margin: 40px auto 30px auto; padding: 30px 25px; text-align: center;
+        }
+        .contact h2 { margin-top: 0; }
+        .contact input, .contact textarea {
+            width: 100%; margin-bottom: 12px; padding: 10px; border-radius: 6px; border: 1px solid #ccc; font-size: 1.1em;
+        }
+        .contact button {
+            background: #1a237e; color: #fff; border: none; padding: 12px 30px; border-radius: 6px; font-size: 1.1em; cursor: pointer;
+        }
+        .socials {
+            margin-top: 18px; display: flex; justify-content: center; gap: 18px;
+        }
+        .socials a img { width: 38px; height: 38px; border-radius: 50%; background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+        @media (max-width: 700px) {
+            .features, .gallery { flex-direction: column; align-items: center; }
+            .gallery img { width: 98vw; height: 180px; }
+        }
+    </style>
 </head>
 <body>
-    <header class="main-header">
-        <div style="display:flex;justify-content:space-between;align-items:center;">
-            <img src="images/logo.png" alt="One World Net Logo" class="logo" style="max-width:160px; margin-bottom:10px;">
-            <button id="langToggle" style="padding:8px 18px;font-weight:bold;border-radius:6px;border:none;background:#222;color:#fff;cursor:pointer;">EN</button>
+    <section class="hero">
+        <img src="images/logo.jpg" class="logo" alt="شعار الشبكة">
+        <h1 id="siteTitle">شبكة الإنترنت الفضائي العالمية</h1>
+        <p id="heroDesc">اتصل بالإنترنت من أي مكان في العالم بسرعة وثبات، بدون بنية تحتية أو أسلاك. حلولنا الفضائية تفتح لك آفاقًا جديدة للاتصال والعمل والتعلم والترفيه.</p>
+        <div class="socials">
+            <a id="waLink" href="https://wa.me/" target="_blank"><img src="images/wa.svg" alt="واتساب"></a>
+            <a id="tgLink" href="https://t.me/" target="_blank"><img src="images/tg.svg" alt="تليجرام"></a>
         </div>
-        <h1 class="site-title" id="siteTitle">ONE WORLD NET</h1>
-        <nav>
-            <ul id="navList">
-                <li><a href="#about">الرئيسية</a></li>
-                <li><a href="#about2">من نحن</a></li>
-                <li><a href="#services">خدماتنا</a></li>
-                <li><a href="#gallery">معرض الصور</a></li>
-                <li><a href="#contact">تواصل معنا</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <section id="about" class="hero-section" style="background:#0a0a0a;color:#fff;padding:60px 0 40px 0;">
-            <div class="hero-content" style="max-width:900px;margin:auto;text-align:center;">
-                <img src="images/1.jpg" alt="ONE WORLD NET" style="max-width:220px;border-radius:50%;margin-bottom:20px;">
-                <h2 id="heroTitle" style="font-size:2.5em;margin-bottom:10px;">ONE WORLD NET</h2>
-                <p id="heroDesc" style="font-size:1.3em;line-height:2;">نحن نقدم حلول الإنترنت المتكاملة للأفراد والشركات، مع أفضل جودة وسرعة ودعم فني متواصل.<br>هدفنا أن نكون الخيار الأول لكل من يبحث عن خدمة إنترنت موثوقة وحديثة.</p>
-            </div>
-        </section>
-        <section id="about2" style="background:#fff;padding:40px 0;">
-            <div style="max-width:900px;margin:auto;display:flex;align-items:center;gap:40px;flex-wrap:wrap;">
-                <img src="images/2.jpg" alt="من نحن" style="max-width:320px;width:100%;border-radius:18px;">
-                <div style="flex:1;min-width:260px;">
-                    <h2 style="color:#0a0a0a;font-size:2em;margin-bottom:10px;">من نحن</h2>
-                    <p style="font-size:1.1em;line-height:2;color:#222;">شركة ONE WORLD NET متخصصة في خدمات الإنترنت والشبكات، بخبرة طويلة في المجال وسمعة طيبة بين عملائنا. نلتزم بتقديم أفضل الحلول التقنية بأحدث الأساليب وبأسعار تنافسية.</p>
-                </div>
-            </div>
-        </section>
-        <section id="services" class="services-section" style="background:#f7f7f7;padding:50px 0;">
-            <div style="max-width:1000px;margin:auto;">
-                <h2 id="servicesTitle" style="text-align:center;font-size:2em;color:#0a0a0a;margin-bottom:40px;">خدماتنا</h2>
-                <div class="services-list" style="display:flex;flex-wrap:wrap;gap:30px;justify-content:center;">
-                    <div class="service-box" style="background:#fff;padding:30px 20px;border-radius:16px;box-shadow:0 2px 8px #0001;flex:1;min-width:220px;max-width:300px;text-align:center;">
-                        <img src="images/3.jpg" alt="خدمة الإنترنت المنزلي" style="max-width:120px;margin-bottom:15px;border-radius:12px;">
-                        <h3 style="color:#0a0a0a;font-size:1.2em;margin-bottom:10px;">خدمة الإنترنت المنزلي</h3>
-                        <p style="color:#222;line-height:1.8;">باقات متنوعة تناسب جميع الاحتياجات بسرعات عالية وأسعار مناسبة.</p>
-                    </div>
-                    <div class="service-box" style="background:#fff;padding:30px 20px;border-radius:16px;box-shadow:0 2px 8px #0001;flex:1;min-width:220px;max-width:300px;text-align:center;">
-                        <img src="images/4.jpg" alt="خدمة الإنترنت للشركات" style="max-width:120px;margin-bottom:15px;border-radius:12px;">
-                        <h3 style="color:#0a0a0a;font-size:1.2em;margin-bottom:10px;">خدمة الإنترنت للشركات</h3>
-                        <p style="color:#222;line-height:1.8;">حلول متكاملة للشركات والمؤسسات مع سرعات مخصصة وضمان استمرارية الخدمة.</p>
-                    </div>
-                    <div class="service-box" style="background:#fff;padding:30px 20px;border-radius:16px;box-shadow:0 2px 8px #0001;flex:1;min-width:220px;max-width:300px;text-align:center;">
-                        <img src="images/5.jpg" alt="تركيب الشبكات الداخلية" style="max-width:120px;margin-bottom:15px;border-radius:12px;">
-                        <h3 style="color:#0a0a0a;font-size:1.2em;margin-bottom:10px;">تركيب الشبكات الداخلية</h3>
-                        <p style="color:#222;line-height:1.8;">تركيب وصيانة الشبكات الداخلية للمنازل والشركات بأحدث التقنيات.</p>
+    </section>
+    <section class="features">
+        <div class="feature">
+            <img src="images/8.jpg" alt="تغطية عالمية">
+            <h3>تغطية عالمية حقيقية</h3>
+            <p>اتصال بالإنترنت في أي مكان على سطح الأرض، حتى في المناطق النائية والصحارى والبحار.</p>
+        </div>
+        <div class="feature">
+            <img src="images/9.jpg" alt="سرعة فائقة">
+            <h3>سرعة فائقة وثبات عالي</h3>
+            <p>استمتع بسرعات تحميل ورفع عالية مع استقرار في الخدمة على مدار الساعة.</p>
+        </div>
+        <div class="feature">
+            <img src="images/10.jpg" alt="دعم فني">
+            <h3>دعم فني متواصل</h3>
+            <p>فريقنا جاهز لمساعدتك على مدار الساعة وطوال أيام الأسبوع.</p>
+        </div>
+    </section>
+    <section class="gallery">
+        <img src="images/1.jpg" alt="صورة 1">
+        <img src="images/2.jpg" alt="صورة 2">
+        <img src="images/3.jpg" alt="صورة 3">
+        <img src="images/4.jpg" alt="صورة 4">
+    </section>
+    <section class="contact">
+        <h2>تواصل معنا الآن</h2>
+        <form id="contactForm">
+            <input type="text" name="name" placeholder="الاسم" required>
+            <input type="email" name="email" placeholder="البريد الإلكتروني" required>
+            <textarea name="message" placeholder="رسالتك" rows="4" required></textarea>
+            <button type="submit">إرسال</button>
+        </form>
+        <div class="socials">
+            <a id="waLink2" href="https://wa.me/" target="_blank"><img src="images/wa.svg" alt="واتساب"></a>
+            <a id="tgLink2" href="https://t.me/" target="_blank"><img src="images/tg.svg" alt="تليجرام"></a>
+        </div>
+    </section>
+    <script src="main.js"></script>
+</body>
+</html>
                     </div>
                     <div class="service-box" style="background:#fff;padding:30px 20px;border-radius:16px;box-shadow:0 2px 8px #0001;flex:1;min-width:220px;max-width:300px;text-align:center;">
                         <img src="images/6.jpg" alt="دعم فني على مدار الساعة" style="max-width:120px;margin-bottom:15px;border-radius:12px;">
