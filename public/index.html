@@ -7,55 +7,89 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>One World Net</h1>
+    <header class="main-header">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+            <img src="images/logo.png" alt="One World Net Logo" class="logo" style="max-width:160px; margin-bottom:10px;">
+            <button id="langToggle" style="padding:8px 18px;font-weight:bold;border-radius:6px;border:none;background:#222;color:#fff;cursor:pointer;">EN</button>
+        </div>
+        <h1 class="site-title" id="siteTitle">One World Net</h1>
         <nav>
-            <ul>
-                <li><a href="#about">عن الشركة</a></li>
-                <li><a href="#services">خدماتنا</a></li>
-                <li><a href="#contact">تواصل معنا</a></li>
-                <li><a href="#login">تسجيل الدخول</a></li>
+            <ul id="navList">
+                <li><a href="#about" data-en="Home" data-ar="الرئيسية">الرئيسية</a></li>
+                <li><a href="#services" data-en="Services" data-ar="خدماتنا">خدماتنا</a></li>
+                <li><a href="#gallery" data-en="Gallery" data-ar="معرض الصور">معرض الصور</a></li>
+                <li><a href="#contact" data-en="Contact" data-ar="تواصل معنا">تواصل معنا</a></li>
+                <li><a href="#login" data-en="Login" data-ar="تسجيل الدخول">تسجيل الدخول</a></li>
             </ul>
         </nav>
     </header>
     <main>
-        <section id="about">
-            <h2>عن الشركة</h2>
-            <p>نفس محتوى موقع oneworldnet.mystrikingly.com سيتم وضعه هنا لاحقًا.</p>
-        </section>
-        <section id="services">
-            <h2>خدماتنا</h2>
-            <ul>
-                <li>خدمة 1</li>
-                <li>خدمة 2</li>
-                <li>خدمة 3</li>
-            </ul>
-        </section>
-        <section id="contact">
-            <h2>تواصل معنا</h2>
-            <form id="contactForm">
-                <input type="text" name="name" placeholder="الاسم" required>
-                <input type="email" name="email" placeholder="البريد الإلكتروني" required>
-                <textarea name="message" placeholder="رسالتك" required></textarea>
-                <button type="submit">إرسال</button>
-            </form>
-            <div class="social">
-                <a href="https://wa.me/201005341825" target="_blank">واتساب</a>
-                <a href="https://t.me/201005341825" target="_blank">تليجرام</a>
+        <section id="about" class="hero-section">
+            <div class="hero-content">
+                <h2 id="heroTitle">حلول الإنترنت المتكاملة</h2>
+                <p id="heroDesc">نحن في <b>One World Net</b> نقدم أفضل خدمات الإنترنت، تصميم المواقع، الاستضافة، حلول الأعمال، الدعم الفني، وخدمات التسويق الإلكتروني باحترافية عالية وبأسعار تنافسية.</p>
+                <a href="#contact" class="cta-btn" id="ctaBtn">تواصل معنا الآن</a>
             </div>
         </section>
-        <section id="login">
-            <h2>تسجيل الدخول</h2>
+        <section id="services" class="services-section">
+            <h2 id="servicesTitle">خدماتنا</h2>
+            <div class="services-list">
+                <div class="service-box">
+                    <img src="images/web-design.png" alt="تصميم مواقع" id="serviceImg1">
+                    <h3 id="service1Title">تصميم مواقع</h3>
+                    <p id="service1Desc">تصميم مواقع عصرية متجاوبة مع جميع الأجهزة وبأفضل التقنيات.</p>
+                </div>
+                <div class="service-box">
+                    <img src="images/hosting.png" alt="استضافة مواقع" id="serviceImg2">
+                    <h3 id="service2Title">استضافة مواقع</h3>
+                    <p id="service2Desc">استضافة سريعة وآمنة مع دعم فني متواصل وأسعار مميزة.</p>
+                </div>
+                <div class="service-box">
+                    <img src="images/marketing.png" alt="تسويق إلكتروني" id="serviceImg3">
+                    <h3 id="service3Title">تسويق إلكتروني</h3>
+                    <p id="service3Desc">خدمات تسويق إلكتروني احترافية لزيادة ظهورك وانتشارك على الإنترنت.</p>
+                </div>
+                <div class="service-box">
+                    <img src="images/support.png" alt="دعم فني" id="serviceImg4">
+                    <h3 id="service4Title">دعم فني</h3>
+                    <p id="service4Desc">دعم فني متواصل لحل جميع مشاكلك التقنية بسرعة وكفاءة.</p>
+                </div>
+            </div>
+        </section>
+        <section id="gallery" class="gallery-section">
+            <h2 id="galleryTitle">معرض الصور</h2>
+            <div class="gallery-list">
+                <img src="images/gallery1.jpg" alt="معرض 1" id="galleryImg1">
+                <img src="images/gallery2.jpg" alt="معرض 2" id="galleryImg2">
+                <img src="images/gallery3.jpg" alt="معرض 3" id="galleryImg3">
+            </div>
+        </section>
+        <section id="contact" class="contact-section">
+            <h2 id="contactTitle">تواصل معنا</h2>
+            <form id="contactForm">
+                <input type="text" name="name" placeholder="الاسم" required id="contactName">
+                <input type="email" name="email" placeholder="البريد الإلكتروني" required id="contactEmail">
+                <textarea name="message" placeholder="رسالتك" required id="contactMsg"></textarea>
+                <button type="submit" id="contactBtn">إرسال</button>
+            </form>
+            <div class="social">
+                <a href="https://wa.me/201005341825" target="_blank" class="whatsapp" id="waLink">واتساب</a>
+                <a href="https://t.me/201005341825" target="_blank" class="telegram" id="tgLink">تليجرام</a>
+            </div>
+        </section>
+        <section id="login" class="login-section">
+            <h2 id="loginTitle">تسجيل الدخول</h2>
             <form id="loginForm">
-                <input type="email" name="email" placeholder="البريد الإلكتروني" required>
-                <input type="password" name="password" placeholder="كلمة المرور" required>
-                <button type="submit">دخول</button>
+                <input type="email" name="email" placeholder="البريد الإلكتروني" required id="loginEmail">
+                <input type="password" name="password" placeholder="كلمة المرور" required id="loginPass">
+                <button type="submit" id="loginBtn">دخول</button>
             </form>
         </section>
     </main>
     <footer>
-        <p>جميع الحقوق محفوظة &copy; One World Net 2025</p>
+        <p id="footerText">جميع الحقوق محفوظة &copy; One World Net 2025</p>
     </footer>
     <script src="main.js"></script>
+    <script src="translate.js"></script>
 </body>
 </html>
