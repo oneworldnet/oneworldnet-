@@ -1,181 +1,136 @@
+
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>شبكة الإنترنت الفضائي العالمية</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        body { font-family: 'Cairo', Arial, sans-serif; background: #f7f7fa; margin: 0; }
-        .main-nav {
-            background: #fff; box-shadow: 0 2px 8px #0001; position: sticky; top: 0; z-index: 10;
-        }
-        .main-nav ul {
-            display: flex; gap: 18px; list-style: none; margin: 0; padding: 0;
-        }
-        .main-nav a, .main-nav button.menu-link {
-            color: #1a237e; font-weight: bold; text-decoration: none; padding: 10px 18px; border-radius: 8px; transition: background 0.2s, color 0.2s;
-        }
-        .main-nav a.special, .main-nav button.menu-link.special {
-            background: linear-gradient(90deg,#1a237e 60%,#00e0ff 100%); color: #fff !important; box-shadow: 0 2px 8px #00e0ff33;
-        }
-        .main-nav a:hover, .main-nav button.menu-link:hover {
-            background: #e3f2fd; color: #1a237e;
-        }
-        .main-nav a.special:hover, .main-nav button.menu-link.special:hover {
-            background: linear-gradient(90deg,#00e0ff 60%,#1a237e 100%); color: #fff;
-        }
-        .main-nav .logo {
-            width: 60px; height: 60px; border-radius: 50%; background: #fff;
-        }
-        .hero {
-            background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.2)), url('images/1.jpg') center/cover no-repeat;
-            color: #fff; text-align: center; padding: 90px 20px 60px 20px;
-        }
-        .hero h1 { font-size: 3.2em; margin: 30px 0 10px 0; color: #fff; text-shadow: 0 2px 8px #000a; }
-        .hero p { font-size: 1.6em; color: #fff; max-width: 700px; margin: auto; text-shadow: 0 2px 8px #000a; }
-        .features {
-            display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin: 50px 0 30px 0;
-        }
-        .feature {
-            background: #fff; border-radius: 16px; box-shadow: 0 2px 10px #00e0ff22;
-            padding: 36px 28px; min-width: 260px; max-width: 340px; flex: 1 1 260px; text-align: center; transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .feature:hover { transform: translateY(-8px) scale(1.04); box-shadow: 0 8px 24px #00e0ff33; }
-        .feature img { width: 60px; margin-bottom: 15px; }
-        .feature h3 { font-size: 1.3em; margin: 0 0 10px 0; }
-        .feature p { font-size: 1.1em; color: #444; }
-        .gallery {
-            display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; margin: 40px 0;
-        }
-        .gallery img { border-radius: 12px; width: 320px; height: 200px; object-fit: cover; box-shadow: 0 2px 8px #00e0ff22; transition: transform 0.2s; }
-        .gallery img:hover { transform: scale(1.07); }
-        .contact {
-            background: #fff; border-radius: 16px; box-shadow: 0 2px 10px #00e0ff22;
-            max-width: 500px; margin: 40px auto 30px auto; padding: 36px 28px; text-align: center;
-        }
-        .contact h2 { margin-top: 0; }
-        .contact input, .contact textarea {
-            width: 100%; margin-bottom: 12px; padding: 10px; border-radius: 8px; border: 1px solid #ccc; font-size: 1.1em;
-        }
-        .contact button {
-            background: linear-gradient(90deg,#1a237e 60%,#00e0ff 100%); color: #fff; border: none; padding: 12px 30px; border-radius: 8px; font-size: 1.1em; cursor: pointer; box-shadow: 0 2px 8px #00e0ff33;
-        }
-        .contact button:hover { background: linear-gradient(90deg,#00e0ff 60%,#1a237e 100%); }
-        .socials {
-            margin-top: 18px; display: flex; justify-content: center; gap: 18px;
-        }
-        .socials a img { width: 38px; height: 38px; border-radius: 50%; background: #fff; box-shadow: 0 1px 4px #00e0ff22; }
-        @media (max-width: 700px) {
-            .features, .gallery { flex-direction: column; align-items: center; }
-            .gallery img { width: 98vw; height: 180px; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>One World Net | الإنترنت الفضائي العالمي</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Cairo', Arial, sans-serif; margin: 0; background: #f7f7fa; color: #222; }
+    .hero {
+      background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.2)), url('images/1.jpg') center/cover no-repeat;
+      min-height: 90vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; color: #fff; padding: 0 20px;
+    }
+    .hero h1 { font-size: 3em; margin-bottom: 20px; letter-spacing: 2px; }
+    .hero p { font-size: 1.4em; margin-bottom: 30px; }
+    .hero .cta-btn {
+      background: linear-gradient(90deg,#1a237e 60%,#00e0ff 100%); color: #fff; border: none;
+      padding: 16px 40px; border-radius: 30px; font-size: 1.2em; font-weight: bold; cursor: pointer;
+      box-shadow: 0 4px 16px #00e0ff33; transition: background 0.2s;
+    }
+    .hero .cta-btn:hover { background: linear-gradient(90deg,#00e0ff 60%,#1a237e 100%); }
+    .main-nav {
+      background: #fff; box-shadow: 0 2px 8px #0001; position: sticky; top: 0; z-index: 10;
+    }
+    .main-nav ul {
+      display: flex; gap: 18px; list-style: none; margin: 0; padding: 0; justify-content: center;
+    }
+    .main-nav a {
+      color: #1a237e; font-weight: bold; text-decoration: none; padding: 10px 18px; border-radius: 8px; transition: background 0.2s, color 0.2s;
+    }
+    .main-nav a.special {
+      background: linear-gradient(90deg,#1a237e 60%,#00e0ff 100%); color: #fff !important; box-shadow: 0 2px 8px #00e0ff33;
+    }
+    .main-nav a:hover { background: #e3f2fd; color: #1a237e; }
+    .main-nav a.special:hover { background: linear-gradient(90deg,#00e0ff 60%,#1a237e 100%); color: #fff; }
+    .section {
+      padding: 60px 0; background: #fff; text-align: center;
+    }
+    .section.alt { background: #f7f7fa; }
+    .section h2 { font-size: 2.2em; margin-bottom: 20px; color: #1a237e; }
+    .section p { font-size: 1.2em; max-width: 700px; margin: 0 auto 30px auto; }
+    .features-list {
+      display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; margin-top: 40px;
+    }
+    .feature-box {
+      background: #fff; border-radius: 16px; box-shadow: 0 2px 10px #00e0ff22;
+      padding: 36px 28px; min-width: 260px; max-width: 340px; flex: 1 1 260px; text-align: center; transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .feature-box:hover { transform: translateY(-8px) scale(1.04); box-shadow: 0 8px 24px #00e0ff33; }
+    .feature-box img { width: 60px; margin-bottom: 15px; }
+    .feature-box h3 { font-size: 1.3em; margin: 0 0 10px 0; }
+    .feature-box p { font-size: 1.1em; color: #444; }
+    .gallery-list {
+      display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; margin: 40px 0;
+    }
+    .gallery-list img { border-radius: 12px; width: 320px; height: 200px; object-fit: cover; box-shadow: 0 2px 8px #00e0ff22; transition: transform 0.2s; }
+    .gallery-list img:hover { transform: scale(1.07); }
+    .footer {
+      background: #1a237e; color: #fff; text-align: center; padding: 30px 0 10px 0; margin-top: 40px;
+    }
+    @media (max-width: 900px) {
+      .features-list { flex-direction: column; align-items: center; }
+      .gallery-list img { width: 98vw; height: 180px; }
+    }
+  </style>
 </head>
 <body>
-    <nav class="main-nav">
-        <div style="display:flex;align-items:center;justify-content:space-between;max-width:1200px;margin:auto;padding:0 20px;">
-            <img src="images/logo.jpg" class="logo" alt="شعار الشبكة" id="logoImg">
-            <ul>
-                <li><a href="#hero">الرئيسية</a></li>
-                <li><a href="#about" class="special">من نحن</a></li>
-                <li><a href="#features">مميزات الخدمة</a></li>
-                <li><a href="#gallerySection">معرض الصور</a></li>
-                <li><a href="#registerSection">تسجيل جديد</a></li>
-                <li><a href="#contact" class="special">تواصل معنا</a></li>
-                <li><a href="#login" class="special">تسجيل الدخول</a></li>
-                <li><button id="langSwitch" class="menu-link">EN</button></li>
-            </ul>
-        </div>
-    </nav>
-    <section class="hero" id="hero">
-        <h1 id="siteTitle">شبكة الإنترنت الفضائي العالمية</h1>
-        <p id="heroDesc">اتصال فضائي حقيقي، سرعة غير مسبوقة، تغطية عالمية، ورسالة إنسانية. انضم إلينا وكن جزءًا من المستقبل.</p>
-        <div class="socials">
-            <a id="waLink" href="#" target="_blank"><img src="images/wa.svg" alt="واتساب"></a>
-            <a id="tgLink" href="#" target="_blank"><img src="images/tg.svg" alt="تليجرام"></a>
-        </div>
-    </section>
-    <section id="about" style="background:#fff;padding:40px 0 20px 0;text-align:center;">
-        <h2 id="aboutTitle">من نحن</h2>
-        <p id="aboutDesc" style="font-size:1.2em;max-width:800px;margin:auto;">شبكة الإنترنت الفضائي العالمية تقدم حلول إنترنت فضائي بتغطية أوسع وسعر أقل من أي منافس، مع رسالة إنسانية لتوصيل الإنترنت المجاني للمدارس والجامعات والمستشفيات والقرى الفقيرة، وشراكات تقنية مع كبرى الشركات العالمية.</p>
-    </section>
-    <section class="features" id="features">
-        <div class="feature">
-            <img src="images/8.jpg" alt="تغطية عالمية">
-            <h3 id="feature1Title">تغطية عالمية حقيقية</h3>
-            <p id="feature1Desc">اتصال بالإنترنت الفضائي في أي مكان بالعالم، حتى في المناطق النائية والصحارى والبحار، بسرعة وثبات غير مسبوقين.</p>
-        </div>
-        <div class="feature">
-            <img src="images/9.jpg" alt="سرعة فائقة">
-            <h3 id="feature2Title">سرعة فائقة واستقرار عالي</h3>
-            <p id="feature2Desc">استمتع بسرعات تحميل ورفع عالية مع استقرار في الخدمة على مدار الساعة، مع باقات تناسب الجميع.</p>
-        </div>
-        <div class="feature">
-            <img src="images/10.jpg" alt="دعم فني">
-            <h3 id="feature3Title">دعم فني متواصل</h3>
-            <p id="feature3Desc">فريقنا جاهز لمساعدتك على مدار الساعة وطوال أيام الأسبوع، أينما كنت.</p>
-        </div>
-    </section>
-    <section class="gallery" id="gallerySection">
-        <img src="images/7.jpg" alt="معرض 1">
-        <img src="images/8.jpg" alt="معرض 2">
-        <img src="images/9.jpg" alt="معرض 3">
-        <img src="images/10.jpg" alt="معرض 4">
-    </section>
-    <section id="registerSection" style="background:#f7f7fa;padding:40px 0;">
-        <div style="max-width:500px;margin:auto;background:#fff;border-radius:16px;box-shadow:0 2px 10px #00e0ff22;padding:36px 28px;">
-            <h2 style="margin-top:0;">تسجيل جديد</h2>
-            <form id="registerForm">
-                <label>نوع التسجيل</label>
-                <select name="type" id="registerType" required style="margin-bottom:10px;">
-                    <option value="">اختر...</option>
-                    <option value="user">مستخدم</option>
-                    <option value="partner">شريك</option>
-                    <option value="distributor">موزع</option>
-                    <option value="volunteer">متطوع</option>
-                    <option value="school">مدرسة</option>
-                    <option value="university">جامعة</option>
-                    <option value="hospital">مستشفى</option>
-                    <option value="gov">جهة حكومية</option>
-                </select>
-                <input type="text" name="name" placeholder="الاسم / اسم الجهة" required>
-                <input type="email" name="email" placeholder="البريد الإلكتروني" required>
-                <input type="text" name="phone" placeholder="رقم الهاتف" required>
-                <textarea name="details" placeholder="تفاصيل إضافية (اختياري)" rows="3"></textarea>
-                <button type="submit">إرسال الطلب</button>
-            </form>
-        </div>
-    </section>
-    <section class="contact" id="contact">
-        <h2>تواصل معنا الآن</h2>
-        <form id="contactForm">
-            <input type="text" name="name" placeholder="الاسم" required>
-            <input type="email" name="email" placeholder="البريد الإلكتروني" required>
-            <textarea name="message" placeholder="رسالتك" rows="4" required></textarea>
-            <button type="submit">إرسال</button>
-        </form>
-        <div class="socials">
-            <a id="waLink2" href="#" target="_blank"><img src="images/wa.svg" alt="واتساب"></a>
-            <a id="tgLink2" href="#" target="_blank"><img src="images/tg.svg" alt="تليجرام"></a>
-        </div>
-    </section>
-    <script>
-    // تبديل اللغة (مستقبلاً)
-    document.getElementById('langSwitch').onclick = function() { alert('قريباً دعم الإنجليزية ولغات أخرى!'); };
-    // إرسال نموذج التسجيل
-    const registerForm = document.getElementById('registerForm');
-    if(registerForm) {
-        registerForm.onsubmit = function(e) {
-            e.preventDefault();
-            alert('تم إرسال طلبك بنجاح! سيتم التواصل معك قريباً.');
-            registerForm.reset();
-        };
-    }
-    </script>
-    <script src="main.js"></script>
-    <section class="features">
-        <div class="feature">
+  <nav class="main-nav">
+    <ul>
+      <li><a href="#hero">الرئيسية</a></li>
+      <li><a href="#about" class="special">عن الشبكة</a></li>
+      <li><a href="#features">المميزات</a></li>
+      <li><a href="#gallery">المعرض</a></li>
+      <li><a href="#contact" class="special">تواصل معنا</a></li>
+    </ul>
+  </nav>
+  <section class="hero" id="hero">
+    <h1>One World Net</h1>
+    <p>الإنترنت الفضائي العالمي الأسرع والأكثر تغطية في العالم العربي والعالم، حلول متكاملة للمدارس، الجامعات، المستشفيات، والقرى النائية بأسعار تنافسية ورسالة إنسانية.</p>
+    <a href="#contact" class="cta-btn">احجز الخدمة الآن</a>
+  </section>
+  <section class="section" id="about">
+    <h2>عن الشبكة</h2>
+    <p>شبكة الإنترنت الفضائي العالمية تقدم لك اتصالاً سريعاً ومستقراً أينما كنت، مع تغطية شاملة وخدمة عملاء على مدار الساعة. هدفنا إيصال الإنترنت للجميع، ودعم التعليم والصحة في المناطق المحرومة.</p>
+  </section>
+  <section class="section alt" id="features">
+    <h2>المميزات</h2>
+    <div class="features-list">
+      <div class="feature-box">
+        <img src="images/8.jpg" alt="تغطية عالمية">
+        <h3>تغطية عالمية</h3>
+        <p>اتصال بالإنترنت في أي مكان بالعالم، حتى في المناطق النائية والصحارى والبحار.</p>
+      </div>
+      <div class="feature-box">
+        <img src="images/9.jpg" alt="سرعة فائقة">
+        <h3>سرعة فائقة</h3>
+        <p>استمتع بسرعات تحميل ورفع عالية مع استقرار في الخدمة على مدار الساعة.</p>
+      </div>
+      <div class="feature-box">
+        <img src="images/10.jpg" alt="دعم فني">
+        <h3>دعم فني متواصل</h3>
+        <p>فريقنا جاهز لمساعدتك على مدار الساعة وطوال أيام الأسبوع، أينما كنت.</p>
+      </div>
+    </div>
+  </section>
+  <section class="section" id="gallery">
+    <h2>معرض الصور</h2>
+    <div class="gallery-list">
+      <img src="images/7.jpg" alt="معرض 1">
+      <img src="images/8.jpg" alt="معرض 2">
+      <img src="images/9.jpg" alt="معرض 3">
+      <img src="images/10.jpg" alt="معرض 4">
+    </div>
+  </section>
+  <section class="section alt" id="contact">
+    <h2>تواصل معنا</h2>
+    <p>للاستفسار أو طلب الخدمة يرجى تعبئة النموذج وسيتم التواصل معك في أقرب وقت.</p>
+    <form style="max-width:400px;margin:auto;text-align:right;">
+      <input type="text" name="name" placeholder="الاسم" required style="width:100%;margin-bottom:10px;padding:10px;border-radius:8px;border:1px solid #ccc;font-size:1em;">
+      <input type="email" name="email" placeholder="البريد الإلكتروني" required style="width:100%;margin-bottom:10px;padding:10px;border-radius:8px;border:1px solid #ccc;font-size:1em;">
+      <textarea name="message" placeholder="رسالتك" rows="4" required style="width:100%;margin-bottom:10px;padding:10px;border-radius:8px;border:1px solid #ccc;font-size:1em;"></textarea>
+      <button type="submit" style="background:linear-gradient(90deg,#1a237e 60%,#00e0ff 100%);color:#fff;border:none;padding:12px 30px;border-radius:8px;font-size:1.1em;cursor:pointer;box-shadow:0 2px 8px #00e0ff33;">إرسال</button>
+    </form>
+  </section>
+  <footer class="footer">
+    <p>جميع الحقوق محفوظة &copy; One World Net 2025</p>
+  </footer>
+</body>
+</html>
+
             <img src="images/8.jpg" alt="تغطية عالمية">
             <h3>تغطية عالمية حقيقية</h3>
             <p>اتصال بالإنترنت الفضائي في أي مكان بالعالم، حتى في المناطق النائية والصحارى والبحار، بسرعة وثبات غير مسبوقين.</p>
