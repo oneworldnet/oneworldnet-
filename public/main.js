@@ -1,3 +1,27 @@
+// تفعيل ربط الموقع مع بيانات لوحة التحكم (LocalStorage)
+window.addEventListener('DOMContentLoaded', function() {
+    // تحديث النصوص والصور من LocalStorage
+    if(localStorage.getItem('mainTitle')) {
+        const t = localStorage.getItem('mainTitle');
+        if(document.getElementById('siteTitle')) document.getElementById('siteTitle').textContent = t;
+        if(document.getElementById('heroTitle')) document.getElementById('heroTitle').textContent = t;
+    }
+    if(localStorage.getItem('mainDesc')) {
+        if(document.getElementById('heroDesc')) document.getElementById('heroDesc').innerHTML = localStorage.getItem('mainDesc');
+    }
+    if(localStorage.getItem('logoUrl')) {
+        const logo = document.querySelector('.logo');
+        if(logo) logo.src = localStorage.getItem('logoUrl');
+    }
+    if(localStorage.getItem('phones')) {
+        const phones = localStorage.getItem('phones').split(',');
+        if(document.getElementById('waLink')) document.getElementById('waLink').href = 'https://wa.me/' + phones[0].replace(/[^0-9]/g, '');
+        if(document.getElementById('tgLink')) document.getElementById('tgLink').href = 'https://t.me/' + phones[0].replace(/[^0-9]/g, '');
+    }
+    if(localStorage.getItem('socials')) {
+        // يمكن تطويرها لاحقًا لعرض روابط إضافية
+    }
+});
 // إرسال نموذج التواصل عبر البريد
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {

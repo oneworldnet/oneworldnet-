@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم الموقع</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-container { max-width: 600px; margin: 40px auto; background: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+        .admin-container h2 { margin-top: 0; }
+        .admin-container label { display: block; margin: 10px 0 5px; }
+        .admin-container input, .admin-container textarea { width: 100%; margin-bottom: 10px; padding: 8px; border-radius: 5px; border: 1px solid #ccc; }
+        .admin-container button { background: #222; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
+        .admin-container .row { display: flex; gap: 10px; }
+        .admin-container .row input { flex: 1; }
+        .admin-container .login-log { background: #f5f5f5; padding: 10px; border-radius: 5px; margin-top: 15px; }
+    </style>
+</head>
+<body>
+<div class="admin-container" id="adminLogin">
+    <h2>تسجيل دخول لوحة التحكم</h2>
+    <input type="password" id="adminPass" placeholder="كلمة المرور">
+    <button onclick="checkAdminLogin()">دخول</button>
+    <p id="loginError" style="color:red;"></p>
+</div>
+<div class="admin-container" id="adminPanel" style="display:none;">
+    <h2>لوحة تحكم الموقع</h2>
+    <form id="adminForm">
+        <label>عنوان الموقع الرئيسي</label>
+        <input type="text" id="mainTitle">
+        <label>وصف رئيسي</label>
+        <textarea id="mainDesc"></textarea>
+        <label>رابط صورة الشعار (logo)</label>
+        <input type="text" id="logoUrl">
+        <label>أرقام التواصل (افصل بينهم بفاصلة)</label>
+        <input type="text" id="phones">
+        <label>حسابات تواصل اجتماعي (واتساب, تليجرام...)</label>
+        <input type="text" id="socials">
+        <button type="submit">حفظ التعديلات</button>
+    </form>
+    <h3>سجلات تسجيل الدخول (محلي)</h3>
+    <div class="login-log" id="loginLog"></div>
+</div>
+<script>
+const ADMIN_PASSWORD = "oneworldnet2025";
+function checkAdminLogin() {
+    const pass = document.getElementById('adminPass').value;
+    if(pass === ADMIN_PASSWORD) {
+        document.getElementById('adminLogin').style.display = 'none';
+        document.getElementById('adminPanel').style.display = 'block';
+        loadAdminData();
+        logLogin();
+    } else {
+        document.getElementById('loginError').textContent = 'كلمة المرور غير صحيحة';
+    }
+}
+function loadAdminData() {
+    document.getElementById('mainTitle').value = localStorage.getItem('mainTitle') || '';
+    document.getElementById('mainDesc').value = localStorage.getItem('mainDesc') || '';
+    document.getElementById('logoUrl').value = localStorage.getItem('logoUrl') || '';
+    document.getElementById('phones').value = localStorage.getItem('phones') || '';
+    document.getElementById('socials').value = localStorage.getItem('socials') || '';
+    showLoginLog();
+}
+document.getElementById('adminForm').onsubmit = function(e) {
+    e.preventDefault();
+    localStorage.setItem('mainTitle', document.getElementById('mainTitle').value);
+    localStorage.setItem('mainDesc', document.getElementById('mainDesc').value);
+    localStorage.setItem('logoUrl', document.getElementById('logoUrl').value);
+    localStorage.setItem('phones', document.getElementById('phones').value);
+    localStorage.setItem('socials', document.getElementById('socials').value);
+    alert('تم حفظ التعديلات!');
+}
+function logLogin() {
+    let log = JSON.parse(localStorage.getItem('loginLog') || '[]');
+    log.push(new Date().toLocaleString());
+    localStorage.setItem('loginLog', JSON.stringify(log));
+    showLoginLog();
+}
+function showLoginLog() {
+    let log = JSON.parse(localStorage.getItem('loginLog') || '[]');
+    document.getElementById('loginLog').innerHTML = log.length ? log.map(e=>`<div>${e}</div>`).join('') : 'لا يوجد سجلات.';
+}
+</script>
+</body>
+</html>
