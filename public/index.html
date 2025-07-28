@@ -53,37 +53,130 @@
     </style>
 </head>
 <body>
-    <section class="hero">
-        <img src="images/logo.jpg" class="logo" alt="شعار الشبكة">
-        <h1 id="siteTitle">شبكة الإنترنت الفضائي العالمية</h1>
-        <p id="heroDesc">اتصل بالإنترنت من أي مكان في العالم بسرعة وثبات، بدون بنية تحتية أو أسلاك. حلولنا الفضائية تفتح لك آفاقًا جديدة للاتصال والعمل والتعلم والترفيه.</p>
-        <div class="socials">
-            <a id="waLink" href="https://wa.me/" target="_blank"><img src="images/wa.svg" alt="واتساب"></a>
-            <a id="tgLink" href="https://t.me/" target="_blank"><img src="images/tg.svg" alt="تليجرام"></a>
+    <nav class="main-nav" style="background:#fff;box-shadow:0 2px 8px #0001;padding:0 0 0 0;position:sticky;top:0;z-index:10;">
+        <div style="display:flex;align-items:center;justify-content:space-between;max-width:1200px;margin:auto;padding:0 20px;">
+            <img src="images/logo.jpg" class="logo" alt="شعار الشبكة" id="logoImg" style="width:60px;height:60px;border-radius:50%;background:#fff;">
+            <button id="menuBtn" style="background:none;border:none;font-size:2em;cursor:pointer;">☰</button>
+            <ul id="mainMenu" style="display:none;list-style:none;position:absolute;top:70px;right:20px;background:#fff;border-radius:10px;box-shadow:0 2px 8px #0002;padding:20px 30px;min-width:200px;">
+                <li><a href="#hero" onclick="closeMenu()">الرئيسية</a></li>
+                <li><a href="#about" onclick="closeMenu()">من نحن</a></li>
+                <li><a href="#features" onclick="closeMenu()">مميزات الخدمة</a></li>
+                <li><a href="#gallerySection" onclick="closeMenu()">معرض الصور</a></li>
+                <li><a href="#registerSection" onclick="closeMenu()">تسجيل جديد</a></li>
+                <li><a href="#contact" onclick="closeMenu()">تواصل معنا</a></li>
+                <li><button id="langSwitch" style="margin-top:10px;">EN</button></li>
+            </ul>
+        </div>
+    </nav>
+    <section class="hero" id="hero" style="background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.2)),url('images/1.jpg') center/cover no-repeat;min-height:420px;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <h1 id="siteTitle" style="font-size:3.2em;margin:30px 0 10px 0;color:#fff;text-shadow:0 2px 8px #000a;"></h1>
+        <p id="heroDesc" style="font-size:1.6em;color:#fff;max-width:700px;text-shadow:0 2px 8px #000a;"></p>
+        <div class="socials" style="margin-top:18px;">
+            <a id="waLink" href="#" target="_blank"><img src="images/wa.svg" alt="واتساب"></a>
+            <a id="tgLink" href="#" target="_blank"><img src="images/tg.svg" alt="تليجرام"></a>
         </div>
     </section>
+    <section id="about" style="background:#fff;padding:40px 0 20px 0;text-align:center;">
+        <h2 id="aboutTitle">من نحن</h2>
+        <p id="aboutDesc" style="font-size:1.2em;max-width:800px;margin:auto;">شبكة الإنترنت الفضائي العالمية تقدم حلول إنترنت فضائي بتغطية أوسع وسعر أقل من أي منافس، مع رسالة إنسانية لتوصيل الإنترنت المجاني للمدارس والجامعات والمستشفيات والقرى الفقيرة، وشراكات تقنية مع كبرى الشركات الصينية والأوروبية.</p>
+    </section>
+    <section class="features" id="features">
+        <div class="feature">
+            <img src="images/8.jpg" alt="تغطية عالمية">
+            <h3 id="feature1Title">تغطية عالمية حقيقية</h3>
+            <p id="feature1Desc">اتصال بالإنترنت الفضائي في أي مكان بالعالم، حتى في المناطق النائية والصحارى والبحار، بسرعة وثبات غير مسبوقين.</p>
+        </div>
+        <div class="feature">
+            <img src="images/9.jpg" alt="سرعة فائقة">
+            <h3 id="feature2Title">سرعة فائقة واستقرار عالي</h3>
+            <p id="feature2Desc">استمتع بسرعات تحميل ورفع عالية مع استقرار في الخدمة على مدار الساعة، مع باقات تناسب الجميع.</p>
+        </div>
+        <div class="feature">
+            <img src="images/10.jpg" alt="دعم فني">
+            <h3 id="feature3Title">دعم فني متواصل</h3>
+            <p id="feature3Desc">فريقنا جاهز لمساعدتك على مدار الساعة وطوال أيام الأسبوع، أينما كنت.</p>
+        </div>
+    </section>
+    <section class="gallery" id="gallerySection">
+        <!-- صور المعرض ستضاف ديناميكياً من main.js -->
+    </section>
+    <section id="registerSection" style="background:#f7f7fa;padding:40px 0;">
+        <div style="max-width:500px;margin:auto;background:#fff;border-radius:12px;box-shadow:0 2px 10px #0001;padding:30px 20px;">
+            <h2 style="margin-top:0;">تسجيل جديد</h2>
+            <form id="registerForm">
+                <label>نوع التسجيل</label>
+                <select name="type" id="registerType" required style="margin-bottom:10px;">
+                    <option value="">اختر...</option>
+                    <option value="user">مستخدم</option>
+                    <option value="partner">شريك</option>
+                    <option value="distributor">موزع</option>
+                    <option value="volunteer">متطوع</option>
+                    <option value="school">مدرسة</option>
+                    <option value="university">جامعة</option>
+                    <option value="hospital">مستشفى</option>
+                    <option value="gov">جهة حكومية</option>
+                </select>
+                <input type="text" name="name" placeholder="الاسم / اسم الجهة" required>
+                <input type="email" name="email" placeholder="البريد الإلكتروني" required>
+                <input type="text" name="phone" placeholder="رقم الهاتف" required>
+                <textarea name="details" placeholder="تفاصيل إضافية (اختياري)" rows="3"></textarea>
+                <button type="submit">إرسال الطلب</button>
+            </form>
+        </div>
+    </section>
+    <section class="contact" id="contact">
+        <h2>تواصل معنا الآن</h2>
+        <form id="contactForm">
+            <input type="text" name="name" placeholder="الاسم" required>
+            <input type="email" name="email" placeholder="البريد الإلكتروني" required>
+            <textarea name="message" placeholder="رسالتك" rows="4" required></textarea>
+            <button type="submit">إرسال</button>
+        </form>
+        <div class="socials">
+            <a id="waLink2" href="#" target="_blank"><img src="images/wa.svg" alt="واتساب"></a>
+            <a id="tgLink2" href="#" target="_blank"><img src="images/tg.svg" alt="تليجرام"></a>
+        </div>
+    </section>
+    <script>
+    // قائمة المينيو
+    const menuBtn = document.getElementById('menuBtn');
+    const mainMenu = document.getElementById('mainMenu');
+    menuBtn.onclick = function() {
+        mainMenu.style.display = mainMenu.style.display === 'block' ? 'none' : 'block';
+    };
+    function closeMenu() { mainMenu.style.display = 'none'; }
+    // تبديل اللغة (مستقبلاً)
+    document.getElementById('langSwitch').onclick = function() { alert('قريباً دعم الإنجليزية ولغات أخرى!'); };
+    // إرسال نموذج التسجيل
+    const registerForm = document.getElementById('registerForm');
+    if(registerForm) {
+        registerForm.onsubmit = function(e) {
+            e.preventDefault();
+            alert('تم إرسال طلبك بنجاح! سيتم التواصل معك قريباً.');
+            registerForm.reset();
+        };
+    }
+    </script>
+    <script src="main.js"></script>
     <section class="features">
         <div class="feature">
             <img src="images/8.jpg" alt="تغطية عالمية">
             <h3>تغطية عالمية حقيقية</h3>
-            <p>اتصال بالإنترنت في أي مكان على سطح الأرض، حتى في المناطق النائية والصحارى والبحار.</p>
+            <p>اتصال بالإنترنت الفضائي في أي مكان بالعالم، حتى في المناطق النائية والصحارى والبحار، بسرعة وثبات غير مسبوقين.</p>
         </div>
         <div class="feature">
             <img src="images/9.jpg" alt="سرعة فائقة">
-            <h3>سرعة فائقة وثبات عالي</h3>
-            <p>استمتع بسرعات تحميل ورفع عالية مع استقرار في الخدمة على مدار الساعة.</p>
+            <h3>سرعة فائقة واستقرار عالي</h3>
+            <p>استمتع بسرعات تحميل ورفع عالية مع استقرار في الخدمة على مدار الساعة، منافس حقيقي لـ Starlink.</p>
         </div>
         <div class="feature">
             <img src="images/10.jpg" alt="دعم فني">
             <h3>دعم فني متواصل</h3>
-            <p>فريقنا جاهز لمساعدتك على مدار الساعة وطوال أيام الأسبوع.</p>
+            <p>فريقنا جاهز لمساعدتك على مدار الساعة وطوال أيام الأسبوع، أينما كنت.</p>
         </div>
     </section>
-    <section class="gallery">
-        <img src="images/1.jpg" alt="صورة 1">
-        <img src="images/2.jpg" alt="صورة 2">
-        <img src="images/3.jpg" alt="صورة 3">
-        <img src="images/4.jpg" alt="صورة 4">
+    <section class="gallery" id="gallerySection">
+        <!-- صور المعرض ستضاف ديناميكياً من main.js -->
     </section>
     <section class="contact">
         <h2>تواصل معنا الآن</h2>
@@ -94,8 +187,8 @@
             <button type="submit">إرسال</button>
         </form>
         <div class="socials">
-            <a id="waLink2" href="https://wa.me/" target="_blank"><img src="images/wa.svg" alt="واتساب"></a>
-            <a id="tgLink2" href="https://t.me/" target="_blank"><img src="images/tg.svg" alt="تليجرام"></a>
+            <a id="waLink2" href="#" target="_blank"><img src="images/wa.svg" alt="واتساب"></a>
+            <a id="tgLink2" href="#" target="_blank"><img src="images/tg.svg" alt="تليجرام"></a>
         </div>
     </section>
     <script src="main.js"></script>

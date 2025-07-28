@@ -28,10 +28,32 @@
     <form id="adminForm">
         <label>عنوان الموقع الرئيسي</label>
         <input type="text" id="mainTitle">
-        <label>وصف رئيسي</label>
+        <label>وصف رئيسي (بانر)</label>
         <textarea id="mainDesc"></textarea>
         <label>رابط صورة الشعار (logo)</label>
         <input type="text" id="logoUrl">
+        <hr>
+        <label>عنوان قسم من نحن</label>
+        <input type="text" id="aboutTitle">
+        <label>وصف قسم من نحن</label>
+        <textarea id="aboutDesc"></textarea>
+        <hr>
+        <label>عنوان الميزة الأولى</label>
+        <input type="text" id="feature1Title">
+        <label>وصف الميزة الأولى</label>
+        <textarea id="feature1Desc"></textarea>
+        <label>عنوان الميزة الثانية</label>
+        <input type="text" id="feature2Title">
+        <label>وصف الميزة الثانية</label>
+        <textarea id="feature2Desc"></textarea>
+        <label>عنوان الميزة الثالثة</label>
+        <input type="text" id="feature3Title">
+        <label>وصف الميزة الثالثة</label>
+        <textarea id="feature3Desc"></textarea>
+        <hr>
+        <label>صور المعرض (أسماء الصور مفصولة بفاصلة، مثال: 1.jpg,2.jpg,3.jpg)</label>
+        <input type="text" id="galleryImages">
+        <hr>
         <label>أرقام التواصل (افصل بينهم بفاصلة)</label>
         <input type="text" id="phones">
         <label>حسابات تواصل اجتماعي (واتساب, تليجرام...)</label>
@@ -58,6 +80,15 @@ function loadAdminData() {
     document.getElementById('mainTitle').value = localStorage.getItem('mainTitle') || '';
     document.getElementById('mainDesc').value = localStorage.getItem('mainDesc') || '';
     document.getElementById('logoUrl').value = localStorage.getItem('logoUrl') || '';
+    document.getElementById('aboutTitle').value = localStorage.getItem('aboutTitle') || '';
+    document.getElementById('aboutDesc').value = localStorage.getItem('aboutDesc') || '';
+    document.getElementById('feature1Title').value = localStorage.getItem('feature1Title') || '';
+    document.getElementById('feature1Desc').value = localStorage.getItem('feature1Desc') || '';
+    document.getElementById('feature2Title').value = localStorage.getItem('feature2Title') || '';
+    document.getElementById('feature2Desc').value = localStorage.getItem('feature2Desc') || '';
+    document.getElementById('feature3Title').value = localStorage.getItem('feature3Title') || '';
+    document.getElementById('feature3Desc').value = localStorage.getItem('feature3Desc') || '';
+    document.getElementById('galleryImages').value = localStorage.getItem('galleryImages') || '';
     document.getElementById('phones').value = localStorage.getItem('phones') || '';
     document.getElementById('socials').value = localStorage.getItem('socials') || '';
     showLoginLog();
@@ -67,6 +98,15 @@ document.getElementById('adminForm').onsubmit = function(e) {
     localStorage.setItem('mainTitle', document.getElementById('mainTitle').value);
     localStorage.setItem('mainDesc', document.getElementById('mainDesc').value);
     localStorage.setItem('logoUrl', document.getElementById('logoUrl').value);
+    localStorage.setItem('aboutTitle', document.getElementById('aboutTitle').value);
+    localStorage.setItem('aboutDesc', document.getElementById('aboutDesc').value);
+    localStorage.setItem('feature1Title', document.getElementById('feature1Title').value);
+    localStorage.setItem('feature1Desc', document.getElementById('feature1Desc').value);
+    localStorage.setItem('feature2Title', document.getElementById('feature2Title').value);
+    localStorage.setItem('feature2Desc', document.getElementById('feature2Desc').value);
+    localStorage.setItem('feature3Title', document.getElementById('feature3Title').value);
+    localStorage.setItem('feature3Desc', document.getElementById('feature3Desc').value);
+    localStorage.setItem('galleryImages', document.getElementById('galleryImages').value);
     localStorage.setItem('phones', document.getElementById('phones').value);
     localStorage.setItem('socials', document.getElementById('socials').value);
     alert('تم حفظ التعديلات!');
