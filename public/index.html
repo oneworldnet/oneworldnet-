@@ -86,44 +86,51 @@
 <body>
   <nav>
     <ul>
-      <li><a href="#hero" class="special">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#features">Features</a></li>
+      <li><a href="#hero" class="special" id="navHome">Home</a></li>
+      <li><a href="#about" id="navAbout">About</a></li>
+      <li><a href="#features" id="navFeatures">Features</a></li>
       <li><a href="#gallery" id="galleryMenu">Gallery</a></li>
       <li><a href="#contact" id="contactMenu" class="special">Contact</a></li>
     </ul>
+    <select id="langSelect" style="margin:8px 12px 8px auto;float:right;padding:4px 10px;border-radius:8px;font-size:1em;">
+      <option value="en">English</option>
+      <option value="ar">العربية</option>
+      <option value="fr">Français</option>
+      <option value="de">Deutsch</option>
+      <option value="es">Español</option>
+    </select>
   </nav>
   <section class="hero" id="hero">
-    <h1>One World Net</h1>
-    <p>The fastest and most widely covered global satellite internet for the Arab world and beyond. Complete solutions for schools, universities, hospitals, and remote villages at competitive prices and a humanitarian mission.</p>
-    <a href="#contact" class="cta-btn">Book Now</a>
+    <h1 id="heroTitle">One World Net</h1>
+    <p id="heroDesc">The fastest and most widely covered global satellite internet for the Arab world and beyond. Complete solutions for schools, universities, hospitals, and remote villages at competitive prices and a humanitarian mission.</p>
+    <a href="#contact" class="cta-btn" id="ctaBtn">Book Now</a>
   </section>
   <section class="section" id="about">
-    <h2>About</h2>
-    <p>One World Net provides you with fast and stable internet wherever you are, with comprehensive coverage and 24/7 customer service. Our goal is to connect everyone and support education and health in underserved areas.</p>
+    <h2 id="aboutTitle">About</h2>
+    <p id="aboutDesc">One World Net provides you with fast and stable internet wherever you are, with comprehensive coverage and 24/7 customer service. Our goal is to connect everyone and support education and health in underserved areas.</p>
   </section>
   <section class="section alt" id="features">
-    <h2>Features</h2>
+    <h2 id="featuresTitle">Features</h2>
     <div class="features-list">
       <div class="feature-box">
-        <img src="images/8.jpg" alt="Global Coverage">
-        <h3>True Global Coverage</h3>
-        <p>Satellite internet access anywhere in the world, even in remote areas, deserts, and seas, with unprecedented speed and stability.</p>
+        <img src="images/8.jpg" alt="Global Coverage" id="featureImg1">
+        <h3 id="feature1Title">True Global Coverage</h3>
+        <p id="feature1Desc">Satellite internet access anywhere in the world, even in remote areas, deserts, and seas, with unprecedented speed and stability.</p>
       </div>
       <div class="feature-box">
-        <img src="images/9.jpg" alt="High Speed">
-        <h3>High Speed & Stability</h3>
-        <p>Enjoy high upload and download speeds with 24/7 service stability, a real competitor to Starlink.</p>
+        <img src="images/9.jpg" alt="High Speed" id="featureImg2">
+        <h3 id="feature2Title">High Speed & Stability</h3>
+        <p id="feature2Desc">Enjoy high upload and download speeds with 24/7 service stability, a real competitor to Starlink.</p>
       </div>
       <div class="feature-box">
-        <img src="images/10.jpg" alt="Support">
-        <h3>24/7 Support</h3>
-        <p>Our professional support team is available anytime to solve all your technical issues.</p>
+        <img src="images/10.jpg" alt="Support" id="featureImg3">
+        <h3 id="feature3Title">24/7 Support</h3>
+        <p id="feature3Desc">Our professional support team is available anytime to solve all your technical issues.</p>
       </div>
     </div>
   </section>
   <section class="section" id="gallery" style="display:none;">
-    <h2>Gallery</h2>
+    <h2 id="galleryTitle">Gallery</h2>
     <div class="gallery-list">
       <img src="images/7.jpg" alt="Gallery 1">
       <img src="images/8.jpg" alt="Gallery 2">
@@ -131,18 +138,95 @@
     </div>
   </section>
   <section class="section alt contact-section" id="contact" style="display:none;">
-    <h2>Contact Us</h2>
+    <h2 id="contactTitle">Contact Us</h2>
     <form>
-      <input type="text" name="name" placeholder="Name" required>
-      <input type="email" name="email" placeholder="Email" required>
-      <textarea name="message" placeholder="Your message" rows="4" required></textarea>
-      <button type="submit">Send</button>
+      <input type="text" name="name" id="contactName" placeholder="Name" required>
+      <input type="email" name="email" id="contactEmail" placeholder="Email" required>
+      <textarea name="message" id="contactMsg" placeholder="Your message" rows="4" required></textarea>
+      <button type="submit" id="contactBtn">Send</button>
     </form>
   </section>
   <footer>
-    <p>All rights reserved &copy; One World Net 2025</p>
+    <p id="footerText">All rights reserved &copy; One World Net 2025</p>
   </footer>
   <script>
+    // ترجمة النصوص
+    const translations = {
+      en: {
+        navHome: 'Home', navAbout: 'About', navFeatures: 'Features', galleryMenu: 'Gallery', contactMenu: 'Contact',
+        heroTitle: 'One World Net', heroDesc: 'The fastest and most widely covered global satellite internet for the Arab world and beyond. Complete solutions for schools, universities, hospitals, and remote villages at competitive prices and a humanitarian mission.', ctaBtn: 'Book Now',
+        aboutTitle: 'About', aboutDesc: 'One World Net provides you with fast and stable internet wherever you are, with comprehensive coverage and 24/7 customer service. Our goal is to connect everyone and support education and health in underserved areas.',
+        featuresTitle: 'Features', feature1Title: 'True Global Coverage', feature1Desc: 'Satellite internet access anywhere in the world, even in remote areas, deserts, and seas, with unprecedented speed and stability.', feature2Title: 'High Speed & Stability', feature2Desc: 'Enjoy high upload and download speeds with 24/7 service stability, a real competitor to Starlink.', feature3Title: '24/7 Support', feature3Desc: 'Our professional support team is available anytime to solve all your technical issues.',
+        galleryTitle: 'Gallery', contactTitle: 'Contact Us', contactName: 'Name', contactEmail: 'Email', contactMsg: 'Your message', contactBtn: 'Send', footerText: 'All rights reserved © One World Net 2025'
+      },
+      ar: {
+        navHome: 'الرئيسية', navAbout: 'عن الشبكة', navFeatures: 'المميزات', galleryMenu: 'المعرض', contactMenu: 'تواصل',
+        heroTitle: 'ون وورلد نت', heroDesc: 'الإنترنت الفضائي العالمي الأسرع والأكثر تغطية في العالم العربي والعالم، حلول متكاملة للمدارس، الجامعات، المستشفيات، والقرى النائية بأسعار تنافسية ورسالة إنسانية.', ctaBtn: 'احجز الخدمة الآن',
+        aboutTitle: 'عن الشبكة', aboutDesc: 'شبكة الإنترنت الفضائي العالمية تقدم لك اتصالاً سريعاً ومستقراً أينما كنت، مع تغطية شاملة وخدمة عملاء على مدار الساعة. هدفنا إيصال الإنترنت للجميع، ودعم التعليم والصحة في المناطق المحرومة.',
+        featuresTitle: 'المميزات', feature1Title: 'تغطية عالمية حقيقية', feature1Desc: 'اتصال بالإنترنت الفضائي في أي مكان بالعالم، حتى في المناطق النائية والصحارى والبحار، بسرعة وثبات غير مسبوقين.', feature2Title: 'سرعة فائقة واستقرار عالي', feature2Desc: 'استمتع بسرعات تحميل ورفع عالية مع استقرار في الخدمة على مدار الساعة، منافس حقيقي لـ Starlink.', feature3Title: 'دعم فني متواصل', feature3Desc: 'فريقنا جاهز لمساعدتك على مدار الساعة وطوال أيام الأسبوع، أينما كنت.',
+        galleryTitle: 'معرض الصور', contactTitle: 'تواصل معنا', contactName: 'الاسم', contactEmail: 'البريد الإلكتروني', contactMsg: 'رسالتك', contactBtn: 'إرسال', footerText: 'جميع الحقوق محفوظة © ون وورلد نت 2025'
+      },
+      fr: {
+        navHome: 'Accueil', navAbout: 'À propos', navFeatures: 'Fonctionnalités', galleryMenu: 'Galerie', contactMenu: 'Contact',
+        heroTitle: 'One World Net', heroDesc: 'L’internet satellite mondial le plus rapide et le plus étendu pour le monde arabe et au-delà. Solutions complètes pour écoles, universités, hôpitaux et villages isolés à des prix compétitifs et une mission humanitaire.', ctaBtn: 'Réserver',
+        aboutTitle: 'À propos', aboutDesc: 'One World Net vous offre un internet rapide et stable où que vous soyez, avec une couverture complète et un service client 24h/24. Notre objectif est de connecter tout le monde et de soutenir l’éducation et la santé dans les zones défavorisées.',
+        featuresTitle: 'Fonctionnalités', feature1Title: 'Couverture mondiale réelle', feature1Desc: 'Accès internet satellite partout dans le monde, même dans les zones reculées, déserts et mers, avec une rapidité et une stabilité inégalées.', feature2Title: 'Haute vitesse & stabilité', feature2Desc: 'Profitez de vitesses élevées et d’une stabilité 24h/24, véritable concurrent de Starlink.', feature3Title: 'Support 24/7', feature3Desc: 'Notre équipe de support est disponible à tout moment pour résoudre tous vos problèmes techniques.',
+        galleryTitle: 'Galerie', contactTitle: 'Contactez-nous', contactName: 'Nom', contactEmail: 'E-mail', contactMsg: 'Votre message', contactBtn: 'Envoyer', footerText: 'Tous droits réservés © One World Net 2025'
+      },
+      de: {
+        navHome: 'Start', navAbout: 'Über uns', navFeatures: 'Funktionen', galleryMenu: 'Galerie', contactMenu: 'Kontakt',
+        heroTitle: 'One World Net', heroDesc: 'Das schnellste und am weitesten verbreitete globale Satelliteninternet für die arabische Welt und darüber hinaus. Komplettlösungen für Schulen, Universitäten, Krankenhäuser und abgelegene Dörfer zu wettbewerbsfähigen Preisen und mit humanitärer Mission.', ctaBtn: 'Jetzt buchen',
+        aboutTitle: 'Über uns', aboutDesc: 'One World Net bietet Ihnen schnelles und stabiles Internet, wo immer Sie sind, mit umfassender Abdeckung und 24/7-Kundendienst. Unser Ziel ist es, alle zu verbinden und Bildung und Gesundheit in benachteiligten Gebieten zu unterstützen.',
+        featuresTitle: 'Funktionen', feature1Title: 'Weltweite Abdeckung', feature1Desc: 'Satelliteninternet überall auf der Welt, auch in abgelegenen Gebieten, Wüsten und Meeren, mit beispielloser Geschwindigkeit und Stabilität.', feature2Title: 'Hohe Geschwindigkeit & Stabilität', feature2Desc: 'Genießen Sie hohe Upload- und Download-Geschwindigkeiten mit 24/7-Stabilität, ein echter Konkurrent zu Starlink.', feature3Title: '24/7 Support', feature3Desc: 'Unser professionelles Support-Team ist jederzeit verfügbar, um alle Ihre technischen Probleme zu lösen.',
+        galleryTitle: 'Galerie', contactTitle: 'Kontaktieren Sie uns', contactName: 'Name', contactEmail: 'E-Mail', contactMsg: 'Ihre Nachricht', contactBtn: 'Senden', footerText: 'Alle Rechte vorbehalten © One World Net 2025'
+      },
+      es: {
+        navHome: 'Inicio', navAbout: 'Sobre', navFeatures: 'Características', galleryMenu: 'Galería', contactMenu: 'Contacto',
+        heroTitle: 'One World Net', heroDesc: 'El internet satelital global más rápido y con mayor cobertura para el mundo árabe y más allá. Soluciones completas para escuelas, universidades, hospitales y aldeas remotas a precios competitivos y con una misión humanitaria.', ctaBtn: 'Reservar',
+        aboutTitle: 'Sobre', aboutDesc: 'One World Net te ofrece internet rápido y estable dondequiera que estés, con cobertura total y atención al cliente 24/7. Nuestro objetivo es conectar a todos y apoyar la educación y la salud en áreas desfavorecidas.',
+        featuresTitle: 'Características', feature1Title: 'Cobertura global real', feature1Desc: 'Acceso a internet satelital en cualquier parte del mundo, incluso en zonas remotas, desiertos y mares, con velocidad y estabilidad sin precedentes.', feature2Title: 'Alta velocidad y estabilidad', feature2Desc: 'Disfruta de altas velocidades de carga y descarga con estabilidad 24/7, un verdadero competidor de Starlink.', feature3Title: 'Soporte 24/7', feature3Desc: 'Nuestro equipo de soporte profesional está disponible en cualquier momento para resolver todos tus problemas técnicos.',
+        galleryTitle: 'Galería', contactTitle: 'Contáctanos', contactName: 'Nombre', contactEmail: 'Correo electrónico', contactMsg: 'Tu mensaje', contactBtn: 'Enviar', footerText: 'Todos los derechos reservados © One World Net 2025'
+      }
+    };
+    function setLang(lang) {
+      const t = translations[lang] || translations['en'];
+      document.documentElement.lang = lang;
+      document.body.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+      // nav
+      document.getElementById('navHome').textContent = t.navHome;
+      document.getElementById('navAbout').textContent = t.navAbout;
+      document.getElementById('navFeatures').textContent = t.navFeatures;
+      document.getElementById('galleryMenu').textContent = t.galleryMenu;
+      document.getElementById('contactMenu').textContent = t.contactMenu;
+      // hero
+      document.getElementById('heroTitle').textContent = t.heroTitle;
+      document.getElementById('heroDesc').textContent = t.heroDesc;
+      document.getElementById('ctaBtn').textContent = t.ctaBtn;
+      // about
+      document.getElementById('aboutTitle').textContent = t.aboutTitle;
+      document.getElementById('aboutDesc').textContent = t.aboutDesc;
+      // features
+      document.getElementById('featuresTitle').textContent = t.featuresTitle;
+      document.getElementById('feature1Title').textContent = t.feature1Title;
+      document.getElementById('feature1Desc').textContent = t.feature1Desc;
+      document.getElementById('feature2Title').textContent = t.feature2Title;
+      document.getElementById('feature2Desc').textContent = t.feature2Desc;
+      document.getElementById('feature3Title').textContent = t.feature3Title;
+      document.getElementById('feature3Desc').textContent = t.feature3Desc;
+      // gallery
+      document.getElementById('galleryTitle').textContent = t.galleryTitle;
+      // contact
+      document.getElementById('contactTitle').textContent = t.contactTitle;
+      document.getElementById('contactName').placeholder = t.contactName;
+      document.getElementById('contactEmail').placeholder = t.contactEmail;
+      document.getElementById('contactMsg').placeholder = t.contactMsg;
+      document.getElementById('contactBtn').textContent = t.contactBtn;
+      // footer
+      document.getElementById('footerText').textContent = t.footerText;
+    }
+    document.getElementById('langSelect').onchange = function() {
+      setLang(this.value);
+    };
     // Show/hide gallery and contact sections from menu
     document.getElementById('galleryMenu').onclick = function(e) {
       e.preventDefault();
@@ -156,10 +240,11 @@
       document.getElementById('gallery').style.display = 'none';
       window.scrollTo({top: document.getElementById('contact').offsetTop-40, behavior: 'smooth'});
     };
-    // Hide both on load
+    // Hide both on load and set default lang
     window.onload = function() {
       document.getElementById('gallery').style.display = 'none';
       document.getElementById('contact').style.display = 'none';
+      setLang('en');
     };
   </script>
 </body>
