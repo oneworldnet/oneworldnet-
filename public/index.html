@@ -1,61 +1,65 @@
 
 
+
 <!DOCTYPE html>
-<html lang="ar">
+  <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>One World Net | الإنترنت الفضائي العالمي</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Cairo', Arial, sans-serif; margin: 0; background: #fff; color: #222; direction: rtl; }
-    header {
-      background: #0a0a0a url('images/1.jpg') center/cover no-repeat;
-      color: #fff; padding: 60px 0 30px 0; text-align: center; position: relative;
-      min-height: 220px;
+    body { font-family: 'Cairo', Arial, sans-serif; margin: 0; background: #fff; color: #222; direction: ltr; overflow-x: hidden; }
+    .hero {
+      background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.2)), url('images/1.jpg') center/cover no-repeat;
+      min-height: 70vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; color: #fff; padding: 0 16px;
     }
-    header::after {
-      content: "";
-      position: absolute; left: 0; top: 0; width: 100%; height: 100%;
-      background: rgba(10,10,10,0.65);
-      z-index: 1;
+    .hero h1 { font-size: 2.5em; margin-bottom: 18px; letter-spacing: 2px; }
+    .hero p { font-size: 1.2em; margin-bottom: 28px; }
+    .hero .cta-btn {
+      background: linear-gradient(90deg,#1a237e 60%,#00e0ff 100%); color: #fff; border: none;
+      padding: 14px 36px; border-radius: 30px; font-size: 1.1em; font-weight: bold; cursor: pointer;
+      box-shadow: 0 4px 16px #00e0ff33; transition: background 0.2s;
     }
-    .header-content { position: relative; z-index: 2; }
-    header h1 { font-size: 2.2em; margin: 0 0 10px 0; letter-spacing: 2px; }
-    header p { font-size: 1.1em; margin: 0 0 20px 0; }
-    .menu-btn {
-      position: absolute; left: 20px; top: 20px; z-index: 10;
-      background: #00e0ff; border: none; border-radius: 8px; color: #fff;
-      font-size: 1.5em; padding: 8px 16px; cursor: pointer; display: flex; align-items: center;
-      box-shadow: 0 2px 8px #00e0ff33;
+    .hero .cta-btn:hover { background: linear-gradient(90deg,#00e0ff 60%,#1a237e 100%); }
+    nav {
+      background: #fff; box-shadow: 0 2px 8px #0001; position: sticky; top: 0; z-index: 10;
+      padding: 0;
     }
-    .side-menu {
-      position: fixed; left: 0; top: 0; height: 100vh; width: 220px; background: #fff; box-shadow: 2px 0 16px #00e0ff22;
-      transform: translateX(-100%); transition: transform 0.3s; z-index: 100;
-      display: flex; flex-direction: column; padding: 40px 20px 20px 20px;
+    nav ul {
+      display: flex; gap: 10px; list-style: none; margin: 0; padding: 0; justify-content: center;
     }
-    .side-menu.open { transform: translateX(0); }
-    .side-menu a { color: #0a0a0a; font-weight: bold; text-decoration: none; margin-bottom: 18px; font-size: 1.1em; border-radius: 8px; padding: 10px 0; transition: background 0.2s; }
-    .side-menu a:hover { background: #e3f2fd; color: #00e0ff; }
-    .side-menu .close-btn { align-self: flex-end; background: none; border: none; font-size: 1.5em; color: #00e0ff; cursor: pointer; margin-bottom: 20px; }
-    nav { background: #fff; box-shadow: 0 2px 8px #0001; position: sticky; top: 0; z-index: 10; }
-    nav ul { display: flex; gap: 18px; list-style: none; margin: 0; padding: 0; justify-content: center; }
-    nav a { color: #0a0a0a; font-weight: bold; text-decoration: none; padding: 12px 22px; border-radius: 8px; transition: background 0.2s, color 0.2s; }
-    nav a.active, nav a:hover { background: #00e0ff; color: #fff; }
-    section { padding: 40px 0 30px 0; text-align: center; }
-    .about { background: #f7f7fa; }
-    .about h2 { color: #0a0a0a; font-size: 1.5em; margin-bottom: 18px; }
-    .about p { font-size: 1em; max-width: 700px; margin: 0 auto 30px auto; }
-    .features { background: #fff; }
-    .features-list { display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; margin-top: 30px; }
-    .feature-box { background: #f7f7fa; border-radius: 16px; box-shadow: 0 2px 10px #00e0ff22; padding: 24px 12px; min-width: 180px; max-width: 320px; flex: 1 1 180px; text-align: center; transition: transform 0.2s, box-shadow 0.2s; margin-bottom: 10px; }
+    nav a {
+      color: #1a237e; font-weight: bold; text-decoration: none; padding: 10px 18px; border-radius: 8px; transition: background 0.2s, color 0.2s;
+    }
+    nav a.special {
+      background: linear-gradient(90deg,#1a237e 60%,#00e0ff 100%); color: #fff !important; box-shadow: 0 2px 8px #00e0ff33;
+    }
+    nav a:hover { background: #e3f2fd; color: #1a237e; }
+    nav a.special:hover { background: linear-gradient(90deg,#00e0ff 60%,#1a237e 100%); color: #fff; }
+    .section {
+      padding: 40px 0; background: #fff; text-align: center;
+    }
+    .section.alt { background: #f7f7fa; }
+    .section h2 { font-size: 2em; margin-bottom: 18px; color: #1a237e; }
+    .section p { font-size: 1.1em; max-width: 700px; margin: 0 auto 24px auto; }
+    .features-list {
+      display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; margin-top: 30px;
+    }
+    .feature-box {
+      background: #fff; border-radius: 16px; box-shadow: 0 2px 10px #00e0ff22;
+      padding: 28px 18px; min-width: 180px; max-width: 320px; flex: 1 1 180px; text-align: center; transition: transform 0.2s, box-shadow 0.2s;
+    }
     .feature-box:hover { transform: translateY(-6px) scale(1.03); box-shadow: 0 8px 24px #00e0ff33; }
     .feature-box img { width: 48px; margin-bottom: 10px; border-radius: 12px; }
     .feature-box h3 { font-size: 1.1em; margin: 0 0 8px 0; color: #0a0a0a; }
     .feature-box p { font-size: 0.98em; color: #444; }
-    .gallery-section { background: #fff; }
-    .gallery-list { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin: 30px 0; }
-    .gallery-list img { border-radius: 16px; width: 140px; height: 90px; object-fit: cover; box-shadow: 0 2px 8px #00e0ff22; transition: transform 0.2s; }
+    .gallery-list {
+      display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin: 30px 0;
+      max-width: 100vw; overflow-x: auto;
+    }
+    .gallery-list img { border-radius: 16px; width: 140px; height: 90px; object-fit: cover; box-shadow: 0 2px 8px #00e0ff22; transition: transform 0.2s; max-width: 98vw; }
     .gallery-list img:hover { transform: scale(1.07); }
     .contact-section, .login-section { background: #f7f7fa; display: none; }
     .contact-section.active, .login-section.active { display: block; }
@@ -72,84 +76,92 @@
       .gallery-list img { width: 98vw; height: 120px; }
     }
     @media (max-width: 600px) {
-      header h1 { font-size: 1.3em; }
-      .about h2, .features h2, .gallery-section h2, .contact-section h2, .login-section h2 { font-size: 1.1em; }
+      .hero h1 { font-size: 1.3em; }
+      .section h2 { font-size: 1.1em; }
       .feature-box { min-width: 120px; max-width: 98vw; padding: 10px 2vw; }
-      section { padding: 18px 0 10px 0; }
+      .section { padding: 18px 0 10px 0; }
     }
   </style>
 </head>
 <body>
-  <header>
-    <button class="menu-btn" id="menuBtn" aria-label="القائمة">&#9776;</button>
-    <div class="header-content">
-      <h1>One World Net</h1>
-      <p>الإنترنت الفضائي العالمي الأسرع والأكثر تغطية في العالم العربي والعالم، حلول متكاملة للمدارس، الجامعات، المستشفيات، والقرى النائية بأسعار تنافسية ورسالة إنسانية.</p>
+  <nav>
+    <ul>
+      <li><a href="#hero" class="special">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#gallery" id="galleryMenu">Gallery</a></li>
+      <li><a href="#contact" id="contactMenu" class="special">Contact</a></li>
+    </ul>
+  </nav>
+  <section class="hero" id="hero">
+    <h1>One World Net</h1>
+    <p>The fastest and most widely covered global satellite internet for the Arab world and beyond. Complete solutions for schools, universities, hospitals, and remote villages at competitive prices and a humanitarian mission.</p>
+    <a href="#contact" class="cta-btn">Book Now</a>
+  </section>
+  <section class="section" id="about">
+    <h2>About</h2>
+    <p>One World Net provides you with fast and stable internet wherever you are, with comprehensive coverage and 24/7 customer service. Our goal is to connect everyone and support education and health in underserved areas.</p>
+  </section>
+  <section class="section alt" id="features">
+    <h2>Features</h2>
+    <div class="features-list">
+      <div class="feature-box">
+        <img src="images/8.jpg" alt="Global Coverage">
+        <h3>True Global Coverage</h3>
+        <p>Satellite internet access anywhere in the world, even in remote areas, deserts, and seas, with unprecedented speed and stability.</p>
+      </div>
+      <div class="feature-box">
+        <img src="images/9.jpg" alt="High Speed">
+        <h3>High Speed & Stability</h3>
+        <p>Enjoy high upload and download speeds with 24/7 service stability, a real competitor to Starlink.</p>
+      </div>
+      <div class="feature-box">
+        <img src="images/10.jpg" alt="Support">
+        <h3>24/7 Support</h3>
+        <p>Our professional support team is available anytime to solve all your technical issues.</p>
+      </div>
     </div>
-    <nav>
-      <ul>
-        <li><a href="#about" class="active">عن الشبكة</a></li>
-        <li><a href="#features">المميزات</a></li>
-        <li><a href="#gallery">المعرض</a></li>
-      </ul>
-    </nav>
-    <div class="side-menu" id="sideMenu">
-      <button class="close-btn" id="closeMenu">&times;</button>
-      <a href="#login" id="loginMenu">تسجيل الدخول</a>
-      <a href="#contact" id="contactMenu">تواصل معنا</a>
+  </section>
+  <section class="section" id="gallery" style="display:none;">
+    <h2>Gallery</h2>
+    <div class="gallery-list">
+      <img src="images/7.jpg" alt="Gallery 1">
+      <img src="images/8.jpg" alt="Gallery 2">
+      <img src="images/9.jpg" alt="Gallery 3">
     </div>
-  </header>
-  <!-- القائمة الرئيسية أصبحت داخل الهيدر -->
-  <main>
-    <section class="about" id="about">
-      <h2>عن الشبكة</h2>
-      <p>شبكة الإنترنت الفضائي العالمية تقدم لك اتصالاً سريعاً ومستقراً أينما كنت، مع تغطية شاملة وخدمة عملاء على مدار الساعة. هدفنا إيصال الإنترنت للجميع، ودعم التعليم والصحة في المناطق المحرومة.</p>
-    </section>
-    <section class="features" id="features">
-      <h2>المميزات</h2>
-      <div class="features-list">
-        <div class="feature-box">
-          <img src="images/8.jpg" alt="تغطية عالمية">
-          <h3>تغطية عالمية حقيقية</h3>
-          <p>اتصال بالإنترنت الفضائي في أي مكان بالعالم، حتى في المناطق النائية والصحارى والبحار، بسرعة وثبات غير مسبوقين.</p>
-        </div>
-        <div class="feature-box">
-          <img src="images/9.jpg" alt="سرعة فائقة">
-          <h3>سرعة فائقة واستقرار عالي</h3>
-          <p>استمتع بسرعات تحميل ورفع عالية مع استقرار في الخدمة على مدار الساعة، منافس حقيقي لـ Starlink.</p>
-        </div>
-        <div class="feature-box">
-          <img src="images/10.jpg" alt="دعم فني">
-          <h3>دعم فني على مدار الساعة</h3>
-          <p>فريق دعم فني محترف متواجد لخدمتك في أي وقت لحل جميع مشاكلك التقنية.</p>
-        </div>
-      </div>
-    </section>
-    <section class="gallery-section" id="gallery">
-      <h2>معرض الصور</h2>
-      <div class="gallery-list">
-        <img src="images/7.jpg" alt="معرض 1">
-        <img src="images/8.jpg" alt="معرض 2">
-        <img src="images/9.jpg" alt="معرض 3">
-      </div>
-    </section>
-    <section class="contact-section" id="contact">
-      <h2>تواصل معنا</h2>
-      <form>
-        <input type="text" name="name" placeholder="الاسم" required>
-        <input type="email" name="email" placeholder="البريد الإلكتروني" required>
-        <textarea name="message" placeholder="رسالتك" rows="4" required></textarea>
-        <button type="submit">إرسال</button>
-      </form>
-      <div class="social">
-        <a href="https://wa.me/201005341825" target="_blank">واتساب</a>
-        <a href="https://t.me/oneworldnet" target="_blank">تليجرام</a>
-      </div>
-    </section>
-  </main>
+  </section>
+  <section class="section alt contact-section" id="contact" style="display:none;">
+    <h2>Contact Us</h2>
+    <form>
+      <input type="text" name="name" placeholder="Name" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <textarea name="message" placeholder="Your message" rows="4" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+  </section>
   <footer>
-    <p>جميع الحقوق محفوظة &copy; One World Net 2025</p>
+    <p>All rights reserved &copy; One World Net 2025</p>
   </footer>
+  <script>
+    // Show/hide gallery and contact sections from menu
+    document.getElementById('galleryMenu').onclick = function(e) {
+      e.preventDefault();
+      document.getElementById('gallery').style.display = 'block';
+      document.getElementById('contact').style.display = 'none';
+      window.scrollTo({top: document.getElementById('gallery').offsetTop-40, behavior: 'smooth'});
+    };
+    document.getElementById('contactMenu').onclick = function(e) {
+      e.preventDefault();
+      document.getElementById('contact').style.display = 'block';
+      document.getElementById('gallery').style.display = 'none';
+      window.scrollTo({top: document.getElementById('contact').offsetTop-40, behavior: 'smooth'});
+    };
+    // Hide both on load
+    window.onload = function() {
+      document.getElementById('gallery').style.display = 'none';
+      document.getElementById('contact').style.display = 'none';
+    };
+  </script>
 </body>
 </html>
 
