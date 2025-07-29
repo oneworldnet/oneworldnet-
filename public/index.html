@@ -343,7 +343,15 @@
       document.addEventListener('DOMContentLoaded',()=>{
         const btn = document.getElementById('assistantBtn');
         const box = document.getElementById('assistantBox');
-        btn.onclick = ()=>{ box.style.display = box.style.display==='block'?'none':'block'; };
+        let greeted = false;
+        btn.onclick = ()=>{
+          if(box.style.display==='block') { box.style.display='none'; return; }
+          box.style.display='block';
+          if(!greeted) {
+            setTimeout(()=>{ addAssistantMsg('bot',getGreetingMsg()); }, 300);
+            greeted = true;
+          }
+        };
         document.getElementById('assistantForm').onsubmit = function(e){
           e.preventDefault();
           const input = document.getElementById('assistantInput');
@@ -352,10 +360,10 @@
           addAssistantMsg('user',msg);
           input.value='';
           setTimeout(()=>{
-            addAssistantMsg('bot',getAssistantReply(msg));
+            addAssistantMsg('bot',getAssistantReply(msg),true);
           },700);
         };
-        // اقتراحات ذكية حسب اللغة
+        // اقتراحات ذكية حسب اللغة والوقت
         showAssistantSuggestions();
         // تحديث العلم والعنوان حسب اللغة
         updateAssistantLang();
@@ -364,79 +372,171 @@
           showAssistantSuggestions();
         });
       });
-      function addAssistantMsg(type,txt) {
+      function addAssistantMsg(type,txt,rateable) {
         const msgs = document.getElementById('assistantMsgs');
         const div = document.createElement('div');
         div.style.margin = '8px 0';
         div.style.textAlign = type==='user'?'right':'left';
-        div.innerHTML = type==='user'?`<b style='color:#00e0ff'>أنت:</b> ${txt}`:`<b style='color:#fff'>🤖:</b> ${txt}`;
+        if(type==='user') {
+          div.innerHTML = `<b style='color:#00e0ff'>أنت:</b> ${txt}`;
+        } else {
+          div.innerHTML = `<b style='color:#fff'>🤖:</b> ${txt}`;
+          if(rateable) {
+            const rateDiv = document.createElement('span');
+            rateDiv.style.marginLeft = '10px';
+            rateDiv.innerHTML = `<button onclick="rateAssistant('up',this)" style="background:none;border:none;font-size:1.2em;cursor:pointer;color:#00e0ff;">👍</button> <button onclick="rateAssistant('down',this)" style="background:none;border:none;font-size:1.2em;cursor:pointer;color:#f44336;">👎</button>`;
+            div.appendChild(rateDiv);
+          }
+        }
         msgs.appendChild(div);
         msgs.scrollTop = msgs.scrollHeight;
       }
+      window.rateAssistant = function(type,btn) {
+        btn.parentNode.innerHTML = type==='up'?'<span style="color:#00e0ff;font-weight:bold;">شكراً لتقييمك!</span>':'<span style="color:#f44336;font-weight:bold;">تم تسجيل ملاحظتك</span>';
+      }
+      function getGreetingMsg() {
+        const lang = localStorage.getItem('siteLang')||'ar';
+        const hour = new Date().getHours();
+        let greet = '';
+        if(lang==='ar') greet = hour<12?'صباح الخير!':'مساء الخير!';
+        else if(lang==='en') greet = hour<12?'Good morning!':'Good evening!';
+        else if(lang==='fr') greet = hour<12?'Bonjour!':'Bonsoir!';
+        else if(lang==='es') greet = hour<12?'¡Buenos días!':'¡Buenas noches!';
+        else if(lang==='zh') greet = hour<12?'早上好！':'晚上好！';
+        else if(lang==='hi') greet = hour<12?'सुप्रभात!':'शुभ संध्या!';
+        else if(lang==='fa') greet = hour<12?'صبح بخیر!':'عصر بخیر!';
+        else greet = hour<12?'Hello!':'Good evening!';
+        if(lang==='ar') return `${greet} 👋 أنا مساعدك الذكي، اسألني أو اختر اقتراحاً.`;
+        if(lang==='en') return `${greet} 👋 I'm your smart assistant, ask me or pick a suggestion.`;
+        if(lang==='fr') return `${greet} 👋 Je suis votre assistant intelligent, posez-moi une question ou choisissez une suggestion.`;
+        if(lang==='es') return `${greet} 👋 Soy tu asistente inteligente, pregúntame o elige una sugerencia.`;
+        if(lang==='zh') return `${greet} 👋 我是您的智能助手，欢迎提问或选择建议。`;
+        if(lang==='hi') return `${greet} 👋 मैं आपका स्मार्ट असिस्टेंट हूँ, मुझसे पूछें या सुझाव चुनें।`;
+        if(lang==='fa') return `${greet} 👋 من دستیار هوشمند شما هستم، سوال بپرسید یا یک پیشنهاد انتخاب کنید.`;
+        return `${greet} 👋 I'm your smart assistant, ask me or pick a suggestion.`;
+      }
       function getAssistantReply(msg) {
         const lang = localStorage.getItem('siteLang')||'ar';
-        if(lang==='ar') return 'أنا مساعدك الذكي! اسألني عن أي شيء في الموقع أو الدعم أو التقنية وسأساعدك باللهجة العربية.';
-        if(lang==='en') return "I'm your smart assistant! Ask me anything about the site, support, or tech and I'll help you in English.";
-        if(lang==='fr') return "Je suis votre assistant intelligent ! Posez-moi vos questions sur le site, le support ou la technologie et je vous aiderai en français.";
-        if(lang==='es') return "¡Soy tu asistente inteligente! Pregúntame sobre el sitio, soporte o tecnología y te ayudaré en español.";
-        if(lang==='zh') return "我是您的智能助手！请用中文提问，我会帮您。";
-        if(lang==='hi') return "मैं आपका स्मार्ट असिस्टेंट हूँ! साइट, सपोर्ट या टेक के बारे में पूछें, मैं हिंदी में मदद करूंगा।";
-        if(lang==='fa') return "من دستیار هوشمند شما هستم! هر سوالی درباره سایت یا پشتیبانی دارید بپرسید، به فارسی پاسخ می‌دهم.";
-        return "I'm your smart assistant! Ask me anything about the site, support, or tech.";
+        msg = msg.toLowerCase();
+        // ردود واقعية حسب الكلمات المفتاحية
+        if(lang==='ar') {
+          if(msg.includes('دعم')||msg.includes('مشكلة')) return 'للتواصل مع الدعم الفني يمكنك استخدام صفحة تواصل معنا أو وصف مشكلتك هنا وسنساعدك فوراً.';
+          if(msg.includes('باقة')||msg.includes('سعر')) return 'لدينا باقات متنوعة تناسب الجميع، يمكنك رؤية الأسعار في قسم الباقات.';
+          if(msg.includes('لغة')) return 'يمكنك تغيير اللغة من أعلى الموقع بجوار الشعار.';
+          if(msg.includes('انترنت')) return 'الإنترنت الفضائي يتيح لك الاتصال من أي مكان في العالم بسرعة وأمان.';
+          return 'أنا هنا لأي سؤال أو استفسار! 😊';
+        }
+        if(lang==='en') {
+          if(msg.includes('support')||msg.includes('problem')) return 'To contact support, use the Contact Us page or describe your issue here and I will help you.';
+          if(msg.includes('plan')||msg.includes('price')) return 'We have various plans for everyone. Check the pricing section for details.';
+          if(msg.includes('language')) return 'You can change the language from the top of the site next to the logo.';
+          if(msg.includes('internet')) return 'Satellite internet lets you connect anywhere in the world, fast and secure.';
+          return 'I am here for any question or inquiry! 😊';
+        }
+        if(lang==='fr') {
+          if(msg.includes('support')||msg.includes('probl')) return 'Pour contacter le support, utilisez la page Contact ou décrivez votre problème ici.';
+          if(msg.includes('forfait')||msg.includes('prix')) return 'Nous avons plusieurs forfaits. Consultez la section Tarifs.';
+          if(msg.includes('langue')) return 'Vous pouvez changer la langue en haut du site à côté du logo.';
+          if(msg.includes('internet')) return "L'internet par satellite vous connecte partout dans le monde, rapidement et en toute sécurité.";
+          return 'Je suis là pour toute question ! 😊';
+        }
+        if(lang==='es') {
+          if(msg.includes('soporte')||msg.includes('problema')) return 'Para contactar soporte, usa la página de contacto o describe tu problema aquí.';
+          if(msg.includes('plan')||msg.includes('precio')) return 'Tenemos varios planes. Consulta la sección de precios.';
+          if(msg.includes('idioma')) return 'Puedes cambiar el idioma desde la parte superior del sitio.';
+          if(msg.includes('internet')) return 'El internet satelital te conecta en cualquier parte del mundo, rápido y seguro.';
+          return '¡Estoy aquí para cualquier pregunta! 😊';
+        }
+        if(lang==='zh') {
+          if(msg.includes('支持')||msg.includes('问题')) return '如需联系客服，请使用联系我们页面或在此描述您的问题。';
+          if(msg.includes('套餐')||msg.includes('价格')) return '我们有多种套餐，详情请查看价格页面。';
+          if(msg.includes('语言')) return '您可以在网站顶部更改语言。';
+          if(msg.includes('互联网')) return '卫星互联网让您在世界任何地方都能快速安全地连接。';
+          return '我随时为您服务！😊';
+        }
+        if(lang==='hi') {
+          if(msg.includes('सपोर्ट')||msg.includes('समस्या')) return 'सपोर्ट से संपर्क के लिए Contact Us पेज का उपयोग करें या अपनी समस्या यहाँ लिखें।';
+          if(msg.includes('प्लान')||msg.includes('कीमत')) return 'हमारे पास कई प्लान हैं, विवरण के लिए प्राइसिंग सेक्शन देखें।';
+          if(msg.includes('भाषा')) return 'आप साइट के ऊपर से भाषा बदल सकते हैं।';
+          if(msg.includes('इंटरनेट')) return 'सैटेलाइट इंटरनेट आपको दुनिया में कहीं भी तेज़ और सुरक्षित कनेक्ट करता है।';
+          return 'मैं आपकी हर मदद के लिए यहाँ हूँ! 😊';
+        }
+        if(lang==='fa') {
+          if(msg.includes('پشتیبانی')||msg.includes('مشکل')) return 'برای تماس با پشتیبانی از صفحه تماس با ما استفاده کنید یا مشکل خود را اینجا بنویسید.';
+          if(msg.includes('بسته')||msg.includes('قیمت')) return 'ما بسته‌های متنوعی داریم، برای جزئیات به بخش قیمت‌ها مراجعه کنید.';
+          if(msg.includes('زبان')) return 'می‌توانید زبان را از بالای سایت تغییر دهید.';
+          if(msg.includes('اینترنت')) return 'اینترنت ماهواره‌ای به شما امکان اتصال سریع و امن از هر نقطه جهان را می‌دهد.';
+          return 'من اینجا هستم برای هر سوالی! 😊';
+        }
+        // باقي اللغات
+        if(msg.includes('support')||msg.includes('problem')) return 'To contact support, use the Contact Us page or describe your issue here.';
+        if(msg.includes('plan')||msg.includes('price')) return 'Check the pricing section for details.';
+        if(msg.includes('language')) return 'You can change the language from the top of the site.';
+        if(msg.includes('internet')) return 'Satellite internet lets you connect anywhere in the world.';
+        return 'I am here for any question! 😊';
       }
       function showAssistantSuggestions() {
         const lang = localStorage.getItem('siteLang')||'ar';
         const box = document.getElementById('assistantSuggestions');
         let suggestions = [];
+        const hour = new Date().getHours();
         if(lang==='ar') suggestions = [
+          hour<12?'ما هي مميزات الإنترنت الفضائي؟':'هل يوجد دعم فني ليلاً؟',
           'كيف أستفيد من الإنترنت الفضائي؟',
           'أريد التواصل مع الدعم الفني',
-          'ما هي أسرع باقة؟',
+          hour>=18?'هل يوجد باقات لرجال الأعمال؟':'ما هي أسرع باقة؟',
           'كيف أغير اللغة؟'
         ];
         else if(lang==='en') suggestions = [
+          hour<12?'What are the benefits of satellite internet?':'Is support available at night?',
           'How do I benefit from satellite internet?',
           'I want to contact support',
-          'What is the fastest plan?',
+          hour>=18?'Are there business plans?':'What is the fastest plan?',
           'How do I change the language?'
         ];
         else if(lang==='fr') suggestions = [
+          hour<12?"Quels sont les avantages d'Internet par satellite ?":"Le support est-il disponible la nuit ?",
           "Comment profiter d'Internet par satellite ?",
           "Je veux contacter le support",
-          "Quel est le forfait le plus rapide ?",
+          hour>=18?"Y a-t-il des forfaits business ?":"Quel est le forfait le plus rapide ?",
           "Comment changer la langue ?"
         ];
         else if(lang==='es') suggestions = [
+          hour<12?"¿Cuáles son los beneficios del internet satelital?":"¿Hay soporte por la noche?",
           "¿Cómo aprovecho el internet satelital?",
           "Quiero contactar con soporte",
-          "¿Cuál es el plan más rápido?",
+          hour>=18?"¿Hay planes empresariales?":"¿Cuál es el plan más rápido?",
           "¿Cómo cambio el idioma?"
         ];
         else if(lang==='zh') suggestions = [
+          hour<12?"卫星互联网有哪些优势？":"晚上有客服吗？",
           "如何使用卫星互联网？",
           "我想联系支持",
-          "最快的套餐是什么？",
+          hour>=18?"有商务套餐吗？":"最快的套餐是什么？",
           "如何更改语言？"
         ];
         else if(lang==='hi') suggestions = [
+          hour<12?"सैटेलाइट इंटरनेट के क्या फायदे हैं?":"क्या रात में सपोर्ट उपलब्ध है?",
           "सैटेलाइट इंटरनेट का लाभ कैसे लें?",
           "मुझे सपोर्ट से संपर्क करना है",
-          "सबसे तेज़ प्लान कौन सा है?",
+          hour>=18?"क्या बिजनेस प्लान हैं?":"सबसे तेज़ प्लान कौन सा है?",
           "भाषा कैसे बदलें?"
         ];
         else if(lang==='fa') suggestions = [
+          hour<12?"اینترنت ماهواره‌ای چه مزایایی دارد؟":"آیا پشتیبانی شبانه دارید؟",
           "چطور از اینترنت ماهواره‌ای استفاده کنم؟",
           "می‌خواهم با پشتیبانی تماس بگیرم",
-          "سریع‌ترین بسته کدام است؟",
+          hour>=18?"آیا بسته‌های تجاری دارید؟":"سریع‌ترین بسته کدام است؟",
           "چطور زبان را تغییر دهم؟"
         ];
         else suggestions = [
+          hour<12?'What are the benefits of satellite internet?':'Is support available at night?',
           'How do I benefit from satellite internet?',
           'I want to contact support',
-          'What is the fastest plan?',
+          hour>=18?'Are there business plans?':'What is the fastest plan?',
           'How do I change the language?'
         ];
-        box.innerHTML = suggestions.map(s=>`<button onclick="document.getElementById('assistantInput').value='${s}';document.getElementById('assistantInput').focus();return false;" style="background:#181a1b;color:#00e0ff;border:none;border-radius:8px;padding:6px 12px;margin:2px 2px;font-size:0.98em;cursor:pointer;">${s}</button>`).join(' ');
+        box.innerHTML = suggestions.map(s=>`<button onclick=\"document.getElementById('assistantInput').value='${s}';document.getElementById('assistantInput').focus();return false;\" style=\"background:#181a1b;color:#00e0ff;border:none;border-radius:8px;padding:6px 12px;margin:2px 2px;font-size:0.98em;cursor:pointer;\">${s}</button>`).join(' ');
       }
       function updateAssistantLang() {
         const lang = localStorage.getItem('siteLang')||'ar';
@@ -506,4 +606,5 @@
         updateFromAdmin();
       };
     </script>
+  <script src="main.js"></script>
   </body>

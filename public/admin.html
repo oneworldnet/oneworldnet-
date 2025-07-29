@@ -19,6 +19,9 @@
 <body>
 <div class="admin-container" id="adminLogin">
     <h2>تسجيل دخول لوحة التحكم</h2>
+    <button id="googleLoginBtn" style="background:#fff;color:#222;border:1px solid #ccc;padding:8px 18px;border-radius:6px;font-weight:bold;margin-bottom:10px;display:flex;align-items:center;gap:8px;">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" style="width:22px;height:22px;"> دخول عبر Google
+    </button>
     <label>اسم المستخدم</label>
     <input type="text" id="adminUser" placeholder="اسم المستخدم" autocomplete="username">
     <label>كلمة المرور</label>
@@ -68,6 +71,11 @@
         <hr>
         <label>صور المعرض (أسماء الصور مفصولة بفاصلة، مثال: 1.jpg,2.jpg,3.jpg)</label>
         <input type="text" id="galleryImages">
+        <div id="galleryUploadBox" style="margin:8px 0 12px 0;padding:10px;border:2px dashed #00e0ff;border-radius:8px;text-align:center;cursor:pointer;background:#f8faff;">
+          <span>📤 اسحب الصور هنا أو اضغط للرفع</span>
+          <input type="file" id="galleryUpload" accept="image/*" multiple style="display:none;">
+        </div>
+        <div id="galleryPreview" style="display:flex;gap:8px;flex-wrap:wrap;"></div>
         <hr>
         <label>أرقام التواصل (افصل بينهم بفاصلة)</label>
         <input type="text" id="phones">
@@ -87,6 +95,226 @@
     </form>
     <h3>سجلات تسجيل الدخول (محلي)</h3>
     <div class="login-log" id="loginLog"></div>
+</div>
+<!-- إشعارات ذكية وتحليلات ومساعد صوتي -->
+<div class="admin-container" id="globalFeatures" style="margin-top:32px;">
+  <h2 style="color:#1a237e;">🌐 الميزات الذكية والعالمية</h2>
+  <hr>
+  <h3>🔔 الإشعارات الذكية</h3>
+  <form id="notifyForm" style="margin-bottom:18px;">
+    <label>نص الإشعار</label>
+    <input type="text" id="notifyMsg" placeholder="اكتب نص الإشعار...">
+    <label>اختر اللغة المستهدفة</label>
+    <select id="notifyLang" style="width:180px;"></select>
+    <button type="submit">إرسال إشعار</button>
+    <span id="notifyStatus" style="color:#00bfae;font-weight:bold;"></span>
+  </form>
+  <div id="notifyLog" style="background:#f5f5f5;padding:8px 12px;border-radius:6px;font-size:.98em;"></div>
+  <hr>
+  <h3>📊 تحليلات الزوار</h3>
+  <div id="analyticsBox" style="background:#f5f5f5;padding:10px 14px;border-radius:8px;margin-bottom:12px;">
+    <div>عدد الزوار: <span id="visitsCount">0</span></div>
+    <div>الدول الأكثر زيارة: <span id="topCountries">-</span></div>
+    <div>اللغات الأكثر استخدامًا: <span id="topLangs">-</span></div>
+  </div>
+  <hr>
+  <h3>🗣️ المساعد الصوتي العالمي</h3>
+  <button id="voiceToggle" style="background:#00e0ff;color:#fff;font-weight:bold;padding:10px 22px;border-radius:8px;font-size:1.1em;">تفعيل المساعد الصوتي في الموقع</button>
+  <span id="voiceStatus" style="margin-right:12px;color:#00bfae;font-weight:bold;"></span>
+</div>
+<div class="admin-container" id="accessibilityFeatures" style="margin-top:32px;">
+<div class="admin-container" id="messagesBox" style="margin-top:32px;">
+  <h2 style="color:#1a237e;">✉️ رسائل الزوار</h2>
+  <hr>
+  <div id="visitorMsgs" style="background:#f5f5f5;padding:10px 12px;border-radius:8px;min-height:40px;"></div>
+  <form id="replyForm" style="margin-top:10px;display:none;">
+    <label>رد على الرسالة:</label>
+    <textarea id="replyMsg" style="width:100%;min-height:40px;"></textarea>
+    <button type="submit">إرسال الرد</button>
+    <span id="replyStatus" style="color:#00bfae;font-weight:bold;"></span>
+  </form>
+</div>
+  <h2 style="color:#1a237e;">♿ دعم ذوي الاحتياجات الخاصة</h2>
+  <hr>
+  <form id="accessForm">
+    <label><input type="checkbox" id="accFont"/> تكبير الخط تلقائيًا</label><br>
+    <label><input type="checkbox" id="accContrast"/> تفعيل تباين عالي للألوان</label><br>
+    <label><input type="checkbox" id="accRead"/> تفعيل قراءة النصوص (Text-to-Speech)</label><br>
+    <label><input type="checkbox" id="accKeyboard"/> إظهار لوحة مفاتيح افتراضية</label><br>
+    <button type="submit">حفظ إعدادات الوصول</button>
+    <span id="accStatus" style="color:#00bfae;font-weight:bold;"></span>
+  </form>
+  <div style="font-size:.98em;color:#444;margin-top:8px;">
+    <b>شرح الخيارات:</b><br>
+    <b>تكبير الخط:</b> يجعل النصوص أوضح لضعاف البصر.<br>
+    <b>تباين عالي:</b> ألوان قوية لسهولة القراءة.<br>
+    <b>قراءة نصية:</b> تفعيل قارئ آلي للنصوص.<br>
+    <b>لوحة مفاتيح:</b> تسهّل الكتابة لمن لا يستطيع استخدام لوحة المفاتيح العادية.<br>
+  </div>
+</div>
+<script>
+// تسجيل دخول اجتماعي (Google فقط - محاكاة)
+document.getElementById('googleLoginBtn').onclick = function(e) {
+  e.preventDefault();
+  // محاكاة نجاح تسجيل الدخول
+  let fakeUser = {name:'Google User',email:'user@gmail.com',provider:'google'};
+  localStorage.setItem('adminUser', fakeUser.email);
+  localStorage.setItem('adminPass', 'google');
+  localStorage.setItem('adminSocial', JSON.stringify(fakeUser));
+  document.getElementById('adminUser').value = fakeUser.email;
+  document.getElementById('adminPass').value = 'google';
+  checkAdminLogin();
+}
+// نظام رسائل ذكي بين الإدارة والزوار
+function showVisitorMsgs() {
+  let msgs = JSON.parse(localStorage.getItem('visitorMsgs')||'[]');
+  const box = document.getElementById('visitorMsgs');
+  box.innerHTML = msgs.length ? msgs.map((m,i)=>`<div style='margin-bottom:8px;'><b>${m.date}</b> <span style='color:#1a237e;'>[${m.lang||'ar'}]</span><br>${m.text}<br><button onclick='replyToMsg(${i})' style='margin-top:4px;background:#00e0ff;color:#fff;border:none;border-radius:6px;padding:2px 10px;'>رد</button>${m.reply?`<div style='color:#00bfae;margin-top:4px;'>رد الإدارة: ${m.reply}</div>`:''}</div>`).join('') : 'لا توجد رسائل.';
+}
+showVisitorMsgs();
+window.replyToMsg = function(idx) {
+  document.getElementById('replyForm').style.display = 'block';
+  document.getElementById('replyForm').setAttribute('data-idx', idx);
+  document.getElementById('replyMsg').value = '';
+}
+document.getElementById('replyForm').onsubmit = function(e) {
+  e.preventDefault();
+  let idx = +this.getAttribute('data-idx');
+  let msgs = JSON.parse(localStorage.getItem('visitorMsgs')||'[]');
+  msgs[idx].reply = document.getElementById('replyMsg').value;
+  localStorage.setItem('visitorMsgs', JSON.stringify(msgs));
+  document.getElementById('replyStatus').textContent = 'تم إرسال الرد!';
+  setTimeout(()=>{document.getElementById('replyStatus').textContent='';document.getElementById('replyForm').style.display='none';}, 1500);
+  showVisitorMsgs();
+}
+// رفع صور المعرض مباشرة
+const galleryBox = document.getElementById('galleryUploadBox');
+const galleryInput = document.getElementById('galleryUpload');
+const galleryPreview = document.getElementById('galleryPreview');
+galleryBox.onclick = ()=>galleryInput.click();
+galleryBox.ondragover = e=>{e.preventDefault();galleryBox.style.background='#e0f7fa';};
+galleryBox.ondragleave = e=>{e.preventDefault();galleryBox.style.background='#f8faff';};
+galleryBox.ondrop = function(e){
+  e.preventDefault();
+  galleryBox.style.background='#f8faff';
+  handleGalleryFiles(e.dataTransfer.files);
+};
+galleryInput.onchange = ()=>handleGalleryFiles(galleryInput.files);
+function handleGalleryFiles(files) {
+  let names = localStorage.getItem('galleryImages')||'';
+  Array.from(files).forEach(file=>{
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      // حفظ الصورة في localStorage (Base64)
+      let imgName = Date.now()+"_"+file.name;
+      localStorage.setItem('img_'+imgName, e.target.result);
+      names += (names ? ',' : '') + imgName;
+      document.getElementById('galleryImages').value = names;
+      localStorage.setItem('galleryImages', names);
+      showGalleryPreview();
+    };
+    reader.readAsDataURL(file);
+  });
+}
+function showGalleryPreview() {
+  let names = (localStorage.getItem('galleryImages')||'').split(',').filter(Boolean);
+  galleryPreview.innerHTML = '';
+  names.forEach(n=>{
+    let src = localStorage.getItem('img_'+n);
+    if(src) {
+      let img = document.createElement('img');
+      img.src = src;
+      img.alt = n;
+      img.style = 'width:60px;height:60px;object-fit:cover;border-radius:6px;border:1px solid #ccc;';
+      galleryPreview.appendChild(img);
+    }
+  });
+}
+showGalleryPreview();
+// دعم الوصول لذوي الاحتياجات
+function loadAccessibility() {
+  document.getElementById('accFont').checked = localStorage.getItem('accFont') === 'on';
+  document.getElementById('accContrast').checked = localStorage.getItem('accContrast') === 'on';
+  document.getElementById('accRead').checked = localStorage.getItem('accRead') === 'on';
+  document.getElementById('accKeyboard').checked = localStorage.getItem('accKeyboard') === 'on';
+}
+loadAccessibility();
+document.getElementById('accessForm').onsubmit = function(e) {
+  e.preventDefault();
+  localStorage.setItem('accFont', document.getElementById('accFont').checked ? 'on' : 'off');
+  localStorage.setItem('accContrast', document.getElementById('accContrast').checked ? 'on' : 'off');
+  localStorage.setItem('accRead', document.getElementById('accRead').checked ? 'on' : 'off');
+  localStorage.setItem('accKeyboard', document.getElementById('accKeyboard').checked ? 'on' : 'off');
+  document.getElementById('accStatus').textContent = 'تم حفظ إعدادات الوصول!';
+  setTimeout(()=>{document.getElementById('accStatus').textContent='';}, 2000);
+}
+</script>
+</div>
+<script>
+// إشعارات ذكية
+function fillNotifyLangs() {
+  const sel = document.getElementById('notifyLang');
+  sel.innerHTML = '';
+  allLangs.forEach(l => {
+    const opt = document.createElement('option');
+    opt.value = l.code;
+    opt.textContent = `${l.flag||''} ${l.name}`;
+    sel.appendChild(opt);
+  });
+  sel.value = localStorage.getItem('siteLang') || 'ar';
+}
+fillNotifyLangs();
+document.getElementById('notifyForm').onsubmit = function(e) {
+  e.preventDefault();
+  let msg = document.getElementById('notifyMsg').value.trim();
+  let lang = document.getElementById('notifyLang').value;
+  if(msg.length < 2) {
+    document.getElementById('notifyStatus').textContent = 'اكتب نص الإشعار';
+    return;
+  }
+  let log = JSON.parse(localStorage.getItem('notifyLog')||'[]');
+  log.unshift({msg,lang,date:new Date().toLocaleString()});
+  localStorage.setItem('notifyLog', JSON.stringify(log));
+  document.getElementById('notifyStatus').textContent = 'تم إرسال الإشعار!';
+  setTimeout(()=>{document.getElementById('notifyStatus').textContent='';}, 1500);
+  document.getElementById('notifyMsg').value = '';
+  showNotifyLog();
+}
+function showNotifyLog() {
+  let log = JSON.parse(localStorage.getItem('notifyLog')||'[]');
+  document.getElementById('notifyLog').innerHTML = log.length ? log.map(e=>`<div><b>${e.date}</b> [${e.lang}] : ${e.msg}</div>`).join('') : 'لا يوجد إشعارات.';
+}
+showNotifyLog();
+
+// تحليلات الزوار (محاكاة)
+function showAnalytics() {
+  let visits = parseInt(localStorage.getItem('visitsCount')||'0');
+  let countries = JSON.parse(localStorage.getItem('visitsCountries')||'[]');
+  let langs = JSON.parse(localStorage.getItem('visitsLangs')||'[]');
+  document.getElementById('visitsCount').textContent = visits;
+  document.getElementById('topCountries').textContent = countries.length ? countries.slice(0,3).join(', ') : '-';
+  document.getElementById('topLangs').textContent = langs.length ? langs.slice(0,3).join(', ') : '-';
+}
+showAnalytics();
+
+// زر تفعيل المساعد الصوتي
+document.getElementById('voiceToggle').onclick = function() {
+  let enabled = localStorage.getItem('voiceAssistant') === 'on';
+  if(enabled) {
+    localStorage.setItem('voiceAssistant', 'off');
+    document.getElementById('voiceStatus').textContent = 'تم إيقاف المساعد الصوتي.';
+    this.textContent = 'تفعيل المساعد الصوتي في الموقع';
+  } else {
+    localStorage.setItem('voiceAssistant', 'on');
+    document.getElementById('voiceStatus').textContent = 'تم تفعيل المساعد الصوتي!';
+    this.textContent = 'إيقاف المساعد الصوتي في الموقع';
+  }
+  setTimeout(()=>{document.getElementById('voiceStatus').textContent='';}, 2000);
+}
+if(localStorage.getItem('voiceAssistant') === 'on') {
+  document.getElementById('voiceToggle').textContent = 'إيقاف المساعد الصوتي في الموقع';
+}
+</script>
 </div>
 <script>
 // نظام المستخدم وكلمة السر (قابلة للتغيير)
