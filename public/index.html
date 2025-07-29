@@ -9,58 +9,97 @@
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Cairo', Arial, sans-serif; margin: 0; background: #fff; color: #222; direction: rtl; }
-    header { background: #0a0a0a; color: #fff; padding: 40px 0 20px 0; text-align: center; }
-    header img { max-width: 120px; margin-bottom: 20px; border-radius: 16px; }
-    header h1 { font-size: 2.6em; margin: 0 0 10px 0; letter-spacing: 2px; }
-    header p { font-size: 1.3em; margin: 0 0 20px 0; }
+    header {
+      background: #0a0a0a url('images/1.jpg') center/cover no-repeat;
+      color: #fff; padding: 60px 0 30px 0; text-align: center; position: relative;
+      min-height: 220px;
+    }
+    header::after {
+      content: "";
+      position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+      background: rgba(10,10,10,0.65);
+      z-index: 1;
+    }
+    .header-content { position: relative; z-index: 2; }
+    header h1 { font-size: 2.2em; margin: 0 0 10px 0; letter-spacing: 2px; }
+    header p { font-size: 1.1em; margin: 0 0 20px 0; }
+    .menu-btn {
+      position: absolute; left: 20px; top: 20px; z-index: 10;
+      background: #00e0ff; border: none; border-radius: 8px; color: #fff;
+      font-size: 1.5em; padding: 8px 16px; cursor: pointer; display: flex; align-items: center;
+      box-shadow: 0 2px 8px #00e0ff33;
+    }
+    .side-menu {
+      position: fixed; left: 0; top: 0; height: 100vh; width: 220px; background: #fff; box-shadow: 2px 0 16px #00e0ff22;
+      transform: translateX(-100%); transition: transform 0.3s; z-index: 100;
+      display: flex; flex-direction: column; padding: 40px 20px 20px 20px;
+    }
+    .side-menu.open { transform: translateX(0); }
+    .side-menu a { color: #0a0a0a; font-weight: bold; text-decoration: none; margin-bottom: 18px; font-size: 1.1em; border-radius: 8px; padding: 10px 0; transition: background 0.2s; }
+    .side-menu a:hover { background: #e3f2fd; color: #00e0ff; }
+    .side-menu .close-btn { align-self: flex-end; background: none; border: none; font-size: 1.5em; color: #00e0ff; cursor: pointer; margin-bottom: 20px; }
     nav { background: #fff; box-shadow: 0 2px 8px #0001; position: sticky; top: 0; z-index: 10; }
     nav ul { display: flex; gap: 18px; list-style: none; margin: 0; padding: 0; justify-content: center; }
     nav a { color: #0a0a0a; font-weight: bold; text-decoration: none; padding: 12px 22px; border-radius: 8px; transition: background 0.2s, color 0.2s; }
     nav a.active, nav a:hover { background: #00e0ff; color: #fff; }
-    section { padding: 60px 0; text-align: center; }
+    section { padding: 40px 0 30px 0; text-align: center; }
     .about { background: #f7f7fa; }
-    .about h2 { color: #0a0a0a; font-size: 2em; margin-bottom: 18px; }
-    .about p { font-size: 1.2em; max-width: 700px; margin: 0 auto 30px auto; }
+    .about h2 { color: #0a0a0a; font-size: 1.5em; margin-bottom: 18px; }
+    .about p { font-size: 1em; max-width: 700px; margin: 0 auto 30px auto; }
     .features { background: #fff; }
-    .features-list { display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; margin-top: 40px; }
-    .feature-box { background: #f7f7fa; border-radius: 16px; box-shadow: 0 2px 10px #00e0ff22; padding: 36px 28px; min-width: 260px; max-width: 340px; flex: 1 1 260px; text-align: center; transition: transform 0.2s, box-shadow 0.2s; }
-    .feature-box:hover { transform: translateY(-8px) scale(1.04); box-shadow: 0 8px 24px #00e0ff33; }
-    .feature-box img { width: 60px; margin-bottom: 15px; border-radius: 12px; }
-    .feature-box h3 { font-size: 1.3em; margin: 0 0 10px 0; color: #0a0a0a; }
-    .feature-box p { font-size: 1.1em; color: #444; }
+    .features-list { display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; margin-top: 30px; }
+    .feature-box { background: #f7f7fa; border-radius: 16px; box-shadow: 0 2px 10px #00e0ff22; padding: 24px 12px; min-width: 180px; max-width: 320px; flex: 1 1 180px; text-align: center; transition: transform 0.2s, box-shadow 0.2s; margin-bottom: 10px; }
+    .feature-box:hover { transform: translateY(-6px) scale(1.03); box-shadow: 0 8px 24px #00e0ff33; }
+    .feature-box img { width: 48px; margin-bottom: 10px; border-radius: 12px; }
+    .feature-box h3 { font-size: 1.1em; margin: 0 0 8px 0; color: #0a0a0a; }
+    .feature-box p { font-size: 0.98em; color: #444; }
     .gallery-section { background: #fff; }
-    .gallery-list { display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; margin: 40px 0; }
-    .gallery-list img { border-radius: 16px; width: 300px; height: 200px; object-fit: cover; box-shadow: 0 2px 8px #00e0ff22; transition: transform 0.2s; }
+    .gallery-list { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin: 30px 0; }
+    .gallery-list img { border-radius: 16px; width: 140px; height: 90px; object-fit: cover; box-shadow: 0 2px 8px #00e0ff22; transition: transform 0.2s; }
     .gallery-list img:hover { transform: scale(1.07); }
-    .contact-section { background: #f7f7fa; }
-    .contact-section form { background: #fff; padding: 30px 20px; border-radius: 16px; box-shadow: 0 2px 8px #0001; max-width: 400px; margin: auto; text-align: right; }
-    .contact-section input, .contact-section textarea { width: 100%; margin-bottom: 10px; padding: 10px; border-radius: 8px; border: 1px solid #ccc; font-size: 1em; }
-    .contact-section button { background: linear-gradient(90deg,#0a0a0a 60%,#00e0ff 100%); color: #fff; border: none; padding: 12px 30px; border-radius: 8px; font-size: 1.1em; cursor: pointer; box-shadow: 0 2px 8px #00e0ff33; }
-    .contact-section button:hover { background: linear-gradient(90deg,#00e0ff 60%,#0a0a0a 100%); }
-    .social { margin-top: 20px; text-align: center; }
-    .social a { margin-left: 10px; color: #00e0ff; font-weight: bold; text-decoration: none; }
+    .contact-section, .login-section { background: #f7f7fa; display: none; }
+    .contact-section.active, .login-section.active { display: block; }
+    .contact-section form, .login-section form { background: #fff; padding: 18px 10px; border-radius: 16px; box-shadow: 0 2px 8px #0001; max-width: 320px; margin: auto; text-align: right; }
+    .contact-section input, .contact-section textarea, .login-section input { width: 100%; margin-bottom: 8px; padding: 8px; border-radius: 8px; border: 1px solid #ccc; font-size: 1em; }
+    .contact-section button, .login-section button { background: linear-gradient(90deg,#0a0a0a 60%,#00e0ff 100%); color: #fff; border: none; padding: 10px 20px; border-radius: 8px; font-size: 1em; cursor: pointer; box-shadow: 0 2px 8px #00e0ff33; }
+    .contact-section button:hover, .login-section button:hover { background: linear-gradient(90deg,#00e0ff 60%,#0a0a0a 100%); }
+    .social { margin-top: 12px; text-align: center; }
+    .social a { margin-left: 8px; color: #00e0ff; font-weight: bold; text-decoration: none; }
     .social a:hover { text-decoration: underline; }
-    footer { background: #0a0a0a; color: #fff; text-align: center; padding: 30px 0 10px 0; margin-top: 40px; }
+    footer { background: #0a0a0a; color: #fff; text-align: center; padding: 18px 0 6px 0; margin-top: 20px; font-size: 0.95em; }
     @media (max-width: 900px) {
       .features-list { flex-direction: column; align-items: center; }
-      .gallery-list img { width: 98vw; height: 180px; }
+      .gallery-list img { width: 98vw; height: 120px; }
+    }
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.3em; }
+      .about h2, .features h2, .gallery-section h2, .contact-section h2, .login-section h2 { font-size: 1.1em; }
+      .feature-box { min-width: 120px; max-width: 98vw; padding: 10px 2vw; }
+      section { padding: 18px 0 10px 0; }
     }
   </style>
 </head>
 <body>
   <header>
-    <img src="images/logo.jpg" alt="One World Net Logo">
-    <h1>One World Net</h1>
-    <p>الإنترنت الفضائي العالمي الأسرع والأكثر تغطية في العالم العربي والعالم، حلول متكاملة للمدارس، الجامعات، المستشفيات، والقرى النائية بأسعار تنافسية ورسالة إنسانية.</p>
+    <button class="menu-btn" id="menuBtn" aria-label="القائمة">&#9776;</button>
+    <div class="header-content">
+      <h1>One World Net</h1>
+      <p>الإنترنت الفضائي العالمي الأسرع والأكثر تغطية في العالم العربي والعالم، حلول متكاملة للمدارس، الجامعات، المستشفيات، والقرى النائية بأسعار تنافسية ورسالة إنسانية.</p>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#about" class="active">عن الشبكة</a></li>
+        <li><a href="#features">المميزات</a></li>
+        <li><a href="#gallery">المعرض</a></li>
+      </ul>
+    </nav>
+    <div class="side-menu" id="sideMenu">
+      <button class="close-btn" id="closeMenu">&times;</button>
+      <a href="#login" id="loginMenu">تسجيل الدخول</a>
+      <a href="#contact" id="contactMenu">تواصل معنا</a>
+    </div>
   </header>
-  <nav>
-    <ul>
-      <li><a href="#about" class="active">عن الشبكة</a></li>
-      <li><a href="#features">المميزات</a></li>
-      <li><a href="#gallery">المعرض</a></li>
-      <li><a href="#contact">تواصل معنا</a></li>
-    </ul>
-  </nav>
+  <!-- القائمة الرئيسية أصبحت داخل الهيدر -->
   <main>
     <section class="about" id="about">
       <h2>عن الشبكة</h2>
@@ -182,19 +221,53 @@
                 </div>
             </div>
         </section>
-        <section id="login" class="login-section">
-            <h2 id="loginTitle">تسجيل الدخول</h2>
-            <form id="loginForm">
-                <input type="email" name="email" placeholder="البريد الإلكتروني" required id="loginEmail">
-                <input type="password" name="password" placeholder="كلمة المرور" required id="loginPass">
-                <button type="submit" id="loginBtn">دخول</button>
-            </form>
-        </section>
+    <section id="login" class="login-section">
+      <h2 id="loginTitle">تسجيل الدخول</h2>
+      <form id="loginForm">
+        <input type="email" name="email" placeholder="البريد الإلكتروني" required id="loginEmail">
+        <input type="password" name="password" placeholder="كلمة المرور" required id="loginPass">
+        <button type="submit" id="loginBtn">دخول</button>
+      </form>
+    </section>
     </main>
     <footer>
         <p id="footerText">جميع الحقوق محفوظة &copy; One World Net 2025</p>
-    </footer>
-    <script src="main.js"></script>
-    <script src="translate.js"></script>
+  <footer>
+    <p>جميع الحقوق محفوظة &copy; One World Net 2025</p>
+  </footer>
+  <script>
+    // القائمة الجانبية
+    const menuBtn = document.getElementById('menuBtn');
+    const sideMenu = document.getElementById('sideMenu');
+    const closeMenu = document.getElementById('closeMenu');
+    const loginMenu = document.getElementById('loginMenu');
+    const contactMenu = document.getElementById('contactMenu');
+    const loginSection = document.getElementById('login');
+    const contactSection = document.getElementById('contact');
+    // إظهار القائمة
+    menuBtn.onclick = () => { sideMenu.classList.add('open'); };
+    closeMenu.onclick = () => { sideMenu.classList.remove('open'); };
+    // إظهار قسم تسجيل الدخول
+    loginMenu.onclick = (e) => {
+      e.preventDefault();
+      loginSection.classList.add('active');
+      contactSection.classList.remove('active');
+      window.scrollTo({top: loginSection.offsetTop-40, behavior: 'smooth'});
+      sideMenu.classList.remove('open');
+    };
+    // إظهار قسم التواصل
+    contactMenu.onclick = (e) => {
+      e.preventDefault();
+      contactSection.classList.add('active');
+      loginSection.classList.remove('active');
+      window.scrollTo({top: contactSection.offsetTop-40, behavior: 'smooth'});
+      sideMenu.classList.remove('open');
+    };
+    // إخفاء الأقسام عند تحميل الصفحة
+    window.onload = () => {
+      loginSection.classList.remove('active');
+      contactSection.classList.remove('active');
+    };
+  </script>
 </body>
 </html>
