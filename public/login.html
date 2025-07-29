@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>تسجيل الدخول</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container glass" style="max-width:400px;margin:60px auto;">
+        <h2>تسجيل الدخول</h2>
+        <form id="loginForm">
+            <label>البريد الإلكتروني أو اسم المستخدم</label>
+            <input type="text" id="user" required>
+            <label>كلمة المرور</label>
+            <input type="password" id="pass" required>
+            <label>نوع الحساب</label>
+            <select id="role">
+                <option value="user">مستخدم</option>
+                <option value="subscriber">مشترك</option>
+                <option value="distributor">موزع</option>
+                <option value="partner">شريك</option>
+                <option value="edu">جهة تعليمية</option>
+                <option value="medical">جهة طبية</option>
+                <option value="gov">جهة حكومية</option>
+            </select>
+            <button type="submit">دخول</button>
+        </form>
+        <div id="loginMsg" style="color:#00e0ff;font-weight:bold;margin-top:10px;"></div>
+    </div>
+    <script>
+    document.getElementById('loginForm').onsubmit = function(e) {
+        e.preventDefault();
+        document.getElementById('loginMsg').textContent = 'تم تسجيل الدخول بنجاح (محاكاة)!';
+    };
+    </script>
+</body>
+</html>

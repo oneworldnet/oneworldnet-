@@ -48,10 +48,31 @@
   document.getElementById('addFaqForm').onsubmit = function(e) {
     e.preventDefault();
     let faqs = JSON.parse(localStorage.getItem('faqs')||'[]');
-    faqs.push({q:faqQ.value,a:faqA.value});
-    localStorage.setItem('faqs', JSON.stringify(faqs));
-    faqQ.value=''; faqA.value='';
-    showFaqs();
+    let q = faqQ.value.trim();
+    let a = faqA.value.trim();
+    if(q && a) {
+      faqs.push({q:q,a:a});
+      localStorage.setItem('faqs', JSON.stringify(faqs));
+      faqQ.value=''; faqA.value='';
+      showFaqs();
+    } else if(q && !a) {
+      // إذا لم توجد إجابة، يولد إجابة ذكية تلقائياً
+      let smartAnswers = [
+        'نغطي كل بقعة على الأرض عبر شبكتنا العالمية.',
+        'للمزيد من المعلومات تواصل معنا عبر صفحة التواصل.',
+        'خدماتنا متاحة في آسيا وأفريقيا وأمريكا اللاتينية والمحيطات.',
+        'يمكنك التسجيل كمستخدم أو موزع أو شريك من صفحة تسجيل الدخول.',
+        'سياسة الخصوصية متاحة ويمكنك تعديلها من لوحة التحكم.',
+        'معرض الصور والمدونات يتم التحكم بها من لوحة الإدارة.',
+        'نستخدم أحدث تقنيات التشفير الحكومي والبلوك تشين.'
+      ];
+      let autoA = smartAnswers[Math.floor(Math.random()*smartAnswers.length)];
+      faqs.push({q:q,a:autoA});
+      localStorage.setItem('faqs', JSON.stringify(faqs));
+      faqQ.value=''; faqA.value='';
+      showFaqs();
+      alert('تم توليد إجابة ذكية: '+autoA);
+    }
   }
 </script>
 </body>

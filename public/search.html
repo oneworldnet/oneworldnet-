@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>بحث عالمي | OneWorldNet</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav><!-- ...nav... --></nav>
+  <main class="glass section-glass">
+    <h1>بحث عالمي متعدد اللغات</h1>
+    <form id="searchForm">
+      <input type="text" id="searchInput" placeholder="ابحث هنا..." required>
+      <button type="submit">بحث</button>
+    </form>
+    <div id="searchResults" style="margin-top:18px;"></div>
+  </main>
+  <script>
+    document.getElementById('searchForm').onsubmit = function(e) {
+      e.preventDefault();
+      let q = document.getElementById('searchInput').value.toLowerCase();
+      let results = [];
+      // بحث في الأسئلة والتقييمات والشركاء
+      let faqs = JSON.parse(localStorage.getItem('faqs')||'[]');
+      let reviews = JSON.parse(localStorage.getItem('reviews')||'[]');
+      let partners = JSON.parse(localStorage.getItem('partners')||'[]');
+      results = results.concat(
+        faqs.filter(f=>f.q.toLowerCase().includes(q)||f.a.toLowerCase().includes(q)).map(f=>`<div class='glass-card'><b>سؤال:</b> ${f.q}<br><b>إجابة:</b> ${f.a}</div>`),
+        reviews.filter(r=>r.text.toLowerCase().includes(q)).map(r=>`<div class='glass-card'><b>تجربة:</b> ${r.text}</div>`),
+        partners.filter(p=>p.name.toLowerCase().includes(q)||p.country.toLowerCase().includes(q)).map(p=>`<div class='glass-card'><b>شريك:</b> ${p.name} (${p.country})</div>`)
+      );
+      document.getElementById('searchResults').innerHTML = results.length ? results.join('') : 'لا توجد نتائج.';
+    }
+  </script>
+</body>
+</html>

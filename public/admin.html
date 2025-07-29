@@ -51,6 +51,22 @@
         <label>رابط صورة الشعار (logo)</label>
         <input type="text" id="logoUrl">
         <hr>
+        <h4>شريط إعلاني متحرك (يظهر في الصفحة الرئيسية)</h4>
+        <input type="text" id="marqueeInput" placeholder="اكتب نص الشريط الإعلاني هنا...">
+        <button type="button" onclick="saveMarquee()">حفظ الشريط الإعلاني</button>
+        <hr>
+        <h4>مدونات الموقع</h4>
+        <textarea id="blogInput" placeholder="اكتب تدوينة جديدة..."></textarea>
+        <button type="button" onclick="addBlog()">إضافة تدوينة</button>
+        <div id="blogList"></div>
+        <hr>
+        <h4>سياسة الخصوصية</h4>
+        <textarea id="privacyInput" placeholder="اكتب أو عدل سياسة الخصوصية..."></textarea>
+        <button type="button" onclick="savePrivacy()">حفظ السياسة</button>
+        <hr>
+        <h4>خريطة العالم</h4>
+        <textarea id="mapInput" placeholder="اكتب وصف أو معلومات عن الخريطة..."></textarea>
+        <button type="button" onclick="saveMap()">حفظ الخريطة</button>
         <label>عنوان قسم من نحن</label>
         <input type="text" id="aboutTitle">
         <label>وصف قسم من نحن</label>
@@ -69,13 +85,13 @@
         <label>وصف الميزة الثالثة</label>
         <textarea id="feature3Desc"></textarea>
         <hr>
-        <label>صور المعرض (أسماء الصور مفصولة بفاصلة، مثال: 1.jpg,2.jpg,3.jpg)</label>
-        <input type="text" id="galleryImages">
-        <div id="galleryUploadBox" style="margin:8px 0 12px 0;padding:10px;border:2px dashed #00e0ff;border-radius:8px;text-align:center;cursor:pointer;background:#f8faff;">
-          <span>📤 اسحب الصور هنا أو اضغط للرفع</span>
-          <input type="file" id="galleryUpload" accept="image/*" multiple style="display:none;">
-        </div>
-        <div id="galleryPreview" style="display:flex;gap:8px;flex-wrap:wrap;"></div>
+        <h4>إضافة صورة للمعرض مع نص توضيحي</h4>
+        <form id="galleryForm" style="margin-bottom:12px;">
+            <input type="file" id="galleryImage" accept="image/*" required>
+            <input type="text" id="caption" placeholder="اكتب وصف للصورة" required>
+            <button type="submit">إضافة</button>
+        </form>
+        <div id="galleryList" style="display:flex;gap:18px;flex-wrap:wrap;"></div>
         <hr>
         <label>أرقام التواصل (افصل بينهم بفاصلة)</label>
         <input type="text" id="phones">
@@ -153,6 +169,35 @@
   </div>
 </div>
 <script>
+// شريط إعلاني متحرك
+document.getElementById('marqueeInput').value = localStorage.getItem('marqueeText') || '';
+function saveMarquee() {
+    localStorage.setItem('marqueeText', document.getElementById('marqueeInput').value);
+    alert('تم حفظ الشريط الإعلاني!');
+}
+// مدونات
+let blogs = JSON.parse(localStorage.getItem('blogs')||'[]');
+function renderBlogs() {
+    const blogList = document.getElementById('blogList');
+    blogList.innerHTML = blogs.length ? blogs.map((b,i)=>`<div style='background:#f8faff;margin:8px 0;padding:8px 12px;border-radius:8px;'><b>تدوينة ${i+1}:</b> ${b}</div>`).join('') : 'لا توجد تدوينات.';
+}
+renderBlogs();
+function addBlog() {
+    const val = document.getElementById('blogInput').value.trim();
+    if(val.length>2) { blogs.push(val); localStorage.setItem('blogs',JSON.stringify(blogs)); renderBlogs(); document.getElementById('blogInput').value=''; }
+}
+// سياسة الخصوصية
+document.getElementById('privacyInput').value = localStorage.getItem('privacyText') || '';
+function savePrivacy() {
+    localStorage.setItem('privacyText', document.getElementById('privacyInput').value);
+    alert('تم حفظ سياسة الخصوصية!');
+}
+// خريطة العالم
+document.getElementById('mapInput').value = localStorage.getItem('mapText') || '';
+function saveMap() {
+    localStorage.setItem('mapText', document.getElementById('mapInput').value);
+    alert('تم حفظ الخريطة!');
+}
 // تسجيل دخول اجتماعي (Google فقط - محاكاة)
 document.getElementById('googleLoginBtn').onclick = function(e) {
   e.preventDefault();
@@ -187,50 +232,45 @@ document.getElementById('replyForm').onsubmit = function(e) {
   setTimeout(()=>{document.getElementById('replyStatus').textContent='';document.getElementById('replyForm').style.display='none';}, 1500);
   showVisitorMsgs();
 }
-// رفع صور المعرض مباشرة
-const galleryBox = document.getElementById('galleryUploadBox');
-const galleryInput = document.getElementById('galleryUpload');
-const galleryPreview = document.getElementById('galleryPreview');
-galleryBox.onclick = ()=>galleryInput.click();
-galleryBox.ondragover = e=>{e.preventDefault();galleryBox.style.background='#e0f7fa';};
-galleryBox.ondragleave = e=>{e.preventDefault();galleryBox.style.background='#f8faff';};
-galleryBox.ondrop = function(e){
-  e.preventDefault();
-  galleryBox.style.background='#f8faff';
-  handleGalleryFiles(e.dataTransfer.files);
-};
-galleryInput.onchange = ()=>handleGalleryFiles(galleryInput.files);
-function handleGalleryFiles(files) {
-  let names = localStorage.getItem('galleryImages')||'';
-  Array.from(files).forEach(file=>{
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      // حفظ الصورة في localStorage (Base64)
-      let imgName = Date.now()+"_"+file.name;
-      localStorage.setItem('img_'+imgName, e.target.result);
-      names += (names ? ',' : '') + imgName;
-      document.getElementById('galleryImages').value = names;
-      localStorage.setItem('galleryImages', names);
-      showGalleryPreview();
+// إدارة معرض الصور مع نص توضيحي
+const galleryForm = document.getElementById('galleryForm');
+const galleryList = document.getElementById('galleryList');
+let galleryImages = JSON.parse(localStorage.getItem('galleryImagesV2') || '[]');
+
+function renderGalleryList() {
+    galleryList.innerHTML = '';
+    galleryImages.forEach((img, idx) => {
+        const div = document.createElement('div');
+        div.className = 'gallery-admin-item';
+        div.style = 'text-align:center;max-width:200px;';
+        div.innerHTML = `<img src="${img.url}" style="width:180px;height:120px;border-radius:10px;box-shadow:0 2px 8px #00e0ff33;object-fit:cover;"/><br><span style='color:#222;font-size:1em;'>${img.caption}</span><br><button onclick="removeGalleryImage(${idx})" style='margin-top:6px;background:#e53935;color:#fff;border:none;border-radius:6px;padding:2px 10px;'>حذف</button>`;
+        galleryList.appendChild(div);
+    });
+}
+
+function removeGalleryImage(idx) {
+    galleryImages.splice(idx, 1);
+    localStorage.setItem('galleryImagesV2', JSON.stringify(galleryImages));
+    renderGalleryList();
+}
+
+if(galleryForm) {
+    galleryForm.onsubmit = function(e) {
+        e.preventDefault();
+        const file = document.getElementById('galleryImage').files[0];
+        const caption = document.getElementById('caption').value;
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+            galleryImages.push({ url: evt.target.result, caption });
+            localStorage.setItem('galleryImagesV2', JSON.stringify(galleryImages));
+            renderGalleryList();
+            galleryForm.reset();
+        };
+        reader.readAsDataURL(file);
     };
-    reader.readAsDataURL(file);
-  });
 }
-function showGalleryPreview() {
-  let names = (localStorage.getItem('galleryImages')||'').split(',').filter(Boolean);
-  galleryPreview.innerHTML = '';
-  names.forEach(n=>{
-    let src = localStorage.getItem('img_'+n);
-    if(src) {
-      let img = document.createElement('img');
-      img.src = src;
-      img.alt = n;
-      img.style = 'width:60px;height:60px;object-fit:cover;border-radius:6px;border:1px solid #ccc;';
-      galleryPreview.appendChild(img);
-    }
-  });
-}
-showGalleryPreview();
+renderGalleryList();
 // دعم الوصول لذوي الاحتياجات
 function loadAccessibility() {
   document.getElementById('accFont').checked = localStorage.getItem('accFont') === 'on';

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>سياسة الخصوصية</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container glass">
+        <h2>سياسة الخصوصية</h2>
+        <div id="privacyBox"></div>
+    </div>
+    <script>
+    document.getElementById('privacyBox').textContent = localStorage.getItem('privacyText') || 'لا توجد سياسة خصوصية بعد.';
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>سياسة الخصوصية | OneWorldNet</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav><!-- ...nav... --></nav>
+  <main class="glass section-glass">
+    <h1>سياسة الخصوصية</h1>
+    <p>نحن نحترم خصوصيتك. جميع بياناتك محمية ولن يتم مشاركتها مع أي طرف ثالث. يمكنك اختيار اللغة لعرض السياسة بلغتك.</p>
+    <select id="privacyLang">
+      <option value="ar">العربية</option>
+      <option value="en">English</option>
+      <option value="fr">Français</option>
+      <option value="es">Español</option>
+    </select>
+    <div id="privacyText" style="margin-top:18px;"></div>
+  </main>
+  <script>
+    const privacy = {
+      ar: 'خصوصيتك مهمة لنا. لا نقوم بجمع بيانات شخصية إلا للضرورة، ولا نشاركها مع أي جهة خارجية.',
+      en: 'Your privacy is important to us. We do not collect personal data except as necessary, and we do not share it with any third party.',
+      fr: 'Votre vie privée est importante pour nous. Nous ne collectons des données personnelles que si nécessaire et ne les partageons avec aucun tiers.',
+      es: 'Su privacidad es importante para nosotros. No recopilamos datos personales excepto cuando es necesario y no los compartimos con terceros.'
+    };
+    function showPrivacy() {
+      let lang = document.getElementById('privacyLang').value;
+      document.getElementById('privacyText').textContent = privacy[lang];
+    }
+    document.getElementById('privacyLang').onchange = showPrivacy;
+    showPrivacy();
+  </script>
+</body>
+</html>

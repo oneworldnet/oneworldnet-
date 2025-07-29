@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>مدونات الموقع</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container glass">
+        <h2>مدونات الموقع</h2>
+        <div id="blogList"></div>
+    </div>
+    <script>
+    let blogs = JSON.parse(localStorage.getItem('blogs')||'[]');
+    const blogList = document.getElementById('blogList');
+    blogList.innerHTML = blogs.length ? blogs.map((b,i)=>`<div style='background:#f8faff;margin:8px 0;padding:8px 12px;border-radius:8px;'><b>تدوينة ${i+1}:</b> ${b}</div>`).join('') : 'لا توجد تدوينات.';
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مدونة OneWorldNet</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav><!-- ...nav... --></nav>
+  <main class="glass section-glass">
+    <h1>مدونة عالمية</h1>
+    <div id="blogList"></div>
+    <form id="addBlogForm" style="margin-top:24px;">
+      <h3>أضف مقالة</h3>
+      <input type="text" id="blogTitle" placeholder="عنوان المقالة" required>
+      <textarea id="blogContent" placeholder="المحتوى" required></textarea>
+      <select id="blogLang">
+        <option value="ar">العربية</option>
+        <option value="en">English</option>
+        <option value="fr">Français</option>
+        <option value="es">Español</option>
+      </select>
+      <button type="submit">نشر</button>
+    </form>
+  </main>
+  <script>
+    function showBlogs() {
+      let blogs = JSON.parse(localStorage.getItem('blogs')||'[]');
+      let lang = document.documentElement.lang || 'ar';
+      let html = blogs.filter(b=>b.lang===lang).map(b=>`<div class='glass-card'><b>${b.title}</b><br>${b.content}</div>`).join('');
+      document.getElementById('blogList').innerHTML = html || 'لا توجد مقالات.';
+    }
+    showBlogs();
+    document.getElementById('addBlogForm').onsubmit = function(e) {
+      e.preventDefault();
+      let blogs = JSON.parse(localStorage.getItem('blogs')||'[]');
+      blogs.push({title:blogTitle.value,content:blogContent.value,lang:blogLang.value});
+      localStorage.setItem('blogs', JSON.stringify(blogs));
+      blogTitle.value=''; blogContent.value='';
+      showBlogs();
+    }
+  </script>
+</body>
+</html>

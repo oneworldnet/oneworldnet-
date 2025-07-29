@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تقييمات وتجارب المستخدمين | OneWorldNet</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav><!-- ...nav... --></nav>
+  <main class="glass section-glass">
+    <h1>تقييمات وتجارب المستخدمين</h1>
+    <div id="reviewsList"></div>
+    <form id="addReviewForm" style="margin-top:24px;">
+      <h3>أضف تقييمك</h3>
+      <input type="text" id="reviewName" placeholder="اسمك" required>
+      <textarea id="reviewText" placeholder="تجربتك أو رأيك" required></textarea>
+      <select id="reviewLang">
+        <option value="ar">العربية</option>
+        <option value="en">English</option>
+        <option value="fr">Français</option>
+        <option value="es">Español</option>
+      </select>
+      <button type="submit">إرسال التقييم</button>
+    </form>
+  </main>
+  <script>
+    function showReviews() {
+      let reviews = JSON.parse(localStorage.getItem('reviews')||'[]');
+      let lang = document.documentElement.lang || 'ar';
+      let html = reviews.filter(r=>r.lang===lang).map(r=>`<div class='glass-card'><b>${r.name}:</b> ${r.text}</div>`).join('');
+      document.getElementById('reviewsList').innerHTML = html || 'لا توجد تقييمات.';
+    }
+    showReviews();
+    document.getElementById('addReviewForm').onsubmit = function(e) {
+      e.preventDefault();
+      let reviews = JSON.parse(localStorage.getItem('reviews')||'[]');
+      reviews.push({name:reviewName.value,text:reviewText.value,lang:reviewLang.value});
+      localStorage.setItem('reviews', JSON.stringify(reviews));
+      reviewName.value=''; reviewText.value='';
+      showReviews();
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>خريطة العالم</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container glass">
+        <h2>خريطة العالم</h2>
+        <div id="mapBox"></div>
+        <div style="margin-top:18px;">
+            <img src="images/worldmap.png" alt="World Map" style="width:100%;max-width:600px;border-radius:18px;box-shadow:0 4px 24px #00e0ff33;">
+            <ul style="color:#fff;font-size:1.1em;margin-top:12px;">
+                <li>آسيا</li>
+                <li>أفريقيا</li>
+                <li>أمريكا اللاتينية</li>
+                <li>المحيطات</li>
+                <li>تغطية كل بقعة على الأرض</li>
+            </ul>
+        </div>
+    </div>
+    <script>
+    document.getElementById('mapBox').textContent = localStorage.getItem('mapText') || 'لا توجد بيانات للخريطة بعد.';
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>World Coverage Map | OneWorldNet</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style> #map { height: 500px; border-radius: 18px; margin: 24px 0; } </style>
+</head>
+<body>
+  <nav><!-- ...nav... --></nav>
+  <main class="glass section-glass">
+    <h1>خريطة العالم التفاعلية</h1>
+    <div id="map"></div>
+  </main>
+  <script>
+    var map = L.map('map').setView([20, 0], 2);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: '© OpenStreetMap'
+    }).addTo(map);
+    // مثال: إضافة تغطية أو مستخدمين
+    L.circle([30, 31], {radius: 500000, color:'#00e0ff'}).addTo(map).bindPopup('مصر: تغطية متوفرة');
+    L.circle([40, -3], {radius: 500000, color:'#00e0ff'}).addTo(map).bindPopup('إسبانيا: تغطية متوفرة');
+  </script>
+</body>
+</html>
