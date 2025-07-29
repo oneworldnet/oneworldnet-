@@ -83,288 +83,159 @@
     }
   </style>
 </head>
-<body>
-  <nav>
-    <ul>
-      <li><a href="#hero" class="special" id="navHome">Home</a></li>
-      <li><a href="#about" id="navAbout">About</a></li>
-      <li><a href="#features" id="navFeatures">Features</a></li>
-      <li><a href="#gallery" id="galleryMenu">Gallery</a></li>
-      <li><a href="#contact" id="contactMenu" class="special">Contact</a></li>
-    </ul>
-    <select id="langSelect" style="margin:8px 12px 8px auto;float:right;padding:4px 10px;border-radius:8px;font-size:1em;">
-      <option value="en">English</option>
-      <option value="ar">العربية</option>
-      <option value="fr">Français</option>
-      <option value="de">Deutsch</option>
-      <option value="es">Español</option>
-    </select>
-  </nav>
-  <section class="hero" id="hero">
-    <h1 id="heroTitle">One World Net</h1>
-    <p id="heroDesc">The fastest and most widely covered global satellite internet for the Arab world and beyond. Complete solutions for schools, universities, hospitals, and remote villages at competitive prices and a humanitarian mission.</p>
-    <a href="#contact" class="cta-btn" id="ctaBtn">Book Now</a>
-  </section>
-  <section class="section" id="about">
-    <h2 id="aboutTitle">About</h2>
-    <p id="aboutDesc">One World Net provides you with fast and stable internet wherever you are, with comprehensive coverage and 24/7 customer service. Our goal is to connect everyone and support education and health in underserved areas.</p>
-  </section>
-  <section class="section alt" id="features">
-    <h2 id="featuresTitle">Features</h2>
-    <div class="features-list">
-      <div class="feature-box">
-        <img src="images/8.jpg" alt="Global Coverage" id="featureImg1">
-        <h3 id="feature1Title">True Global Coverage</h3>
-        <p id="feature1Desc">Satellite internet access anywhere in the world, even in remote areas, deserts, and seas, with unprecedented speed and stability.</p>
+  <body style="margin:0;overflow-x:hidden;">
+    <header style="position:relative;z-index:20;">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 16px;">
+        <img src="images/logo.jpg" alt="logo" style="height:38px;border-radius:10px;box-shadow:0 2px 8px #00e0ff33;">
+        <button id="menuBtn" style="background:none;border:none;cursor:pointer;font-size:2em;color:#1a237e;outline:none;display:flex;align-items:center;gap:6px;">
+          <span style="font-size:1.5em;">&#9776;</span>
+        </button>
       </div>
-      <div class="feature-box">
-        <img src="images/9.jpg" alt="High Speed" id="featureImg2">
-        <h3 id="feature2Title">High Speed & Stability</h3>
-        <p id="feature2Desc">Enjoy high upload and download speeds with 24/7 service stability, a real competitor to Starlink.</p>
+      <div id="sideMenu" style="position:fixed;top:0;left:0;width:260px;max-width:90vw;height:100vh;background:#fff;box-shadow:2px 0 16px #00e0ff22;z-index:100;transform:translateX(-100%);transition:transform 0.3s;display:flex;flex-direction:column;">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 16px 0 16px;">
+          <span style="font-weight:bold;font-size:1.2em;color:#1a237e;">Menu</span>
+          <button id="closeMenu" style="background:none;border:none;font-size:1.5em;cursor:pointer;color:#1a237e;">&times;</button>
+        </div>
+        <ul style="list-style:none;padding:24px 0 0 0;margin:0;flex:1;">
+          <li><button id="aboutMenu" style="background:none;border:none;width:100%;text-align:left;padding:12px 24px;font-size:1em;cursor:pointer;color:#1a237e;">من نحن</button></li>
+          <li><button id="galleryMenu" style="background:none;border:none;width:100%;text-align:left;padding:12px 24px;font-size:1em;cursor:pointer;color:#1a237e;">معرض الصور</button></li>
+          <li><button id="contactMenu" style="background:none;border:none;width:100%;text-align:left;padding:12px 24px;font-size:1em;cursor:pointer;color:#1a237e;">تواصل معنا</button></li>
+          <li><button id="loginMenu" style="background:none;border:none;width:100%;text-align:left;padding:12px 24px;font-size:1em;cursor:pointer;color:#1a237e;">تسجيل الدخول</button></li>
+          <li style="padding:12px 24px;">
+            <select id="langSelect" style="width:100%;padding:6px 10px;border-radius:8px;font-size:1em;">
+              <option value="en">English</option>
+              <option value="ar">العربية</option>
+              <option value="fr">Français</option>
+              <option value="de">Deutsch</option>
+              <option value="es">Español</option>
+            </select>
+          </li>
+        </ul>
       </div>
-      <div class="feature-box">
-        <img src="images/10.jpg" alt="Support" id="featureImg3">
-        <h3 id="feature3Title">24/7 Support</h3>
-        <p id="feature3Desc">Our professional support team is available anytime to solve all your technical issues.</p>
+    </header>
+    <div style="min-height:100vh;width:100vw;background:url('images/1.jpg') center/cover no-repeat;"></div>
+    <!-- قسم من نحن -->
+    <section id="about" class="section" style="background:#fff;text-align:center;padding:48px 0 32px 0;">
+      <div style="max-width:800px;margin:auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:32px;">
+        <img src="images/2.jpg" alt="about" style="width:220px;max-width:90vw;border-radius:18px;box-shadow:0 2px 12px #00e0ff22;">
+        <div style="flex:1;min-width:220px;text-align:left;direction:ltr;">
+          <h2 style="color:#1a237e;font-size:2em;margin-bottom:18px;">About Us</h2>
+          <p style="font-size:1.1em;color:#222;line-height:2;max-width:400px;margin:0 auto;">
+            One World Net is the fastest and most widely covered satellite internet network in the Arab world and globally. We provide complete solutions for schools, universities, hospitals, and remote villages at competitive prices with a humanitarian mission. Our goal is to connect everyone and support education and health in underserved areas.
+          </p>
+        </div>
       </div>
-    </div>
-  </section>
-  <section class="section" id="gallery" style="display:none;">
-    <h2 id="galleryTitle">Gallery</h2>
-    <div class="gallery-list">
-      <img src="images/7.jpg" alt="Gallery 1">
-      <img src="images/8.jpg" alt="Gallery 2">
-      <img src="images/9.jpg" alt="Gallery 3">
-    </div>
-  </section>
-  <section class="section alt contact-section" id="contact" style="display:none;">
-    <h2 id="contactTitle">Contact Us</h2>
-    <form>
-      <input type="text" name="name" id="contactName" placeholder="Name" required>
-      <input type="email" name="email" id="contactEmail" placeholder="Email" required>
-      <textarea name="message" id="contactMsg" placeholder="Your message" rows="4" required></textarea>
-      <button type="submit" id="contactBtn">Send</button>
-    </form>
-  </section>
-  <footer>
-    <p id="footerText">All rights reserved &copy; One World Net 2025</p>
-  </footer>
-  <script>
-    // ترجمة النصوص
-    const translations = {
-      en: {
-        navHome: 'Home', navAbout: 'About', navFeatures: 'Features', galleryMenu: 'Gallery', contactMenu: 'Contact',
-        heroTitle: 'One World Net', heroDesc: 'The fastest and most widely covered global satellite internet for the Arab world and beyond. Complete solutions for schools, universities, hospitals, and remote villages at competitive prices and a humanitarian mission.', ctaBtn: 'Book Now',
-        aboutTitle: 'About', aboutDesc: 'One World Net provides you with fast and stable internet wherever you are, with comprehensive coverage and 24/7 customer service. Our goal is to connect everyone and support education and health in underserved areas.',
-        featuresTitle: 'Features', feature1Title: 'True Global Coverage', feature1Desc: 'Satellite internet access anywhere in the world, even in remote areas, deserts, and seas, with unprecedented speed and stability.', feature2Title: 'High Speed & Stability', feature2Desc: 'Enjoy high upload and download speeds with 24/7 service stability, a real competitor to Starlink.', feature3Title: '24/7 Support', feature3Desc: 'Our professional support team is available anytime to solve all your technical issues.',
-        galleryTitle: 'Gallery', contactTitle: 'Contact Us', contactName: 'Name', contactEmail: 'Email', contactMsg: 'Your message', contactBtn: 'Send', footerText: 'All rights reserved © One World Net 2025'
-      },
-      ar: {
-        navHome: 'الرئيسية', navAbout: 'عن الشبكة', navFeatures: 'المميزات', galleryMenu: 'المعرض', contactMenu: 'تواصل',
-        heroTitle: 'ون وورلد نت', heroDesc: 'الإنترنت الفضائي العالمي الأسرع والأكثر تغطية في العالم العربي والعالم، حلول متكاملة للمدارس، الجامعات، المستشفيات، والقرى النائية بأسعار تنافسية ورسالة إنسانية.', ctaBtn: 'احجز الخدمة الآن',
-        aboutTitle: 'عن الشبكة', aboutDesc: 'شبكة الإنترنت الفضائي العالمية تقدم لك اتصالاً سريعاً ومستقراً أينما كنت، مع تغطية شاملة وخدمة عملاء على مدار الساعة. هدفنا إيصال الإنترنت للجميع، ودعم التعليم والصحة في المناطق المحرومة.',
-        featuresTitle: 'المميزات', feature1Title: 'تغطية عالمية حقيقية', feature1Desc: 'اتصال بالإنترنت الفضائي في أي مكان بالعالم، حتى في المناطق النائية والصحارى والبحار، بسرعة وثبات غير مسبوقين.', feature2Title: 'سرعة فائقة واستقرار عالي', feature2Desc: 'استمتع بسرعات تحميل ورفع عالية مع استقرار في الخدمة على مدار الساعة، منافس حقيقي لـ Starlink.', feature3Title: 'دعم فني متواصل', feature3Desc: 'فريقنا جاهز لمساعدتك على مدار الساعة وطوال أيام الأسبوع، أينما كنت.',
-        galleryTitle: 'معرض الصور', contactTitle: 'تواصل معنا', contactName: 'الاسم', contactEmail: 'البريد الإلكتروني', contactMsg: 'رسالتك', contactBtn: 'إرسال', footerText: 'جميع الحقوق محفوظة © ون وورلد نت 2025'
-      },
-      fr: {
-        navHome: 'Accueil', navAbout: 'À propos', navFeatures: 'Fonctionnalités', galleryMenu: 'Galerie', contactMenu: 'Contact',
-        heroTitle: 'One World Net', heroDesc: 'L’internet satellite mondial le plus rapide et le plus étendu pour le monde arabe et au-delà. Solutions complètes pour écoles, universités, hôpitaux et villages isolés à des prix compétitifs et une mission humanitaire.', ctaBtn: 'Réserver',
-        aboutTitle: 'À propos', aboutDesc: 'One World Net vous offre un internet rapide et stable où que vous soyez, avec une couverture complète et un service client 24h/24. Notre objectif est de connecter tout le monde et de soutenir l’éducation et la santé dans les zones défavorisées.',
-        featuresTitle: 'Fonctionnalités', feature1Title: 'Couverture mondiale réelle', feature1Desc: 'Accès internet satellite partout dans le monde, même dans les zones reculées, déserts et mers, avec une rapidité et une stabilité inégalées.', feature2Title: 'Haute vitesse & stabilité', feature2Desc: 'Profitez de vitesses élevées et d’une stabilité 24h/24, véritable concurrent de Starlink.', feature3Title: 'Support 24/7', feature3Desc: 'Notre équipe de support est disponible à tout moment pour résoudre tous vos problèmes techniques.',
-        galleryTitle: 'Galerie', contactTitle: 'Contactez-nous', contactName: 'Nom', contactEmail: 'E-mail', contactMsg: 'Votre message', contactBtn: 'Envoyer', footerText: 'Tous droits réservés © One World Net 2025'
-      },
-      de: {
-        navHome: 'Start', navAbout: 'Über uns', navFeatures: 'Funktionen', galleryMenu: 'Galerie', contactMenu: 'Kontakt',
-        heroTitle: 'One World Net', heroDesc: 'Das schnellste und am weitesten verbreitete globale Satelliteninternet für die arabische Welt und darüber hinaus. Komplettlösungen für Schulen, Universitäten, Krankenhäuser und abgelegene Dörfer zu wettbewerbsfähigen Preisen und mit humanitärer Mission.', ctaBtn: 'Jetzt buchen',
-        aboutTitle: 'Über uns', aboutDesc: 'One World Net bietet Ihnen schnelles und stabiles Internet, wo immer Sie sind, mit umfassender Abdeckung und 24/7-Kundendienst. Unser Ziel ist es, alle zu verbinden und Bildung und Gesundheit in benachteiligten Gebieten zu unterstützen.',
-        featuresTitle: 'Funktionen', feature1Title: 'Weltweite Abdeckung', feature1Desc: 'Satelliteninternet überall auf der Welt, auch in abgelegenen Gebieten, Wüsten und Meeren, mit beispielloser Geschwindigkeit und Stabilität.', feature2Title: 'Hohe Geschwindigkeit & Stabilität', feature2Desc: 'Genießen Sie hohe Upload- und Download-Geschwindigkeiten mit 24/7-Stabilität, ein echter Konkurrent zu Starlink.', feature3Title: '24/7 Support', feature3Desc: 'Unser professionelles Support-Team ist jederzeit verfügbar, um alle Ihre technischen Probleme zu lösen.',
-        galleryTitle: 'Galerie', contactTitle: 'Kontaktieren Sie uns', contactName: 'Name', contactEmail: 'E-Mail', contactMsg: 'Ihre Nachricht', contactBtn: 'Senden', footerText: 'Alle Rechte vorbehalten © One World Net 2025'
-      },
-      es: {
-        navHome: 'Inicio', navAbout: 'Sobre', navFeatures: 'Características', galleryMenu: 'Galería', contactMenu: 'Contacto',
-        heroTitle: 'One World Net', heroDesc: 'El internet satelital global más rápido y con mayor cobertura para el mundo árabe y más allá. Soluciones completas para escuelas, universidades, hospitales y aldeas remotas a precios competitivos y con una misión humanitaria.', ctaBtn: 'Reservar',
-        aboutTitle: 'Sobre', aboutDesc: 'One World Net te ofrece internet rápido y estable dondequiera que estés, con cobertura total y atención al cliente 24/7. Nuestro objetivo es conectar a todos y apoyar la educación y la salud en áreas desfavorecidas.',
-        featuresTitle: 'Características', feature1Title: 'Cobertura global real', feature1Desc: 'Acceso a internet satelital en cualquier parte del mundo, incluso en zonas remotas, desiertos y mares, con velocidad y estabilidad sin precedentes.', feature2Title: 'Alta velocidad y estabilidad', feature2Desc: 'Disfruta de altas velocidades de carga y descarga con estabilidad 24/7, un verdadero competidor de Starlink.', feature3Title: 'Soporte 24/7', feature3Desc: 'Nuestro equipo de soporte profesional está disponible en cualquier momento para resolver todos tus problemas técnicos.',
-        galleryTitle: 'Galería', contactTitle: 'Contáctanos', contactName: 'Nombre', contactEmail: 'Correo electrónico', contactMsg: 'Tu mensaje', contactBtn: 'Enviar', footerText: 'Todos los derechos reservados © One World Net 2025'
-      }
-    };
-    function setLang(lang) {
-      const t = translations[lang] || translations['en'];
-      document.documentElement.lang = lang;
-      document.body.dir = (lang === 'ar') ? 'rtl' : 'ltr';
-      // nav
-      document.getElementById('navHome').textContent = t.navHome;
-      document.getElementById('navAbout').textContent = t.navAbout;
-      document.getElementById('navFeatures').textContent = t.navFeatures;
-      document.getElementById('galleryMenu').textContent = t.galleryMenu;
-      document.getElementById('contactMenu').textContent = t.contactMenu;
-      // hero
-      document.getElementById('heroTitle').textContent = t.heroTitle;
-      document.getElementById('heroDesc').textContent = t.heroDesc;
-      document.getElementById('ctaBtn').textContent = t.ctaBtn;
-      // about
-      document.getElementById('aboutTitle').textContent = t.aboutTitle;
-      document.getElementById('aboutDesc').textContent = t.aboutDesc;
-      // features
-      document.getElementById('featuresTitle').textContent = t.featuresTitle;
-      document.getElementById('feature1Title').textContent = t.feature1Title;
-      document.getElementById('feature1Desc').textContent = t.feature1Desc;
-      document.getElementById('feature2Title').textContent = t.feature2Title;
-      document.getElementById('feature2Desc').textContent = t.feature2Desc;
-      document.getElementById('feature3Title').textContent = t.feature3Title;
-      document.getElementById('feature3Desc').textContent = t.feature3Desc;
-      // gallery
-      document.getElementById('galleryTitle').textContent = t.galleryTitle;
-      // contact
-      document.getElementById('contactTitle').textContent = t.contactTitle;
-      document.getElementById('contactName').placeholder = t.contactName;
-      document.getElementById('contactEmail').placeholder = t.contactEmail;
-      document.getElementById('contactMsg').placeholder = t.contactMsg;
-      document.getElementById('contactBtn').textContent = t.contactBtn;
-      // footer
-      document.getElementById('footerText').textContent = t.footerText;
-    }
-    document.getElementById('langSelect').onchange = function() {
-      setLang(this.value);
-    };
-    // Show/hide gallery and contact sections from menu
-    document.getElementById('galleryMenu').onclick = function(e) {
-      e.preventDefault();
-      document.getElementById('gallery').style.display = 'block';
-      document.getElementById('contact').style.display = 'none';
-      window.scrollTo({top: document.getElementById('gallery').offsetTop-40, behavior: 'smooth'});
-    };
-    document.getElementById('contactMenu').onclick = function(e) {
-      e.preventDefault();
-      document.getElementById('contact').style.display = 'block';
-      document.getElementById('gallery').style.display = 'none';
-      window.scrollTo({top: document.getElementById('contact').offsetTop-40, behavior: 'smooth'});
-    };
-    // Hide both on load and set default lang
-    window.onload = function() {
-      document.getElementById('gallery').style.display = 'none';
-      document.getElementById('contact').style.display = 'none';
-      setLang('en');
-    };
-  </script>
-</body>
-</html>
+    </section>
+    <!-- Gallery Section -->
+    <section id="gallery" class="section alt" style="background:#f7f7fa;text-align:center;padding:48px 0 32px 0;">
+      <h2 style="color:#1a237e;font-size:2em;margin-bottom:32px;">Gallery</h2>
+      <div class="gallery-list" style="display:flex;flex-wrap:wrap;gap:18px;justify-content:center;">
+        <img src="images/20.jpg" alt="Gallery Image 1" style="border-radius:16px;width:220px;height:140px;object-fit:cover;box-shadow:0 2px 8px #00e0ff22;">
+        <img src="images/21.jpg" alt="Gallery Image 2" style="border-radius:16px;width:220px;height:140px;object-fit:cover;box-shadow:0 2px 8px #00e0ff22;">
+        <img src="images/22.jpg" alt="Gallery Image 3" style="border-radius:16px;width:220px;height:140px;object-fit:cover;box-shadow:0 2px 8px #00e0ff22;">
+        <img src="images/23.jpg" alt="Gallery Image 4" style="border-radius:16px;width:220px;height:140px;object-fit:cover;box-shadow:0 2px 8px #00e0ff22;">
+      </div>
+    </section>
 
-            <img src="images/8.jpg" alt="تغطية عالمية">
-            <h3>تغطية عالمية حقيقية</h3>
-            <p>اتصال بالإنترنت الفضائي في أي مكان بالعالم، حتى في المناطق النائية والصحارى والبحار، بسرعة وثبات غير مسبوقين.</p>
+    <!-- News Section -->
+    <section id="news" class="section" style="background:#fff;text-align:center;padding:48px 0 32px 0;">
+      <h2 style="color:#1a237e;font-size:2em;margin-bottom:32px;">Latest News</h2>
+      <div style="max-width:900px;margin:auto;display:flex;flex-wrap:wrap;gap:32px;justify-content:center;">
+        <div style="background:#f7f7fa;border-radius:16px;box-shadow:0 2px 8px #00e0ff22;padding:24px;min-width:260px;max-width:340px;flex:1 1 260px;text-align:left;">
+          <img src="images/24.jpg" alt="News 1" style="width:100%;height:120px;object-fit:cover;border-radius:12px;margin-bottom:12px;">
+          <h3 style="color:#1a237e;font-size:1.2em;margin-bottom:10px;">One World Net Launches New Satellite Service</h3>
+          <p style="color:#222;font-size:1em;">We are excited to announce the launch of our new high-speed satellite internet service covering more remote areas than ever before.</p>
         </div>
-        <div class="feature">
-            <img src="images/9.jpg" alt="سرعة فائقة">
-            <h3>سرعة فائقة واستقرار عالي</h3>
-            <p>استمتع بسرعات تحميل ورفع عالية مع استقرار في الخدمة على مدار الساعة، منافس حقيقي لـ Starlink.</p>
+        <div style="background:#f7f7fa;border-radius:16px;box-shadow:0 2px 8px #00e0ff22;padding:24px;min-width:260px;max-width:340px;flex:1 1 260px;text-align:left;">
+          <img src="images/25.jpg" alt="News 2" style="width:100%;height:120px;object-fit:cover;border-radius:12px;margin-bottom:12px;">
+          <h3 style="color:#1a237e;font-size:1.2em;margin-bottom:10px;">Expanding Coverage in Africa</h3>
+          <p style="color:#222;font-size:1em;">Our network now reaches more countries in Africa, providing reliable internet to schools, hospitals, and communities in need.</p>
         </div>
-        <div class="feature">
-            <img src="images/10.jpg" alt="دعم فني">
-            <h3>دعم فني متواصل</h3>
-            <p>فريقنا جاهز لمساعدتك على مدار الساعة وطوال أيام الأسبوع، أينما كنت.</p>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section alt" style="background:#f7f7fa;text-align:center;padding:48px 0 32px 0;">
+      <h2 style="color:#1a237e;font-size:2em;margin-bottom:32px;">Our Projects</h2>
+      <div style="max-width:900px;margin:auto;display:flex;flex-wrap:wrap;gap:32px;justify-content:center;">
+        <div style="background:#fff;border-radius:16px;box-shadow:0 2px 8px #00e0ff22;padding:24px;min-width:260px;max-width:340px;flex:1 1 260px;text-align:left;">
+          <img src="images/26.jpg" alt="Project 1" style="width:100%;height:120px;object-fit:cover;border-radius:12px;margin-bottom:12px;">
+          <h3 style="color:#1a237e;font-size:1.2em;margin-bottom:10px;">Connecting Remote Schools</h3>
+          <p style="color:#222;font-size:1em;">We have connected over 100 remote schools to high-speed internet, empowering students and teachers with digital resources.</p>
         </div>
-    </section>
-    <section class="gallery" id="gallerySection">
-        <!-- صور المعرض ستضاف ديناميكياً من main.js -->
-    </section>
-    <section class="contact">
-        <h2>تواصل معنا الآن</h2>
-        <form id="contactForm">
-            <input type="text" name="name" placeholder="الاسم" required>
-            <input type="email" name="email" placeholder="البريد الإلكتروني" required>
-            <textarea name="message" placeholder="رسالتك" rows="4" required></textarea>
-            <button type="submit">إرسال</button>
-        </form>
-        <div class="socials">
-            <a id="waLink2" href="#" target="_blank"><img src="images/wa.svg" alt="واتساب"></a>
-            <a id="tgLink2" href="#" target="_blank"><img src="images/tg.svg" alt="تليجرام"></a>
+        <div style="background:#fff;border-radius:16px;box-shadow:0 2px 8px #00e0ff22;padding:24px;min-width:260px;max-width:340px;flex:1 1 260px;text-align:left;">
+          <img src="images/27.jpg" alt="Project 2" style="width:100%;height:120px;object-fit:cover;border-radius:12px;margin-bottom:12px;">
+          <h3 style="color:#1a237e;font-size:1.2em;margin-bottom:10px;">Healthcare Connectivity</h3>
+          <p style="color:#222;font-size:1em;">Our solutions provide hospitals and clinics in underserved areas with stable internet for telemedicine and health data exchange.</p>
         </div>
+      </div>
     </section>
-    <script src="main.js"></script>
-</body>
-</html>
-                    </div>
-                    <div class="service-box" style="background:#fff;padding:30px 20px;border-radius:16px;box-shadow:0 2px 8px #0001;flex:1;min-width:220px;max-width:300px;text-align:center;">
-                        <img src="images/6.jpg" alt="دعم فني على مدار الساعة" style="max-width:120px;margin-bottom:15px;border-radius:12px;">
-                        <h3 style="color:#0a0a0a;font-size:1.2em;margin-bottom:10px;">دعم فني على مدار الساعة</h3>
-                        <p style="color:#222;line-height:1.8;">فريق دعم فني محترف متواجد لخدمتك في أي وقت لحل جميع مشاكلك التقنية.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section id="gallery" class="gallery-section" style="background:#fff;padding:50px 0;">
-            <div style="max-width:1000px;margin:auto;">
-                <h2 id="galleryTitle" style="text-align:center;font-size:2em;color:#0a0a0a;margin-bottom:40px;">معرض الصور</h2>
-                <div class="gallery-list" style="display:flex;gap:30px;flex-wrap:wrap;justify-content:center;">
-                    <img src="images/7.jpg" alt="معرض 1" style="max-width:300px;border-radius:16px;">
-                    <img src="images/8.jpg" alt="معرض 2" style="max-width:300px;border-radius:16px;">
-                    <img src="images/9.jpg" alt="معرض 3" style="max-width:300px;border-radius:16px;">
-                </div>
-            </div>
-        </section>
-        <section id="contact" class="contact-section" style="background:#f7f7f7;padding:50px 0;">
-            <div style="max-width:600px;margin:auto;">
-                <h2 id="contactTitle" style="text-align:center;font-size:2em;color:#0a0a0a;margin-bottom:30px;">تواصل معنا</h2>
-                <form id="contactForm" style="background:#fff;padding:30px 20px;border-radius:16px;box-shadow:0 2px 8px #0001;">
-                    <input type="text" name="name" placeholder="الاسم" required id="contactName" style="margin-bottom:10px;">
-                    <input type="email" name="email" placeholder="البريد الإلكتروني" required id="contactEmail" style="margin-bottom:10px;">
-                    <textarea name="message" placeholder="رسالتك" required id="contactMsg" style="margin-bottom:10px;"></textarea>
-                    <button type="submit" id="contactBtn" style="background:#0a0a0a;">إرسال</button>
-                </form>
-                <div class="social" style="margin-top:20px;text-align:center;">
-                    <a href="https://wa.me/201005341825" target="_blank" class="whatsapp" id="waLink" style="margin-left:10px;">واتساب</a>
-                    <a href="https://t.me/201005341825" target="_blank" class="telegram" id="tgLink">تليجرام</a>
-                </div>
-            </div>
-        </section>
-    <section id="login" class="login-section">
-      <h2 id="loginTitle">تسجيل الدخول</h2>
-      <form id="loginForm">
-        <input type="email" name="email" placeholder="البريد الإلكتروني" required id="loginEmail">
-        <input type="password" name="password" placeholder="كلمة المرور" required id="loginPass">
-        <button type="submit" id="loginBtn">دخول</button>
-      </form>
+    <!-- Contact Us Section -->
+    <section id="contact" class="section" style="background:#fff;text-align:center;padding:48px 0 32px 0;">
+      <h2 style="color:#1a237e;font-size:2em;margin-bottom:24px;">Contact Us</h2>
+      <p style="font-size:1.1em;color:#222;max-width:500px;margin:0 auto 24px auto;">We are here for you 24/7. Contact us on any platform below and our team will respond as soon as possible.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:24px;justify-content:center;align-items:center;margin-top:24px;">
+        <a href="https://wa.me/201005341825" target="_blank" title="WhatsApp" style="display:inline-block;"><img src="images/wa.svg" alt="WhatsApp" style="width:48px;"></a>
+        <a href="https://t.me/oneworldnet" target="_blank" title="Telegram" style="display:inline-block;"><img src="images/tg.svg" alt="Telegram" style="width:48px;"></a>
+        <a href="mailto:info@oneworldnet.com" target="_blank" title="Gmail" style="display:inline-block;"><img src="images/gm.svg" alt="Gmail" style="width:48px;"></a>
+        <a href="https://discord.gg/oneworldnet" target="_blank" title="Discord" style="display:inline-block;"><img src="images/ds.svg" alt="Discord" style="width:48px;"></a>
+        <a href="https://twitter.com/oneworldnet" target="_blank" title="Twitter" style="display:inline-block;"><img src="images/tw.svg" alt="Twitter" style="width:48px;"></a>
+        <a href="https://facebook.com/oneworldnet" target="_blank" title="Facebook" style="display:inline-block;"><img src="images/fb.svg" alt="Facebook" style="width:48px;"></a>
+        <a href="https://tiktok.com/@oneworldnet" target="_blank" title="TikTok" style="display:inline-block;"><img src="images/tt.svg" alt="TikTok" style="width:48px;"></a>
+      </div>
     </section>
-    </main>
-    <footer>
-        <p id="footerText">جميع الحقوق محفوظة &copy; One World Net 2025</p>
-  <footer>
-    <p>جميع الحقوق محفوظة &copy; One World Net 2025</p>
-  </footer>
-  <script>
-    // القائمة الجانبية
-    const menuBtn = document.getElementById('menuBtn');
-    const sideMenu = document.getElementById('sideMenu');
-    const closeMenu = document.getElementById('closeMenu');
-    const loginMenu = document.getElementById('loginMenu');
-    const contactMenu = document.getElementById('contactMenu');
-    const loginSection = document.getElementById('login');
-    const contactSection = document.getElementById('contact');
-    // إظهار القائمة
-    menuBtn.onclick = () => { sideMenu.classList.add('open'); };
-    closeMenu.onclick = () => { sideMenu.classList.remove('open'); };
-    // إظهار قسم تسجيل الدخول
-    loginMenu.onclick = (e) => {
-      e.preventDefault();
-      loginSection.classList.add('active');
-      contactSection.classList.remove('active');
-      window.scrollTo({top: loginSection.offsetTop-40, behavior: 'smooth'});
-      sideMenu.classList.remove('open');
-    };
-    // إظهار قسم التواصل
-    contactMenu.onclick = (e) => {
-      e.preventDefault();
-      contactSection.classList.add('active');
-      loginSection.classList.remove('active');
-      window.scrollTo({top: contactSection.offsetTop-40, behavior: 'smooth'});
-      sideMenu.classList.remove('open');
-    };
-    // إخفاء الأقسام عند تحميل الصفحة
-    window.onload = () => {
-      loginSection.classList.remove('active');
-      contactSection.classList.remove('active');
-    };
-  </script>
-</body>
-</html>
+    <!-- قسم المميزات -->
+    <section id="features" class="section alt" style="background:#f7f7fa;text-align:center;padding:48px 0 32px 0;">
+      <h2 style="color:#1a237e;font-size:2em;margin-bottom:32px;">Features</h2>
+      <div class="features-list" style="display:flex;flex-wrap:wrap;gap:24px;justify-content:center;">
+        <div class="feature-box" style="background:#fff;border-radius:16px;box-shadow:0 2px 10px #00e0ff22;padding:28px 18px;min-width:180px;max-width:320px;flex:1 1 180px;text-align:center;">
+          <img src="images/3.jpg" alt="Global Coverage" style="width:64px;margin-bottom:10px;border-radius:12px;">
+          <h3 style="font-size:1.1em;margin:0 0 8px 0;color:#0a0a0a;">True Global Coverage</h3>
+          <p style="font-size:0.98em;color:#444;">Satellite internet access anywhere in the world, even in remote areas, deserts, and seas, with unprecedented speed and stability.</p>
+        </div>
+        <div class="feature-box" style="background:#fff;border-radius:16px;box-shadow:0 2px 10px #00e0ff22;padding:28px 18px;min-width:180px;max-width:320px;flex:1 1 180px;text-align:center;">
+          <img src="images/4.jpg" alt="High Speed" style="width:64px;margin-bottom:10px;border-radius:12px;">
+          <h3 style="font-size:1.1em;margin:0 0 8px 0;color:#0a0a0a;">High Speed & Stability</h3>
+          <p style="font-size:0.98em;color:#444;">Enjoy high upload and download speeds with 24/7 service stability, a real competitor to Starlink.</p>
+        </div>
+        <div class="feature-box" style="background:#fff;border-radius:16px;box-shadow:0 2px 10px #00e0ff22;padding:28px 18px;min-width:180px;max-width:320px;flex:1 1 180px;text-align:center;">
+          <img src="images/5.jpg" alt="Support" style="width:64px;margin-bottom:10px;border-radius:12px;">
+          <h3 style="font-size:1.1em;margin:0 0 8px 0;color:#0a0a0a;">24/7 Support</h3>
+          <p style="font-size:0.98em;color:#444;">Our professional support team is available anytime to solve all your technical issues.</p>
+        </div>
+      </div>
+    </section>
+    <footer style="background:#0a0a0a;color:#fff;text-align:center;padding:18px 0 6px 0;margin-top:0;font-size:1em;">
+      <p style="margin:0;">جميع الحقوق محفوظة &copy; one world 2025</p>
+    </footer>
+    <script>
+      // Menu translation (English only for now)
+      const translations = {
+        en: { about: 'About Us', gallery: 'Gallery', contact: 'Contact Us', login: 'Login', menu: 'Menu' }
+      };
+      const langSelect = document.getElementById('langSelect');
+      function setMenuLang(lang) {
+        document.getElementById('aboutMenu').textContent = translations['en'].about;
+        document.getElementById('galleryMenu').textContent = translations['en'].gallery;
+        document.getElementById('contactMenu').textContent = translations['en'].contact;
+        document.getElementById('loginMenu').textContent = translations['en'].login;
+        document.querySelector('#sideMenu span').textContent = translations['en'].menu;
+        document.documentElement.lang = 'en';
+        document.body.dir = 'ltr';
+      }
+      langSelect.onchange = function() {
+        setMenuLang('en');
+      };
+      // القائمة الجانبية
+      const menuBtn = document.getElementById('menuBtn');
+      const sideMenu = document.getElementById('sideMenu');
+      const closeMenu = document.getElementById('closeMenu');
+      menuBtn.onclick = () => { sideMenu.style.transform = 'translateX(0)'; };
+      closeMenu.onclick = () => { sideMenu.style.transform = 'translateX(-100%)'; };
+      // تعيين اللغة الافتراضية
+      window.onload = function() {
+        setMenuLang('en');
+        sideMenu.style.transform = 'translateX(-100%)';
+      };
+    </script>
+  </body>
