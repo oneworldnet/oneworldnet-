@@ -28,8 +28,9 @@
     function showReviews() {
       let reviews = JSON.parse(localStorage.getItem('reviews')||'[]');
       let lang = document.documentElement.lang || 'ar';
-      let html = reviews.filter(r=>r.lang===lang).map(r=>`<div class='glass-card'><b>${r.name}:</b> ${r.text}</div>`).join('');
-      document.getElementById('reviewsList').innerHTML = html || 'لا توجد تقييمات.';
+      let filtered = reviews.filter(r=>r.lang===lang);
+      let html = filtered.length ? filtered.map(r=>`<div class='glass-card'><b>${r.name}:</b> ${r.text}</div>`).join('') : 'لا توجد تقييمات.';
+      document.getElementById('reviewsList').innerHTML = html;
     }
     showReviews();
     document.getElementById('addReviewForm').onsubmit = function(e) {
