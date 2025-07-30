@@ -9,8 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- شريط إعلاني متحرك -->
-  <div id="marqueeBar" class="marquee-bar"><span id="marqueeText">شبكة العالم الواحد - الإنترنت بلا حدود، أينما كنت!</span></div>
+
 
   <!-- الهيدر -->
   <header>
@@ -44,17 +43,19 @@
       <h2 class="text-center" style="margin-bottom:24px;">خدماتنا</h2>
       <div class="row">
         <div class="col-md-4 glass-card text-center">
-          <img src="images/1.jpg" alt="خدمة 1" style="width:80px; border-radius:12px; margin-bottom:12px;">
+          <a href="map.html" style="display:block;">
+            <img src="images/2.jpg" alt="تغطية عالمية" style="width:140px; height:140px; border-radius:18px; margin-bottom:12px; object-fit:cover; box-shadow:0 2px 16px #00e0ff99;">
+          </a>
           <h4>تغطية عالمية</h4>
           <p>اتصال إنترنت عالي السرعة في أي مكان بالعالم، حتى في المناطق النائية.</p>
         </div>
         <div class="col-md-4 glass-card text-center">
-          <img src="images/2.jpg" alt="خدمة 2" style="width:80px; border-radius:12px; margin-bottom:12px;">
+          <img src="images/3.jpg" alt="أمان وخصوصية" style="width:140px; height:140px; border-radius:18px; margin-bottom:12px; object-fit:cover; box-shadow:0 2px 16px #00e0ff99;">
           <h4>أمان وخصوصية</h4>
           <p>حماية بياناتك وخصوصيتك بأحدث تقنيات التشفير.</p>
         </div>
         <div class="col-md-4 glass-card text-center">
-          <img src="images/3.jpg" alt="خدمة 3" style="width:80px; border-radius:12px; margin-bottom:12px;">
+          <img src="images/4.jpg" alt="دعم فني متواصل" style="width:140px; height:140px; border-radius:18px; margin-bottom:12px; object-fit:cover; box-shadow:0 2px 16px #00e0ff99;">
           <h4>دعم فني متواصل</h4>
           <p>فريق دعم متواجد 24/7 لمساعدتك في أي وقت.</p>
         </div>
@@ -62,23 +63,12 @@
     </div>
   </section>
 
-  <section id="coverage" class="section-glass">
-    <div class="container text-center">
-      <h2 style="margin-bottom:18px;">التغطية العالمية</h2>
-      <img src="images/worldmap.jpg" alt="خريطة التغطية" style="max-width:100%; border-radius:14px; margin-bottom:18px;">
-      <p>شبكتنا تغطي أكثر من 95% من سطح الأرض، لتبقى على اتصال دائم أينما كنت.</p>
-    </div>
-  </section>
 
-  <section id="contact" class="section-glass">
-    <div class="container text-center">
-      <h2 style="margin-bottom:18px;">تواصل معنا</h2>
-      <p>للاستفسارات أو الدعم، تواصل معنا عبر البريد الإلكتروني: <a href="mailto:support@oneworldnet.com" style="color:#00e0ff;">support@oneworldnet.com</a></p>
-    </div>
-  </section>
+
+
 
   <!-- الفوتر -->
-  <footer style="background:rgba(10,25,47,0.95); color:#fff; text-align:center; padding:18px 0; border-top:1.5px solid #00e0ff33; margin-top:32px;">
+  <footer style="background:#0a0a0a; color:#fff; text-align:center; padding:18px 0; border-top:1.5px solid #00e0ff33; margin-top:32px;">
     <div>جميع الحقوق محفوظة &copy; one world net 2025</div>
   </footer>
 
@@ -268,59 +258,11 @@
       }
     </script>
     <!-- حلول القطاعات -->
-    <section id="solutions" class="section" style="background:#181a1b;text-align:center;padding:48px 0 32px 0;">
-      <h2 style="color:#00e0ff;font-size:2em;margin-bottom:32px;">Empowering Every Sector</h2>
-      <div style="max-width:1100px;margin:auto;display:flex;flex-wrap:wrap;gap:32px;justify-content:center;">
-        <div style="background:#23272a;border-radius:16px;box-shadow:0 2px 10px #00e0ff22;padding:28px 18px;min-width:220px;max-width:300px;flex:1 1 220px;text-align:center;">
-          <img src="images/10.jpg" alt="Education" style="width:54px;height:54px;object-fit:cover;margin-bottom:12px;border-radius:12px;">
-          <h3 style="color:#00e0ff;font-size:1.1em;margin-bottom:8px;">Free Education</h3>
-          <p style="color:#ccc;font-size:1em;">Connecting schools and students everywhere to free, high-quality digital education and global knowledge.</p>
-        </div>
-        <div style="background:#23272a;border-radius:16px;box-shadow:0 2px 10px #00e0ff22;padding:28px 18px;min-width:220px;max-width:300px;flex:1 1 220px;text-align:center;">
-          <img src="images/11.jpg" alt="Healthcare" style="width:54px;height:54px;object-fit:cover;margin-bottom:12px;border-radius:12px;">
-          <h3 style="color:#00e0ff;font-size:1.1em;margin-bottom:8px;">Free Healthcare</h3>
-          <p style="color:#ccc;font-size:1em;">Enabling telemedicine and health data for clinics and hospitals in remote and underserved areas.</p>
-        </div>
-        <div style="background:#23272a;border-radius:16px;box-shadow:0 2px 10px #00e0ff22;padding:28px 18px;min-width:220px;max-width:300px;flex:1 1 220px;text-align:center;">
-          <img src="images/12.jpg" alt="Government" style="width:54px;height:54px;object-fit:cover;margin-bottom:12px;border-radius:12px;">
-          <h3 style="color:#00e0ff;font-size:1.1em;margin-bottom:8px;">Government & NGOs</h3>
-          <p style="color:#ccc;font-size:1em;">Supporting governments and humanitarian organizations to deliver aid, security, and digital services for all.</p>
-        </div>
-        <div style="background:#23272a;border-radius:16px;box-shadow:0 2px 10px #00e0ff22;padding:28px 18px;min-width:220px;max-width:300px;flex:1 1 220px;text-align:center;">
-          <img src="images/13.jpg" alt="Peace" style="width:54px;height:54px;object-fit:cover;margin-bottom:12px;border-radius:12px;">
-          <h3 style="color:#00e0ff;font-size:1.1em;margin-bottom:8px;">Goodness & Peace</h3>
-          <p style="color:#ccc;font-size:1em;">Spreading knowledge, kindness, and peace to every human, everywhere. One World, one family.</p>
-        </div>
-      </div>
-    </section>
+
     <!-- رسالة إنسانية ملهمة -->
-    <section id="mission" class="section alt" style="background:#23272a;text-align:center;padding:40px 0 24px 0;">
-      <h2 style="color:#00e0ff;font-size:1.7em;margin-bottom:18px;">Our Mission: Connecting Humanity</h2>
-      <p style="color:#fff;font-size:1.2em;max-width:700px;margin:0 auto 18px auto;line-height:2;">
-        We believe that secure internet, free education, and accessible healthcare are basic human rights. One World Net is dedicated to making life easier, safer, and more hopeful for everyone—regardless of location, background, or resources. Together, we build a world of opportunity, knowledge, and peace for all.
-      </p>
-    </section>
+
     <!-- قسم من نحن -->
-    <section id="about" class="section" style="text-align:center;padding:48px 0 32px 0;background:#181a1b;">
-      <div style="max-width:950px;margin:auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:40px;">
-        <div style="flex:1;min-width:260px;text-align:left;direction:ltr;">
-          <h2 id="aboutTitle" style="color:#00e0ff;font-size:2.3em;margin-bottom:18px;font-weight:700;letter-spacing:1px;">About OneWorldNet</h2>
-          <p id="aboutDesc" style="font-size:1.18em;color:#b3e5fc;line-height:2;max-width:520px;margin:0 auto 18px auto;">
-            OneWorldNet is the world’s most advanced satellite internet network—delivering ultra-fast, secure, and affordable connectivity to every person, business, and community on the planet. Our mission: connect humanity, bridge the digital divide, and empower progress everywhere.
-          </p>
-          <ul style="list-style:none;padding:0;margin:0 0 0 0;">
-            <li style="display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:1.08em;color:#fff;"><span style="font-size:1.3em;color:#00e0ff;">✔️</span> 100% global coverage—no dead zones</li>
-            <li style="display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:1.08em;color:#fff;"><span style="font-size:1.3em;color:#00e0ff;">✔️</span> Military-grade security & privacy</li>
-            <li style="display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:1.08em;color:#fff;"><span style="font-size:1.3em;color:#00e0ff;">✔️</span> Backed by governments & global organizations</li>
-            <li style="display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:1.08em;color:#fff;"><span style="font-size:1.3em;color:#00e0ff;">✔️</span> Affordable for all—no hidden fees</li>
-          </ul>
-        </div>
-        <img id="aboutImg" src="images/2.jpg" alt="about" style="width:380px;max-width:98vw;height:340px;object-fit:cover;border-radius:18px;box-shadow:0 4px 24px #00e0ff33;">
-      </div>
-      <div style="text-align:center;margin-top:40px;">
-        <a href="contact.html" style="display:inline-block;background:linear-gradient(90deg,#00e0ff 60%,#1a237e 100%);color:#fff;font-weight:bold;padding:16px 38px;border-radius:30px;font-size:1.2em;box-shadow:0 4px 16px #00e0ff33;text-decoration:none;transition:background 0.2s;">Contact Us</a>
-      </div>
-    </section>
+
     <!-- روابط للصفحات المنفصلة -->
     <!-- باقي الأقسام (معرض الصور، الأخبار، تواصل معنا) تم نقلها لصفحات منفصلة -->
     <!-- نهاية الصفحة الرئيسية -->
