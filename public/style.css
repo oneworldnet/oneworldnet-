@@ -1,85 +1,115 @@
-@media (prefers-color-scheme: light) {
-  body {
-    background: linear-gradient(120deg, #e3f2fd 0%, #b3c6e6 100%), url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=1500&q=80');
-    color: #222;
-  }
-  header, nav, main, .glass, .section-glass, footer {
-    background: rgba(255,255,255,0.85) !important;
-    color: #222 !important;
-    border-color: #b3c6e6 !important;
-    box-shadow: 0 2px 12px #b3c6e633;
-  }
-  nav a, nav a.special, .btn-glass, form button {
-    color: #1a237e !important;
-    background: linear-gradient(90deg,#b3c6e6 60%,#e3f2fd 100%) !important;
-  }
-  nav a:hover, .btn-glass:hover, form button:hover {
-    background: linear-gradient(90deg,#e3f2fd 60%,#b3c6e6 100%) !important;
-    color: #1a237e !important;
-  }
-}
 body {
-    font-family: 'Cairo', 'Tajawal', Arial, sans-serif;
-    direction: rtl;
-    background: #000 !important;
-    color: #fff;
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    box-shadow: none;
+  font-family: 'Cairo', 'Tajawal', Arial, sans-serif;
+  direction: rtl;
+  background: linear-gradient(120deg, #0a192f 0%, #1a237e 100%) fixed;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  box-shadow: none;
+}
 
 /* شريط إعلاني متحرك */
 .marquee-bar {
-    width: 100vw;
-    background: linear-gradient(90deg,#00e0ff 60%,#1a237e 100%);
-    color: #fff;
-    font-size: 1.2em;
-    font-weight: bold;
-    padding: 10px 0;
-    text-align: center;
-    overflow: hidden;
-    white-space: nowrap;
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    z-index: 1002;
-    box-shadow: 0 2px 12px #00e0ff33;
+  width: 100vw;
+  background: linear-gradient(90deg,#00e0ff 60%,#1a237e 100%);
+  color: #fff;
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 10px 0;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1002;
+  box-shadow: 0 2px 12px #00e0ff33;
 }
 .marquee-bar span {
-    display: inline-block;
-    animation: marquee-move 18s linear infinite;
-    padding-left: 100vw;
+  display: inline-block;
+  animation: marquee-move 18s linear infinite;
+  padding-left: 100vw;
 }
 @keyframes marquee-move {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-100vw); }
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100vw); }
 }
-}
-header, nav {
-    background: rgba(10, 25, 47, 0.85);
-    color: #fff;
-    padding: 20px 0;
-    text-align: center;
-    border-bottom: 1.5px solid #00e0ff33;
-    box-shadow: 0 2px 12px #00e0ff22;
-    backdrop-filter: blur(8px);
+
+header, nav, .navbar-glass {
+  background: rgba(10, 25, 47, 0.85) !important;
+  color: #fff;
+  padding: 20px 0 10px 0;
+  text-align: center;
+  border-bottom: 1.5px solid #00e0ff33;
+  box-shadow: 0 2px 12px #00e0ff22;
+  backdrop-filter: blur(8px);
 }
 nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
 }
 nav a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: bold;
-    padding: 10px 18px;
-    border-radius: 8px;
-    transition: background 0.2s, color 0.2s;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px 18px;
+  border-radius: 8px;
+  transition: background 0.2s, color 0.2s;
+}
+nav a:hover {
+  background: linear-gradient(90deg,#1a237e 60%,#00e0ff 100%);
+  color: #fff;
+}
+
+.section-glass {
+  background: rgba(20, 30, 60, 0.55);
+  border-radius: 18px;
+  box-shadow: 0 8px 32px 0 #00e0ff22;
+  backdrop-filter: blur(8px);
+  border: 1.5px solid #00e0ff33;
+  padding: 32px 24px;
+  margin: 32px auto;
+  max-width: 900px;
+}
+.glass-card {
+  background: rgba(20, 30, 60, 0.65);
+  border-radius: 16px;
+  box-shadow: 0 4px 16px #00e0ff22;
+  padding: 24px 18px;
+  margin-bottom: 24px;
+  border: 1.5px solid #00e0ff33;
+  min-height: 220px;
+}
+.btn-glass {
+  background: linear-gradient(90deg,#00e0ff 60%,#1a237e 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  box-shadow: 0 2px 8px #00e0ff33;
+  transition: 0.2s;
+  cursor: pointer;
+}
+.btn-glass:hover {
+  background: linear-gradient(90deg,#1a237e 60%,#00e0ff 100%);
+  color: #fff;
+  transform: scale(1.04);
+}
+
+footer {
+  background: rgba(10,25,47,0.95);
+  color: #fff;
+  text-align: center;
+  padding: 18px 0;
+  border-top: 1.5px solid #00e0ff33;
+  margin-top: 32px;
+  font-size: 1.1em;
 }
 nav a.special, .btn-glass {
     background: linear-gradient(90deg,#00e0ff 60%,#1a237e 100%);
