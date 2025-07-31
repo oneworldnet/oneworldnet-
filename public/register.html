@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register | one world net</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body { background: #18120b; color: #fff; font-family: 'Cairo', Arial, sans-serif; min-height: 100vh; margin: 0; }
+    .register-container {
+      max-width: 400px;
+      margin: 100px auto 0 auto;
+      background: #23160de6;
+      border-radius: 18px;
+      box-shadow: 0 4px 24px #3e272355;
+      padding: 36px 28px 28px 28px;
+      text-align: center;
+    }
+    .register-container h2 {
+      color: #FFD600;
+      margin-bottom: 18px;
+      font-size: 2em;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    .register-container form { display: flex; flex-direction: column; gap: 16px; }
+    .register-container input {
+      padding: 12px;
+      border-radius: 8px;
+      border: 1.5px solid #FFA726;
+      background: #18120b;
+      color: #fff;
+      font-size: 1.1em;
+      outline: none;
+      transition: border 0.2s;
+    }
+    .register-container input:focus {
+      border: 1.5px solid #FFD600;
+    }
+    .register-container button {
+      background: #FFD600;
+      color: #3e2723;
+      font-weight: bold;
+      padding: 12px 0;
+      border-radius: 30px;
+      font-size: 1.15em;
+      border: none;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .register-container button:hover {
+      background: #FFA726;
+      color: #fff;
+    }
+    .register-container .alt {
+      color: #FFA726;
+      margin-top: 18px;
+      font-size: 1em;
+    }
+    .register-container .alt a { color: #FFD600; text-decoration: underline; }
+    @media (max-width: 600px) {
+      .register-container { margin: 32px 4vw 0 4vw; padding: 18px 4vw; }
+    }
+  </style>
+</head>
+<body>
+  <div class="register-container">
+    <h2>Create Account</h2>
+    <form id="registerForm" autocomplete="off">
+      <input type="text" id="regName" placeholder="Full Name or Username" required>
+      <input type="email" id="regEmail" placeholder="Email (optional)">
+      <input type="tel" id="regPhone" placeholder="Mobile Number (optional)">
+      <button type="submit">Register</button>
+    </form>
+    <div class="alt">Already have an account? <a href="login.html">Login</a></div>
+  </div>
+  <script>
+    document.getElementById('registerForm').onsubmit = function(e) {
+      e.preventDefault();
+      const name = regName.value.trim();
+      const email = regEmail.value.trim();
+      const phone = regPhone.value.trim();
+      if(!name) return alert('Please enter your name or username.');
+      localStorage.setItem('ownet_user', JSON.stringify({name, email, phone}));
+      window.location.href = 'login.html';
+    };
+  </script>
+</body>
+</html>
