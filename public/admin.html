@@ -17,6 +17,17 @@
     </style>
 </head>
 <body>
+<!-- زر ترجمة جوجل العالمي -->
+<div style="position:fixed;top:18px;left:18px;z-index:9999;">
+  <div id="google_translate_element"></div>
+</div>
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'ar', includedLanguages: '', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 <div class="admin-container" id="adminLogin">
     <h2>تسجيل دخول لوحة التحكم</h2>
     <button id="googleLoginBtn" style="background:#fff;color:#222;border:1px solid #ccc;padding:8px 18px;border-radius:6px;font-weight:bold;margin-bottom:10px;display:flex;align-items:center;gap:8px;">
@@ -44,6 +55,58 @@
       </div>
     </div>
     <form id="adminForm">
+    <div class="section-title" style="margin-top:32px;">إدارة الأسئلة الشائعة للمساعد الذكي</div>
+    <div id="faqManager" style="background:#18120b;border-radius:12px;padding:18px 12px 12px 12px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
+      <div style="margin-bottom:10px;">
+        <input type="text" id="faqQ" placeholder="السؤال (مثال: كيف أشترك؟)" style="width:48%;margin-left:2%;padding:7px 10px;border-radius:8px;border:1px solid #FFD600;">
+        <input type="text" id="faqA" placeholder="الإجابة المختصرة" style="width:48%;padding:7px 10px;border-radius:8px;border:1px solid #FFD600;">
+        <button type="button" class="save-btn" style="padding:7px 18px;font-size:1em;margin:0 0 0 8px;" onclick="addFaq()">إضافة</button>
+      </div>
+      <div id="faqList"></div>
+    </div>
+    <div class="section-title" style="margin-top:32px;">نص الشريط الإعلاني المتحرك (الصفحة الرئيسية)</div>
+    <label for="marqueeTextInput">نص الشريط المتحرك</label>
+    <textarea id="marqueeTextInput" rows="2" placeholder="اكتب نص الشريط الإعلاني هنا..." style="margin-bottom:8px;"></textarea>
+    <button type="button" class="save-btn" onclick="saveMarqueeText()">حفظ نص الشريط</button>
+    <div class="note">هذا النص سيظهر في الشريط المتحرك أعلى الصفحة الرئيسية ويمكن تغييره في أي وقت.</div>
+    <div class="section-title" style="margin-top:32px;">روابط وأيقونات التواصل الاجتماعي</div>
+    <div id="socialsManager" style="background:#18120b;border-radius:12px;padding:18px 12px 12px 12px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
+      <div style="display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center;">
+        <div style="display:flex;flex-direction:column;align-items:center;">
+          <img src="images/fb.svg" style="width:28px;">
+          <input type="checkbox" id="fb_on"> <input type="url" id="fb_url" placeholder="رابط فيسبوك" style="width:120px;">
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;">
+          <img src="images/tw.svg" style="width:28px;">
+          <input type="checkbox" id="tw_on"> <input type="url" id="tw_url" placeholder="رابط تويتر/X" style="width:120px;">
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;">
+          <img src="images/yt.svg" style="width:28px;">
+          <input type="checkbox" id="yt_on"> <input type="url" id="yt_url" placeholder="رابط يوتيوب" style="width:120px;">
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;">
+          <img src="images/tg.svg" style="width:28px;">
+          <input type="checkbox" id="tg_on"> <input type="url" id="tg_url" placeholder="رابط تيليجرام" style="width:120px;">
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;">
+          <img src="images/li.svg" style="width:28px;">
+          <input type="checkbox" id="li_on"> <input type="url" id="li_url" placeholder="رابط لينكدإن" style="width:120px;">
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;">
+          <img src="images/wa.svg" style="width:28px;">
+          <input type="checkbox" id="wa_on"> <input type="url" id="wa_url" placeholder="رابط واتساب" style="width:120px;">
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;">
+          <img src="images/tt.svg" style="width:28px;">
+          <input type="checkbox" id="tt_on"> <input type="url" id="tt_url" placeholder="رابط تيك توك" style="width:120px;">
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;">
+          <img src="images/gm.svg" style="width:28px;">
+          <input type="checkbox" id="gm_on"> <input type="url" id="gm_url" placeholder="رابط البريد" style="width:120px;">
+        </div>
+      </div>
+      <button type="button" class="save-btn" style="margin-top:14px;" onclick="saveSocials()">حفظ الروابط</button>
+    </div>
         <label>عنوان الموقع الرئيسي</label>
         <input type="text" id="mainTitle">
         <label>وصف رئيسي (بانر)</label>
@@ -174,6 +237,82 @@
     <div class="note">أي تغيير يتم حفظه محلياً ويظهر مباشرة في الموقع عند إعادة تحميل الصفحة.</div>
   </div>
   <script>
+    // إدارة الأسئلة الشائعة للمساعد الذكي
+    function renderFaqList() {
+      const faqList = document.getElementById('faqList');
+      let faqs = JSON.parse(localStorage.getItem('ai_faqs')||'[]');
+      faqList.innerHTML = '';
+      faqs.forEach((f, i) => {
+        const row = document.createElement('div');
+        row.style = 'background:#fff1;color:#222;padding:7px 10px;border-radius:8px;margin-bottom:7px;display:flex;align-items:center;gap:8px;';
+        row.innerHTML = `<b style='color:#3e2723;'>س:</b> <input type='text' value='${f.q.replace(/'/g,"&#39;")}' style='width:32%;border-radius:6px;border:1px solid #FFD600;padding:4px 7px;' onchange='updateFaqQ(${i},this.value)'> <b style='color:#3e2723;'>ج:</b> <input type='text' value='${f.a.replace(/'/g,"&#39;")}' style='width:48%;border-radius:6px;border:1px solid #FFD600;padding:4px 7px;' onchange='updateFaqA(${i},this.value)'> <button onclick='removeFaq(${i})' style='background:#e53935;color:#fff;border:none;border-radius:6px;padding:2px 10px;'>حذف</button>`;
+        faqList.appendChild(row);
+      });
+    }
+    function addFaq() {
+      let q = document.getElementById('faqQ').value.trim();
+      let a = document.getElementById('faqA').value.trim();
+      if(!q||!a) { alert('أدخل السؤال والإجابة'); return; }
+      let faqs = JSON.parse(localStorage.getItem('ai_faqs')||'[]');
+      faqs.push({q,a});
+      localStorage.setItem('ai_faqs', JSON.stringify(faqs));
+      document.getElementById('faqQ').value = '';
+      document.getElementById('faqA').value = '';
+      renderFaqList();
+    }
+    function removeFaq(idx) {
+      let faqs = JSON.parse(localStorage.getItem('ai_faqs')||'[]');
+      faqs.splice(idx,1);
+      localStorage.setItem('ai_faqs', JSON.stringify(faqs));
+      renderFaqList();
+    }
+    function updateFaqQ(idx, val) {
+      let faqs = JSON.parse(localStorage.getItem('ai_faqs')||'[]');
+      faqs[idx].q = val;
+      localStorage.setItem('ai_faqs', JSON.stringify(faqs));
+    }
+    function updateFaqA(idx, val) {
+      let faqs = JSON.parse(localStorage.getItem('ai_faqs')||'[]');
+      faqs[idx].a = val;
+      localStorage.setItem('ai_faqs', JSON.stringify(faqs));
+    }
+    document.addEventListener('DOMContentLoaded', renderFaqList);
+    // إدارة نص الشريط المتحرك
+    function loadMarqueeAdmin() {
+      var txt = '';
+      try {
+        txt = JSON.parse(localStorage.getItem('text_index')||'{}').marquee_text;
+      }catch(e){}
+      document.getElementById('marqueeTextInput').value = txt||'';
+    }
+    function saveMarqueeText() {
+      var val = document.getElementById('marqueeTextInput').value.trim();
+      var store = JSON.parse(localStorage.getItem('text_index')||'{}');
+      store.marquee_text = val;
+      localStorage.setItem('text_index', JSON.stringify(store));
+      alert('تم حفظ نص الشريط المتحرك!');
+    }
+    document.addEventListener('DOMContentLoaded', loadMarqueeAdmin);
+    // إدارة روابط التواصل الاجتماعي
+    function loadSocials() {
+      const socials = JSON.parse(localStorage.getItem('socials') || '{}');
+      const keys = ['fb','tw','yt','tg','li','wa','tt','gm'];
+      keys.forEach(k => {
+        document.getElementById(k+'_url').value = socials[k]||'';
+        document.getElementById(k+'_on').checked = !!socials[k];
+      });
+    }
+    function saveSocials() {
+      const keys = ['fb','tw','yt','tg','li','wa','tt','gm'];
+      let socials = {};
+      keys.forEach(k => {
+        const url = document.getElementById(k+'_url').value.trim();
+        if(document.getElementById(k+'_on').checked && url) socials[k]=url;
+      });
+      localStorage.setItem('socials', JSON.stringify(socials));
+      alert('تم حفظ روابط التواصل!');
+    }
+    document.addEventListener('DOMContentLoaded', loadSocials);
     // معاينة الصورة حسب الرقم
     document.getElementById('imgNum').addEventListener('input', function() {
       var num = this.value;
@@ -231,11 +370,13 @@ document.getElementById('replyForm').onsubmit = function(e) {
   showVisitorMsgs();
 }
 // إدارة معرض الصور مع نص توضيحي
+// إدارة معرض الصور مع نص توضيحي
 const galleryForm = document.getElementById('galleryForm');
 const galleryList = document.getElementById('galleryList');
 let galleryImages = JSON.parse(localStorage.getItem('galleryImagesV2') || '[]');
 
 function renderGalleryList() {
+    if (!galleryList) return;
     galleryList.innerHTML = '';
     galleryImages.forEach((img, idx) => {
         const div = document.createElement('div');
@@ -256,5 +397,27 @@ if(galleryForm) {
     galleryForm.onsubmit = function(e) {
         e.preventDefault();
         const file = document.getElementById('galleryImage').files[0];
-  </body>
+        const caption = document.getElementById('galleryCaption').value.trim();
+        if (!file) {
+            alert('يرجى اختيار صورة');
+            return;
+        }
+        if (!caption) {
+            alert('يرجى كتابة نص توضيحي للصورة');
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = function(ev) {
+            galleryImages.push({ url: ev.target.result, caption });
+            localStorage.setItem('galleryImagesV2', JSON.stringify(galleryImages));
+            renderGalleryList();
+            document.getElementById('galleryImage').value = '';
+            document.getElementById('galleryCaption').value = '';
+            alert('تمت إضافة الصورة للمعرض!');
+        };
+        reader.readAsDataURL(file);
+    };
+    // عند تحميل الصفحة، عرض الصور الحالية
+    renderGalleryList();
+}
 </html>

@@ -66,13 +66,32 @@
   </style>
 </head>
 <body>
+<!-- زر ترجمة جوجل العالمي -->
+<div style="position:fixed;top:18px;left:18px;z-index:9999;">
+  <div id="google_translate_element"></div>
+</div>
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'ar', includedLanguages: '', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   <div class="register-container">
     <h2>Create Account</h2>
     <form id="registerForm" autocomplete="off">
       <input type="text" id="regName" placeholder="Full Name or Username" required>
       <input type="email" id="regEmail" placeholder="Email (optional)">
       <input type="tel" id="regPhone" placeholder="Mobile Number (optional)">
-      <button type="submit">Register</button>
+      <select id="accountType" required>
+        <option value="subscriber">مشترك</option>
+        <option value="university">جامعة</option>
+        <option value="school">مدرسة</option>
+        <option value="hospital">مستشفى</option>
+        <option value="charity">منظمة خيرية</option>
+        <option value="volunteer">متطوع</option>
+        <option value="other">جهة أخرى</option>
+      </select>
+      <button type="submit">تسجيل</button>
     </form>
     <div class="alt">Already have an account? <a href="login.html">Login</a></div>
   </div>
