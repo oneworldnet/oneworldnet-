@@ -8,35 +8,35 @@
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
   <script src="translate.js"></script>
   <style>
-    body { background: #0a0a0a; color: #fff; overflow-x: hidden; }
-    .blog-section { padding: 90px 0 40px 0; background: rgba(10,10,10,0.95); text-align: center; }
-    .blog-section h1, .blog-section h2 { color: #FFA726; font-weight: bold; text-shadow: 0 2px 8px #B71C1C99; }
-    .blog-section p { color: #FFD600; font-size: 1.18em; margin-bottom: 32px; }
+    body { background: #18120b; color: #fff; overflow-x: hidden; }
+    .blog-section { padding: 90px 0 40px 0; background: #18120b; text-align: center; }
+    .blog-section h1, .blog-section h2 { color: #a97c50; font-weight: bold; text-shadow: 0 2px 8px #3e2723; }
+    .blog-section p { color: #a97c50; font-size: 1.18em; margin-bottom: 32px; }
     .blog-cards { display: flex; flex-wrap: wrap; gap: 40px; justify-content: center; margin-top: 30px; }
     .blog-card {
-      background: rgba(24,26,27,0.85);
+      background: #23160d;
       border-radius: 18px;
-      box-shadow: 0 4px 18px #B71C1C33;
+      box-shadow: 0 4px 18px #3e272355;
       padding: 38px 32px;
       min-width: 260px;
       max-width: 340px;
       flex: 1 1 260px;
       text-align: center;
       transition: transform 0.2s, box-shadow 0.2s;
-      border: 2px solid #FFA72644;
+      border: 2px solid #a97c50;
       margin-bottom: 24px;
     }
-    .blog-card h3 { color: #FFA726; font-size: 1.25em; margin-bottom: 10px; font-weight: bold; text-shadow: 0 2px 8px #FFD60099; }
-    .blog-card p { color: #FFD600; font-size: 1.08em; }
+    .blog-card h3 { color: #a97c50; font-size: 1.25em; margin-bottom: 10px; font-weight: bold; text-shadow: 0 2px 8px #3e2723; }
+    .blog-card p { color: #fff; font-size: 1.08em; }
     @media (max-width: 900px) {
       .blog-cards { flex-direction: column; align-items: center; }
       .blog-card { min-width: 120px; max-width: 98vw; padding: 10px 2vw; }
       .blog-section { padding: 32px 0 18px 0; }
     }
-    .blog-form { margin-top: 32px; background: rgba(24,26,27,0.85); border-radius: 18px; box-shadow: 0 2px 12px #B71C1C33; padding: 24px; max-width: 400px; margin-left: auto; margin-right: auto; }
-    .blog-form input, .blog-form textarea, .blog-form select { width: 100%; margin-bottom: 12px; padding: 10px; border-radius: 8px; border: 1.5px solid #FFA72699; background: #181a1b; color: #FFD600; font-size: 1em; }
-    .blog-form button { background: linear-gradient(90deg,#FFA726 60%,#B71C1C 100%); color: #fff; font-weight: bold; padding: 12px 32px; border-radius: 30px; font-size: 1.1em; border: none; cursor: pointer; transition: background 0.2s; }
-    .blog-form button:hover { background: linear-gradient(90deg,#B71C1C 60%,#FFD600 100%); color: #FFA726; }
+    .blog-form { margin-top: 32px; background: #23160d; border-radius: 18px; box-shadow: 0 2px 12px #3e272355; padding: 24px; max-width: 400px; margin-left: auto; margin-right: auto; }
+    .blog-form input, .blog-form textarea, .blog-form select { width: 100%; margin-bottom: 12px; padding: 10px; border-radius: 8px; border: 1.5px solid #a97c50; background: #18120b; color: #fff; font-size: 1em; }
+    .blog-form button { background: #3e2723; color: #fff; font-weight: bold; padding: 12px 32px; border-radius: 30px; font-size: 1.1em; border: none; cursor: pointer; transition: background 0.2s; }
+    .blog-form button:hover { background: #a97c50; color: #3e2723; }
   </style>
 </head>
 <body>
@@ -106,9 +106,24 @@
         }
       });
       // Blog logic
+      function getDefaultBlogs(lang) {
+        if(lang==='ar') return [
+          {title:'شراكة استراتيجية مع وكالة الفضاء الصينية',content:'يسر one world net الإعلان عن شراكة تقنية مع وكالة صينية رائدة لتوسيع التغطية وتقديم حلول اتصال متقدمة في آسيا.'},
+          {title:'تعاون مع وكالة أوروبية للابتكار',content:'تم توقيع اتفاقية تعاون مع وكالة أوروبية متخصصة في تقنيات الأقمار الصناعية لتعزيز جودة الخدمة وتطوير حلول جديدة.'}
+        ];
+        return [
+          {title:'Strategic Partnership with a Leading Chinese Agency',content:'one world net is proud to announce a new partnership with a top Chinese space agency to expand coverage and deliver advanced connectivity solutions across Asia.'},
+          {title:'Collaboration with a European Innovation Agency',content:'We have signed a cooperation agreement with a European satellite technology agency to enhance service quality and develop new solutions.'}
+        ];
+      }
       function showBlogs() {
         let blogs = JSON.parse(localStorage.getItem('blogs')||'[]');
         let lang = document.documentElement.lang || 'en';
+        if(blogs.filter(b=>b.lang===lang).length===0) {
+          // inject default blogs if none exist for this lang
+          getDefaultBlogs(lang).forEach(b=>blogs.push({...b,lang}));
+          localStorage.setItem('blogs', JSON.stringify(blogs));
+        }
         let html = blogs.filter(b=>b.lang===lang).map(b=>`<div class='blog-card'><h3>${b.title}</h3><p>${b.content}</p></div>`).join('');
         document.getElementById('blogList').innerHTML = html || (lang==='ar'?'لا توجد مقالات.':'No articles yet.');
       }
