@@ -1,49 +1,54 @@
+/* صور موحدة الحجم والشكل */
+.main-img, .unified-img {
+  width: 100%;
+  max-width: 900px;
+  height: auto;
+  border-radius: 0 0 32px 32px;
+  box-shadow: 0 8px 32px #3e272355;
+  object-fit: cover;
+
+/* صور موحدة الحجم والشكل */
+.main-img, .unified-img {
+  width: 100%;
+  max-width: 900px;
+  height: auto;
+  border-radius: 0 0 32px 32px;
+  object-fit: cover;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (max-width: 900px) {
+  .main-img, .unified-img {
+    max-width: 98vw;
+    border-radius: 0 0 18px 18px;
+  }
+  .starlink-section, .starlink-feature-card, .glass {
+    padding-left: 2vw;
+    padding-right: 2vw;
+  }
+  .main-btn {
+    font-size: 1em;
+    padding: 10px 18px;
+  }
+}
 body {
   font-family: 'Cairo', 'Tajawal', Arial, sans-serif;
   direction: rtl;
-  background: linear-gradient(120deg, #18120b 0%, #1a237e 100%) fixed;
+  background: rgba(18, 18, 18, 0.92) !important;
   color: #fff;
   margin: 0;
   padding: 0;
   min-height: 100vh;
   box-shadow: none;
+  backdrop-filter: blur(8px);
 }
-
-/* شريط إعلاني متحرك */
-.marquee-bar {
-  width: 100vw;
-  background: linear-gradient(90deg,#00e0ff 60%,#1a237e 100%);
-  color: #fff;
-  font-size: 1.2em;
-  font-weight: bold;
-  padding: 10px 0;
-  text-align: center;
-  overflow: hidden;
-  white-space: nowrap;
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 1002;
-  box-shadow: 0 2px 12px #00e0ff33;
-}
-.marquee-bar span {
-  display: inline-block;
-  animation: marquee-move 18s linear infinite;
-  padding-left: 100vw;
-}
-@keyframes marquee-move {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-100vw); }
-}
-
 header, nav, .navbar-glass {
-  background: linear-gradient(90deg, #18120b 60%, #1a237e 100%) !important;
+  background: rgba(18, 18, 18, 0.92) !important;
   color: #fff;
   padding: 20px 0 10px 0;
   text-align: center;
   border-bottom: 1.5px solid #00e0ff33;
-  box-shadow: 0 2px 12px #00e0ff33;
   backdrop-filter: blur(8px);
 }
 nav ul {
@@ -63,61 +68,121 @@ nav a {
   transition: background 0.2s, color 0.2s;
 }
 nav a:hover {
-  background: linear-gradient(90deg,#1a237e 60%,#00e0ff 100%);
-  color: #fff;
+  background: #FFD600;
+  color: #18120b;
 }
-
 .section-glass {
-  background: rgba(20, 30, 60, 0.55);
+  background: rgba(18, 18, 18, 0.92);
   border-radius: 18px;
-  box-shadow: 0 8px 32px 0 #00e0ff22;
   backdrop-filter: blur(8px);
-  border: 1.5px solid #00e0ff33;
+  border: 1.5px solid #FFD60044;
   padding: 32px 24px;
   margin: 32px auto;
   max-width: 900px;
 }
 .glass-card {
-  background: rgba(24,26,27,0.85);
-  background-blend-mode: overlay;
-  box-shadow: 0 4px 18px #B71C1C33;
+  background: rgba(18, 18, 18, 0.92);
   border-radius: 16px;
-  box-shadow: 0 4px 16px #00e0ff22;
   padding: 24px 18px;
   margin-bottom: 24px;
-  border: 1.5px solid #00e0ff33;
+  border: 1.5px solid #FFD60044;
   min-height: 220px;
 }
-.btn-glass {
-  background: linear-gradient(90deg,#00e0ff 60%,#1a237e 100%);
-  color: #fff;
-  border: none;
-  border-radius: 8px;
+.main-btn, .btn-glass, button, input[type="submit"] {
+  background: linear-gradient(90deg,#FFD600,#FFA726);
+  color: #18120b !important;
   font-weight: bold;
-  box-shadow: 0 2px 8px #00e0ff33;
+  border-radius: 18px;
+  font-size: 1.1em;
+  padding: 12px 32px;
+  border: none;
   transition: 0.2s;
-  cursor: pointer;
 }
-.btn-glass:hover {
-  background: linear-gradient(90deg,#1a237e 60%,#00e0ff 100%);
-  color: #fff;
+.main-btn:hover, .btn-glass:hover, button:hover, input[type="submit"]:hover {
+  background: linear-gradient(90deg,#FFA726,#FFD600);
+  color: #18120b !important;
   transform: scale(1.04);
 }
-
+.glass, .section-glass, .glass-card {
+  border: 1.5px solid #FFD60044;
+}
 footer {
-  background: linear-gradient(90deg, #18120b 60%, #1a237e 100%) !important;
-  background-blend-mode: overlay;
-  box-shadow: 0 4px 18px #B71C1C33;
+  background: rgba(18, 18, 18, 0.92) !important;
   color: #fff;
   text-align: center;
   padding: 18px 0;
   border-top: 1.5px solid #00e0ff33;
   margin-top: 32px;
   font-size: 1.1em;
+  backdrop-filter: blur(8px);
+  position: static;
 }
-nav a.special, .btn-glass {
-    background: linear-gradient(90deg,#00e0ff 60%,#1a237e 100%);
-    color: #fff !important;
+.social {
+  margin-top: 15px;
+}
+.social a {
+  margin-left: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(18, 18, 18, 0.92);
+  color: #fff;
+  font-size: 1.6em;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+  border: 1.5px solid #00e0ff33;
+  text-decoration: none;
+}
+.social a:hover {
+  background: #FFD600;
+  color: #18120b;
+  transform: scale(1.08);
+}
+main, .glass, .section-glass {
+  max-width: 900px;
+  margin: 32px auto;
+  background: rgba(18, 18, 18, 0.92);
+  border-radius: 18px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1.5px solid #FFD60044;
+  color: #fff;
+  padding: 32px 24px;
+}
+section {
+  margin-bottom: 40px;
+}
+@media (max-width: 600px) {
+  main, .glass, .section-glass { padding: 16px 4vw; }
+  nav ul { flex-direction: column; gap: 8px; }
+}
+section {
+  margin-bottom: 40px;
+}
+form input, form textarea {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+form button, .btn-glass {
+  background: linear-gradient(90deg,#FFD600,#FFA726);
+  color: #18120b !important;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: bold;
+  transition: 0.2s;
+}
+form button:hover, .btn-glass:hover {
+  background: linear-gradient(90deg,#FFA726,#FFD600);
+  color: #18120b !important;
+  transform: scale(1.04);
+}
     box-shadow: 0 2px 8px #00e0ff33;
     border: none;
     border-radius: 8px;
