@@ -48,180 +48,178 @@
         <input type="text" id="mainTitle">
         <label>وصف رئيسي (بانر)</label>
         <textarea id="mainDesc"></textarea>
-        <label>رابط صورة الشعار (logo)</label>
-        <input type="text" id="logoUrl">
-        <hr>
-        <h4>شريط إعلاني متحرك (يظهر في الصفحة الرئيسية)</h4>
-        <input type="text" id="marqueeInput" placeholder="اكتب نص الشريط الإعلاني هنا...">
-        <button type="button" onclick="saveMarquee()">حفظ الشريط الإعلاني</button>
-        <hr>
-        <h4>مدونات الموقع</h4>
-        <textarea id="blogInput" placeholder="اكتب تدوينة جديدة..."></textarea>
-        <button type="button" onclick="addBlog()">إضافة تدوينة</button>
-        <div id="blogList"></div>
-        <hr>
-        <h4>سياسة الخصوصية</h4>
-        <textarea id="privacyInput" placeholder="اكتب أو عدل سياسة الخصوصية..."></textarea>
-        <button type="button" onclick="savePrivacy()">حفظ السياسة</button>
-        <hr>
-        <h4>خريطة العالم</h4>
-        <textarea id="mapInput" placeholder="اكتب وصف أو معلومات عن الخريطة..."></textarea>
-        <button type="button" onclick="saveMap()">حفظ الخريطة</button>
-        <label>عنوان قسم من نحن</label>
-        <input type="text" id="aboutTitle">
-        <label>وصف قسم من نحن</label>
-        <textarea id="aboutDesc"></textarea>
-        <hr>
-        <label>عنوان الميزة الأولى</label>
-        <input type="text" id="feature1Title">
-        <label>وصف الميزة الأولى</label>
-        <textarea id="feature1Desc"></textarea>
-        <label>عنوان الميزة الثانية</label>
-        <input type="text" id="feature2Title">
-        <label>وصف الميزة الثانية</label>
-        <textarea id="feature2Desc"></textarea>
-        <label>عنوان الميزة الثالثة</label>
-        <input type="text" id="feature3Title">
-        <label>وصف الميزة الثالثة</label>
-        <textarea id="feature3Desc"></textarea>
-        <hr>
-        <h4>إضافة صورة للمعرض مع نص توضيحي</h4>
-        <form id="galleryForm" style="margin-bottom:12px;">
-            <input type="file" id="galleryImage" accept="image/*" required>
-            <input type="text" id="caption" placeholder="اكتب وصف للصورة" required>
-            <button type="submit">إضافة</button>
-        </form>
-        <div id="galleryList" style="display:flex;gap:18px;flex-wrap:wrap;"></div>
-        <hr>
-        <label>أرقام التواصل (افصل بينهم بفاصلة)</label>
-        <input type="text" id="phones">
-        <label>حسابات تواصل اجتماعي (واتساب, تليجرام...)</label>
-        <input type="text" id="socials">
-        <button type="submit">حفظ التعديلات</button>
-    </form>
-    <hr>
-    <h3>إعدادات الحساب</h3>
-    <form id="accountForm">
-      <label>اسم المستخدم الجديد</label>
-      <input type="text" id="newUser" placeholder="اسم المستخدم الجديد">
-      <label>كلمة المرور الجديدة</label>
-      <input type="password" id="newPass" placeholder="كلمة المرور الجديدة">
-      <button type="submit">تغيير بيانات الدخول</button>
-      <span id="accMsg" style="color:#00bfae;font-weight:bold;"></span>
-    </form>
-    <h3>سجلات تسجيل الدخول (محلي)</h3>
-    <div class="login-log" id="loginLog"></div>
-</div>
-<!-- إشعارات ذكية وتحليلات ومساعد صوتي -->
-<div class="admin-container" id="globalFeatures" style="margin-top:32px;">
-  <h2 style="color:#1a237e;">🌐 الميزات الذكية والعالمية</h2>
-  <hr>
-  <h3>🔔 الإشعارات الذكية</h3>
-  <form id="notifyForm" style="margin-bottom:18px;">
-    <label>نص الإشعار</label>
-    <input type="text" id="notifyMsg" placeholder="اكتب نص الإشعار...">
-    <label>اختر اللغة المستهدفة</label>
-    <select id="notifyLang" style="width:180px;"></select>
-    <button type="submit">إرسال إشعار</button>
-    <span id="notifyStatus" style="color:#00bfae;font-weight:bold;"></span>
-  </form>
-  <div id="notifyLog" style="background:#f5f5f5;padding:8px 12px;border-radius:6px;font-size:.98em;"></div>
-  <hr>
-  <h3>📊 تحليلات الزوار</h3>
-  <div id="analyticsBox" style="background:#f5f5f5;padding:10px 14px;border-radius:8px;margin-bottom:12px;">
-    <div>عدد الزوار: <span id="visitsCount">0</span></div>
-    <div>الدول الأكثر زيارة: <span id="topCountries">-</span></div>
-    <div>اللغات الأكثر استخدامًا: <span id="topLangs">-</span></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة تحكم الموقع | one world net</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: #18120b;
+      color: #fff;
+      font-family: 'Cairo', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .admin-header {
+      background: #FFD600;
+      color: #3e2723;
+      padding: 18px 0 12px 0;
+      text-align: center;
+      font-size: 2em;
+      font-weight: bold;
+      letter-spacing: 2px;
+      box-shadow: 0 2px 12px #3e272355;
+    }
+    .admin-container {
+      max-width: 700px;
+      margin: 32px auto;
+      background: #23160d;
+      border-radius: 18px;
+      box-shadow: 0 4px 24px #3e272355;
+      padding: 32px 24px 24px 24px;
+    }
+    label {
+      color: #FFD600;
+      font-weight: bold;
+      margin-top: 18px;
+      display: block;
+    }
+    input[type="text"], textarea, select {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0 18px 0;
+      border-radius: 8px;
+      border: 1.5px solid #FFD600;
+      background: #18120b;
+      color: #fff;
+      font-size: 1em;
+      font-family: inherit;
+      resize: vertical;
+    }
+    input[type="file"] {
+      margin: 8px 0 18px 0;
+      color: #FFD600;
+    }
+    .img-preview {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 16px;
+      margin-bottom: 12px;
+      border: 2px solid #FFD600;
+      background: #fff1;
+      display: block;
+    }
+    .save-btn {
+      background: #6d4c2b;
+      color: #fff;
+      font-weight: bold;
+      border: none;
+      border-radius: 30px;
+      padding: 14px 38px;
+      font-size: 1.1em;
+      margin-top: 18px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px #3e272355;
+      transition: background 0.2s, color 0.2s;
+    }
+    .save-btn:hover {
+      background: #3e2723;
+      color: #FFD600;
+    }
+    .section-title {
+      color: #FFD600;
+      font-size: 1.2em;
+      margin-top: 32px;
+      margin-bottom: 8px;
+      border-bottom: 1.5px solid #FFD60055;
+      padding-bottom: 4px;
+    }
+    .note {
+      color: #FFA726;
+      font-size: 0.95em;
+      margin-bottom: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-header">لوحة تحكم الموقع</div>
+  <div class="admin-container">
+    <div class="section-title">تغيير صورة (برقم الصورة)</div>
+    <label for="imgNum">رقم الصورة (مثال: 1, 2, 3 ...)</label>
+    <input type="number" id="imgNum" min="1" max="20" value="1">
+    <label for="imgUpload">اختر صورة جديدة</label>
+    <input type="file" id="imgUpload" accept="image/*">
+    <img id="imgPreview" class="img-preview" src="images/1.jpg" alt="صورة معاينة">
+    <button class="save-btn" onclick="saveImage()">حفظ الصورة</button>
+    <div class="section-title">تعديل نصوص أو فقرات</div>
+    <label for="pageSelect">اختر الصفحة</label>
+    <select id="pageSelect">
+      <option value="index">الصفحة الرئيسية</option>
+      <option value="blog">المدونة</option>
+      <option value="projects">المشاريع</option>
+      <option value="devices">الأجهزة</option>
+      <option value="pricing">الأسعار</option>
+      <option value="contact">تواصل معنا</option>
+      <option value="faq">الأسئلة الشائعة</option>
+    </select>
+    <label for="sectionKey">معرّف الفقرة أو العنوان (مثال: hero_title, feature1_desc ...)</label>
+    <input type="text" id="sectionKey" placeholder="مثال: hero_title">
+    <label for="sectionText">النص الجديد</label>
+    <textarea id="sectionText" rows="3" placeholder="اكتب النص الجديد هنا..."></textarea>
+    <button class="save-btn" onclick="saveText()">حفظ النص</button>
+    <div class="note">أي تغيير يتم حفظه محلياً ويظهر مباشرة في الموقع عند إعادة تحميل الصفحة.</div>
   </div>
-  <hr>
-  <h3>🗣️ المساعد الصوتي العالمي</h3>
-  <button id="voiceToggle" style="background:#00e0ff;color:#fff;font-weight:bold;padding:10px 22px;border-radius:8px;font-size:1.1em;">تفعيل المساعد الصوتي في الموقع</button>
-  <span id="voiceStatus" style="margin-right:12px;color:#00bfae;font-weight:bold;"></span>
-</div>
-<div class="admin-container" id="accessibilityFeatures" style="margin-top:32px;">
-<div class="admin-container" id="messagesBox" style="margin-top:32px;">
-  <h2 style="color:#1a237e;">✉️ رسائل الزوار</h2>
-  <hr>
-  <div id="visitorMsgs" style="background:#f5f5f5;padding:10px 12px;border-radius:8px;min-height:40px;"></div>
-  <form id="replyForm" style="margin-top:10px;display:none;">
-    <label>رد على الرسالة:</label>
-    <textarea id="replyMsg" style="width:100%;min-height:40px;"></textarea>
-    <button type="submit">إرسال الرد</button>
-    <span id="replyStatus" style="color:#00bfae;font-weight:bold;"></span>
-  </form>
-</div>
-  <h2 style="color:#1a237e;">♿ دعم ذوي الاحتياجات الخاصة</h2>
-  <hr>
-  <form id="accessForm">
-    <label><input type="checkbox" id="accFont"/> تكبير الخط تلقائيًا</label><br>
-    <label><input type="checkbox" id="accContrast"/> تفعيل تباين عالي للألوان</label><br>
-    <label><input type="checkbox" id="accRead"/> تفعيل قراءة النصوص (Text-to-Speech)</label><br>
-    <label><input type="checkbox" id="accKeyboard"/> إظهار لوحة مفاتيح افتراضية</label><br>
-    <button type="submit">حفظ إعدادات الوصول</button>
-    <span id="accStatus" style="color:#00bfae;font-weight:bold;"></span>
-  </form>
-  <div style="font-size:.98em;color:#444;margin-top:8px;">
-    <b>شرح الخيارات:</b><br>
-    <b>تكبير الخط:</b> يجعل النصوص أوضح لضعاف البصر.<br>
-    <b>تباين عالي:</b> ألوان قوية لسهولة القراءة.<br>
-    <b>قراءة نصية:</b> تفعيل قارئ آلي للنصوص.<br>
-    <b>لوحة مفاتيح:</b> تسهّل الكتابة لمن لا يستطيع استخدام لوحة المفاتيح العادية.<br>
-  </div>
-</div>
-<script>
-// شريط إعلاني متحرك
-document.getElementById('marqueeInput').value = localStorage.getItem('marqueeText') || '';
-function saveMarquee() {
-    localStorage.setItem('marqueeText', document.getElementById('marqueeInput').value);
-    alert('تم حفظ الشريط الإعلاني!');
-}
-// مدونات
-let blogs = JSON.parse(localStorage.getItem('blogs')||'[]');
-function renderBlogs() {
-    const blogList = document.getElementById('blogList');
-    blogList.innerHTML = blogs.length ? blogs.map((b,i)=>`<div style='background:#f8faff;margin:8px 0;padding:8px 12px;border-radius:8px;'><b>تدوينة ${i+1}:</b> ${b}</div>`).join('') : 'لا توجد تدوينات.';
-}
-renderBlogs();
-function addBlog() {
-    const val = document.getElementById('blogInput').value.trim();
-    if(val.length>2) { blogs.push(val); localStorage.setItem('blogs',JSON.stringify(blogs)); renderBlogs(); document.getElementById('blogInput').value=''; }
-}
-// سياسة الخصوصية
-document.getElementById('privacyInput').value = localStorage.getItem('privacyText') || '';
-function savePrivacy() {
-    localStorage.setItem('privacyText', document.getElementById('privacyInput').value);
-    alert('تم حفظ سياسة الخصوصية!');
-}
-// خريطة العالم
-document.getElementById('mapInput').value = localStorage.getItem('mapText') || '';
-function saveMap() {
-    localStorage.setItem('mapText', document.getElementById('mapInput').value);
-    alert('تم حفظ الخريطة!');
-}
-// تسجيل دخول اجتماعي (Google فقط - محاكاة)
-document.getElementById('googleLoginBtn').onclick = function(e) {
-  e.preventDefault();
-  // محاكاة نجاح تسجيل الدخول
-  let fakeUser = {name:'Google User',email:'user@gmail.com',provider:'google'};
-  localStorage.setItem('adminUser', fakeUser.email);
-  localStorage.setItem('adminPass', 'google');
-  localStorage.setItem('adminSocial', JSON.stringify(fakeUser));
-  document.getElementById('adminUser').value = fakeUser.email;
-  document.getElementById('adminPass').value = 'google';
-  checkAdminLogin();
-}
-// نظام رسائل ذكي بين الإدارة والزوار
-function showVisitorMsgs() {
-  let msgs = JSON.parse(localStorage.getItem('visitorMsgs')||'[]');
-  const box = document.getElementById('visitorMsgs');
-  box.innerHTML = msgs.length ? msgs.map((m,i)=>`<div style='margin-bottom:8px;'><b>${m.date}</b> <span style='color:#1a237e;'>[${m.lang||'ar'}]</span><br>${m.text}<br><button onclick='replyToMsg(${i})' style='margin-top:4px;background:#00e0ff;color:#fff;border:none;border-radius:6px;padding:2px 10px;'>رد</button>${m.reply?`<div style='color:#00bfae;margin-top:4px;'>رد الإدارة: ${m.reply}</div>`:''}</div>`).join('') : 'لا توجد رسائل.';
-}
-showVisitorMsgs();
-window.replyToMsg = function(idx) {
-  document.getElementById('replyForm').style.display = 'block';
-  document.getElementById('replyForm').setAttribute('data-idx', idx);
-  document.getElementById('replyMsg').value = '';
-}
+  <script>
+    // معاينة الصورة حسب الرقم
+    document.getElementById('imgNum').addEventListener('input', function() {
+      var num = this.value;
+      document.getElementById('imgPreview').src = 'images/' + num + '.jpg';
+    });
+    // معاينة الصورة عند الرفع
+    document.getElementById('imgUpload').addEventListener('change', function(e) {
+      var file = e.target.files[0];
+      if(file) {
+        var reader = new FileReader();
+        reader.onload = function(ev) {
+          document.getElementById('imgPreview').src = ev.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+    // حفظ الصورة (محلي فقط)
+    function saveImage() {
+      var num = document.getElementById('imgNum').value;
+      var file = document.getElementById('imgUpload').files[0];
+      if(file) {
+        var reader = new FileReader();
+        reader.onload = function(ev) {
+          localStorage.setItem('img_' + num, ev.target.result);
+          alert('تم حفظ الصورة رقم ' + num + ' محلياً!');
+        };
+        reader.readAsDataURL(file);
+      } else {
+        alert('اختر صورة أولاً');
+      }
+    }
+    // حفظ النص
+    function saveText() {
+      var page = document.getElementById('pageSelect').value;
+      var key = document.getElementById('sectionKey').value.trim();
+      var val = document.getElementById('sectionText').value;
+      if(key && val) {
+        var store = JSON.parse(localStorage.getItem('text_' + page) || '{}');
+        store[key] = val;
+        localStorage.setItem('text_' + page, JSON.stringify(store));
+        alert('تم حفظ النص!');
+      } else {
+        alert('أدخل معرّف الفقرة والنص الجديد');
+      }
+    }
+  </script>
 document.getElementById('replyForm').onsubmit = function(e) {
   e.preventDefault();
   let idx = +this.getAttribute('data-idx');
@@ -258,223 +256,5 @@ if(galleryForm) {
     galleryForm.onsubmit = function(e) {
         e.preventDefault();
         const file = document.getElementById('galleryImage').files[0];
-        const caption = document.getElementById('caption').value;
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = function(evt) {
-            galleryImages.push({ url: evt.target.result, caption });
-            localStorage.setItem('galleryImagesV2', JSON.stringify(galleryImages));
-            renderGalleryList();
-            galleryForm.reset();
-        };
-        reader.readAsDataURL(file);
-    };
-}
-renderGalleryList();
-// دعم الوصول لذوي الاحتياجات
-function loadAccessibility() {
-  document.getElementById('accFont').checked = localStorage.getItem('accFont') === 'on';
-  document.getElementById('accContrast').checked = localStorage.getItem('accContrast') === 'on';
-  document.getElementById('accRead').checked = localStorage.getItem('accRead') === 'on';
-  document.getElementById('accKeyboard').checked = localStorage.getItem('accKeyboard') === 'on';
-}
-loadAccessibility();
-document.getElementById('accessForm').onsubmit = function(e) {
-  e.preventDefault();
-  localStorage.setItem('accFont', document.getElementById('accFont').checked ? 'on' : 'off');
-  localStorage.setItem('accContrast', document.getElementById('accContrast').checked ? 'on' : 'off');
-  localStorage.setItem('accRead', document.getElementById('accRead').checked ? 'on' : 'off');
-  localStorage.setItem('accKeyboard', document.getElementById('accKeyboard').checked ? 'on' : 'off');
-  document.getElementById('accStatus').textContent = 'تم حفظ إعدادات الوصول!';
-  setTimeout(()=>{document.getElementById('accStatus').textContent='';}, 2000);
-}
-</script>
-</div>
-<script>
-// إشعارات ذكية
-function fillNotifyLangs() {
-  const sel = document.getElementById('notifyLang');
-  sel.innerHTML = '';
-  allLangs.forEach(l => {
-    const opt = document.createElement('option');
-    opt.value = l.code;
-    opt.textContent = `${l.flag||''} ${l.name}`;
-    sel.appendChild(opt);
-  });
-  sel.value = localStorage.getItem('siteLang') || 'ar';
-}
-fillNotifyLangs();
-document.getElementById('notifyForm').onsubmit = function(e) {
-  e.preventDefault();
-  let msg = document.getElementById('notifyMsg').value.trim();
-  let lang = document.getElementById('notifyLang').value;
-  if(msg.length < 2) {
-    document.getElementById('notifyStatus').textContent = 'اكتب نص الإشعار';
-    return;
-  }
-  let log = JSON.parse(localStorage.getItem('notifyLog')||'[]');
-  log.unshift({msg,lang,date:new Date().toLocaleString()});
-  localStorage.setItem('notifyLog', JSON.stringify(log));
-  document.getElementById('notifyStatus').textContent = 'تم إرسال الإشعار!';
-  setTimeout(()=>{document.getElementById('notifyStatus').textContent='';}, 1500);
-  document.getElementById('notifyMsg').value = '';
-  showNotifyLog();
-}
-function showNotifyLog() {
-  let log = JSON.parse(localStorage.getItem('notifyLog')||'[]');
-  document.getElementById('notifyLog').innerHTML = log.length ? log.map(e=>`<div><b>${e.date}</b> [${e.lang}] : ${e.msg}</div>`).join('') : 'لا يوجد إشعارات.';
-}
-showNotifyLog();
-
-// تحليلات الزوار (محاكاة)
-function showAnalytics() {
-  let visits = parseInt(localStorage.getItem('visitsCount')||'0');
-  let countries = JSON.parse(localStorage.getItem('visitsCountries')||'[]');
-  let langs = JSON.parse(localStorage.getItem('visitsLangs')||'[]');
-  document.getElementById('visitsCount').textContent = visits;
-  document.getElementById('topCountries').textContent = countries.length ? countries.slice(0,3).join(', ') : '-';
-  document.getElementById('topLangs').textContent = langs.length ? langs.slice(0,3).join(', ') : '-';
-}
-showAnalytics();
-
-// زر تفعيل المساعد الصوتي
-document.getElementById('voiceToggle').onclick = function() {
-  let enabled = localStorage.getItem('voiceAssistant') === 'on';
-  if(enabled) {
-    localStorage.setItem('voiceAssistant', 'off');
-    document.getElementById('voiceStatus').textContent = 'تم إيقاف المساعد الصوتي.';
-    this.textContent = 'تفعيل المساعد الصوتي في الموقع';
-  } else {
-    localStorage.setItem('voiceAssistant', 'on');
-    document.getElementById('voiceStatus').textContent = 'تم تفعيل المساعد الصوتي!';
-    this.textContent = 'إيقاف المساعد الصوتي في الموقع';
-  }
-  setTimeout(()=>{document.getElementById('voiceStatus').textContent='';}, 2000);
-}
-if(localStorage.getItem('voiceAssistant') === 'on') {
-  document.getElementById('voiceToggle').textContent = 'إيقاف المساعد الصوتي في الموقع';
-}
-</script>
-</div>
-<script>
-// نظام المستخدم وكلمة السر (قابلة للتغيير)
-function getAdminUser() {
-  return localStorage.getItem('adminUser') || 'admin';
-}
-function getAdminPass() {
-  return localStorage.getItem('adminPass') || 'admin';
-}
-function checkAdminLogin() {
-    const user = document.getElementById('adminUser').value;
-    const pass = document.getElementById('adminPass').value;
-    if(user === getAdminUser() && pass === getAdminPass()) {
-        document.getElementById('adminLogin').style.display = 'none';
-        document.getElementById('adminPanel').style.display = 'block';
-        loadAdminData();
-        logLogin();
-        document.getElementById('langSelect').value = localStorage.getItem('siteLang') || 'ar';
-    } else {
-        document.getElementById('loginError').textContent = 'اسم المستخدم أو كلمة المرور غير صحيحة';
-    }
-}
-function loadAdminData() {
-    document.getElementById('mainTitle').value = localStorage.getItem('mainTitle') || '';
-    document.getElementById('mainDesc').value = localStorage.getItem('mainDesc') || '';
-    document.getElementById('logoUrl').value = localStorage.getItem('logoUrl') || '';
-    document.getElementById('aboutTitle').value = localStorage.getItem('aboutTitle') || '';
-    document.getElementById('aboutDesc').value = localStorage.getItem('aboutDesc') || '';
-    document.getElementById('feature1Title').value = localStorage.getItem('feature1Title') || '';
-    document.getElementById('feature1Desc').value = localStorage.getItem('feature1Desc') || '';
-    document.getElementById('feature2Title').value = localStorage.getItem('feature2Title') || '';
-    document.getElementById('feature2Desc').value = localStorage.getItem('feature2Desc') || '';
-    document.getElementById('feature3Title').value = localStorage.getItem('feature3Title') || '';
-    document.getElementById('feature3Desc').value = localStorage.getItem('feature3Desc') || '';
-    document.getElementById('galleryImages').value = localStorage.getItem('galleryImages') || '';
-    document.getElementById('phones').value = localStorage.getItem('phones') || '';
-    document.getElementById('socials').value = localStorage.getItem('socials') || '';
-    showLoginLog();
-}
-document.getElementById('adminForm').onsubmit = function(e) {
-    e.preventDefault();
-    localStorage.setItem('mainTitle', document.getElementById('mainTitle').value);
-    localStorage.setItem('mainDesc', document.getElementById('mainDesc').value);
-    localStorage.setItem('logoUrl', document.getElementById('logoUrl').value);
-    localStorage.setItem('aboutTitle', document.getElementById('aboutTitle').value);
-    localStorage.setItem('aboutDesc', document.getElementById('aboutDesc').value);
-    localStorage.setItem('feature1Title', document.getElementById('feature1Title').value);
-    localStorage.setItem('feature1Desc', document.getElementById('feature1Desc').value);
-    localStorage.setItem('feature2Title', document.getElementById('feature2Title').value);
-    localStorage.setItem('feature2Desc', document.getElementById('feature2Desc').value);
-    localStorage.setItem('feature3Title', document.getElementById('feature3Title').value);
-    localStorage.setItem('feature3Desc', document.getElementById('feature3Desc').value);
-    localStorage.setItem('galleryImages', document.getElementById('galleryImages').value);
-    localStorage.setItem('phones', document.getElementById('phones').value);
-    localStorage.setItem('socials', document.getElementById('socials').value);
-    alert('تم حفظ التعديلات!');
-}
-
-// تغيير اسم المستخدم وكلمة السر
-document.getElementById('accountForm').onsubmit = function(e) {
-  e.preventDefault();
-  let user = document.getElementById('newUser').value.trim();
-  let pass = document.getElementById('newPass').value.trim();
-  if(user.length < 3 || pass.length < 3) {
-    document.getElementById('accMsg').textContent = 'يجب أن يكون اسم المستخدم وكلمة السر 3 أحرف على الأقل';
-    return;
-  }
-  localStorage.setItem('adminUser', user);
-  localStorage.setItem('adminPass', pass);
-  document.getElementById('accMsg').textContent = 'تم تغيير بيانات الدخول بنجاح!';
-  setTimeout(()=>{document.getElementById('accMsg').textContent='';}, 2000);
-}
-
-// جميع لغات العالم (ISO 639-1)
-// جميع لغات العالم (ISO 639-1) مع أعلام
-const allLangs = [
-  {code:'ar',name:'العربية',flag:'🇸🇦'}, {code:'en',name:'English',flag:'🇬🇧'}, {code:'fr',name:'Français',flag:'🇫🇷'}, {code:'es',name:'Español',flag:'🇪🇸'}, {code:'zh',name:'中文 (Chinese)',flag:'🇨🇳'}, {code:'hi',name:'हिन्दी (Hindi)',flag:'🇮🇳'}, {code:'fa',name:'فارسی (Farsi)',flag:'🇮🇷'},
-  {code:'ru',name:'Русский (Russian)',flag:'🇷🇺'}, {code:'de',name:'Deutsch (German)',flag:'🇩🇪'}, {code:'tr',name:'Türkçe (Turkish)',flag:'🇹🇷'}, {code:'pt',name:'Português',flag:'🇵🇹'}, {code:'it',name:'Italiano',flag:'🇮🇹'}, {code:'ja',name:'日本語 (Japanese)',flag:'🇯🇵'}, {code:'ko',name:'한국어 (Korean)',flag:'🇰🇷'},
-  {code:'id',name:'Bahasa Indonesia',flag:'🇮🇩'}, {code:'ms',name:'Bahasa Melayu',flag:'🇲🇾'}, {code:'bn',name:'বাংলা (Bengali)',flag:'🇧🇩'}, {code:'ur',name:'اردو (Urdu)',flag:'🇵🇰'}, {code:'sw',name:'Kiswahili',flag:'🇰🇪'}, {code:'th',name:'ไทย (Thai)',flag:'🇹🇭'}, {code:'vi',name:'Tiếng Việt',flag:'🇻🇳'},
-  {code:'pl',name:'Polski',flag:'🇵🇱'}, {code:'uk',name:'Українська',flag:'🇺🇦'}, {code:'ro',name:'Română',flag:'🇷🇴'}, {code:'nl',name:'Nederlands',flag:'🇳🇱'}, {code:'el',name:'Ελληνικά (Greek)',flag:'🇬🇷'}, {code:'sv',name:'Svenska',flag:'🇸🇪'}, {code:'fi',name:'Suomi',flag:'🇫🇮'}, {code:'no',name:'Norsk',flag:'🇳🇴'},
-  {code:'da',name:'Dansk',flag:'🇩🇰'}, {code:'cs',name:'Čeština',flag:'🇨🇿'}, {code:'hu',name:'Magyar',flag:'🇭🇺'}, {code:'he',name:'עברית (Hebrew)',flag:'🇮🇱'}, {code:'az',name:'Azərbaycan',flag:'🇦🇿'}, {code:'kk',name:'Қазақша',flag:'🇰🇿'}, {code:'uz',name:'Oʻzbek',flag:'🇺🇿'}, {code:'ps',name:'پښتو (Pashto)',flag:'🇦🇫'},
-  {code:'am',name:'አማርኛ (Amharic)',flag:'🇪🇹'}, {code:'so',name:'Soomaali',flag:'🇸🇴'}, {code:'ta',name:'தமிழ் (Tamil)',flag:'🇮🇳'}, {code:'te',name:'తెలుగు (Telugu)',flag:'🇮🇳'}, {code:'ml',name:'മലയാളം (Malayalam)',flag:'🇮🇳'}, {code:'kn',name:'ಕನ್ನಡ (Kannada)',flag:'🇮🇳'}, {code:'gu',name:'ગુજરાતી (Gujarati)',flag:'🇮🇳'},
-  {code:'mr',name:'मराठी (Marathi)',flag:'🇮🇳'}, {code:'pa',name:'ਪੰਜਾਬੀ (Punjabi)',flag:'🇮🇳'}, {code:'si',name:'සිංහල (Sinhala)',flag:'🇱🇰'}, {code:'my',name:'မြန်မာစာ (Burmese)',flag:'🇲🇲'}, {code:'km',name:'ខ្មែរ (Khmer)',flag:'🇰🇭'}, {code:'lo',name:'ລາວ (Lao)',flag:'🇱🇦'}, {code:'ne',name:'नेपाली (Nepali)',flag:'🇳🇵'},
-  {code:'fil',name:'Filipino',flag:'🇵🇭'}, {code:'jv',name:'Basa Jawa',flag:'🇮🇩'}, {code:'su',name:'Basa Sunda',flag:'🇮🇩'}, {code:'ceb',name:'Cebuano',flag:'🇵🇭'}, {code:'ha',name:'Hausa',flag:'🇳🇬'}, {code:'yo',name:'Yorùbá',flag:'🇳🇬'}, {code:'ig',name:'Igbo',flag:'🇳🇬'}, {code:'zu',name:'isiZulu',flag:'🇿🇦'},
-  {code:'xh',name:'isiXhosa',flag:'🇿🇦'}, {code:'st',name:'Sesotho',flag:'🇱🇸'}, {code:'ts',name:'Xitsonga',flag:'🇿🇦'}, {code:'tn',name:'Setswana',flag:'🇧🇼'}, {code:'ss',name:'SiSwati',flag:'🇸🇿'}, {code:'ve',name:'Tshivenda',flag:'🇿🇦'}, {code:'nr',name:'isiNdebele',flag:'🇿🇦'},
-  // ... يمكن إضافة باقي اللغات عند الحاجة ...
-];
-function fillLangs(filter='') {
-  const sel = document.getElementById('langSelect');
-  sel.innerHTML = '';
-  let count = 0;
-  allLangs.forEach(l => {
-    if(filter && l.name.toLowerCase().indexOf(filter.toLowerCase()) === -1 && l.code.toLowerCase().indexOf(filter.toLowerCase()) === -1) return;
-    const opt = document.createElement('option');
-    opt.value = l.code;
-    opt.textContent = `${l.flag||''} ${l.name}`;
-    sel.appendChild(opt);
-    count++;
-  });
-  sel.value = localStorage.getItem('siteLang') || 'ar';
-  document.getElementById('langCount').textContent = count;
-}
-fillLangs();
-document.getElementById('langSearch').oninput = function() {
-  fillLangs(this.value);
-};
-document.getElementById('langSelect').onchange = function() {
-  localStorage.setItem('siteLang', this.value);
-  // يمكن هنا إضافة منطق تغيير النصوص حسب اللغة
-};
-function logLogin() {
-    let log = JSON.parse(localStorage.getItem('loginLog') || '[]');
-    log.push(new Date().toLocaleString());
-    localStorage.setItem('loginLog', JSON.stringify(log));
-    showLoginLog();
-}
-function showLoginLog() {
-    let log = JSON.parse(localStorage.getItem('loginLog') || '[]');
-    document.getElementById('loginLog').innerHTML = log.length ? log.map(e=>`<div>${e}</div>`).join('') : 'لا يوجد سجلات.';
-}
-</script>
-</body>
+  </body>
 </html>
