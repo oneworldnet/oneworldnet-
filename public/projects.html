@@ -1,56 +1,114 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>المشاريع | one world net</title>
+  <title>one world net | Impact Projects</title>
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <script src="translate.js"></script>
+  <style>
+    body { background: #0a0a0a; color: #fff; overflow-x: hidden; }
+    .projects-section { padding: 90px 0 40px 0; background: rgba(10,10,10,0.95); text-align: center; }
+    .projects-section h1, .projects-section h2 { color: #FFA726; font-weight: bold; text-shadow: 0 2px 8px #B71C1C99; }
+    .projects-section p { color: #FFD600; font-size: 1.18em; margin-bottom: 32px; }
+    .projects-cards { display: flex; flex-wrap: wrap; gap: 40px; justify-content: center; margin-top: 30px; }
+    .project-card {
+      background: rgba(24,26,27,0.85);
+      border-radius: 18px;
+      box-shadow: 0 4px 18px #B71C1C33;
+      padding: 38px 32px;
+      min-width: 260px;
+      max-width: 340px;
+      flex: 1 1 260px;
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: 2px solid #FFA72644;
+    }
+    .project-card:hover { transform: translateY(-6px) scale(1.03); box-shadow: 0 8px 24px #FFD60099; }
+    .project-card img { width: 100%; max-width: 220px; height: 160px; border-radius: 18px; margin-bottom: 18px; object-fit: cover; box-shadow: 0 2px 24px #B71C1C99; }
+    .project-card h3 { color: #FFA726; font-size: 1.35em; margin-bottom: 10px; font-weight: bold; text-shadow: 0 2px 8px #FFD60099; }
+    .project-card p { color: #FFD600; font-size: 1.08em; }
+    @media (max-width: 900px) {
+      .projects-cards { flex-direction: column; align-items: center; }
+      .project-card { min-width: 120px; max-width: 98vw; padding: 10px 2vw; }
+      .projects-section { padding: 32px 0 18px 0; }
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <nav class="navbar-glass">
-      <div class="container d-flex align-items-center justify-content-between">
-        <a class="navbar-brand d-flex align-items-center" href="index.html">
-          <img src="images/logo.jpg" alt="one world net logo" style="height:44px; margin-left:12px; border-radius:10px;">
-          <span style="font-size:1.7em; font-weight:bold; letter-spacing:1px;">one world net</span>
-        </a>
-        <ul class="nav">
-          <li><a href="index.html">الرئيسية</a></li>
-          <li><a href="pricing.html">الباقات</a></li>
-          <li><a href="devices.html">الأجهزة</a></li>
-          <li><a href="map.html">خريطة التغطية</a></li>
-          <li><a href="blog.html">المدونة</a></li>
-          <li><a href="projects.html">المشاريع</a></li>
-          <li><a href="contact.html">تواصل معنا</a></li>
-        </ul>
-      </div>
+  <header class="starlink-header">
+    <div class="logo">
+      <img src="images/logo.jpg" alt="one world net logo">
+      <span>one world net</span>
+    </div>
+    <button class="menu-toggle" aria-label="Open menu" onclick="toggleMenu()">&#9776;</button>
+    <nav id="mainNav">
+      <a href="index.html" data-i18n="nav_home">Home</a>
+      <a href="pricing.html" data-i18n="nav_pricing">Plans</a>
+      <a href="devices.html" data-i18n="nav_devices">Devices</a>
+      <a href="map.html" data-i18n="nav_coverage">Coverage Map</a>
+      <a href="blog.html" data-i18n="nav_blog">Blog</a>
+      <a href="projects.html" class="active" data-i18n="nav_projects">Projects</a>
+      <a href="contact.html" data-i18n="nav_contact">Contact</a>
+      <button id="lang-switch" class="cta" style="width:100%;margin-top:18px;">العربية</button>
     </nav>
   </header>
-  <section class="section-glass" style="margin-top:32px;">
-    <div class="container">
-      <h1 style="font-size:2.2em; font-weight:700; margin-bottom:18px;">مشاريعنا</h1>
-      <div class="row" style="display:flex;flex-wrap:wrap;gap:32px;justify-content:center;">
-        <div class="glass-card" style="min-width:260px;max-width:340px;">
-          <img src="images/12.jpg" alt="مشروع 1" style="width:100%; border-radius:12px; margin-bottom:12px;">
-          <h3>مشروع ربط المدارس النائية</h3>
-          <p>توفير الإنترنت المجاني للمدارس في المناطق النائية لدعم التعليم الرقمي.</p>
-        </div>
-        <div class="glass-card" style="min-width:260px;max-width:340px;">
-          <img src="images/13.jpg" alt="مشروع 2" style="width:100%; border-radius:12px; margin-bottom:12px;">
-          <h3>مبادرة الصحة للجميع</h3>
-          <p>دعم المستشفيات والعيادات في المناطق المحرومة بخدمات الإنترنت الطبي عن بعد.</p>
-        </div>
-        <div class="glass-card" style="min-width:260px;max-width:340px;">
-          <img src="images/14.jpg" alt="مشروع 3" style="width:100%; border-radius:12px; margin-bottom:12px;">
-          <h3>توصيل الإنترنت للمخيمات الإنسانية</h3>
-          <p>توفير الاتصال للمخيمات الإنسانية والمنظمات غير الحكومية لدعم العمل الإغاثي.</p>
-        </div>
+  <section class="projects-section">
+    <h1 data-i18n="projects_title">Our Impact Projects</h1>
+    <p data-i18n="projects_desc">We connect communities, support education, and empower humanitarian work with reliable satellite internet solutions.</p>
+    <div class="projects-cards">
+      <div class="project-card">
+        <img src="images/58.jpg" alt="Remote Schools">
+        <h3 data-i18n="project1_title">Remote Schools Connection</h3>
+        <p data-i18n="project1_desc">Providing free internet to schools in remote areas to support digital education.</p>
+      </div>
+      <div class="project-card">
+        <img src="images/59.jpg" alt="Health Initiative">
+        <h3 data-i18n="project2_title">Health for All Initiative</h3>
+        <p data-i18n="project2_desc">Supporting hospitals and clinics in underserved regions with telemedicine internet services.</p>
+      </div>
+      <div class="project-card">
+        <img src="images/60.jpg" alt="Humanitarian Camps">
+        <h3 data-i18n="project3_title">Humanitarian Camps Connectivity</h3>
+        <p data-i18n="project3_desc">Connecting humanitarian camps and NGOs to enable effective relief work.</p>
       </div>
     </div>
   </section>
-  <footer style="background:rgba(10,25,47,0.95); color:#fff; text-align:center; padding:18px 0; border-top:1.5px solid #00e0ff33; margin-top:32px;">
-    <div>جميع الحقوق محفوظة &copy; one world net 2025</div>
+  <footer class="starlink-footer">
+    <span data-i18n="footer">All rights reserved &copy; one world net 2025</span>
+    <script>
+      // language switcher
+      document.addEventListener('DOMContentLoaded', function() {
+        var btn = document.getElementById('lang-switch');
+        if(btn) {
+          btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if(document.documentElement.lang === 'en') {
+              window.setLanguage && setLanguage('ar');
+              btn.textContent = 'English';
+            } else {
+              window.setLanguage && setLanguage('en');
+              btn.textContent = 'العربية';
+            }
+          });
+        }
+      });
+      function toggleMenu() {
+        var nav = document.getElementById('mainNav');
+        nav.classList.toggle('open');
+      }
+      document.addEventListener('click', function(e) {
+        var nav = document.getElementById('mainNav');
+        var btn = document.querySelector('.menu-toggle');
+        if (nav.classList.contains('open') && !nav.contains(e.target) && e.target !== btn) {
+          nav.classList.remove('open');
+        }
+        if (nav.contains(e.target) && e.target.tagName === 'A') {
+          nav.classList.remove('open');
+        }
+      });
+    </script>
   </footer>
 </body>
 </html>

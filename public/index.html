@@ -1,12 +1,13 @@
 
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>one world net | الإنترنت الفضائي العالمي</title>
+  <title>one world net | Global Satellite Internet</title>
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <script src="translate.js"></script>
   <style>
     body {
       margin: 0;
@@ -102,6 +103,16 @@
     .starlink-header nav {
       display: flex;
       gap: 24px;
+      transition: right 0.3s;
+    }
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: #00e0ff;
+      font-size: 2.2em;
+      cursor: pointer;
+      z-index: 200;
     }
     .starlink-header nav a {
       color: #fff;
@@ -190,8 +201,38 @@
       font-size: 1.1em;
     }
     @media (max-width: 900px) {
-      .starlink-header { flex-direction: column; height: auto; padding: 0 8px; }
-      .starlink-header nav { gap: 8px; }
+      .starlink-header { flex-direction: row; height: 60px; padding: 0 8px; }
+      .starlink-header .logo { flex: 1; }
+      .menu-toggle { display: block; }
+      .starlink-header nav {
+        position: fixed;
+        top: 0;
+        right: -100vw;
+        height: 100vh;
+        width: 70vw;
+        max-width: 320px;
+        background: #0a0a0aee;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        padding: 80px 24px 0 24px;
+        box-shadow: -2px 0 16px #00e0ff33;
+        z-index: 150;
+      }
+      .starlink-header nav.open {
+        right: 0;
+      }
+      .starlink-header nav a {
+        width: 100%;
+        padding: 18px 0;
+        font-size: 1.1em;
+        border-radius: 0;
+        border-bottom: 1px solid #00e0ff22;
+        text-align: right;
+      }
+      .starlink-header nav a:last-child {
+        border-bottom: none;
+      }
       .starlink-hero h1 { font-size: 2em; }
       .starlink-section h2 { font-size: 1.2em; }
       .starlink-features { flex-direction: column; align-items: center; }
@@ -206,48 +247,83 @@
       <img src="images/logo.jpg" alt="one world net logo">
       <span>one world net</span>
     </div>
-    <nav>
-      <a href="#" class="active">الرئيسية</a>
-      <a href="pricing.html">الباقات</a>
-      <a href="devices.html">الأجهزة</a>
-      <a href="map.html">خريطة التغطية</a>
-      <a href="blog.html">المدونة</a>
-      <a href="projects.html">المشاريع</a>
-      <a href="contact.html">تواصل معنا</a>
+    <button class="menu-toggle" aria-label="فتح القائمة" onclick="toggleMenu()">&#9776;</button>
+    <nav id="mainNav">
+      <a href="#" class="active" data-i18n="nav_home">Home</a>
+      <a href="pricing.html" data-i18n="nav_pricing">Plans</a>
+      <a href="devices.html" data-i18n="nav_devices">Devices</a>
+      <a href="map.html" data-i18n="nav_coverage">Coverage Map</a>
+      <a href="blog.html" data-i18n="nav_blog">Blog</a>
+      <a href="projects.html" data-i18n="nav_projects">Projects</a>
+      <a href="contact.html" data-i18n="nav_contact">Contact</a>
+      <button id="lang-switch" class="cta" style="width:100%;margin-top:18px;">العربية</button>
     </nav>
   </header>
   <section class="starlink-hero">
-    <h1>الإنترنت الفضائي الأسرع والأوسع عالمياً</h1>
-    <p>اتصل من أي مكان وفي أي وقت. one world net توفر لك إنترنت عالي السرعة وآمن وموثوق لكل مدينة وقرية وصحراء وبحر وحتى السماء. تمكين التعليم والصحة والمجتمعات حول العالم.</p>
-    <a href="pricing.html" class="cta">ابدأ الآن</a>
+    <h1 data-i18n="hero_title">The Fastest, Widest Satellite Internet</h1>
+    <p data-i18n="hero_desc">Connect from anywhere, anytime. one world net brings you high-speed, secure, and reliable internet for every city, village, desert, sea, and even the sky. Empowering education, health, and communities worldwide.</p>
+    <a href="pricing.html" class="cta" data-i18n="hero_cta">Get Started</a>
   </section>
   <section class="starlink-section">
-    <h2>مميزات one world net</h2>
+    <h2 data-i18n="features_title">Why Choose one world net?</h2>
     <div class="starlink-features">
       <div class="starlink-feature-card">
-        <img src="images/8.jpg" alt="تغطية عالمية">
-        <h3>تغطية عالمية</h3>
-        <p>اتصال في أي مكان على الأرض: مدن، قرى، صحارى، بحار وسماء. لا حدود بعد اليوم.</p>
+        <img src="images/8.jpg" alt="Global Coverage">
+        <h3 data-i18n="feature1_title">Global Coverage</h3>
+        <p data-i18n="feature1_desc">Stay connected anywhere on Earth: cities, villages, deserts, seas, and skies. No more limits.</p>
       </div>
       <div class="starlink-feature-card">
-        <img src="images/9.jpg" alt="سرعات فائقة">
-        <h3>سرعات فائقة</h3>
-        <p>حتى 200 ميجابت/ثانية. بث، عمل، ألعاب بدون انقطاع ليلاً ونهاراً.</p>
+        <img src="images/9.jpg" alt="Ultra Fast">
+        <h3 data-i18n="feature2_title">Ultra Fast Speeds</h3>
+        <p data-i18n="feature2_desc">Up to 200 Mbps. Stream, work, and play with no interruptions, day or night.</p>
       </div>
       <div class="starlink-feature-card">
-        <img src="images/10.jpg" alt="أمان وخصوصية">
-        <h3>أمان وخصوصية</h3>
-        <p>بياناتك محمية بأحدث تقنيات التشفير والمعايير العالمية للأمان.</p>
+        <img src="images/10.jpg" alt="Security & Privacy">
+        <h3 data-i18n="feature3_title">Security & Privacy</h3>
+        <p data-i18n="feature3_desc">Your data is protected with the latest encryption and global security standards.</p>
       </div>
       <div class="starlink-feature-card">
-        <img src="images/11.jpg" alt="دعم فني 24/7">
-        <h3>دعم فني 24/7</h3>
-        <p>فريق عالمي جاهز لمساعدتك في أي وقت وأي مكان.</p>
+        <img src="images/11.jpg" alt="24/7 Support">
+        <h3 data-i18n="feature4_title">24/7 Support</h3>
+        <p data-i18n="feature4_desc">A global team ready to help you anytime, anywhere.</p>
       </div>
     </div>
   </section>
   <footer class="starlink-footer">
-    جميع الحقوق محفوظة &copy; one world net 2025
+    <span data-i18n="footer">All rights reserved &copy; one world net 2025</span>
+  <script>
+    // language switcher
+    document.addEventListener('DOMContentLoaded', function() {
+      var btn = document.getElementById('lang-switch');
+      if(btn) {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          if(document.documentElement.lang === 'en') {
+            window.setLanguage && setLanguage('ar');
+            btn.textContent = 'English';
+          } else {
+            window.setLanguage && setLanguage('en');
+            btn.textContent = 'العربية';
+          }
+        });
+      }
+    });
+    function toggleMenu() {
+      var nav = document.getElementById('mainNav');
+      nav.classList.toggle('open');
+    }
+    // إغلاق القائمة عند الضغط خارجها أو على رابط
+    document.addEventListener('click', function(e) {
+      var nav = document.getElementById('mainNav');
+      var btn = document.querySelector('.menu-toggle');
+      if (nav.classList.contains('open') && !nav.contains(e.target) && e.target !== btn) {
+        nav.classList.remove('open');
+      }
+      if (nav.contains(e.target) && e.target.tagName === 'A') {
+        nav.classList.remove('open');
+      }
+    });
+  </script>
   </footer>
 </body>
 </html>

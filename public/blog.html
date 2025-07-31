@@ -1,63 +1,130 @@
 <!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <title>مدونات الموقع</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="container glass">
-        <h2>مدونات الموقع</h2>
-        <div id="blogList"></div>
-    </div>
-    <script>
-    let blogs = JSON.parse(localStorage.getItem('blogs')||'[]');
-    const blogList = document.getElementById('blogList');
-    blogList.innerHTML = blogs.length ? blogs.map((b,i)=>`<div style='background:#f8faff;margin:8px 0;padding:8px 12px;border-radius:8px;'><b>تدوينة ${i+1}:</b> ${b}</div>`).join('') : 'لا توجد تدوينات.';
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="ar">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>مدونة OneWorldNet</title>
+  <title>one world net | Blog</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <script src="translate.js"></script>
+  <style>
+    body { background: #0a0a0a; color: #fff; overflow-x: hidden; }
+    .blog-section { padding: 90px 0 40px 0; background: rgba(10,10,10,0.95); text-align: center; }
+    .blog-section h1, .blog-section h2 { color: #FFA726; font-weight: bold; text-shadow: 0 2px 8px #B71C1C99; }
+    .blog-section p { color: #FFD600; font-size: 1.18em; margin-bottom: 32px; }
+    .blog-cards { display: flex; flex-wrap: wrap; gap: 40px; justify-content: center; margin-top: 30px; }
+    .blog-card {
+      background: rgba(24,26,27,0.85);
+      border-radius: 18px;
+      box-shadow: 0 4px 18px #B71C1C33;
+      padding: 38px 32px;
+      min-width: 260px;
+      max-width: 340px;
+      flex: 1 1 260px;
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: 2px solid #FFA72644;
+      margin-bottom: 24px;
+    }
+    .blog-card h3 { color: #FFA726; font-size: 1.25em; margin-bottom: 10px; font-weight: bold; text-shadow: 0 2px 8px #FFD60099; }
+    .blog-card p { color: #FFD600; font-size: 1.08em; }
+    @media (max-width: 900px) {
+      .blog-cards { flex-direction: column; align-items: center; }
+      .blog-card { min-width: 120px; max-width: 98vw; padding: 10px 2vw; }
+      .blog-section { padding: 32px 0 18px 0; }
+    }
+    .blog-form { margin-top: 32px; background: rgba(24,26,27,0.85); border-radius: 18px; box-shadow: 0 2px 12px #B71C1C33; padding: 24px; max-width: 400px; margin-left: auto; margin-right: auto; }
+    .blog-form input, .blog-form textarea, .blog-form select { width: 100%; margin-bottom: 12px; padding: 10px; border-radius: 8px; border: 1.5px solid #FFA72699; background: #181a1b; color: #FFD600; font-size: 1em; }
+    .blog-form button { background: linear-gradient(90deg,#FFA726 60%,#B71C1C 100%); color: #fff; font-weight: bold; padding: 12px 32px; border-radius: 30px; font-size: 1.1em; border: none; cursor: pointer; transition: background 0.2s; }
+    .blog-form button:hover { background: linear-gradient(90deg,#B71C1C 60%,#FFD600 100%); color: #FFA726; }
+  </style>
 </head>
 <body>
-  <nav><!-- ...nav... --></nav>
-  <main class="glass section-glass">
-    <h1>مدونة عالمية</h1>
-    <div id="blogList"></div>
-    <form id="addBlogForm" style="margin-top:24px;">
-      <h3>أضف مقالة</h3>
-      <input type="text" id="blogTitle" placeholder="عنوان المقالة" required>
-      <textarea id="blogContent" placeholder="المحتوى" required></textarea>
+  <header class="starlink-header">
+    <div class="logo">
+      <img src="images/logo.jpg" alt="one world net logo">
+      <span>one world net</span>
+    </div>
+    <button class="menu-toggle" aria-label="Open menu" onclick="toggleMenu()">&#9776;</button>
+    <nav id="mainNav">
+      <a href="index.html" data-i18n="nav_home">Home</a>
+      <a href="pricing.html" data-i18n="nav_pricing">Plans</a>
+      <a href="devices.html" data-i18n="nav_devices">Devices</a>
+      <a href="map.html" data-i18n="nav_coverage">Coverage Map</a>
+      <a href="blog.html" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="projects.html" data-i18n="nav_projects">Projects</a>
+      <a href="contact.html" data-i18n="nav_contact">Contact</a>
+      <button id="lang-switch" class="cta" style="width:100%;margin-top:18px;">العربية</button>
+    </nav>
+  </header>
+  <section class="blog-section">
+    <h1 data-i18n="blog_title">Latest News & Articles</h1>
+    <p data-i18n="blog_desc">Read the latest updates, tips, and stories about global satellite internet and digital transformation.</p>
+    <div id="blogList" class="blog-cards"></div>
+    <form id="addBlogForm" class="blog-form">
+      <h3 data-i18n="blog_add">Add Article</h3>
+      <input type="text" id="blogTitle" placeholder="Title" required>
+      <textarea id="blogContent" placeholder="Content" required></textarea>
       <select id="blogLang">
-        <option value="ar">العربية</option>
         <option value="en">English</option>
-        <option value="fr">Français</option>
-        <option value="es">Español</option>
+        <option value="ar">العربية</option>
       </select>
-      <button type="submit">نشر</button>
+      <button type="submit" data-i18n="blog_publish">Publish</button>
     </form>
-  </main>
-  <script>
-    function showBlogs() {
-      let blogs = JSON.parse(localStorage.getItem('blogs')||'[]');
-      let lang = document.documentElement.lang || 'ar';
-      let html = blogs.filter(b=>b.lang===lang).map(b=>`<div class='glass-card'><b>${b.title}</b><br>${b.content}</div>`).join('');
-      document.getElementById('blogList').innerHTML = html || 'لا توجد مقالات.';
-    }
-    showBlogs();
-    document.getElementById('addBlogForm').onsubmit = function(e) {
-      e.preventDefault();
-      let blogs = JSON.parse(localStorage.getItem('blogs')||'[]');
-      blogs.push({title:blogTitle.value,content:blogContent.value,lang:blogLang.value});
-      localStorage.setItem('blogs', JSON.stringify(blogs));
-      blogTitle.value=''; blogContent.value='';
+  </section>
+  <footer class="starlink-footer">
+    <span data-i18n="footer">All rights reserved &copy; one world net 2025</span>
+    <script>
+      // language switcher
+      document.addEventListener('DOMContentLoaded', function() {
+        var btn = document.getElementById('lang-switch');
+        if(btn) {
+          btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if(document.documentElement.lang === 'en') {
+              window.setLanguage && setLanguage('ar');
+              btn.textContent = 'English';
+            } else {
+              window.setLanguage && setLanguage('en');
+              btn.textContent = 'العربية';
+            }
+          });
+        }
+      });
+      function toggleMenu() {
+        var nav = document.getElementById('mainNav');
+        nav.classList.toggle('open');
+      }
+      document.addEventListener('click', function(e) {
+        var nav = document.getElementById('mainNav');
+        var btn = document.querySelector('.menu-toggle');
+        if (nav.classList.contains('open') && !nav.contains(e.target) && e.target !== btn) {
+          nav.classList.remove('open');
+        }
+        if (nav.contains(e.target) && e.target.tagName === 'A') {
+          nav.classList.remove('open');
+        }
+      });
+      // Blog logic
+      function showBlogs() {
+        let blogs = JSON.parse(localStorage.getItem('blogs')||'[]');
+        let lang = document.documentElement.lang || 'en';
+        let html = blogs.filter(b=>b.lang===lang).map(b=>`<div class='blog-card'><h3>${b.title}</h3><p>${b.content}</p></div>`).join('');
+        document.getElementById('blogList').innerHTML = html || (lang==='ar'?'لا توجد مقالات.':'No articles yet.');
+      }
       showBlogs();
-    }
+      document.getElementById('addBlogForm').onsubmit = function(e) {
+        e.preventDefault();
+        let blogs = JSON.parse(localStorage.getItem('blogs')||'[]');
+        blogs.push({title:blogTitle.value,content:blogContent.value,lang:blogLang.value});
+        localStorage.setItem('blogs', JSON.stringify(blogs));
+        blogTitle.value=''; blogContent.value='';
+        showBlogs();
+      }
+    </script>
+  </footer>
+</body>
+</html>
   </script>
 </body>
 </html>
