@@ -61,26 +61,22 @@
     <h1 data-i18n="plans_title">Flexible Internet Plans for Everyone</h1>
     <p data-i18n="plans_desc">Choose the plan that fits your needs. All plans include unlimited data, high speeds, and 24/7 support. Perfect for homes, businesses, and remote locations.</p>
     <div class="plans-cards">
-      <div class="plan-card">
-        <img src="images/50.jpg" alt="Starter Plan">
+      <div class="plan-card" style="background: url('images/50.jpg') center/cover, rgba(24,26,27,0.85);">
         <h3 data-i18n="plan1_title">Starter</h3>
         <p data-i18n="plan1_desc">Up to 20 Mbps<br>Unlimited data<br>Basic support</p>
         <div class="price" data-i18n="plan1_price">$5 / month</div>
       </div>
-      <div class="plan-card">
-        <img src="images/51.jpg" alt="Essential Plan">
+      <div class="plan-card" style="background: url('images/51.jpg') center/cover, rgba(24,26,27,0.85);">
         <h3 data-i18n="plan2_title">Essential</h3>
         <p data-i18n="plan2_desc">Up to 50 Mbps<br>Unlimited data<br>Priority support</p>
         <div class="price" data-i18n="plan2_price">$10 / month</div>
       </div>
-      <div class="plan-card">
-        <img src="images/52.jpg" alt="Family Plan">
+      <div class="plan-card" style="background: url('images/52.jpg') center/cover, rgba(24,26,27,0.85);">
         <h3 data-i18n="plan3_title">Family</h3>
         <p data-i18n="plan3_desc">Up to 100 Mbps<br>Unlimited data<br>Family features</p>
         <div class="price" data-i18n="plan3_price">$25 / month</div>
       </div>
-      <div class="plan-card">
-        <img src="images/53.jpg" alt="Business Plan">
+      <div class="plan-card" style="background: url('images/53.jpg') center/cover, rgba(24,26,27,0.85);">
         <h3 data-i18n="plan4_title">Business</h3>
         <p data-i18n="plan4_desc">Up to 500 Mbps<br>Unlimited data<br>Dedicated account manager</p>
         <div class="price" data-i18n="plan4_price">$200 / month</div>
@@ -88,17 +84,27 @@
     </div>
   </section>
   <footer class="starlink-footer">
-    <div class="social" style="margin-bottom:12px;">
-      <a href="https://wa.me/" target="_blank" aria-label="WhatsApp"><img src="images/wa.svg" alt="WhatsApp"></a>
-      <a href="https://t.me/" target="_blank" aria-label="Telegram"><img src="images/tg.svg" alt="Telegram"></a>
-      <a href="https://www.facebook.com/" target="_blank" aria-label="Facebook"><img src="images/fb.svg" alt="Facebook"></a>
-      <a href="https://www.linkedin.com/" target="_blank" aria-label="LinkedIn"><img src="images/li.svg" alt="LinkedIn"></a>
-      <a href="https://twitter.com/" target="_blank" aria-label="X (Twitter)"><img src="images/tw.svg" alt="X (Twitter)"></a>
-      <a href="https://www.tiktok.com/" target="_blank" aria-label="TikTok"><img src="images/tt.svg" alt="TikTok"></a>
-      <a href="https://www.youtube.com/" target="_blank" aria-label="YouTube"><img src="images/yt.svg" alt="YouTube"></a>
-      <a href="mailto:info@oneworld.net" aria-label="Email"><img src="images/gm.svg" alt="Email"></a>
+    <div class="footer-content" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px;">
+      <div class="footer-logo-socials" style="display:flex;align-items:center;gap:10px;">
+        <img src="images/logo.jpg" alt="one world net logo" style="height:38px;max-width:38px;min-width:28px;object-fit:cover;box-shadow:0 2px 8px #3e2723;">
+        <span style="font-weight:bold;color:#FFD600;">one world net</span>
+        <div class="footer-socials" style="display:flex;gap:8px;">
+          <a href="#" aria-label="facebook"><img src="images/fb.svg" alt="fb" style="width:22px;"></a>
+          <a href="#" aria-label="twitter"><img src="images/tw.svg" alt="tw" style="width:22px;"></a>
+          <a href="#" aria-label="youtube"><img src="images/yt.svg" alt="yt" style="width:22px;"></a>
+          <a href="#" aria-label="telegram"><img src="images/tg.svg" alt="tg" style="width:22px;"></a>
+          <a href="#" aria-label="linkedin"><img src="images/li.svg" alt="li" style="width:22px;"></a>
+        </div>
+      </div>
+      <div class="footer-links" style="display:flex;gap:18px;">
+        <a href="privacy.html" data-i18n="footer_privacy">Privacy</a>
+        <a href="faq.html" data-i18n="footer_faq">FAQ</a>
+        <a href="contact.html" data-i18n="footer_contact">Contact</a>
+      </div>
     </div>
-    <span data-i18n="footer">All rights reserved &copy; one world net 2025</span>
+    <div class="footer-copyright" style="text-align:center;margin-top:8px;color:#FFD600;font-size:0.98em;">
+      <span data-i18n="footer">All rights reserved &copy; one world net 2025</span>
+    </div>
     <script>
       // language switcher
       document.addEventListener('DOMContentLoaded', function() {
@@ -154,8 +160,5 @@
       </div>
     </div>
   </section>
-  <footer style="background:rgba(10,25,47,0.95); color:#fff; text-align:center; padding:18px 0; border-top:1.5px solid #00e0ff33; margin-top:32px;">
-    <div>جميع الحقوق محفوظة &copy; one world net 2025</div>
-  </footer>
 </body>
 </html>
