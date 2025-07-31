@@ -67,6 +67,7 @@
       <h3 data-i18n="blog_add">Add Article</h3>
       <input type="text" id="blogTitle" placeholder="Title" required>
       <textarea id="blogContent" placeholder="Content" required></textarea>
+      <input type="url" id="blogImage" placeholder="Image URL (اختياري)">
       <select id="blogLang">
         <option value="en">English</option>
         <option value="ar">العربية</option>
@@ -75,31 +76,15 @@
     </form>
   </section>
   <footer class="starlink-footer">
-    <div style="margin-bottom:12px;">
-      <a href="https://wa.me/" target="_blank" aria-label="WhatsApp" style="display:inline-block;margin:0 8px;vertical-align:middle;">
-        <img src="images/wa.svg" alt="WhatsApp" style="width:32px;height:32px;filter:drop-shadow(0 2px 8px #FFD60088);">
-      </a>
-      <a href="https://t.me/" target="_blank" aria-label="Telegram" style="display:inline-block;margin:0 8px;vertical-align:middle;">
-        <img src="images/tg.svg" alt="Telegram" style="width:32px;height:32px;filter:drop-shadow(0 2px 8px #FFD60088);">
-      </a>
-      <a href="https://www.facebook.com/" target="_blank" aria-label="Facebook" style="display:inline-block;margin:0 8px;vertical-align:middle;">
-        <img src="images/fb.svg" alt="Facebook" style="width:32px;height:32px;filter:drop-shadow(0 2px 8px #FFD60088);">
-      </a>
-      <a href="https://www.linkedin.com/" target="_blank" aria-label="LinkedIn" style="display:inline-block;margin:0 8px;vertical-align:middle;">
-        <img src="images/li.svg" alt="LinkedIn" style="width:32px;height:32px;filter:drop-shadow(0 2px 8px #FFD60088);">
-      </a>
-      <a href="https://twitter.com/" target="_blank" aria-label="X (Twitter)" style="display:inline-block;margin:0 8px;vertical-align:middle;">
-        <img src="images/tw.svg" alt="X (Twitter)" style="width:32px;height:32px;filter:drop-shadow(0 2px 8px #FFD60088);">
-      </a>
-      <a href="https://www.tiktok.com/" target="_blank" aria-label="TikTok" style="display:inline-block;margin:0 8px;vertical-align:middle;">
-        <img src="images/tt.svg" alt="TikTok" style="width:32px;height:32px;filter:drop-shadow(0 2px 8px #FFD60088);">
-      </a>
-      <a href="https://www.youtube.com/" target="_blank" aria-label="YouTube" style="display:inline-block;margin:0 8px;vertical-align:middle;">
-        <img src="images/yt.svg" alt="YouTube" style="width:32px;height:32px;filter:drop-shadow(0 2px 8px #FFD60088);">
-      </a>
-      <a href="mailto:info@oneworld.net" aria-label="Email" style="display:inline-block;margin:0 8px;vertical-align:middle;">
-        <img src="images/gm.svg" alt="Email" style="width:32px;height:32px;filter:drop-shadow(0 2px 8px #FFD60088);">
-      </a>
+    <div class="social" style="margin-bottom:12px;">
+      <a href="https://wa.me/" target="_blank" aria-label="WhatsApp"><img src="images/wa.svg" alt="WhatsApp"></a>
+      <a href="https://t.me/" target="_blank" aria-label="Telegram"><img src="images/tg.svg" alt="Telegram"></a>
+      <a href="https://www.facebook.com/" target="_blank" aria-label="Facebook"><img src="images/fb.svg" alt="Facebook"></a>
+      <a href="https://www.linkedin.com/" target="_blank" aria-label="LinkedIn"><img src="images/li.svg" alt="LinkedIn"></a>
+      <a href="https://twitter.com/" target="_blank" aria-label="X (Twitter)"><img src="images/tw.svg" alt="X (Twitter)"></a>
+      <a href="https://www.tiktok.com/" target="_blank" aria-label="TikTok"><img src="images/tt.svg" alt="TikTok"></a>
+      <a href="https://www.youtube.com/" target="_blank" aria-label="YouTube"><img src="images/yt.svg" alt="YouTube"></a>
+      <a href="mailto:info@oneworld.net" aria-label="Email"><img src="images/gm.svg" alt="Email"></a>
     </div>
     <span data-i18n="footer">All rights reserved &copy; one world net 2025</span>
     <script>
@@ -136,24 +121,24 @@
       // Blog logic
       function getDefaultBlogs(lang) {
         if(lang==='ar') return [
-          {title:'شراكة استراتيجية مع وكالة الفضاء الصينية',content:'يسر one world net الإعلان عن شراكة تقنية مع وكالة صينية رائدة لتوسيع التغطية وتقديم حلول اتصال متقدمة في آسيا.'},
-          {title:'تعاون مع وكالة أوروبية للابتكار',content:'تم توقيع اتفاقية تعاون مع وكالة أوروبية متخصصة في تقنيات الأقمار الصناعية لتعزيز جودة الخدمة وتطوير حلول جديدة.'},
-          {title:'حضور معارض عالمية',content:'نشارك في أهم معارض التكنولوجيا حول العالم لعرض أحدث حلولنا في الاتصال الفضائي.'},
-          {title:'أعلى تشفير في العالم',content:'نستخدم تشفير بلوكتشين غير قابل للاختراق أو التجسس، لضمان خصوصية المستخدمين بشكل مطلق.'},
-          {title:'جهاز استقبال بحجم الشريحة',content:'نعمل على تصغير حجم جهاز الاستقبال ليصبح بحجم شريحة الهاتف قريباً.'},
-          {title:'دعم الطاقة الشمسية',content:'جميع أجهزتنا تدعم الطاقة الشمسية لتوفير الإنترنت في أي مكان دون الحاجة للكهرباء التقليدية.'},
-          {title:'شراكات مع شركات عالمية',content:'لدينا شراكات مع شركات كبرى لتوفير الإنترنت المجاني لكل البشر في المستقبل.'},
-          {title:'سرعات تصل ١٠ جيجابت في آسيا والصين',content:'نقدم سرعات غير مسبوقة تصل إلى ١٠ جيجابت في الثانية في آسيا والصين.'}
+          {title:'شراكة استراتيجية مع وكالة الفضاء الصينية',content:'يسر one world net الإعلان عن شراكة تقنية مع وكالة صينية رائدة لتوسيع التغطية وتقديم حلول اتصال متقدمة في آسيا.',image:'images/8.jpg'},
+          {title:'تعاون مع وكالة أوروبية للابتكار',content:'تم توقيع اتفاقية تعاون مع وكالة أوروبية متخصصة في تقنيات الأقمار الصناعية لتعزيز جودة الخدمة وتطوير حلول جديدة.',image:'images/9.jpg'},
+          {title:'حضور معارض عالمية',content:'نشارك في أهم معارض التكنولوجيا حول العالم لعرض أحدث حلولنا في الاتصال الفضائي.',image:'images/10.jpg'},
+          {title:'أعلى تشفير في العالم',content:'نستخدم تشفير بلوكتشين غير قابل للاختراق أو التجسس، لضمان خصوصية المستخدمين بشكل مطلق.',image:'images/11.jpg'},
+          {title:'جهاز استقبال بحجم الشريحة',content:'نعمل على تصغير حجم جهاز الاستقبال ليصبح بحجم شريحة الهاتف قريباً.',image:'images/12.jpg'},
+          {title:'دعم الطاقة الشمسية',content:'جميع أجهزتنا تدعم الطاقة الشمسية لتوفير الإنترنت في أي مكان دون الحاجة للكهرباء التقليدية.',image:'images/13.jpg'},
+          {title:'شراكات مع شركات عالمية',content:'لدينا شراكات مع شركات كبرى لتوفير الإنترنت المجاني لكل البشر في المستقبل.',image:'images/14.jpg'},
+          {title:'سرعات تصل ١٠ جيجابت في آسيا والصين',content:'نقدم سرعات غير مسبوقة تصل إلى ١٠ جيجابت في الثانية في آسيا والصين.',image:'images/15.jpg'}
         ];
         return [
-          {title:'Strategic Partnership with a Leading Chinese Agency',content:'one world net is proud to announce a new partnership with a top Chinese space agency to expand coverage and deliver advanced connectivity solutions across Asia.'},
-          {title:'Collaboration with a European Innovation Agency',content:'We have signed a cooperation agreement with a European satellite technology agency to enhance service quality and develop new solutions.'},
-          {title:'Attending Global Tech Exhibitions',content:'We participate in the world’s top tech exhibitions to showcase our latest satellite connectivity solutions.'},
-          {title:'World’s Highest Encryption',content:'We use blockchain-based encryption, making your data unbreakable and inaccessible to any third party.'},
-          {title:'Nano Receiver Innovation',content:'We are miniaturizing our satellite receiver to the size of a SIM card for the future.'},
-          {title:'Solar-Powered Devices',content:'All our devices support solar power for true off-grid internet access.'},
-          {title:'Global Partnerships for Free Internet',content:'We partner with leading companies to deliver free internet for all humanity in the future.'},
-          {title:'10Gbps in Asia & China',content:'We deliver record-breaking speeds up to 10Gbps in Asia and China.'}
+          {title:'Strategic Partnership with a Leading Chinese Agency',content:'one world net is proud to announce a new partnership with a top Chinese space agency to expand coverage and deliver advanced connectivity solutions across Asia.',image:'images/8.jpg'},
+          {title:'Collaboration with a European Innovation Agency',content:'We have signed a cooperation agreement with a European satellite technology agency to enhance service quality and develop new solutions.',image:'images/9.jpg'},
+          {title:'Attending Global Tech Exhibitions',content:'We participate in the world’s top tech exhibitions to showcase our latest satellite connectivity solutions.',image:'images/10.jpg'},
+          {title:'World’s Highest Encryption',content:'We use blockchain-based encryption, making your data unbreakable and inaccessible to any third party.',image:'images/11.jpg'},
+          {title:'Nano Receiver Innovation',content:'We are miniaturizing our satellite receiver to the size of a SIM card for the future.',image:'images/12.jpg'},
+          {title:'Solar-Powered Devices',content:'All our devices support solar power for true off-grid internet access.',image:'images/13.jpg'},
+          {title:'Global Partnerships for Free Internet',content:'We partner with leading companies to deliver free internet for all humanity in the future.',image:'images/14.jpg'},
+          {title:'10Gbps in Asia & China',content:'We deliver record-breaking speeds up to 10Gbps in Asia and China.',image:'images/15.jpg'}
         ];
       }
       function showBlogs() {
@@ -164,16 +149,20 @@
           getDefaultBlogs(lang).forEach(b=>blogs.push({...b,lang}));
           localStorage.setItem('blogs', JSON.stringify(blogs));
         }
-        let html = blogs.filter(b=>b.lang===lang).map(b=>`<div class='blog-card'><h3>${b.title}</h3><p>${b.content}</p></div>`).join('');
+        let html = blogs.filter(b=>b.lang===lang).map(b=>{
+          let img = b.image ? `<img src='${b.image}' alt='blog image' style='width:100%;max-height:180px;object-fit:cover;border-radius:12px 12px 0 0;margin-bottom:12px;'>` : '';
+          return `<div class='blog-card'>${img}<h3>${b.title}</h3><p>${b.content}</p></div>`;
+        }).join('');
         document.getElementById('blogList').innerHTML = html || (lang==='ar'?'لا توجد مقالات.':'No articles yet.');
       }
       showBlogs();
       document.getElementById('addBlogForm').onsubmit = function(e) {
         e.preventDefault();
         let blogs = JSON.parse(localStorage.getItem('blogs')||'[]');
-        blogs.push({title:blogTitle.value,content:blogContent.value,lang:blogLang.value});
+        let image = blogImage.value.trim();
+        blogs.push({title:blogTitle.value,content:blogContent.value,lang:blogLang.value,image:image});
         localStorage.setItem('blogs', JSON.stringify(blogs));
-        blogTitle.value=''; blogContent.value='';
+        blogTitle.value=''; blogContent.value=''; blogImage.value='';
         showBlogs();
       }
     </script>

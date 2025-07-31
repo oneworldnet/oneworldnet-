@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -25,28 +24,28 @@
       color: #FFA726;
     }
     .cta, .cta.special {
-      background: #FFD600;
-      color: #3e2723 !important;
+      background: #6d4c2b; /* شوكولاتة */
+      color: #fff !important;
       font-weight: bold;
       border-radius: 30px;
-      border: 2px solid #FFA726;
-      /* box-shadow removed */
+      border: 2px solid #FFD600;
       transition: background 0.2s, color 0.2s, border 0.2s;
+      box-shadow: 0 2px 8px #3e272355;
     }
     .cta:hover, .cta.special:hover {
-      background: #3e2723;
-      color: #FFD600 !important;
-      border: 2px solid #FFD600;
+      background: #FFD600;
+      color: #3e2723 !important;
+      border: 2px solid #6d4c2b;
     }
     .starlink-header, .starlink-footer {
       background: #18120b !important;
-      color: #FFD600;
+      color: #fff;
     }
     .starlink-header nav a.active,
     .starlink-header nav a:hover, .starlink-header nav a.active {
-      background: #3e2723;
-      color: #FFD600;
-      border: 2px solid #FFD600;
+      background: #FFD600;
+      color: #3e2723;
+      border: 2px solid #6d4c2b;
     }
     .starlink-section, .starlink-feature-card {
       background: #18120b;
@@ -55,191 +54,45 @@
       border: 2px solid #3e2723;
     }
     .starlink-feature-card h3 {
-      color: #FFD600;
+      color: #fff;
       /* text-shadow removed */
     }
     .starlink-feature-card p {
       color: #fff;
     }
     .starlink-section h2 {
-      color: #FFD600;
-      /* text-shadow removed */
-    }
-    .starlink-section p {
       color: #fff;
-    }
-    .starlink-footer {
-      color: #FFD600;
-      border-top: 1.5px solid #FFD60055;
-    }
-    .social a img {
-      /* filter: drop-shadow removed */
-    }
-    .starlink-hero {
-      min-height: 100vh;
-      background: #18120b url('images/1.jpg') center/cover no-repeat;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      position: relative;
-    }
-    .starlink-hero h1 {
-      font-size: 3em;
-      font-weight: 900;
-      margin-bottom: 18px;
-      color: #fff;
-      letter-spacing: 2px;
-      /* text-shadow removed */
-    }
-    .starlink-hero p {
-      font-size: 1.35em;
-      color: #FFA726;
-      margin-bottom: 32px;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .starlink-hero .cta {
-      background: #FFD600;
-      color: #3e2723;
-      font-weight: bold;
-      padding: 18px 48px;
-      border-radius: 30px;
-      font-size: 1.2em;
-      /* box-shadow removed */
-      text-decoration: none;
-      border: 2px solid #FFA726;
-      transition: background 0.2s, color 0.2s, border 0.2s;
-      margin-top: 12px;
-      display: inline-block;
-    }
-    .starlink-hero .cta:hover {
-      background: #FFA726;
-      color: #fff;
-      border: 2px solid #FFD600;
-    }
-    .starlink-header {
-      width: 100vw;
-      position: fixed;
-      top: 0;
-      right: 0;
-      z-index: 100;
-      background: #18120b;
-      /* box-shadow removed */
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 32px;
-      height: 72px;
-    }
-    .starlink-header .logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .starlink-header .logo img {
-      height: 48px;
-      border-radius: 12px;
-      /* box-shadow removed */
-    }
-    .starlink-header .logo span {
-      font-size: 1.5em;
-      font-weight: bold;
-      color: #FFD600;
-      letter-spacing: 2px;
-      /* text-shadow removed */
-    }
-    .starlink-header nav {
-      display: flex;
-      gap: 24px;
-      transition: right 0.3s;
-    }
-    .menu-toggle {
-      display: none;
-      background: none;
-      border: none;
-      color: #FFD600;
-      font-size: 2.2em;
-      cursor: pointer;
-      z-index: 200;
-    }
-    .starlink-header nav a {
-      color: #FFD600;
-      font-weight: bold;
-      text-decoration: none;
-      font-size: 1.1em;
-      padding: 8px 18px;
-      border-radius: 8px;
-      border: 2px solid transparent;
-      transition: background 0.2s, color 0.2s, border 0.2s;
-    }
-    .starlink-header nav a.active,
-    .starlink-header nav a:hover, .starlink-header nav a.active {
-      background: #3e2723;
-      color: #FFA726;
-      border: 2px solid #FFD600;
-    }
-    .starlink-section {
-      padding: 80px 0 40px 0;
-      background: #18120b;
-      text-align: center;
-    }
-    .starlink-section h2 {
-      color: #FFA726;
       font-size: 2em;
       margin-bottom: 18px;
       font-weight: bold;
-      text-shadow: 0 2px 8px #FFD600;
+      letter-spacing: 1px;
+      background: linear-gradient(90deg, #FFD600 0%, #fff 60%, #FFA726 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      /* text-fill-color: transparent; */
     }
     .starlink-section p {
-      color: #FFD600;
+      color: #fff;
       font-size: 1.15em;
       margin-bottom: 24px;
       max-width: 700px;
       margin-left: auto;
       margin-right: auto;
     }
-    .starlink-features {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 40px;
-      justify-content: center;
-      margin-top: 30px;
-    }
-    .starlink-feature-card {
-      background: #23160d;
-      border-radius: 18px;
-      /* box-shadow removed */
-      padding: 38px 32px;
-      min-width: 220px;
-      max-width: 340px;
-      flex: 1 1 220px;
-      text-align: center;
-      transition: transform 0.2s;
-    }
-    .starlink-feature-card:hover {
-      transform: translateY(-6px) scale(1.03);
-      /* box-shadow removed */
-    }
-    .starlink-feature-card img {
-      width: 120px;
-      height: 120px;
-      border-radius: 24px;
-      margin-bottom: 18px;
-      object-fit: cover;
-      /* box-shadow removed */
-    }
     .starlink-feature-card h3 {
-      color: #FFA726;
+      color: #fff;
       font-size: 1.25em;
       margin-bottom: 10px;
       font-weight: bold;
-      text-shadow: 0 2px 8px #FFD600;
+      background: linear-gradient(90deg, #FFD600 0%, #fff 60%, #FFA726 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      /* text-fill-color: transparent; */
     }
     .starlink-feature-card p {
-      color: #FFD600;
+      color: #fff;
       font-size: 1.08em;
     }
     .starlink-footer {
@@ -260,13 +113,13 @@
         top: 0;
         right: -100vw;
         height: 100vh;
-        width: 70vw;
-        max-width: 320px;
-        background: #23160dee;
+        width: 50vw;
+        max-width: 220px;
+        background: #FFD600ee;
         flex-direction: column;
         align-items: flex-start;
         gap: 0;
-        padding: 80px 24px 0 24px;
+        padding: 80px 16px 0 16px;
         box-shadow: -2px 0 16px #3e272355;
         z-index: 150;
       }
@@ -318,11 +171,12 @@
       <button id="lang-switch" class="cta" style="width:100%;margin-top:18px;">العربية</button>
     </nav>
   </header>
-  <section class="starlink-hero" style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;min-height:60vh;background:#18120b url('images/1.jpg') center/cover no-repeat;">
-    <div style="background:rgba(24,18,11,0.82);backdrop-filter:blur(4px);border-radius:22px;padding:32px 18px 24px 18px;box-shadow:0 4px 32px #3e272355;margin-bottom:32px;max-width:600px;width:90vw;">
-      <h1 data-i18n="hero_title" style="margin-bottom:18px;">The Fastest, Widest Satellite Internet</h1>
-      <p data-i18n="hero_desc" style="margin-bottom:24px;">Connect from anywhere, anytime. one world net brings you high-speed, secure, and reliable internet for every city, village, desert, sea, and even the sky. Empowering education, health, and communities worldwide.</p>
-      <a href="pricing.html" class="cta" data-i18n="hero_cta">Get Started</a>
+  <section class="starlink-hero" style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;padding:0;background:none;">
+    <img id="hero-img" src="images/1.jpg" alt="Satellite Internet" style="width:100vw;max-width:100%;height:auto;display:block;object-fit:cover;min-height:220px;max-height:60vh;">
+    <div style="background:rgba(24,18,11,0.82);backdrop-filter:blur(4px);border-radius:22px;padding:32px 18px 24px 18px;box-shadow:0 4px 32px #3e272355;margin:24px auto 32px auto;max-width:600px;width:90vw;">
+      <h1 id="hero_title" data-i18n="hero_title" style="margin-bottom:18px;">The Fastest, Widest Satellite Internet</h1>
+      <p id="hero_desc" data-i18n="hero_desc" style="margin-bottom:24px;">Connect from anywhere, anytime. one world net brings you high-speed, secure, and reliable internet for every city, village, desert, sea, and even the sky. Empowering education, health, and communities worldwide.</p>
+      <a href="pricing.html" class="cta" id="hero_cta" data-i18n="hero_cta">Get Started</a>
     </div>
   </section>
   <section class="starlink-section">
@@ -393,6 +247,26 @@
       if (nav.contains(e.target) && e.target.tagName === 'A') {
         nav.classList.remove('open');
       }
+    });
+    // تحميل الصور المخصصة من localStorage
+    function loadCustomImages() {
+      var heroImg = localStorage.getItem('img_1');
+      if(heroImg) document.getElementById('hero-img').src = heroImg;
+      // يمكن إضافة صور أخرى بنفس الطريقة حسب الحاجة
+    }
+    // تحميل النصوص المخصصة من localStorage
+    function loadCustomTexts() {
+      var page = 'index';
+      var store = {};
+      try { store = JSON.parse(localStorage.getItem('text_' + page) || '{}'); } catch(e){}
+      if(store.hero_title) document.getElementById('hero_title').textContent = store.hero_title;
+      if(store.hero_desc) document.getElementById('hero_desc').textContent = store.hero_desc;
+      if(store.hero_cta) document.getElementById('hero_cta').textContent = store.hero_cta;
+      // يمكن إضافة المزيد من الفقرات حسب الحاجة
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      loadCustomImages();
+      loadCustomTexts();
     });
   </script>
   </footer>
