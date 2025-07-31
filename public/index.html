@@ -24,6 +24,57 @@
     a:hover {
       color: #FFA726;
     }
+    .cta, .cta.special {
+      background: #FFD600;
+      color: #3e2723 !important;
+      font-weight: bold;
+      border-radius: 30px;
+      border: 2px solid #FFA726;
+      /* box-shadow removed */
+      transition: background 0.2s, color 0.2s, border 0.2s;
+    }
+    .cta:hover, .cta.special:hover {
+      background: #3e2723;
+      color: #FFD600 !important;
+      border: 2px solid #FFD600;
+    }
+    .starlink-header, .starlink-footer {
+      background: #18120b !important;
+      color: #FFD600;
+    }
+    .starlink-header nav a.active,
+    .starlink-header nav a:hover, .starlink-header nav a.active {
+      background: #3e2723;
+      color: #FFD600;
+      border: 2px solid #FFD600;
+    }
+    .starlink-section, .starlink-feature-card {
+      background: #18120b;
+    }
+    .starlink-feature-card {
+      border: 2px solid #3e2723;
+    }
+    .starlink-feature-card h3 {
+      color: #FFD600;
+      /* text-shadow removed */
+    }
+    .starlink-feature-card p {
+      color: #fff;
+    }
+    .starlink-section h2 {
+      color: #FFD600;
+      /* text-shadow removed */
+    }
+    .starlink-section p {
+      color: #fff;
+    }
+    .starlink-footer {
+      color: #FFD600;
+      border-top: 1.5px solid #FFD60055;
+    }
+    .social a img {
+      /* filter: drop-shadow removed */
+    }
     .starlink-hero {
       min-height: 100vh;
       background: #18120b url('images/1.jpg') center/cover no-repeat;
@@ -40,7 +91,7 @@
       margin-bottom: 18px;
       color: #fff;
       letter-spacing: 2px;
-      text-shadow: 0 2px 12px #3e2723;
+      /* text-shadow removed */
     }
     .starlink-hero p {
       font-size: 1.35em;
@@ -57,7 +108,7 @@
       padding: 18px 48px;
       border-radius: 30px;
       font-size: 1.2em;
-      box-shadow: 0 4px 16px #3e272355;
+      /* box-shadow removed */
       text-decoration: none;
       border: 2px solid #FFA726;
       transition: background 0.2s, color 0.2s, border 0.2s;
@@ -76,7 +127,7 @@
       right: 0;
       z-index: 100;
       background: #18120b;
-      box-shadow: 0 2px 8px #3e272355;
+      /* box-shadow removed */
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -91,14 +142,14 @@
     .starlink-header .logo img {
       height: 48px;
       border-radius: 12px;
-      box-shadow: 0 2px 12px #3e272355;
+      /* box-shadow removed */
     }
     .starlink-header .logo span {
       font-size: 1.5em;
       font-weight: bold;
       color: #FFD600;
       letter-spacing: 2px;
-      text-shadow: 0 2px 8px #FFA726;
+      /* text-shadow removed */
     }
     .starlink-header nav {
       display: flex;
@@ -160,17 +211,17 @@
     .starlink-feature-card {
       background: #23160d;
       border-radius: 18px;
-      box-shadow: 0 4px 18px #3e272355;
+      /* box-shadow removed */
       padding: 38px 32px;
       min-width: 220px;
       max-width: 340px;
       flex: 1 1 220px;
       text-align: center;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: transform 0.2s;
     }
     .starlink-feature-card:hover {
       transform: translateY(-6px) scale(1.03);
-      box-shadow: 0 8px 24px #FFD600;
+      /* box-shadow removed */
     }
     .starlink-feature-card img {
       width: 120px;
@@ -178,7 +229,7 @@
       border-radius: 24px;
       margin-bottom: 18px;
       object-fit: cover;
-      box-shadow: 0 2px 24px #3e2723;
+      /* box-shadow removed */
     }
     .starlink-feature-card h3 {
       color: #FFA726;
@@ -244,10 +295,16 @@
 <body>
   <header class="starlink-header">
     <div class="logo">
-      <img src="images/logo.jpg" alt="one world net logo">
+      <img src="images/logo.jpg" alt="one world net logo" style="height:48px;max-width:48px;min-width:32px;object-fit:cover;box-shadow:0 2px 12px #3e2723;">
       <span>one world net</span>
     </div>
-    <button class="menu-toggle" aria-label="فتح القائمة" onclick="toggleMenu()">&#9776;</button>
+    <button class="menu-toggle" aria-label="فتح القائمة" onclick="toggleMenu()" style="background:none;border:none;padding:6px 10px;display:flex;align-items:center;justify-content:center;">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect y="5" width="28" height="3.2" rx="1.6" fill="#FFD600"/>
+        <rect y="12.4" width="28" height="3.2" rx="1.6" fill="#FFD600"/>
+        <rect y="19.8" width="28" height="3.2" rx="1.6" fill="#FFD600"/>
+      </svg>
+    </button>
     <nav id="mainNav">
       <a href="#" class="active" data-i18n="nav_home">Home</a>
       <a href="pricing.html" data-i18n="nav_pricing">Plans</a>
@@ -256,13 +313,17 @@
       <a href="blog.html" data-i18n="nav_blog">Blog</a>
       <a href="projects.html" data-i18n="nav_projects">Projects</a>
       <a href="contact.html" data-i18n="nav_contact">Contact</a>
+      <a href="login.html" class="cta special" style="margin:8px 0;">تسجيل دخول</a>
+      <a href="register.html" class="cta special" style="margin-bottom:8px;">إنشاء حساب</a>
       <button id="lang-switch" class="cta" style="width:100%;margin-top:18px;">العربية</button>
     </nav>
   </header>
-  <section class="starlink-hero">
-    <h1 data-i18n="hero_title">The Fastest, Widest Satellite Internet</h1>
-    <p data-i18n="hero_desc">Connect from anywhere, anytime. one world net brings you high-speed, secure, and reliable internet for every city, village, desert, sea, and even the sky. Empowering education, health, and communities worldwide.</p>
-    <a href="pricing.html" class="cta" data-i18n="hero_cta">Get Started</a>
+  <section class="starlink-hero" style="display:flex;flex-direction:column;align-items:center;justify-content:flex-end;min-height:60vh;background:#18120b url('images/1.jpg') center/cover no-repeat;">
+    <div style="background:rgba(24,18,11,0.82);backdrop-filter:blur(4px);border-radius:22px;padding:32px 18px 24px 18px;box-shadow:0 4px 32px #3e272355;margin-bottom:32px;max-width:600px;width:90vw;">
+      <h1 data-i18n="hero_title" style="margin-bottom:18px;">The Fastest, Widest Satellite Internet</h1>
+      <p data-i18n="hero_desc" style="margin-bottom:24px;">Connect from anywhere, anytime. one world net brings you high-speed, secure, and reliable internet for every city, village, desert, sea, and even the sky. Empowering education, health, and communities worldwide.</p>
+      <a href="pricing.html" class="cta" data-i18n="hero_cta">Get Started</a>
+    </div>
   </section>
   <section class="starlink-section">
     <h2 data-i18n="features_title">Why Choose one world net?</h2>
@@ -289,32 +350,16 @@
       </div>
     </div>
   </section>
-  <footer class="starlink-footer">
-    <div style="margin-bottom:12px;">
-      <a href="https://wa.me/" target="_blank" aria-label="WhatsApp" style="display:inline-block;margin:0 8px;vertical-align:middle;">
-        <img src="images/wa.svg" alt="WhatsApp" style="width:32px;height:32px;filter:drop-shadow(0 2px 8px #FFD60088);">
-      </a>
-      <a href="https://t.me/" target="_blank" aria-label="Telegram" style="display:inline-block;margin:0 8px;vertical-align:middle;">
-        <img src="images/tg.svg" alt="Telegram" style="width:32px;height:32px;filter:drop-shadow(0 2px 8px #FFD60088);">
-      </a>
-      <a href="https://www.facebook.com/" target="_blank" aria-label="Facebook" style="display:inline-block;margin:0 8px;vertical-align:middle;">
-        <img src="images/fb.svg" alt="Facebook" style="width:32px;height:32px;filter:drop-shadow(0 2px 8px #FFD60088);">
-      </a>
-      <a href="https://www.linkedin.com/" target="_blank" aria-label="LinkedIn" style="display:inline-block;margin:0 8px;vertical-align:middle;">
-        <img src="images/li.svg" alt="LinkedIn" style="width:32px;height:32px;filter:drop-shadow(0 2px 8px #FFD60088);">
-      </a>
-      <a href="https://twitter.com/" target="_blank" aria-label="X (Twitter)" style="display:inline-block;margin:0 8px;vertical-align:middle;">
-        <img src="images/tw.svg" alt="X (Twitter)" style="width:32px;height:32px;filter:drop-shadow(0 2px 8px #FFD60088);">
-      </a>
-      <a href="https://www.tiktok.com/" target="_blank" aria-label="TikTok" style="display:inline-block;margin:0 8px;vertical-align:middle;">
-        <img src="images/tt.svg" alt="TikTok" style="width:32px;height:32px;filter:drop-shadow(0 2px 8px #FFD60088);">
-      </a>
-      <a href="https://www.youtube.com/" target="_blank" aria-label="YouTube" style="display:inline-block;margin:0 8px;vertical-align:middle;">
-        <img src="images/yt.svg" alt="YouTube" style="width:32px;height:32px;filter:drop-shadow(0 2px 8px #FFD60088);">
-      </a>
-      <a href="mailto:info@oneworld.net" aria-label="Email" style="display:inline-block;margin:0 8px;vertical-align:middle;">
-        <img src="images/gm.svg" alt="Email" style="width:32px;height:32px;filter:drop-shadow(0 2px 8px #FFD60088);">
-      </a>
+  <footer class="starlink-footer" style="background:#18120b;">
+    <div class="social" style="margin-bottom:12px;">
+      <a href="https://wa.me/" target="_blank" aria-label="WhatsApp"><img src="images/wa.svg" alt="WhatsApp" style="width:32px;height:32px;"></a>
+      <a href="https://t.me/" target="_blank" aria-label="Telegram"><img src="images/tg.svg" alt="Telegram" style="width:32px;height:32px;"></a>
+      <a href="https://www.facebook.com/" target="_blank" aria-label="Facebook"><img src="images/fb.svg" alt="Facebook" style="width:32px;height:32px;"></a>
+      <a href="https://www.linkedin.com/" target="_blank" aria-label="LinkedIn"><img src="images/li.svg" alt="LinkedIn" style="width:32px;height:32px;"></a>
+      <a href="https://twitter.com/" target="_blank" aria-label="X (Twitter)"><img src="images/tw.svg" alt="X (Twitter)" style="width:32px;height:32px;"></a>
+      <a href="https://www.tiktok.com/" target="_blank" aria-label="TikTok"><img src="images/tt.svg" alt="TikTok" style="width:32px;height:32px;"></a>
+      <a href="https://www.youtube.com/" target="_blank" aria-label="YouTube"><img src="images/yt.svg" alt="YouTube" style="width:32px;height:32px;"></a>
+      <a href="mailto:info@oneworld.net" aria-label="Email"><img src="images/gm.svg" alt="Email" style="width:32px;height:32px;"></a>
     </div>
     <span data-i18n="footer">All rights reserved &copy; one world net 2025</span>
   <script>
