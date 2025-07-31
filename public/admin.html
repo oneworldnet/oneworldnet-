@@ -55,6 +55,68 @@ function googleTranslateElementInit() {
       </div>
     </div>
     <form id="adminForm">
+    <div class="section-title" style="margin-top:32px;">لوحة الإحصائيات المتقدمة</div>
+    <div id="analyticsDashboard" style="background:#18120b;border-radius:12px;padding:18px 12px 12px 12px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
+      <canvas id="visitorsChart" style="width:100%;max-width:400px;background:#fff1;border-radius:8px;"></canvas>
+      <div id="analyticsStats" style="color:#FFD600;font-size:1.1em;margin-top:12px;"></div>
+    </div>
+    <div class="section-title">إشعارات فورية للمسؤول</div>
+    <div id="adminNotifications" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;color:#FFD600;font-size:1em;"></div>
+    <div class="section-title">إدارة الترجمات المخصصة</div>
+    <div id="translationsManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
+      <label>النص الأصلي</label>
+      <input type="text" id="origText" placeholder="النص الأصلي">
+      <label>اللغة</label>
+      <input type="text" id="transLang" placeholder="رمز اللغة (ar, en, fr ...)">
+      <label>الترجمة</label>
+      <input type="text" id="transText" placeholder="النص المترجم">
+      <button type="button" class="save-btn" onclick="addTranslation()">إضافة ترجمة</button>
+      <div id="translationsList"></div>
+    </div>
+    <div class="section-title">مدير الملفات والصور</div>
+    <div id="fileManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
+      <input type="file" id="fileUpload" multiple>
+      <button type="button" class="save-btn" onclick="uploadFiles()">رفع الملفات</button>
+      <div id="fileList"></div>
+    </div>
+    <div class="section-title">فريق العمل</div>
+    <div id="teamManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
+      <input type="text" id="teamName" placeholder="اسم العضو">
+      <input type="text" id="teamRole" placeholder="الدور/الوظيفة">
+      <input type="file" id="teamImg" accept="image/*">
+      <textarea id="teamBio" placeholder="نبذة مختصرة"></textarea>
+      <button type="button" class="save-btn" onclick="addTeamMember()">إضافة عضو</button>
+      <div id="teamList"></div>
+    </div>
+    <div class="section-title">مراجعات وتقييمات العملاء</div>
+    <div id="testimonialsManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
+      <input type="text" id="reviewerName" placeholder="اسم العميل">
+      <textarea id="reviewText" placeholder="نص المراجعة"></textarea>
+      <input type="number" id="reviewStars" min="1" max="5" value="5" style="width:80px;">
+      <button type="button" class="save-btn" onclick="addTestimonial()">إضافة مراجعة</button>
+      <div id="testimonialsList"></div>
+    </div>
+    <div class="section-title">إضافة فيديو للصفحة الرئيسية/المشاريع/الأجهزة</div>
+    <div id="videoManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
+      <label>رابط فيديو (YouTube أو mp4)</label>
+      <input type="url" id="videoUrl" placeholder="https://...">
+      <select id="videoPage">
+        <option value="index">الصفحة الرئيسية</option>
+        <option value="projects">المشاريع</option>
+        <option value="devices">الأجهزة</option>
+      </select>
+      <button type="button" class="save-btn" onclick="saveVideoUrl()">حفظ الفيديو</button>
+      <div id="videoList"></div>
+    </div>
+    <div class="section-title">الوضع الليلي/النهاري وتحسين الوصول</div>
+    <button type="button" class="save-btn" onclick="toggleTheme()">تبديل الوضع الليلي/النهاري</button>
+    <button type="button" class="save-btn" onclick="toggleAccessibility()">تحسين الوصول</button>
+    <div class="section-title">صفحة حالة الخدمة</div>
+    <div id="statusPageManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
+      <textarea id="statusText" placeholder="اكتب حالة الخدمة الحالية..."></textarea>
+      <button type="button" class="save-btn" onclick="saveStatusText()">حفظ الحالة</button>
+      <div id="statusDisplay" style="color:#FFD600;margin-top:8px;"></div>
+    </div>
     <div class="section-title" style="margin-top:32px;">إدارة الأسئلة الشائعة للمساعد الذكي</div>
     <div id="faqManager" style="background:#18120b;border-radius:12px;padding:18px 12px 12px 12px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
       <div style="margin-bottom:10px;">
@@ -358,6 +420,210 @@ function googleTranslateElementInit() {
         alert('أدخل معرّف الفقرة والنص الجديد');
       }
     }
+  </script>
+  <!-- سكريبتات الميزات العالمية الجديدة -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+  // إحصائيات وهمية للعرض
+  function renderAnalytics() {
+    const ctx = document.getElementById('visitorsChart');
+    if(!ctx) return;
+    const data = {
+      labels: ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو'],
+      datasets: [{
+        label: 'عدد الزوار',
+        data: [120, 190, 300, 500, 200, 300, 450],
+        backgroundColor: '#FFD60088',
+        borderColor: '#FFD600',
+        borderWidth: 2
+      }]
+    };
+    new Chart(ctx, {type:'line',data,options:{plugins:{legend:{labels:{color:'#FFD600'}}},scales:{x:{ticks:{color:'#FFD600'}},y:{ticks:{color:'#FFD600'}}}}});
+    document.getElementById('analyticsStats').innerHTML = 'إجمالي الزوار: 2060 | الدول الأكثر زيارة: مصر، السعودية، الإمارات';
+  }
+  document.addEventListener('DOMContentLoaded', renderAnalytics);
+  // إشعارات وهمية
+  function renderNotifications() {
+    const n = [
+      'تسجيل جديد: أحمد من مصر',
+      'رسالة من زائر: "كيف أشترك؟"',
+      'تنبيه: محاولة دخول غير مصرح',
+    ];
+    document.getElementById('adminNotifications').innerHTML = n.map(x=>'<div>🔔 '+x+'</div>').join('');
+  }
+  document.addEventListener('DOMContentLoaded', renderNotifications);
+  // إدارة الترجمات
+  function addTranslation() {
+    let orig = document.getElementById('origText').value.trim();
+    let lang = document.getElementById('transLang').value.trim();
+    let trans = document.getElementById('transText').value.trim();
+    if(!orig||!lang||!trans) {alert('أدخل جميع الحقول');return;}
+    let translations = JSON.parse(localStorage.getItem('translations')||'[]');
+    translations.push({orig,lang,trans});
+    localStorage.setItem('translations',JSON.stringify(translations));
+    document.getElementById('origText').value='';
+    document.getElementById('transLang').value='';
+    document.getElementById('transText').value='';
+    renderTranslations();
+  }
+  function renderTranslations() {
+    let translations = JSON.parse(localStorage.getItem('translations')||'[]');
+    let list = document.getElementById('translationsList');
+    if(!list) return;
+    list.innerHTML = translations.map((t,i)=>`<div style='color:#fff;background:#3e272355;padding:5px 8px;border-radius:6px;margin-bottom:4px;'>${t.orig} <b>[${t.lang}]</b>: ${t.trans} <button onclick='removeTranslation(${i})' style='background:#e53935;color:#fff;border:none;border-radius:6px;padding:2px 10px;'>حذف</button></div>`).join('');
+  }
+  function removeTranslation(idx) {
+    let translations = JSON.parse(localStorage.getItem('translations')||'[]');
+    translations.splice(idx,1);
+    localStorage.setItem('translations',JSON.stringify(translations));
+    renderTranslations();
+  }
+  document.addEventListener('DOMContentLoaded', renderTranslations);
+  // مدير الملفات
+  function uploadFiles() {
+    let files = document.getElementById('fileUpload').files;
+    let fileList = JSON.parse(localStorage.getItem('fileManager')||'[]');
+    for(let f of files) {
+      let reader = new FileReader();
+      reader.onload = function(ev) {
+        fileList.push({name:f.name,url:ev.target.result});
+        localStorage.setItem('fileManager',JSON.stringify(fileList));
+        renderFileList();
+      };
+      reader.readAsDataURL(f);
+    }
+  }
+  function renderFileList() {
+    let fileList = JSON.parse(localStorage.getItem('fileManager')||'[]');
+    let list = document.getElementById('fileList');
+    if(!list) return;
+    list.innerHTML = fileList.map((f,i)=>`<div style='color:#fff;background:#3e272355;padding:5px 8px;border-radius:6px;margin-bottom:4px;'><a href='${f.url}' target='_blank' style='color:#FFD600;'>${f.name}</a> <button onclick='removeFile(${i})' style='background:#e53935;color:#fff;border:none;border-radius:6px;padding:2px 10px;'>حذف</button></div>`).join('');
+  }
+  function removeFile(idx) {
+    let fileList = JSON.parse(localStorage.getItem('fileManager')||'[]');
+    fileList.splice(idx,1);
+    localStorage.setItem('fileManager',JSON.stringify(fileList));
+    renderFileList();
+  }
+  document.addEventListener('DOMContentLoaded', renderFileList);
+  // إدارة فريق العمل
+  function addTeamMember() {
+    let name = document.getElementById('teamName').value.trim();
+    let role = document.getElementById('teamRole').value.trim();
+    let bio = document.getElementById('teamBio').value.trim();
+    let imgFile = document.getElementById('teamImg').files[0];
+    if(!name||!role||!bio||!imgFile) {alert('أدخل جميع الحقول');return;}
+    let reader = new FileReader();
+    reader.onload = function(ev) {
+      let team = JSON.parse(localStorage.getItem('team')||'[]');
+      team.push({name,role,bio,img:ev.target.result});
+      localStorage.setItem('team',JSON.stringify(team));
+      renderTeamList();
+      document.getElementById('teamName').value='';
+      document.getElementById('teamRole').value='';
+      document.getElementById('teamBio').value='';
+      document.getElementById('teamImg').value='';
+    };
+    reader.readAsDataURL(imgFile);
+  }
+  function renderTeamList() {
+    let team = JSON.parse(localStorage.getItem('team')||'[]');
+    let list = document.getElementById('teamList');
+    if(!list) return;
+    list.innerHTML = team.map((m,i)=>`<div style='color:#fff;background:#3e272355;padding:5px 8px;border-radius:6px;margin-bottom:4px;display:flex;align-items:center;gap:10px;'><img src='${m.img}' style='width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid #FFD600;'> <b>${m.name}</b> - ${m.role} <span style='font-size:0.95em;color:#FFD600;'>${m.bio}</span> <button onclick='removeTeamMember(${i})' style='background:#e53935;color:#fff;border:none;border-radius:6px;padding:2px 10px;'>حذف</button></div>`).join('');
+  }
+  function removeTeamMember(idx) {
+    let team = JSON.parse(localStorage.getItem('team')||'[]');
+    team.splice(idx,1);
+    localStorage.setItem('team',JSON.stringify(team));
+    renderTeamList();
+  }
+  document.addEventListener('DOMContentLoaded', renderTeamList);
+  // إدارة مراجعات العملاء
+  function addTestimonial() {
+    let name = document.getElementById('reviewerName').value.trim();
+    let text = document.getElementById('reviewText').value.trim();
+    let stars = document.getElementById('reviewStars').value;
+    if(!name||!text||!stars) {alert('أدخل جميع الحقول');return;}
+    let testimonials = JSON.parse(localStorage.getItem('testimonials')||'[]');
+    testimonials.push({name,text,stars});
+    localStorage.setItem('testimonials',JSON.stringify(testimonials));
+    renderTestimonials();
+    document.getElementById('reviewerName').value='';
+    document.getElementById('reviewText').value='';
+    document.getElementById('reviewStars').value=5;
+  }
+  function renderTestimonials() {
+    let testimonials = JSON.parse(localStorage.getItem('testimonials')||'[]');
+    let list = document.getElementById('testimonialsList');
+    if(!list) return;
+    list.innerHTML = testimonials.map((t,i)=>`<div style='color:#fff;background:#3e272355;padding:5px 8px;border-radius:6px;margin-bottom:4px;'><b>${t.name}</b>: ${t.text} <span style='color:#FFD600;'>${'★'.repeat(t.stars)}</span> <button onclick='removeTestimonial(${i})' style='background:#e53935;color:#fff;border:none;border-radius:6px;padding:2px 10px;'>حذف</button></div>`).join('');
+  }
+  function removeTestimonial(idx) {
+    let testimonials = JSON.parse(localStorage.getItem('testimonials')||'[]');
+    testimonials.splice(idx,1);
+    localStorage.setItem('testimonials',JSON.stringify(testimonials));
+    renderTestimonials();
+  }
+  document.addEventListener('DOMContentLoaded', renderTestimonials);
+  // إدارة الفيديوهات
+  function saveVideoUrl() {
+    let url = document.getElementById('videoUrl').value.trim();
+    let page = document.getElementById('videoPage').value;
+    if(!url) {alert('أدخل رابط الفيديو');return;}
+    let videos = JSON.parse(localStorage.getItem('videos')||'{}');
+    if(!videos[page]) videos[page]=[];
+    videos[page].push(url);
+    localStorage.setItem('videos',JSON.stringify(videos));
+    document.getElementById('videoUrl').value='';
+    renderVideoList();
+  }
+  function renderVideoList() {
+    let videos = JSON.parse(localStorage.getItem('videos')||'{}');
+    let list = document.getElementById('videoList');
+    if(!list) return;
+    let html = '';
+    Object.keys(videos).forEach(page=>{
+      html += `<div style='color:#FFD600;margin-bottom:6px;'><b>${page==='index'?'الرئيسية':page==='projects'?'المشاريع':'الأجهزة'}</b>:</div>`;
+      videos[page].forEach((url,i)=>{
+        html += `<div style='margin-bottom:4px;'><a href='${url}' target='_blank' style='color:#00e0ff;'>${url}</a> <button onclick='removeVideoUrl("${page}",${i})' style='background:#e53935;color:#fff;border:none;border-radius:6px;padding:2px 10px;'>حذف</button></div>`;
+      });
+    });
+    list.innerHTML = html;
+  }
+  function removeVideoUrl(page,idx) {
+    let videos = JSON.parse(localStorage.getItem('videos')||'{}');
+    videos[page].splice(idx,1);
+    localStorage.setItem('videos',JSON.stringify(videos));
+    renderVideoList();
+  }
+  document.addEventListener('DOMContentLoaded', renderVideoList);
+  // الوضع الليلي/النهاري
+  function toggleTheme() {
+    let theme = localStorage.getItem('theme')==='dark'?'light':'dark';
+    localStorage.setItem('theme',theme);
+    document.body.style.background = theme==='dark'?'#18120b':'#fff';
+    document.body.style.color = theme==='dark'?'#fff':'#18120b';
+    alert('تم تبديل الوضع!');
+  }
+  // تحسين الوصول
+  function toggleAccessibility() {
+    let acc = localStorage.getItem('accessibility')==='on'?'off':'on';
+    localStorage.setItem('accessibility',acc);
+    alert(acc==='on'?'تم تفعيل تحسين الوصول':'تم إيقاف تحسين الوصول');
+  }
+  // صفحة حالة الخدمة
+  function saveStatusText() {
+    let txt = document.getElementById('statusText').value.trim();
+    localStorage.setItem('statusText',txt);
+    renderStatusText();
+  }
+  function renderStatusText() {
+    let txt = localStorage.getItem('statusText')||'';
+    let disp = document.getElementById('statusDisplay');
+    if(disp) disp.textContent = txt;
+  }
+  document.addEventListener('DOMContentLoaded', renderStatusText);
   </script>
 document.getElementById('replyForm').onsubmit = function(e) {
   e.preventDefault();
