@@ -1,3 +1,23 @@
+<div id="videoSection" style="margin:32px 0;text-align:center;"></div>
+<script>
+// عرض الفيديوهات من لوحة التحكم (المشاريع)
+function renderVideos() {
+  let videos = JSON.parse(localStorage.getItem('videos')||'{}');
+  let list = videos['projects']||[];
+  let html = '';
+  list.forEach(url=>{
+    if(url.includes('youtube.com')||url.includes('youtu.be')) {
+      let vid = url.split('v=')[1]||url.split('/').pop();
+      vid = vid.split('&')[0];
+      html += `<iframe width='420' height='236' src='https://www.youtube.com/embed/${vid}' frameborder='0' allowfullscreen style='border-radius:16px;box-shadow:0 2px 8px #00e0ff33;margin:12px;'></iframe>`;
+    } else {
+      html += `<video src='${url}' controls style='width:420px;max-width:98vw;border-radius:16px;box-shadow:0 2px 8px #00e0ff33;margin:12px;'></video>`;
+    }
+  });
+  document.getElementById('videoSection').innerHTML = html;
+}
+document.addEventListener('DOMContentLoaded',renderVideos);
+</script>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>

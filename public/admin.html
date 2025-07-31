@@ -103,10 +103,19 @@ function googleTranslateElementInit() {
       <select id="videoPage">
         <option value="index">الصفحة الرئيسية</option>
         <option value="projects">المشاريع</option>
-        <option value="devices">الأجهزة</option>
+        <option value="devices">الأجهزة (كل الأجهزة)</option>
+        <option value="device">جهاز محدد (اكتب رقم الجهاز بالأسفل)</option>
       </select>
+      <input type="text" id="deviceIdInput" placeholder="معرف الجهاز (مثال: 1)" style="display:none;width:120px;">
       <button type="button" class="save-btn" onclick="saveVideoUrl()">حفظ الفيديو</button>
       <div id="videoList"></div>
+    <div class="section-title">إدارة صور الأجهزة</div>
+    <div id="deviceGalleryManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
+      <input type="text" id="galleryDeviceId" placeholder="معرف الجهاز (مثال: 1)">
+      <input type="file" id="galleryDeviceImages" accept="image/*" multiple>
+      <button type="button" class="save-btn" onclick="addDeviceImages()">إضافة صور للجهاز</button>
+      <div id="deviceGalleryList"></div>
+    </div>
     </div>
     <div class="section-title">الوضع الليلي/النهاري وتحسين الوصول</div>
     <button type="button" class="save-btn" onclick="toggleTheme()">تبديل الوضع الليلي/النهاري</button>
@@ -567,17 +576,90 @@ function googleTranslateElementInit() {
   }
   document.addEventListener('DOMContentLoaded', renderTestimonials);
   // إدارة الفيديوهات
+  // دعم فيديوهات الأجهزة المنفردة
+  document.getElementById('videoPage').addEventListener('change',function(){
+    document.getElementById('deviceIdInput').style.display = this.value==='device'?'inline-block':'none';
+  });
   function saveVideoUrl() {
     let url = document.getElementById('videoUrl').value.trim();
     let page = document.getElementById('videoPage').value;
-    if(!url) {alert('أدخل رابط الفيديو');return;}
     let videos = JSON.parse(localStorage.getItem('videos')||'{}');
-    if(!videos[page]) videos[page]=[];
-    videos[page].push(url);
-    localStorage.setItem('videos',JSON.stringify(videos));
-    document.getElementById('videoUrl').value='';
-    renderVideoList();
+    if(page==='device') {
+      let deviceId = document.getElementById('deviceIdInput').value.trim();
+      if(!url||!deviceId) {alert('أدخل رابط الفيديو ومعرف الجهاز');return;}
+      let gallery = JSON.parse(localStorage.getItem('deviceGallery')||'{}');
+      if(!gallery[deviceId]) gallery[deviceId]={images:[],videos:[]};
+      gallery[deviceId].videos = gallery[deviceId].videos||[];
+      gallery[deviceId].videos.push(url);
+      localStorage.setItem('deviceGallery',JSON.stringify(gallery));
+      document.getElementById('videoUrl').value='';
+      document.getElementById('deviceIdInput').value='';
+      renderDeviceGalleryList();
+    } else {
+      if(!url) {alert('أدخل رابط الفيديو');return;}
+      if(!videos[page]) videos[page]=[];
+      videos[page].push(url);
+      localStorage.setItem('videos',JSON.stringify(videos));
+      document.getElementById('videoUrl').value='';
+      renderVideoList();
+    }
   }
+  // إدارة صور الأجهزة
+  function addDeviceImages() {
+    let deviceId = document.getElementById('galleryDeviceId').value.trim();
+    let files = document.getElementById('galleryDeviceImages').files;
+    if(!deviceId||!files.length) {alert('أدخل معرف الجهاز واختر صوراً');return;}
+    let gallery = JSON.parse(localStorage.getItem('deviceGallery')||'{}');
+    if(!gallery[deviceId]) gallery[deviceId]={images:[],videos:[]};
+    for(let f of files) {
+      let reader = new FileReader();
+      reader.onload = function(ev) {
+        gallery[deviceId].images.push(ev.target.result);
+        localStorage.setItem('deviceGallery',JSON.stringify(gallery));
+        renderDeviceGalleryList();
+      };
+      reader.readAsDataURL(f);
+    }
+    document.getElementById('galleryDeviceImages').value='';
+    document.getElementById('galleryDeviceId').value='';
+  }
+  function renderDeviceGalleryList() {
+    let gallery = JSON.parse(localStorage.getItem('deviceGallery')||'{}');
+    let list = document.getElementById('deviceGalleryList');
+    if(!list) return;
+    let html = '';
+    Object.keys(gallery).forEach(id=>{
+      html += `<div style='color:#FFD600;margin-bottom:6px;'><b>جهاز ${id}</b>:</div>`;
+      if(gallery[id].images && gallery[id].images.length) {
+        html += '<div style="display:flex;flex-wrap:wrap;gap:8px 12px;">';
+        gallery[id].images.forEach((url,i)=>{
+          html += `<img src='${url}' style='width:80px;height:60px;border-radius:8px;object-fit:cover;margin-bottom:4px;'> <button onclick='removeDeviceImage("${id}",${i})' style='background:#e53935;color:#fff;border:none;border-radius:6px;padding:2px 8px;'>حذف</button>`;
+        });
+        html += '</div>';
+      }
+      if(gallery[id].videos && gallery[id].videos.length) {
+        html += '<div style="margin-top:6px;">';
+        gallery[id].videos.forEach((url,i)=>{
+          html += `<a href='${url}' target='_blank' style='color:#00e0ff;'>فيديو ${i+1}</a> <button onclick='removeDeviceVideo("${id}",${i})' style='background:#e53935;color:#fff;border:none;border-radius:6px;padding:2px 8px;'>حذف</button> `;
+        });
+        html += '</div>';
+      }
+    });
+    list.innerHTML = html;
+  }
+  function removeDeviceImage(id,idx) {
+    let gallery = JSON.parse(localStorage.getItem('deviceGallery')||'{}');
+    gallery[id].images.splice(idx,1);
+    localStorage.setItem('deviceGallery',JSON.stringify(gallery));
+    renderDeviceGalleryList();
+  }
+  function removeDeviceVideo(id,idx) {
+    let gallery = JSON.parse(localStorage.getItem('deviceGallery')||'{}');
+    gallery[id].videos.splice(idx,1);
+    localStorage.setItem('deviceGallery',JSON.stringify(gallery));
+    renderDeviceGalleryList();
+  }
+  document.addEventListener('DOMContentLoaded', renderDeviceGalleryList);
   function renderVideoList() {
     let videos = JSON.parse(localStorage.getItem('videos')||'{}');
     let list = document.getElementById('videoList');
