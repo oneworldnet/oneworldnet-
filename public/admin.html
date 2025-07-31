@@ -1,3 +1,129 @@
+    <div class="section-title">تسجيل الدخول الاجتماعي</div>
+    <div id="socialLoginManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
+      <label>تفعيل تسجيل الدخول عبر:</label>
+      <input type="checkbox" id="loginGoogle"> Google
+      <input type="checkbox" id="loginFacebook"> Facebook
+      <input type="checkbox" id="loginApple"> Apple
+      <input type="checkbox" id="loginLinkedIn"> LinkedIn
+      <button type="button" class="save-btn" onclick="saveSocialLogin()">حفظ الإعدادات</button>
+    </div>
+    <div class="section-title">أزرار مشاركة المحتوى</div>
+    <div id="shareButtonsManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
+      <label>تفعيل أزرار المشاركة في الصفحات:</label>
+      <input type="checkbox" id="shareHome"> الرئيسية
+      <input type="checkbox" id="shareBlog"> المدونة
+      <input type="checkbox" id="shareProjects"> المشاريع
+      <input type="checkbox" id="shareDevices"> الأجهزة
+      <button type="button" class="save-btn" onclick="saveShareButtons()">حفظ الإعدادات</button>
+    </div>
+    <div class="section-title">مولد QR لأي صفحة</div>
+    <div id="qrManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
+      <input type="url" id="qrUrl" placeholder="رابط الصفحة أو العرض">
+      <button type="button" class="save-btn" onclick="generateQR()">توليد QR</button>
+      <div id="qrResult" style="margin-top:10px;"></div>
+    </div>
+    <div class="section-title">دعم AMP (صفحات سريعة للجوال)</div>
+    <div id="ampManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
+      <label>تفعيل نسخة AMP للصفحات المهمة</label>
+      <input type="checkbox" id="ampHome"> الرئيسية
+      <input type="checkbox" id="ampBlog"> المدونة
+      <input type="checkbox" id="ampProjects"> المشاريع
+      <button type="button" class="save-btn" onclick="saveAMP()">حفظ الإعدادات</button>
+    </div>
+    <div class="section-title">خريطة موقع ديناميكية (Sitemap.xml)</div>
+    <div id="sitemapManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
+      <button type="button" class="save-btn" onclick="generateSitemap()">توليد خريطة الموقع</button>
+      <div id="sitemapResult" style="margin-top:10px;direction:ltr;text-align:left;font-size:0.95em;"></div>
+    </div>
+    <div class="section-title">بيانات منظمة (Schema.org)</div>
+    <div id="schemaManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
+      <label>تفعيل بيانات منظمة:</label>
+      <input type="checkbox" id="schemaOrg"> Organization
+      <input type="checkbox" id="schemaProduct"> Product
+      <input type="checkbox" id="schemaFAQ"> FAQ
+      <input type="checkbox" id="schemaReview"> Review
+      <button type="button" class="save-btn" onclick="saveSchema()">حفظ الإعدادات</button>
+    </div>
+    <div class="section-title">دعم لغات عالمية إضافية</div>
+    <div id="langManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
+      <label>إضافة لغة:</label>
+      <input type="text" id="addLangCode" placeholder="رمز اللغة (مثال: zh, es, fr)">
+      <button type="button" class="save-btn" onclick="addLang()">إضافة</button>
+      <div id="langList"></div>
+    </div>
+    <div class="section-title">صفحة Press/Media Kit</div>
+    <div id="pressManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
+      <input type="text" id="pressTitle" placeholder="عنوان المادة الإعلامية">
+      <textarea id="pressContent" placeholder="وصف أو نص المادة"></textarea>
+      <input type="file" id="pressFile" accept="image/*,application/pdf">
+      <button type="button" class="save-btn" onclick="addPressItem()">إضافة مادة</button>
+      <div id="pressList"></div>
+    </div>
+    <div class="section-title">تكامل مراجعات Google/Trustpilot</div>
+    <div id="reviewIntegrationManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
+      <input type="url" id="googleReviewUrl" placeholder="رابط صفحة Google Reviews">
+      <input type="url" id="trustpilotUrl" placeholder="رابط صفحة Trustpilot">
+      <button type="button" class="save-btn" onclick="saveReviewIntegration()">حفظ الروابط</button>
+    </div>
+    <div class="section-title">تكامل Mailchimp للنشرات البريدية</div>
+    <div id="mailchimpManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
+      <input type="email" id="mailchimpEmail" placeholder="بريد Mailchimp">
+      <button type="button" class="save-btn" onclick="saveMailchimp()">حفظ البريد</button>
+    </div>
+    <div class="section-title">إدارة المستخدمين والصلاحيات</div>
+    <div id="userRolesManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
+      <input type="text" id="newUserName" placeholder="اسم المستخدم">
+      <input type="password" id="newUserPass" placeholder="كلمة المرور">
+      <select id="newUserRole">
+        <option value="admin">مدير</option>
+        <option value="editor">محرر</option>
+        <option value="viewer">مشاهد</option>
+      </select>
+      <button type="button" class="save-btn" onclick="addUser()">إضافة مستخدم</button>
+      <div id="userList"></div>
+    </div>
+    <div class="section-title">سجل النشاطات</div>
+    <div id="activityLog" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;max-height:120px;overflow:auto;box-shadow:0 2px 8px #00e0ff22;color:#FFD600;font-size:0.98em;"></div>
+    <div class="section-title">مركز الرسائل الداخلية</div>
+    <div id="messagesCenter" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
+      <div id="messagesList"></div>
+      <textarea id="adminReply" placeholder="اكتب ردك هنا..."></textarea>
+      <button type="button" class="save-btn" onclick="sendReply()">إرسال الرد</button>
+    </div>
+    <div class="section-title">إدارة الإعلانات الذكية</div>
+    <div id="adsManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
+      <input type="text" id="adTitle" placeholder="عنوان الإعلان">
+      <textarea id="adContent" placeholder="محتوى الإعلان"></textarea>
+      <input type="date" id="adStart"> <input type="date" id="adEnd">
+      <button type="button" class="save-btn" onclick="addAd()">إضافة إعلان</button>
+      <div id="adsList"></div>
+    </div>
+    <div class="section-title">إدارة SEO ديناميكية</div>
+    <div id="seoManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
+      <input type="text" id="seoTitle" placeholder="عنوان الصفحة">
+      <input type="text" id="seoDesc" placeholder="وصف الصفحة">
+      <input type="text" id="seoKeywords" placeholder="كلمات مفتاحية (مفصولة بفاصلة)">
+      <input type="url" id="seoImage" placeholder="رابط صورة المشاركة">
+      <button type="button" class="save-btn" onclick="saveSEO()">حفظ SEO</button>
+    </div>
+    <div class="section-title">تصدير واستيراد البيانات</div>
+    <div id="backupManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
+      <button type="button" class="save-btn" onclick="exportData()">تصدير نسخة احتياطية</button>
+      <input type="file" id="importFile" accept="application/json">
+      <button type="button" class="save-btn" onclick="importData()">استيراد بيانات</button>
+    </div>
+    <div class="section-title">إشعارات فورية للمستخدمين</div>
+    <div id="pushNotifManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
+      <input type="text" id="notifTitle" placeholder="عنوان الإشعار">
+      <textarea id="notifBody" placeholder="محتوى الإشعار"></textarea>
+      <button type="button" class="save-btn" onclick="sendPushNotif()">إرسال إشعار</button>
+    </div>
+    <div class="section-title">تصنيف الأسئلة الشائعة</div>
+    <div id="faqCatManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
+      <input type="text" id="faqCat" placeholder="اسم التصنيف">
+      <button type="button" class="save-btn" onclick="addFaqCat()">إضافة تصنيف</button>
+      <div id="faqCatList"></div>
+    </div>
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -93,6 +219,8 @@ function googleTranslateElementInit() {
       <input type="text" id="reviewerName" placeholder="اسم العميل">
       <textarea id="reviewText" placeholder="نص المراجعة"></textarea>
       <input type="number" id="reviewStars" min="1" max="5" value="5" style="width:80px;">
+      <input type="file" id="reviewImg" accept="image/*">
+      <input type="url" id="reviewVideo" placeholder="رابط فيديو (اختياري)">
       <button type="button" class="save-btn" onclick="addTestimonial()">إضافة مراجعة</button>
       <div id="testimonialsList"></div>
     </div>
@@ -308,6 +436,361 @@ function googleTranslateElementInit() {
     <div class="note">أي تغيير يتم حفظه محلياً ويظهر مباشرة في الموقع عند إعادة تحميل الصفحة.</div>
   </div>
   <script>
+// تسجيل الدخول الاجتماعي (وهمي)
+function saveSocialLogin() {
+  let social = {
+    google: document.getElementById('loginGoogle').checked,
+    facebook: document.getElementById('loginFacebook').checked,
+    apple: document.getElementById('loginApple').checked,
+    linkedin: document.getElementById('loginLinkedIn').checked
+  };
+  localStorage.setItem('socialLogin',JSON.stringify(social));
+  alert('تم حفظ إعدادات تسجيل الدخول الاجتماعي!');
+}
+// أزرار المشاركة
+function saveShareButtons() {
+  let share = {
+    home: document.getElementById('shareHome').checked,
+    blog: document.getElementById('shareBlog').checked,
+    projects: document.getElementById('shareProjects').checked,
+    devices: document.getElementById('shareDevices').checked
+  };
+  localStorage.setItem('shareButtons',JSON.stringify(share));
+  alert('تم حفظ إعدادات المشاركة!');
+}
+// مولد QR
+function generateQR() {
+  let url = document.getElementById('qrUrl').value.trim();
+  if(!url) {alert('أدخل الرابط');return;}
+  let api = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(url)}`;
+  document.getElementById('qrResult').innerHTML = `<img src='${api}' alt='QR' style='margin:8px;'>`;
+}
+// دعم AMP (وهمي)
+function saveAMP() {
+  let amp = {
+    home: document.getElementById('ampHome').checked,
+    blog: document.getElementById('ampBlog').checked,
+    projects: document.getElementById('ampProjects').checked
+  };
+  localStorage.setItem('ampPages',JSON.stringify(amp));
+  alert('تم حفظ إعدادات AMP!');
+}
+// خريطة الموقع
+function generateSitemap() {
+  let urls = [
+    location.origin+'/',
+    location.origin+'/blog.html',
+    location.origin+'/projects.html',
+    location.origin+'/devices.html',
+    location.origin+'/pricing.html',
+    location.origin+'/contact.html',
+    location.origin+'/faq.html'
+  ];
+  let xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+  urls.forEach(u=>{xml += `\n  <url><loc>${u}</loc></url>`;});
+  xml += '\n</urlset>';
+  document.getElementById('sitemapResult').textContent = xml;
+  logActivity('توليد خريطة الموقع');
+}
+// بيانات منظمة Schema.org (وهمي)
+function saveSchema() {
+  let schema = {
+    org: document.getElementById('schemaOrg').checked,
+    product: document.getElementById('schemaProduct').checked,
+    faq: document.getElementById('schemaFAQ').checked,
+    review: document.getElementById('schemaReview').checked
+  };
+  localStorage.setItem('schemaSettings',JSON.stringify(schema));
+  alert('تم حفظ إعدادات البيانات المنظمة!');
+}
+// دعم لغات عالمية
+function addLang() {
+  let code = document.getElementById('addLangCode').value.trim();
+  if(!code) {alert('أدخل رمز اللغة');return;}
+  let langs = JSON.parse(localStorage.getItem('extraLangs')||'[]');
+  langs.push(code);
+  localStorage.setItem('extraLangs',JSON.stringify(langs));
+  document.getElementById('addLangCode').value='';
+  renderLangList();
+}
+function renderLangList() {
+  let langs = JSON.parse(localStorage.getItem('extraLangs')||'[]');
+  let list = document.getElementById('langList');
+  if(!list) return;
+  list.innerHTML = langs.map((c,i)=>`<div style='color:#fff;background:#3e272355;padding:5px 8px;border-radius:6px;margin-bottom:4px;'>${c} <button onclick='removeLang(${i})' style='background:#e53935;color:#fff;border:none;border-radius:6px;padding:2px 10px;'>حذف</button></div>`).join('');
+}
+function removeLang(idx) {
+  let langs = JSON.parse(localStorage.getItem('extraLangs')||'[]');
+  langs.splice(idx,1);
+  localStorage.setItem('extraLangs',JSON.stringify(langs));
+  renderLangList();
+}
+document.addEventListener('DOMContentLoaded', renderLangList);
+// Press/Media Kit
+function addPressItem() {
+  let title = document.getElementById('pressTitle').value.trim();
+  let content = document.getElementById('pressContent').value.trim();
+  let file = document.getElementById('pressFile').files[0];
+  if(!title||!content) {alert('أدخل العنوان والوصف');return;}
+  let press = JSON.parse(localStorage.getItem('pressKit')||'[]');
+  if(file) {
+    let reader = new FileReader();
+    reader.onload = function(ev) {
+      press.push({title,content,file:ev.target.result});
+      localStorage.setItem('pressKit',JSON.stringify(press));
+      renderPressList();
+      document.getElementById('pressTitle').value='';
+      document.getElementById('pressContent').value='';
+      document.getElementById('pressFile').value='';
+    };
+    reader.readAsDataURL(file);
+  } else {
+    press.push({title,content});
+    localStorage.setItem('pressKit',JSON.stringify(press));
+    renderPressList();
+    document.getElementById('pressTitle').value='';
+    document.getElementById('pressContent').value='';
+  }
+}
+function renderPressList() {
+  let press = JSON.parse(localStorage.getItem('pressKit')||'[]');
+  let list = document.getElementById('pressList');
+  if(!list) return;
+  list.innerHTML = press.map((p,i)=>{
+    let file = p.file?`<a href='${p.file}' target='_blank' style='color:#00e0ff;'>ملف</a>`:'';
+    return `<div style='color:#fff;background:#3e272355;padding:5px 8px;border-radius:6px;margin-bottom:4px;'><b>${p.title}</b>: ${p.content} ${file} <button onclick='removePressItem(${i})' style='background:#e53935;color:#fff;border:none;border-radius:6px;padding:2px 10px;'>حذف</button></div>`;
+  }).join('');
+}
+function removePressItem(idx) {
+  let press = JSON.parse(localStorage.getItem('pressKit')||'[]');
+  press.splice(idx,1);
+  localStorage.setItem('pressKit',JSON.stringify(press));
+  renderPressList();
+}
+document.addEventListener('DOMContentLoaded', renderPressList);
+// تكامل مراجعات Google/Trustpilot
+function saveReviewIntegration() {
+  let google = document.getElementById('googleReviewUrl').value.trim();
+  let trust = document.getElementById('trustpilotUrl').value.trim();
+  localStorage.setItem('reviewIntegration',JSON.stringify({google,trust}));
+  alert('تم حفظ روابط المراجعات!');
+}
+// تكامل Mailchimp
+function saveMailchimp() {
+  let email = document.getElementById('mailchimpEmail').value.trim();
+  localStorage.setItem('mailchimpEmail',email);
+  alert('تم حفظ بريد Mailchimp!');
+}
+// نظام المستخدمين والصلاحيات
+function addUser() {
+  let name = document.getElementById('newUserName').value.trim();
+  let pass = document.getElementById('newUserPass').value.trim();
+  let role = document.getElementById('newUserRole').value;
+  if(!name||!pass) {alert('أدخل اسم المستخدم وكلمة المرور');return;}
+  let users = JSON.parse(localStorage.getItem('users')||'[]');
+  users.push({name,pass,role});
+  localStorage.setItem('users',JSON.stringify(users));
+  document.getElementById('newUserName').value='';
+  document.getElementById('newUserPass').value='';
+  renderUserList();
+  logActivity('إضافة مستخدم جديد: '+name);
+}
+function renderUserList() {
+  let users = JSON.parse(localStorage.getItem('users')||'[]');
+  let list = document.getElementById('userList');
+  if(!list) return;
+  list.innerHTML = users.map((u,i)=>`<div style='color:#fff;background:#3e272355;padding:5px 8px;border-radius:6px;margin-bottom:4px;'>${u.name} <b>[${u.role}]</b> <button onclick='removeUser(${i})' style='background:#e53935;color:#fff;border:none;border-radius:6px;padding:2px 10px;'>حذف</button></div>`).join('');
+}
+function removeUser(idx) {
+  let users = JSON.parse(localStorage.getItem('users')||'[]');
+  let name = users[idx].name;
+  users.splice(idx,1);
+  localStorage.setItem('users',JSON.stringify(users));
+  renderUserList();
+  logActivity('حذف مستخدم: '+name);
+}
+document.addEventListener('DOMContentLoaded', renderUserList);
+// سجل النشاطات
+function logActivity(txt) {
+  let log = JSON.parse(localStorage.getItem('activityLog')||'[]');
+  log.unshift({txt,time:new Date().toLocaleString()});
+  if(log.length>100) log.pop();
+  localStorage.setItem('activityLog',JSON.stringify(log));
+  renderActivityLog();
+}
+function renderActivityLog() {
+  let log = JSON.parse(localStorage.getItem('activityLog')||'[]');
+  let list = document.getElementById('activityLog');
+  if(!list) return;
+  list.innerHTML = log.map(l=>`<div>${l.time} - ${l.txt}</div>`).join('');
+}
+document.addEventListener('DOMContentLoaded', renderActivityLog);
+// مركز الرسائل
+function renderMessages() {
+  let msgs = JSON.parse(localStorage.getItem('messages')||'[]');
+  let list = document.getElementById('messagesList');
+  if(!list) return;
+  list.innerHTML = msgs.map((m,i)=>`<div style='color:#fff;background:#3e272355;padding:5px 8px;border-radius:6px;margin-bottom:4px;'><b>${m.from}</b>: ${m.text} <button onclick='selectMsg(${i})' style='background:#00e0ff;color:#fff;border:none;border-radius:6px;padding:2px 10px;'>رد</button></div>`).join('');
+}
+let selectedMsgIdx = null;
+function selectMsg(idx) { selectedMsgIdx=idx; document.getElementById('adminReply').focus(); }
+function sendReply() {
+  let msgs = JSON.parse(localStorage.getItem('messages')||'[]');
+  if(selectedMsgIdx===null) {alert('اختر رسالة للرد');return;}
+  msgs[selectedMsgIdx].reply = document.getElementById('adminReply').value;
+  localStorage.setItem('messages',JSON.stringify(msgs));
+  document.getElementById('adminReply').value='';
+  renderMessages();
+  logActivity('رد على رسالة من: '+msgs[selectedMsgIdx].from);
+  selectedMsgIdx=null;
+}
+document.addEventListener('DOMContentLoaded', renderMessages);
+// إدارة الإعلانات
+function addAd() {
+  let title = document.getElementById('adTitle').value.trim();
+  let content = document.getElementById('adContent').value.trim();
+  let start = document.getElementById('adStart').value;
+  let end = document.getElementById('adEnd').value;
+  if(!title||!content||!start||!end) {alert('أدخل جميع الحقول');return;}
+  let ads = JSON.parse(localStorage.getItem('ads')||'[]');
+  ads.push({title,content,start,end});
+  localStorage.setItem('ads',JSON.stringify(ads));
+  document.getElementById('adTitle').value='';
+  document.getElementById('adContent').value='';
+  document.getElementById('adStart').value='';
+  document.getElementById('adEnd').value='';
+  renderAds();
+  logActivity('إضافة إعلان: '+title);
+}
+function renderAds() {
+  let ads = JSON.parse(localStorage.getItem('ads')||'[]');
+  let list = document.getElementById('adsList');
+  if(!list) return;
+  list.innerHTML = ads.map((a,i)=>`<div style='color:#fff;background:#3e272355;padding:5px 8px;border-radius:6px;margin-bottom:4px;'><b>${a.title}</b> (${a.start} - ${a.end}): ${a.content} <button onclick='removeAd(${i})' style='background:#e53935;color:#fff;border:none;border-radius:6px;padding:2px 10px;'>حذف</button></div>`).join('');
+}
+function removeAd(idx) {
+  let ads = JSON.parse(localStorage.getItem('ads')||'[]');
+  let title = ads[idx].title;
+  ads.splice(idx,1);
+  localStorage.setItem('ads',JSON.stringify(ads));
+  renderAds();
+  logActivity('حذف إعلان: '+title);
+}
+document.addEventListener('DOMContentLoaded', renderAds);
+// إدارة SEO
+function saveSEO() {
+  let title = document.getElementById('seoTitle').value.trim();
+  let desc = document.getElementById('seoDesc').value.trim();
+  let keywords = document.getElementById('seoKeywords').value.trim();
+  let image = document.getElementById('seoImage').value.trim();
+  let seo = {title,desc,keywords,image};
+  localStorage.setItem('seo',JSON.stringify(seo));
+  alert('تم حفظ بيانات SEO!');
+  logActivity('تحديث بيانات SEO');
+}
+// تصدير واستيراد البيانات
+function exportData() {
+  let data = {};
+  ["users","activityLog","messages","ads","seo","testimonials","team","galleryImagesV2","deviceGallery","videos","socials","translations","ai_faqs","faqCats"].forEach(k=>{data[k]=localStorage.getItem(k)});
+  let blob = new Blob([JSON.stringify(data)],{type:'application/json'});
+  let a = document.createElement('a');
+  a.href=URL.createObjectURL(blob);a.download='backup.json';a.click();
+  logActivity('تصدير نسخة احتياطية');
+}
+function importData() {
+  let file = document.getElementById('importFile').files[0];
+  if(!file) {alert('اختر ملفاً');return;}
+  let reader = new FileReader();
+  reader.onload = function(ev) {
+    let data = JSON.parse(ev.target.result);
+    Object.keys(data).forEach(k=>{if(data[k]) localStorage.setItem(k,data[k]);});
+    alert('تم استيراد البيانات!');
+    logActivity('استيراد بيانات');
+    location.reload();
+  };
+  reader.readAsText(file);
+}
+// إشعارات فورية (تنبيه وهمي)
+function sendPushNotif() {
+  let title = document.getElementById('notifTitle').value.trim();
+  let body = document.getElementById('notifBody').value.trim();
+  if(!title||!body) {alert('أدخل العنوان والمحتوى');return;}
+  alert('تم إرسال إشعار: '+title+' - '+body);
+  logActivity('إرسال إشعار: '+title);
+}
+// تصنيف الأسئلة الشائعة
+function addFaqCat() {
+  let cat = document.getElementById('faqCat').value.trim();
+  if(!cat) {alert('أدخل اسم التصنيف');return;}
+  let cats = JSON.parse(localStorage.getItem('faqCats')||'[]');
+  cats.push(cat);
+  localStorage.setItem('faqCats',JSON.stringify(cats));
+  document.getElementById('faqCat').value='';
+  renderFaqCats();
+}
+function renderFaqCats() {
+  let cats = JSON.parse(localStorage.getItem('faqCats')||'[]');
+  let list = document.getElementById('faqCatList');
+  if(!list) return;
+  list.innerHTML = cats.map((c,i)=>`<div style='color:#fff;background:#3e272355;padding:5px 8px;border-radius:6px;margin-bottom:4px;'>${c} <button onclick='removeFaqCat(${i})' style='background:#e53935;color:#fff;border:none;border-radius:6px;padding:2px 10px;'>حذف</button></div>`).join('');
+}
+function removeFaqCat(idx) {
+  let cats = JSON.parse(localStorage.getItem('faqCats')||'[]');
+  cats.splice(idx,1);
+  localStorage.setItem('faqCats',JSON.stringify(cats));
+  renderFaqCats();
+}
+document.addEventListener('DOMContentLoaded', renderFaqCats);
+// دعم تقييمات بالصور والفيديو
+function addTestimonial() {
+  let name = document.getElementById('reviewerName').value.trim();
+  let text = document.getElementById('reviewText').value.trim();
+  let stars = document.getElementById('reviewStars').value;
+  let imgFile = document.getElementById('reviewImg').files[0];
+  let video = document.getElementById('reviewVideo').value.trim();
+  if(!name||!text||!stars) {alert('أدخل جميع الحقول');return;}
+  let testimonials = JSON.parse(localStorage.getItem('testimonials')||'[]');
+  if(imgFile) {
+    let reader = new FileReader();
+    reader.onload = function(ev) {
+      testimonials.push({name,text,stars,img:ev.target.result,video});
+      localStorage.setItem('testimonials',JSON.stringify(testimonials));
+      renderTestimonials();
+      document.getElementById('reviewerName').value='';
+      document.getElementById('reviewText').value='';
+      document.getElementById('reviewStars').value=5;
+      document.getElementById('reviewImg').value='';
+      document.getElementById('reviewVideo').value='';
+      logActivity('إضافة تقييم جديد');
+    };
+    reader.readAsDataURL(imgFile);
+  } else {
+    testimonials.push({name,text,stars,video});
+    localStorage.setItem('testimonials',JSON.stringify(testimonials));
+    renderTestimonials();
+    document.getElementById('reviewerName').value='';
+    document.getElementById('reviewText').value='';
+    document.getElementById('reviewStars').value=5;
+    document.getElementById('reviewImg').value='';
+    document.getElementById('reviewVideo').value='';
+    logActivity('إضافة تقييم جديد');
+  }
+}
+function renderTestimonials() {
+  let testimonials = JSON.parse(localStorage.getItem('testimonials')||'[]');
+  let list = document.getElementById('testimonialsList');
+  if(!list) return;
+  list.innerHTML = testimonials.map((t,i)=>{
+    let img = t.img?`<img src='${t.img}' style='width:60px;height:60px;border-radius:8px;object-fit:cover;margin-left:8px;'>`:'';
+    let vid = t.video?`<a href='${t.video}' target='_blank' style='color:#00e0ff;margin-left:8px;'>فيديو</a>`:'';
+    return `<div style='color:#fff;background:#3e272355;padding:5px 8px;border-radius:6px;margin-bottom:4px;'><b>${t.name}</b>: ${t.text} <span style='color:#FFD600;'>${'★'.repeat(t.stars)}</span> ${img} ${vid} <button onclick='removeTestimonial(${i})' style='background:#e53935;color:#fff;border:none;border-radius:6px;padding:2px 10px;'>حذف</button></div>`;
+  }).join('');
+}
+document.addEventListener('DOMContentLoaded', renderTestimonials);
+// Google Analytics/Meta Pixel تكامل (وهمي)
+window.addEventListener('DOMContentLoaded',()=>{
+  logActivity('تم تحميل لوحة التحكم');
+});
     // إدارة الأسئلة الشائعة للمساعد الذكي
     function renderFaqList() {
       const faqList = document.getElementById('faqList');

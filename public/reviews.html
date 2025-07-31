@@ -2,6 +2,77 @@
 <html lang="ar">
 <head>
   <meta charset="UTF-8">
+  <title>تقييمات العملاء | OneWorldNet</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body style="background:#18120b;color:#fff;">
+  <div class="container" style="max-width:700px;margin:40px auto 0 auto;">
+    <h1 style="color:#FFD600;text-align:center;">⭐ تقييمات العملاء</h1>
+    <div id="reviewsList"></div>
+    <hr style="margin:32px 0;">
+    <h2>أضف تقييمك</h2>
+    <input type="text" id="reviewName" placeholder="اسمك" style="width:100%;margin-bottom:8px;">
+    <textarea id="reviewText" placeholder="رأيك أو تجربتك" style="width:100%;height:80px;margin-bottom:8px;"></textarea>
+    <input type="file" id="reviewMedia" accept="image/*,video/*" style="margin-bottom:8px;">
+    <button onclick="addReview()" style="background:#FFD600;color:#18120b;padding:8px 24px;border:none;border-radius:8px;font-weight:bold;">إرسال التقييم</button>
+    <div id="reviewMsg" style="margin-top:10px;"></div>
+    <hr style="margin:32px 0;">
+    <h2>مراجعات خارجية</h2>
+    <div id="externalReviews"></div>
+    <a href="contact.html" style="display:block;margin:32px auto 0 auto;text-align:center;color:#00e0ff;">تواصل معنا لمزيد من التفاصيل أو الدعم</a>
+  </div>
+  <script>
+    function renderReviews() {
+      let reviews = JSON.parse(localStorage.getItem('siteReviews')||'[]');
+      let html = reviews.map(r=>{
+        let media = r.media?`<br><${r.media.startsWith('data:video')?'video controls style="max-width:220px;max-height:120px;"':'img style="max-width:120px;max-height:120px;"'} src='${r.media}'></${r.media.startsWith('data:video')?'video':'img'}>`:'';
+        return `<div style='background:#3e272355;padding:12px 16px;border-radius:12px;margin-bottom:18px;'><b>${r.name}</b><br>${r.text}${media}</div>`;
+      }).join('');
+      document.getElementById('reviewsList').innerHTML = html||'<div style="color:#aaa;">لا توجد تقييمات بعد.</div>';
+    }
+    function addReview() {
+      let name = document.getElementById('reviewName').value.trim();
+      let text = document.getElementById('reviewText').value.trim();
+      let file = document.getElementById('reviewMedia').files[0];
+      if(!name||!text) {document.getElementById('reviewMsg').textContent='يرجى إدخال الاسم والرأي.';return;}
+      let reviews = JSON.parse(localStorage.getItem('siteReviews')||'[]');
+      if(file) {
+        let reader = new FileReader();
+        reader.onload = function(ev) {
+          reviews.push({name,text,media:ev.target.result});
+          localStorage.setItem('siteReviews',JSON.stringify(reviews));
+          renderReviews();
+          document.getElementById('reviewName').value='';
+          document.getElementById('reviewText').value='';
+          document.getElementById('reviewMedia').value='';
+          document.getElementById('reviewMsg').textContent='تم إرسال التقييم!';
+        };
+        reader.readAsDataURL(file);
+      } else {
+        reviews.push({name,text});
+        localStorage.setItem('siteReviews',JSON.stringify(reviews));
+        renderReviews();
+        document.getElementById('reviewName').value='';
+        document.getElementById('reviewText').value='';
+        document.getElementById('reviewMsg').textContent='تم إرسال التقييم!';
+      }
+    }
+    // مراجعات Google/Trustpilot
+    function renderExternalReviews() {
+      let ext = JSON.parse(localStorage.getItem('reviewIntegration')||'{}');
+      let html = '';
+      if(ext.google) html += `<a href='${ext.google}' target='_blank' style='color:#4285F4;font-weight:bold;'>Google Reviews</a><br>`;
+      if(ext.trust) html += `<a href='${ext.trust}' target='_blank' style='color:#00B67A;font-weight:bold;'>Trustpilot</a><br>`;
+      document.getElementById('externalReviews').innerHTML = html||'<span style="color:#aaa;">لا توجد روابط مراجعات خارجية.</span>';
+    }
+    window.addEventListener('DOMContentLoaded',()=>{renderReviews();renderExternalReviews();});
+  </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>تقييمات وتجارب المستخدمين | OneWorldNet</title>
   <link rel="stylesheet" href="style.css">
