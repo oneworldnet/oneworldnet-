@@ -3,10 +3,13 @@
   <!-- مولد QR عائم -->
   <div id="globalQR" style="position:fixed;bottom:18px;right:18px;z-index:9999;"></div>
   <!-- زر تقييمات -->
-  <a href="reviews.html" id="reviewBtn" style="position:fixed;top:18px;left:18px;z-index:9999;background:#FFD600;color:#18120b;padding:8px 18px;border-radius:18px;font-weight:bold;text-decoration:none;box-shadow:0 2px 8px #FFD60055;">⭐ تقييمات العملاء</a>
+  <!-- زر تقييم العملاء أسفل الصفحة فقط -->
   <!-- زر تغيير اللغة الإضافية -->
   <div id="extraLangSwitcher" style="position:fixed;top:18px;right:18px;z-index:9999;"></div>
 <script src="/public/global-features.js"></script>
+  <div style="width:100vw;text-align:center;margin:48px 0 0 0;">
+    <a href="reviews.html" id="reviewBtn" style="display:inline-block;background:rgba(255,255,255,0.12);color:#18120b;padding:12px 32px;border-radius:18px;font-weight:bold;text-decoration:none;font-size:1.2em;box-shadow:none;backdrop-filter:blur(8px);margin-bottom:24px;">⭐ Customer Reviews</a>
+  </div>
   <!-- أزرار المشاركة -->
   <div id="globalShareBtns" style="position:fixed;bottom:18px;left:18px;z-index:9999;display:flex;gap:8px;"></div>
   <!-- مولد QR عائم -->
@@ -191,6 +194,9 @@ document.addEventListener('DOMContentLoaded',renderVideos);
 <!-- النص المتحرك -->
 <div id="marqueeBar" style="width:100vw;overflow:hidden;background:transparent;padding:0;letter-spacing:1px;white-space:nowrap;direction:rtl;">
   <span id="marqueeText"></span>
+</div>
+<div style="width:100vw;text-align:center;margin:0 0 24px 0;">
+  <span style="font-size:2em;font-weight:bold;letter-spacing:0.12em;color:#FFD600;">ONE WORLD NET</span>
 </div>
 <style>
 /* سيتم توليد الأنيميشن ديناميكياً */

@@ -1,3 +1,7 @@
+/* إخفاء قائمة تسجيل الدخول الافتراضية إلا عند الحاجة */
+#loginForm, #adminLogin, .login-form {
+  display: none !important;
+}
 /* فرض الخلفية السوداء والكتابة البيضاء في كل العناصر الرئيسية */
 body, main, section, header, nav, footer, .glass, .section-glass, .glass-card {
   background: #000 !important;
