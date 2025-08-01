@@ -45,10 +45,11 @@ body, main, section, header, nav, footer, .glass, .section-glass, .glass-card {
     padding: 10px 18px;
   }
 }
+body {
   font-family: 'Cairo', 'Tajawal', Arial, sans-serif;
   direction: rtl;
   background: #181a1b !important;
-  color: #fff;
+  color: #fff !important;
   margin: 0;
   padding: 0;
   min-height: 100vh;
@@ -69,12 +70,12 @@ body {
   min-height: 100vh;
   box-shadow: none;
 }
-  background: #181a1b !important;
+header, nav, .navbar-glass {
+  background: #000 !important;
   color: #fff;
   padding: 20px 0 10px 0;
   text-align: center;
   border-bottom: 1.5px solid #00e0ff33;
-  backdrop-filter: blur(8px);
 }
 nav ul {
   list-style: none;
@@ -114,26 +115,27 @@ nav a:hover {
   min-height: 220px;
 }
 .main-btn, .btn-glass, button, input[type="submit"] {
-  background: linear-gradient(90deg,#FFD600,#FFA726);
-  color: #18120b !important;
+  background: #181a1b !important;
+  color: #fff !important;
   font-weight: bold;
-  border-radius: 18px;
-  font-size: 1.1em;
-  padding: 12px 32px;
-  border: none;
+  border-radius: 10px;
+  font-size: 0.95em;
+  padding: 7px 18px;
+  border: 1.5px solid #FFD60044;
+  box-shadow: 0 2px 8px #00000033;
   transition: 0.2s;
 }
 /* أزرار بني شفاف ونص أبيض */
 /* زر بني شفاف حديث لكل الصفحات */
 .main-btn, .btn-glass, button, input[type="submit"] {
-  background: rgba(165,42,42,0.55) !important;
+  background: #181a1b !important;
   color: #fff !important;
   font-weight: bold;
-  border-radius: 18px;
-  font-size: 1.1em;
-  padding: 12px 32px;
-  border: none;
-  box-shadow: 0 2px 8px #3e272355;
+  border-radius: 10px;
+  font-size: 0.95em;
+  padding: 7px 18px;
+  border: 1.5px solid #FFD60044;
+  box-shadow: 0 2px 8px #00000033;
   transition: background 0.2s, color 0.2s, transform 0.2s;
 }
 .main-btn:hover, .btn-glass:hover, button:hover, input[type="submit"]:hover {
