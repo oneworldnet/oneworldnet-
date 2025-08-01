@@ -16,7 +16,7 @@ function renderDeviceMedia() {
   if(media.images && media.images.length) {
     html += '<div style="display:flex;flex-wrap:wrap;gap:12px 18px;justify-content:center;">';
     media.images.forEach(url=>{
-      html += `<img src='${url}' style='width:180px;height:120px;border-radius:10px;box-shadow:0 2px 8px #00e0ff33;object-fit:cover;margin:6px;'>`;
+      html += `<img src='${url}' class='unified-img' style='margin:6px;'>`;
     });
     html += '</div>';
   }

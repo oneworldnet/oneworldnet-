@@ -1,3 +1,141 @@
+<!-- إشعارات فورية -->
+<div id="globalNotification" style="display:none;position:fixed;top:18px;left:50%;transform:translateX(-50%);background:#FFD600;color:#18120b;padding:12px 32px;border-radius:18px;font-weight:bold;z-index:9999;font-size:1.1em;box-shadow:none;min-width:220px;text-align:center;"></div>
+<!-- واجهة تغيير كلمة المرور -->
+<div id="changePassModal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.55);z-index:9998;align-items:center;justify-content:center;">
+  <div style="background:#18120b;padding:32px 24px;border-radius:18px;max-width:350px;margin:auto;">
+    <h3 style="color:#FFD600;">تغيير كلمة المرور</h3>
+    <input type="password" id="oldPass" placeholder="كلمة المرور الحالية" style="width:100%;margin-bottom:10px;">
+    <input type="password" id="newPass1" placeholder="كلمة المرور الجديدة" style="width:100%;margin-bottom:10px;">
+    <input type="password" id="newPass2" placeholder="تأكيد كلمة المرور الجديدة" style="width:100%;margin-bottom:18px;">
+    <button onclick="changePassword()" class="main-btn">تغيير</button>
+    <button onclick="closeChangePass()" class="main-btn" style="background:#e53935;color:#fff;margin-right:8px;">إلغاء</button>
+    <div id="changePassMsg" style="color:#e53935;margin-top:10px;"></div>
+  </div>
+</div>
+<!-- زر تغيير كلمة المرور أعلى لوحة التحكم -->
+<button id="changePassBtn" onclick="openChangePass()" style="position:fixed;top:18px;right:18px;z-index:9997;background:#FFD600;color:#18120b;border:none;border-radius:18px;padding:8px 18px;font-weight:bold;">تغيير كلمة المرور</button>
+<script>
+// إشعار فوري
+function notify(msg, type='info') {
+  const n = document.getElementById('globalNotification');
+  n.textContent = msg;
+  n.style.background = type==='error' ? '#e53935' : (type==='success' ? '#43a047' : '#FFD600');
+  n.style.color = type==='error' ? '#fff' : '#18120b';
+  n.style.display = 'block';
+  setTimeout(()=>{n.style.display='none';}, 2500);
+}
+// نظام المستخدم الحالي
+let currentUser = null;
+function setCurrentUser(user) {
+  currentUser = user;
+  localStorage.setItem('currentUser', JSON.stringify(user));
+}
+function getCurrentUser() {
+  if(currentUser) return currentUser;
+  let u = localStorage.getItem('currentUser');
+  if(u) return JSON.parse(u);
+  return null;
+}
+// تسجيل الدخول
+function checkAdminLogin() {
+  let name = document.getElementById('adminUser').value.trim();
+  let pass = document.getElementById('adminPass').value.trim();
+  let users = JSON.parse(localStorage.getItem('users')||'[]');
+  let user = users.find(u=>u.name===name && u.pass===pass);
+  if(!user) {
+    document.getElementById('loginError').textContent = 'بيانات الدخول غير صحيحة';
+    notify('بيانات الدخول غير صحيحة','error');
+    return;
+  }
+  setCurrentUser(user);
+  document.getElementById('adminLogin').style.display='none';
+  document.getElementById('adminPanel').style.display='block';
+  notify('تم تسجيل الدخول بنجاح','success');
+  logLogin(user.name);
+  renderSectionsByRole();
+}
+// تسجيل الخروج
+function logout() {
+  setCurrentUser(null);
+  localStorage.removeItem('currentUser');
+  document.getElementById('adminPanel').style.display='none';
+  document.getElementById('adminLogin').style.display='block';
+  notify('تم تسجيل الخروج','info');
+}
+// سجل الدخول والخروج
+function logLogin(name) {
+  let log = JSON.parse(localStorage.getItem('loginLog')||'[]');
+  log.unshift({name,time:new Date().toLocaleString(),action:'دخول'});
+  if(log.length>100) log.pop();
+  localStorage.setItem('loginLog',JSON.stringify(log));
+  renderLoginLog();
+}
+function renderLoginLog() {
+  let log = JSON.parse(localStorage.getItem('loginLog')||'[]');
+  let list = document.getElementById('loginLog');
+  if(!list) return;
+  list.innerHTML = log.map(l=>`<div>${l.time} - ${l.name} (${l.action})</div>`).join('');
+}
+document.addEventListener('DOMContentLoaded', renderLoginLog);
+// تغيير كلمة المرور
+function openChangePass() {
+  document.getElementById('changePassModal').style.display='flex';
+  document.getElementById('changePassMsg').textContent='';
+}
+function closeChangePass() {
+  document.getElementById('changePassModal').style.display='none';
+}
+function changePassword() {
+  let oldPass = document.getElementById('oldPass').value.trim();
+  let newPass1 = document.getElementById('newPass1').value.trim();
+  let newPass2 = document.getElementById('newPass2').value.trim();
+  let user = getCurrentUser();
+  if(!user) { notify('يجب تسجيل الدخول','error'); return; }
+  if(user.pass!==oldPass) { document.getElementById('changePassMsg').textContent='كلمة المرور الحالية غير صحيحة'; return; }
+  if(newPass1.length<4) { document.getElementById('changePassMsg').textContent='كلمة المرور قصيرة جداً'; return; }
+  if(newPass1!==newPass2) { document.getElementById('changePassMsg').textContent='كلمتا المرور غير متطابقتان'; return; }
+  let users = JSON.parse(localStorage.getItem('users')||'[]');
+  let idx = users.findIndex(u=>u.name===user.name);
+  if(idx>-1) { users[idx].pass=newPass1; localStorage.setItem('users',JSON.stringify(users)); setCurrentUser(users[idx]); }
+  closeChangePass();
+  notify('تم تغيير كلمة المرور بنجاح','success');
+}
+// إظهار/إخفاء الأقسام حسب الدور
+function renderSectionsByRole() {
+  let user = getCurrentUser();
+  if(!user) return;
+  // المدير يرى كل شيء
+  if(user.role==='admin') {
+    document.querySelectorAll('.admin-section').forEach(e=>e.style.display='block');
+    document.getElementById('changePassBtn').style.display='block';
+    return;
+  }
+  // المحرر: لا يرى إدارة المستخدمين ولا سجل الدخول
+  document.querySelectorAll('.admin-section').forEach(e=>e.style.display='block');
+  document.getElementById('userRolesManager').style.display='none';
+  document.getElementById('loginLogSection').style.display='none';
+  document.getElementById('changePassBtn').style.display='block';
+  // المشاهد: يرى فقط الإحصائيات والرسائل
+  if(user.role==='viewer') {
+    document.querySelectorAll('.admin-section').forEach(e=>e.style.display='none');
+    document.getElementById('activityLogSection').style.display='block';
+    document.getElementById('messagesCenter').style.display='block';
+    document.getElementById('changePassBtn').style.display='block';
+  }
+}
+// عند تحميل الصفحة: تحقق من المستخدم الحالي
+document.addEventListener('DOMContentLoaded', ()=>{
+  let user = getCurrentUser();
+  if(user) {
+    document.getElementById('adminLogin').style.display='none';
+    document.getElementById('adminPanel').style.display='block';
+    renderSectionsByRole();
+  } else {
+    document.getElementById('adminLogin').style.display='block';
+    document.getElementById('adminPanel').style.display='none';
+  }
+});
+</script>
     <div class="section-title">دعم ذوي الاحتياجات الخاصة</div>
     <div id="accessibilityManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
       <label>تفعيل أدوات الوصول:</label>
@@ -158,18 +296,22 @@
       <input type="email" id="mailchimpEmail" placeholder="بريد Mailchimp">
       <button type="button" class="save-btn" onclick="saveMailchimp()">حفظ البريد</button>
     </div>
-    <div class="section-title">إدارة المستخدمين والصلاحيات</div>
-    <div id="userRolesManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <input type="text" id="newUserName" placeholder="اسم المستخدم">
-      <input type="password" id="newUserPass" placeholder="كلمة المرور">
-      <select id="newUserRole">
-        <option value="admin">مدير</option>
-        <option value="editor">محرر</option>
-        <option value="viewer">مشاهد</option>
-      </select>
-      <button type="button" class="save-btn" onclick="addUser()">إضافة مستخدم</button>
-      <div id="userList"></div>
-    </div>
+<div class="section-title admin-section" id="userRolesSection">إدارة المستخدمين والصلاحيات</div>
+<div id="userRolesManager" class="admin-section" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
+  <input type="text" id="newUserName" placeholder="اسم المستخدم">
+  <input type="password" id="newUserPass" placeholder="كلمة المرور">
+  <select id="newUserRole">
+    <option value="admin">مدير</option>
+    <option value="editor">محرر</option>
+    <option value="viewer">مشاهد</option>
+  </select>
+  <button type="button" class="save-btn" onclick="addUser()">إضافة مستخدم</button>
+  <div id="userList"></div>
+</div>
+<div class="section-title admin-section" id="loginLogSection">سجل الدخول والخروج</div>
+<div id="loginLog" class="admin-section" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;max-height:120px;overflow:auto;box-shadow:0 2px 8px #00e0ff22;color:#FFD600;font-size:0.98em;"></div>
+<div class="section-title admin-section" id="activityLogSection">سجل النشاطات</div>
+<div id="activityLog" class="admin-section" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;max-height:120px;overflow:auto;box-shadow:0 2px 8px #00e0ff22;color:#FFD600;font-size:0.98em;"></div>
     <div class="section-title">سجل النشاطات</div>
     <div id="activityLog" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;max-height:120px;overflow:auto;box-shadow:0 2px 8px #00e0ff22;color:#FFD600;font-size:0.98em;"></div>
     <div class="section-title">مركز الرسائل الداخلية</div>
@@ -1507,7 +1649,12 @@ function renderGalleryList() {
         const div = document.createElement('div');
         div.className = 'gallery-admin-item';
         div.style = 'text-align:center;max-width:200px;';
-        div.innerHTML = `<img src="${img.url}" style="width:180px;height:120px;border-radius:10px;box-shadow:0 2px 8px #00e0ff33;object-fit:cover;"/><br><span style='color:#222;font-size:1em;'>${img.caption}</span><br><button onclick="removeGalleryImage(${idx})" style='margin-top:6px;background:#e53935;color:#fff;border:none;border-radius:6px;padding:2px 10px;'>حذف</button>`;
+        const safeUrl = img.url ? img.url : 'images/1.jpg';
+        const safeCaption = (typeof img.caption === 'string' && img.caption.trim()) ? img.caption : 'صورة';
+        div.innerHTML =
+          '<img src="' + safeUrl + '" class="unified-img" style="margin-bottom:8px;"/>' +
+          '<br><span style="color:#222;font-size:1em;">' + safeCaption + '</span>' +
+          '<br><button onclick="removeGalleryImage(' + idx + ')" style="margin-top:6px;background:#e53935;color:#fff;border:none;border-radius:6px;padding:2px 10px;">حذف</button>';
         galleryList.appendChild(div);
     });
 }
