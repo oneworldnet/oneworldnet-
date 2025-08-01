@@ -1,4 +1,4 @@
-  <!-- زر القائمة أعلى اليسار -->
+<!-- زر القائمة أعلى اليسار -->
   <div id="globalMenuBtnContainer" style="position:fixed;top:18px;left:18px;z-index:10000;">
     <!-- زر القائمة سيضاف ديناميكياً بواسطة main.js -->
   </div>
@@ -51,48 +51,24 @@ function createGlobalMenu() {
   panel.style.left = '0';
   panel.style.width = '100vw';
   panel.style.height = '100vh';
-  panel.style.background = 'rgba(0,0,0,0.96)';
+  panel.style.background = 'rgba(255,255,255,0.82)';
+  panel.style.backdropFilter = 'blur(6px)';
   panel.style.zIndex = '10000';
-  panel.innerHTML = '<div style="max-width:340px;margin:60px auto;background:#18120b;border-radius:18px;padding:32px 18px;box-shadow:none;display:flex;flex-direction:column;gap:14px;">'+
-    '<a href="index.html" class="main-btn" style="display:block;">الرئيسية</a>'+ 
-    '<a href="pricing.html" class="main-btn" style="display:block;">الباقات</a>'+ 
-    '<a href="devices.html" class="main-btn" style="display:block;">الأجهزة</a>'+ 
-    '<a href="blog.html" class="main-btn" style="display:block;">المدونات</a>'+ 
-    '<a href="contact.html" class="main-btn" style="display:block;">تواصل معنا</a>'+ 
-    '<a href="faq.html" class="main-btn" style="display:block;">الأسئلة الشائعة</a>'+ 
-    '<a href="login.html" class="main-btn" style="display:block;">تسجيل الدخول</a>'+ 
-    '<button id="openRegisterMenu" class="main-btn" style="background:rgba(165,42,42,0.55);color:#fff;">إنشاء حساب</button>'+ 
-    '<div id="registerMenu" style="display:none;margin-top:10px;">'+
-      '<a href="register.html?type=school" class="main-btn" style="display:block;margin-bottom:6px;">مدرسة</a>'+ 
-      '<a href="register.html?type=university" class="main-btn" style="display:block;margin-bottom:6px;">جامعة</a>'+ 
-      '<a href="register.html?type=hospital" class="main-btn" style="display:block;margin-bottom:6px;">مستشفى</a>'+ 
-      '<a href="register.html?type=distributor" class="main-btn" style="display:block;margin-bottom:6px;">موزع</a>'+ 
-      '<a href="register.html?type=customer" class="main-btn" style="display:block;margin-bottom:6px;">مشترك</a>'+ 
-      '<a href="register.html?type=other" class="main-btn" style="display:block;margin-bottom:6px;">أخرى</a>'+ 
-    '</div>'+ 
-    '<button onclick="document.getElementById(\'globalMenuPanel\').style.display=\'none\'" class="main-btn" style="background:#e53935;color:#fff;">إغلاق</button>'+ 
-    '</div>';
-  document.body.appendChild(panel);
-  document.getElementById('openRegisterMenu').onclick = function() {
-    var regMenu = document.getElementById('registerMenu');
-    regMenu.style.display = regMenu.style.display === 'none' ? 'block' : 'none';
-  };
-}
-document.addEventListener('DOMContentLoaded',createGlobalMenu);
-</script>
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>one world net | Global Satellite Internet</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-  <script src="translate.js"></script>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Cairo', Arial, sans-serif;
+  panel.innerHTML = '<div style="max-width:260px;margin:60px auto;background:rgba(255,255,255,0.92);border-radius:18px;padding:18px 10px;box-shadow:0 2px 18px #18120b22;display:flex;flex-direction:column;gap:10px;backdrop-filter:blur(8px);">'+
+    '<a href="index.html" class="menu-glass-link">الرئيسية</a>'+ 
+    '<a href="pricing.html" class="menu-glass-link">الباقات</a>'+ 
+    '<a href="devices.html" class="menu-glass-link">الأجهزة</a>'+ 
+    '<a href="blog.html" class="menu-glass-link">المدونات</a>'+ 
+    '<a href="contact.html" class="menu-glass-link">تواصل معنا</a>'+ 
+    '<a href="faq.html" class="menu-glass-link">الأسئلة الشائعة</a>'+ 
+    '<a href="login.html" class="menu-glass-link">تسجيل الدخول</a>'+ 
+    '<button id="openRegisterMenu" class="menu-glass-link" style="background:rgba(165,42,42,0.18);color:#222;">إنشاء حساب</button>'+ 
+    '<div id="registerMenu" style="display:none;margin-top:8px;">'+
+      '<a href="register.html?type=customer" class="menu-glass-link" style="margin-bottom:4px;">مشترك</a>'+ 
+      '<a href="register.html?type=other" class="menu-glass-link" style="margin-bottom:4px;">أخرى</a>'+ 
+      '</div>'+ 
+      '<button onclick="document.getElementById(\'globalMenuPanel\').style.display=\'none\'" class="menu-glass-link" style="background:#e53935;color:#222;">إغلاق</button>'+ 
+      '</div>';
       background: #18120b;
       color: #fff;
       overflow-x: hidden;
@@ -102,31 +78,31 @@ document.addEventListener('DOMContentLoaded',createGlobalMenu);
       text-decoration: none;
       transition: color 0.2s;
     }
-    a:hover {
-      color: #FFA726;
-    }
-    .cta, .cta.special {
-      background: #6d4c2b; /* شوكولاتة */
-      color: #fff !important;
-      font-weight: bold;
-      border-radius: 30px;
-      border: 2px solid #FFD600;
-      transition: background 0.2s, color 0.2s, border 0.2s;
-      box-shadow: 0 2px 8px #3e272355;
-    }
-    .cta:hover, .cta.special:hover {
-      background: #FFD600;
-      color: #3e2723 !important;
-      border: 2px solid #6d4c2b;
-    }
-    .starlink-header, .starlink-footer {
-      background: #18120b !important;
-      color: #fff;
-    }
-    .starlink-header nav a.active,
-    .starlink-header nav a:hover, .starlink-header nav a.active {
-      background: #FFD600;
-      color: #3e2723;
+<style>
+  .menu-glass-link {
+    display:block;
+    background:rgba(255,255,255,0.55);
+    color:#222 !important;
+    font-weight:bold;
+    border-radius:14px;
+    font-size:1em;
+    box-shadow:0 2px 8px #18120b22;
+    padding:10px 0;
+    text-align:center;
+    margin:0 0 2px 0;
+    text-decoration:none;
+    transition:background 0.2s, color 0.2s;
+    border:none;
+    cursor:pointer;
+  }
+  .menu-glass-link:hover {
+    background:rgba(255,255,255,0.85);
+    color:#18120b !important;
+  }
+  #globalMenuPanel {
+    box-shadow:0 2px 32px #18120b33;
+  }
+</style>
       border: 2px solid #6d4c2b;
     }
     .starlink-section, .starlink-feature-card {
@@ -230,51 +206,25 @@ document.addEventListener('DOMContentLoaded',createGlobalMenu);
 <body>
 <!-- صورة رئيسية عالمية -->
 <!-- تم حذف الصورة المكررة هنا -->
-<!-- النص المتحرك -->
-<div id="marqueeBar" style="width:100vw;overflow:hidden;background:transparent;padding:0;letter-spacing:1px;white-space:nowrap;direction:rtl;">
-  <span id="marqueeText"></span>
-</div>
-<div style="width:100vw;text-align:center;margin:0 0 24px 0;">
-  <span style="font-size:2em;font-weight:bold;letter-spacing:0.12em;color:#FFD600;">ONE WORLD NET</span>
+<!-- النص المتحرك كما كان سابقاً -->
+<div id="marqueeBar" style="width:100vw;overflow:hidden;background:linear-gradient(90deg,#FFD600 60%,#FFA726 100%);color:#3e2723;font-weight:bold;font-size:1.15em;padding:8px 0 8px 0;letter-spacing:1px;white-space:nowrap;direction:rtl;">
+  <span id="marqueeText" style="display:inline-block;animation:marquee 18s linear infinite;"></span>
 </div>
 <style>
-/* سيتم توليد الأنيميشن ديناميكياً */
+@keyframes marquee {
+  0% { transform: translateX(100vw); }
+  100% { transform: translateX(-100vw); }
+}
 </style>
 <script>
 // تحميل نص الشريط من localStorage أو نص افتراضي
 function loadMarqueeText() {
-  let store = JSON.parse(localStorage.getItem('text_index')||'{}');
-  let txt = store.marquee_text || '🌍 The world’s fastest satellite internet, available for everyone!';
-  let color = store.marquee_color || '#FFD600';
-  let fontsize = store.marquee_fontsize || 18;
-  let speed = store.marquee_speed || 18;
-  let lang = store.marquee_lang || 'all';
-  // لغة الموقع
-  let pageLang = document.documentElement.lang || 'en';
-  if(lang !== 'all' && lang !== pageLang) {
-    document.getElementById('marqueeBar').style.display = 'none';
-    return;
-  } else {
-    document.getElementById('marqueeBar').style.display = 'block';
-  }
-  let marquee = document.getElementById('marqueeText');
-  marquee.textContent = txt;
-  marquee.style.color = color;
-  marquee.style.fontSize = fontsize + 'px';
-  marquee.style.display = 'inline-block';
-  marquee.style.whiteSpace = 'nowrap';
-  // إزالة أي أنيميشن قديم
-  marquee.style.animation = 'none';
-  // توليد keyframes ديناميكي
-  let styleId = 'marqueeAnimStyle';
-  let oldStyle = document.getElementById(styleId);
-  if(oldStyle) oldStyle.remove();
-  let style = document.createElement('style');
-  style.id = styleId;
-  let animName = 'marqueeAnim';
-  style.innerHTML = `@keyframes ${animName} {0%{transform:translateX(100vw);}100%{transform:translateX(-100vw);}}`;
-  document.head.appendChild(style);
-  marquee.style.animation = `${animName} ${speed}s linear infinite`;
+  let txt = '';
+  try {
+    txt = JSON.parse(localStorage.getItem('text_index')||'{}').marquee_text;
+  } catch(e){}
+  if(!txt) txt = '🌍 أسرع إنترنت فضائي في العالم، متاح للجميع بأرخص الأسعار وأعلى أمان! سجّل الآن وكن جزءًا من المستقبل.';
+  document.getElementById('marqueeText').textContent = txt;
 }
 window.addEventListener('DOMContentLoaded', loadMarqueeText);
 </script>
@@ -340,11 +290,7 @@ function loadMarqueeText() {
 window.addEventListener('DOMContentLoaded', loadMarqueeText);
 </script>
 
-<!-- بانر تحفيزي عالمي -->
-<section style="background:linear-gradient(90deg,#00e0ff 60%,#1a237e 100%);color:#fff;padding:28px 0 20px 0;text-align:center;border-radius:18px;margin:24px 0 18px 0;box-shadow:0 2px 12px #00e0ff33;max-width:700px;margin-left:auto;margin-right:auto;">
-  <h2 style="font-size:2em;font-weight:bold;margin-bottom:10px;">معًا نحو عالم متصل وآمن</h2>
-  <p style="font-size:1.15em;margin-bottom:0;">نحن نؤمن أن الإنترنت حق للجميع، ونوفر حلولاً فضائية متقدمة لكل إنسان وجهة حول العالم. انضم إلينا وكن جزءًا من التغيير.</p>
-</section>
+<!-- تم حذف البانر التحفيزي بالكامل بناءً على طلب العميل -->
 
 <!-- مساعد ذكي (قريبًا) -->
 <!-- مساعد ذكي فعلي -->
@@ -408,7 +354,6 @@ aiChatForm.onsubmit = function(e) {
   else aiAddMsg('شكرًا لتواصلك! سيتم الرد عليك من فريقنا قريبًا أو يمكنك تصفح الأسئلة الشائعة.', 'ai');
 };
 </script>
-<!-- زر ترجمة جوجل العالمي -->
 <!-- قسم دعائي عالمي للتسجيل -->
 <section style="background:linear-gradient(90deg,#FFD600 60%,#FFA726 100%);color:#222;padding:32px 0 24px 0;text-align:center;border-radius:18px;margin:32px 0 24px 0;box-shadow:0 2px 12px #FFD60033;max-width:700px;margin-left:auto;margin-right:auto;">
   <h2 style="font-size:2em;font-weight:bold;margin-bottom:12px;">انضم إلى شبكة الإنترنت الفضائي العالمية</h2>
@@ -425,40 +370,7 @@ aiChatForm.onsubmit = function(e) {
   </div>
   <div style="color:#3e2723;font-size:1em;margin-top:8px;">ابدأ رحلتك مع الإنترنت الفضائي الآمن الآن!</div>
 </section>
-<div style="position:fixed;top:18px;left:18px;z-index:9999;">
-  <div id="google_translate_element"></div>
-</div>
-<script type="text/javascript">
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement({pageLanguage: 'ar', includedLanguages: '', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
-}
-</script>
-<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-  <header class="starlink-header">
-    <div class="logo">
-      <img src="images/logo.jpg" alt="one world net logo" style="height:48px;max-width:48px;min-width:32px;object-fit:cover;box-shadow:0 2px 12px #3e2723;">
-      <span>ONE WORLD NET</span>
-    </div>
-    <button class="menu-toggle" aria-label="فتح القائمة" onclick="toggleMenu()" style="background:none;border:none;padding:6px 10px;display:flex;align-items:center;justify-content:center;">
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect y="6" width="32" height="3.5" rx="1.8" fill="#fff" style="filter:drop-shadow(0 2px 6px #6d4c2b88);opacity:0.95;"/>
-        <rect y="14" width="32" height="3.5" rx="1.8" fill="#fff8e1" style="filter:drop-shadow(0 2px 6px #6d4c2b55);opacity:0.92;"/>
-        <rect y="22" width="32" height="3.5" rx="1.8" fill="#ffe0b2" style="filter:drop-shadow(0 2px 6px #6d4c2b33);opacity:0.9;"/>
-      </svg>
-    </button>
-    <nav id="mainNav">
-      <a href="#" class="active" data-i18n="nav_home">Home</a>
-      <a href="pricing.html" data-i18n="nav_pricing">Plans</a>
-      <a href="devices.html" data-i18n="nav_devices">Devices</a>
-      <a href="map.html" data-i18n="nav_coverage">Coverage Map</a>
-      <a href="blog.html" data-i18n="nav_blog">Blog</a>
-      <a href="projects.html" data-i18n="nav_projects">Projects</a>
-      <a href="contact.html" data-i18n="nav_contact">Contact</a>
-      <a href="login.html" class="cta special" style="margin:8px 0;">تسجيل دخول</a>
-      <a href="register.html" class="cta special" style="margin-bottom:8px;">إنشاء حساب</a>
-      <button id="lang-switch" class="cta" style="width:100%;margin-top:18px;">العربية</button>
-    </nav>
-  </header>
+  <!-- ...existing code... -->
   <section class="starlink-hero" style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;padding:0;background:none;">
     <!-- تم حذف الصورة المكررة هنا -->
     <div style="background:rgba(24,18,11,0.82);backdrop-filter:blur(4px);border-radius:22px;padding:32px 18px 24px 18px;box-shadow:0 4px 32px #3e272355;margin:24px auto 32px auto;max-width:600px;width:90vw;">
@@ -495,8 +407,8 @@ function googleTranslateElementInit() {
   <footer class="starlink-footer" style="background:#18120b;">
     <div class="footer-content" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px;">
       <div class="footer-logo-socials" style="display:flex;align-items:center;gap:10px;">
-        <img src="images/logo.jpg" alt="one world net logo" style="height:38px;max-width:38px;min-width:28px;object-fit:cover;box-shadow:0 2px 8px #3e2723;">
-        <span style="font-weight:bold;color:#FFD600;">one world net</span>
+      <img src="images/logo.jpg" alt="one world net logo" style="height:38px;max-width:38px;min-width:28px;object-fit:contain;box-shadow:0 2px 8px #3e2723;">
+      <!-- تم حذف كلمة one world net من الفوتر بناءً على طلب العميل -->
         <div class="footer-socials" id="footerSocials" style="display:flex;gap:8px;"></div>
       </div>
       <div class="footer-links" style="display:flex;gap:18px;">
