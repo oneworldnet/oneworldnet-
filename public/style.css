@@ -48,13 +48,17 @@ body, main, section, header, nav, footer, .glass, .section-glass, .glass-card {
 body {
   font-family: 'Cairo', 'Tajawal', Arial, sans-serif;
   direction: rtl;
-  background: rgba(18, 18, 18, 0.92) !important;
+  background: rgba(18, 18, 18, 0.98) !important;
   color: #fff;
   margin: 0;
   padding: 0;
   min-height: 100vh;
   box-shadow: none;
   backdrop-filter: blur(8px);
+  overflow-x: hidden !important;
+}
+html {
+  overflow-x: hidden !important;
 }
 body {
   font-family: 'Cairo', 'Tajawal', Arial, sans-serif;
@@ -122,18 +126,20 @@ nav a:hover {
   transition: 0.2s;
 }
 /* أزرار بني شفاف ونص أبيض */
+/* زر بني شفاف حديث لكل الصفحات */
 .main-btn, .btn-glass, button, input[type="submit"] {
-  background: rgba(62, 39, 35, 0.6) !important;
+  background: rgba(165,42,42,0.55) !important;
   color: #fff !important;
   font-weight: bold;
   border-radius: 18px;
   font-size: 1.1em;
   padding: 12px 32px;
   border: none;
-  transition: 0.2s;
+  box-shadow: 0 2px 8px #3e272355;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
 }
 .main-btn:hover, .btn-glass:hover, button:hover, input[type="submit"]:hover {
-  background: #3e2723 !important;
+  background: rgba(165,42,42,0.85) !important;
   color: #FFD600 !important;
   transform: scale(1.04);
 }

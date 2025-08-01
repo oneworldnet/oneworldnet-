@@ -1,43 +1,87 @@
+  <!-- زر القائمة أعلى اليسار -->
+  <div id="globalMenuBtnContainer" style="position:fixed;top:18px;left:18px;z-index:10000;">
+    <!-- زر القائمة سيضاف ديناميكياً بواسطة main.js -->
+  </div>
+  <!-- الشعار واسم الموقع أعلى اليمين -->
+  <div id="siteLogoContainer" style="position:fixed;top:18px;right:18px;z-index:10000;display:flex;align-items:center;gap:10px;">
+    <img src="images/logo.jpg" alt="Logo" style="height:44px;width:44px;border-radius:12px;box-shadow:0 2px 8px #FFD60055;object-fit:cover;">
+    <span style="font-size:1.3em;font-weight:bold;color:#FFD600;letter-spacing:2px;">ONE WORLD NET</span>
+  </div>
   <!-- أزرار المشاركة -->
   <div id="globalShareBtns" style="position:fixed;bottom:18px;left:18px;z-index:9999;display:flex;gap:8px;"></div>
   <!-- مولد QR عائم -->
   <div id="globalQR" style="position:fixed;bottom:18px;right:18px;z-index:9999;"></div>
-  <!-- زر تقييمات -->
-  <!-- زر تقييم العملاء أسفل الصفحة فقط -->
   <!-- زر تغيير اللغة الإضافية -->
   <div id="extraLangSwitcher" style="position:fixed;top:18px;right:18px;z-index:9999;"></div>
 <script src="/public/global-features.js"></script>
+<script src="main.js"></script>
+  <!-- الصورة الرئيسية تظهر فقط هنا -->
   <div style="width:100vw;text-align:center;margin:48px 0 0 0;">
-    <a href="reviews.html" id="reviewBtn" style="display:inline-block;background:rgba(255,255,255,0.12);color:#18120b;padding:12px 32px;border-radius:18px;font-weight:bold;text-decoration:none;font-size:1.2em;box-shadow:none;backdrop-filter:blur(8px);margin-bottom:24px;">⭐ Customer Reviews</a>
+    <img src="images/1.jpg" alt="OneWorldNet" class="main-img" style="max-width:900px;width:100%;border-radius:0 0 32px 32px;box-shadow:0 8px 32px #3e272355;object-fit:cover;display:block;margin:auto;">
   </div>
   <!-- أزرار المشاركة -->
   <div id="globalShareBtns" style="position:fixed;bottom:18px;left:18px;z-index:9999;display:flex;gap:8px;"></div>
   <!-- مولد QR عائم -->
   <div id="globalQR" style="position:fixed;bottom:18px;right:18px;z-index:9999;"></div>
   <!-- زر تقييمات -->
-  <a href="reviews.html" id="reviewBtn" style="position:fixed;top:18px;left:18px;z-index:9999;background:#FFD600;color:#18120b;padding:8px 18px;border-radius:18px;font-weight:bold;text-decoration:none;box-shadow:0 2px 8px #FFD60055;">⭐ تقييمات العملاء</a>
+  <!-- زر تقييمات العملاء أُزيل ليظهر فقط في صفحة التقييمات -->
   <!-- زر تغيير اللغة الإضافية -->
   <div id="extraLangSwitcher" style="position:fixed;top:18px;right:18px;z-index:9999;"></div>
 <script src="/public/global-features.js"></script>
 <div id="videoSection" style="margin:32px 0;text-align:center;"></div>
 <script>
-// عرض الفيديوهات من لوحة التحكم (الرئيسية)
-function renderVideos() {
-  let videos = JSON.parse(localStorage.getItem('videos')||'{}');
-  let list = videos['index']||[];
-  let html = '';
-  list.forEach(url=>{
-    if(url.includes('youtube.com')||url.includes('youtu.be')) {
-      let vid = url.split('v=')[1]||url.split('/').pop();
-      vid = vid.split('&')[0];
-      html += `<iframe width='420' height='236' src='https://www.youtube.com/embed/${vid}' frameborder='0' allowfullscreen style='border-radius:16px;box-shadow:0 2px 8px #00e0ff33;margin:12px;'></iframe>`;
-    } else {
-      html += `<video src='${url}' controls style='width:420px;max-width:98vw;border-radius:16px;box-shadow:0 2px 8px #00e0ff33;margin:12px;'></video>`;
-    }
-  });
-  document.getElementById('videoSection').innerHTML = html;
+// القائمة العالمية المخصصة
+function createGlobalMenu() {
+  if(document.getElementById('globalMenuBtn')) return;
+  const menuBtn = document.createElement('button');
+  menuBtn.id = 'globalMenuBtn';
+  menuBtn.className = 'main-btn';
+  menuBtn.style.position = 'fixed';
+  menuBtn.style.top = '18px';
+  menuBtn.style.left = '18px';
+  menuBtn.style.zIndex = '10001';
+  menuBtn.innerHTML = '<svg width="32" height="32" viewBox="0 0 32 32"><rect y="6" width="32" height="4" rx="2" fill="#FFD600"/><rect y="14" width="32" height="4" rx="2" fill="#FFD600"/><rect y="22" width="32" height="4" rx="2" fill="#FFD600"/></svg>';
+  document.getElementById('globalMenuBtnContainer').appendChild(menuBtn);
+  menuBtn.onclick = function() {
+    document.getElementById('globalMenuPanel').style.display = 'block';
+  };
+  // قائمة منسدلة احترافية
+  const panel = document.createElement('div');
+  panel.id = 'globalMenuPanel';
+  panel.style.display = 'none';
+  panel.style.position = 'fixed';
+  panel.style.top = '0';
+  panel.style.left = '0';
+  panel.style.width = '100vw';
+  panel.style.height = '100vh';
+  panel.style.background = 'rgba(0,0,0,0.96)';
+  panel.style.zIndex = '10000';
+  panel.innerHTML = '<div style="max-width:340px;margin:60px auto;background:#18120b;border-radius:18px;padding:32px 18px;box-shadow:none;display:flex;flex-direction:column;gap:14px;">'+
+    '<a href="index.html" class="main-btn" style="display:block;">الرئيسية</a>'+ 
+    '<a href="pricing.html" class="main-btn" style="display:block;">الباقات</a>'+ 
+    '<a href="devices.html" class="main-btn" style="display:block;">الأجهزة</a>'+ 
+    '<a href="blog.html" class="main-btn" style="display:block;">المدونات</a>'+ 
+    '<a href="contact.html" class="main-btn" style="display:block;">تواصل معنا</a>'+ 
+    '<a href="faq.html" class="main-btn" style="display:block;">الأسئلة الشائعة</a>'+ 
+    '<a href="login.html" class="main-btn" style="display:block;">تسجيل الدخول</a>'+ 
+    '<button id="openRegisterMenu" class="main-btn" style="background:rgba(165,42,42,0.55);color:#fff;">إنشاء حساب</button>'+ 
+    '<div id="registerMenu" style="display:none;margin-top:10px;">'+
+      '<a href="register.html?type=school" class="main-btn" style="display:block;margin-bottom:6px;">مدرسة</a>'+ 
+      '<a href="register.html?type=university" class="main-btn" style="display:block;margin-bottom:6px;">جامعة</a>'+ 
+      '<a href="register.html?type=hospital" class="main-btn" style="display:block;margin-bottom:6px;">مستشفى</a>'+ 
+      '<a href="register.html?type=distributor" class="main-btn" style="display:block;margin-bottom:6px;">موزع</a>'+ 
+      '<a href="register.html?type=customer" class="main-btn" style="display:block;margin-bottom:6px;">مشترك</a>'+ 
+      '<a href="register.html?type=other" class="main-btn" style="display:block;margin-bottom:6px;">أخرى</a>'+ 
+    '</div>'+ 
+    '<button onclick="document.getElementById(\'globalMenuPanel\').style.display=\'none\'" class="main-btn" style="background:#e53935;color:#fff;">إغلاق</button>'+ 
+    '</div>';
+  document.body.appendChild(panel);
+  document.getElementById('openRegisterMenu').onclick = function() {
+    var regMenu = document.getElementById('registerMenu');
+    regMenu.style.display = regMenu.style.display === 'none' ? 'block' : 'none';
+  };
 }
-document.addEventListener('DOMContentLoaded',renderVideos);
+document.addEventListener('DOMContentLoaded',createGlobalMenu);
 </script>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">

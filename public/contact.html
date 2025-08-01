@@ -1,12 +1,28 @@
-<!-- زر التقييم يظهر فقط هنا -->
-<div style="text-align:center;margin:24px 0;">
-  <a href="https://g.page/r/Cb2v8k8Qw4wCEBM/review" target="_blank" class="main-btn" style="font-size:1.2em;"><i class="fa-solid fa-star"></i> تقييم الخدمة</a>
+<!-- الشعار واسم الموقع أعلى اليمين وزر القائمة أعلى اليسار -->
+<div id="siteLogoContainer" style="position:fixed;top:18px;right:18px;z-index:10000;display:flex;align-items:center;gap:10px;">
+  <img src="images/logo.jpg" alt="Logo" style="height:44px;width:44px;border-radius:12px;box-shadow:0 2px 8px #FFD60055;object-fit:cover;">
+  <span style="font-size:1.3em;font-weight:bold;color:#FFD600;letter-spacing:2px;">ONE WORLD NET</span>
+</div>
+<div id="globalMenuBtnContainer" style="position:fixed;top:18px;left:18px;z-index:10000;"></div>
+<!-- أزرار احترافية موحدة بدون زر التسجيل -->
+<div style="text-align:center;margin:24px 0;display:flex;flex-direction:column;align-items:center;gap:14px;">
+  <a href="https://g.page/r/Cb2v8k8Qw4wCEBM/review" target="_blank" class="main-btn" style="background:rgba(165,42,42,0.55);color:#fff;font-size:1.2em;width:240px;display:inline-block;border-radius:18px;font-weight:bold;box-shadow:0 2px 8px #3e272355;"><i class="fa-solid fa-star"></i> تقييم الخدمة</a>
+  <a href="reviews.html" class="main-btn" style="background:rgba(165,42,42,0.55);color:#fff;font-size:1.1em;width:240px;display:inline-block;border-radius:18px;font-weight:bold;box-shadow:0 2px 8px #3e272355;"><i class="fa-solid fa-comments"></i> مراجعات العملاء</a>
 </div>
   <div id="globalShareBtns" style="position:fixed;bottom:18px;left:18px;z-index:9999;display:flex;gap:8px;"></div>
   <div id="globalQR" style="position:fixed;bottom:18px;right:18px;z-index:9999;"></div>
-  <a href="reviews.html" id="reviewBtn" style="position:fixed;top:18px;left:18px;z-index:9999;background:#FFD600;color:#18120b;padding:8px 18px;border-radius:18px;font-weight:bold;text-decoration:none;box-shadow:0 2px 8px #FFD60055;">⭐ تقييمات العملاء</a>
+  <!-- زر تقييمات العملاء أُزيل ليظهر فقط في صفحة التقييمات -->
   <div id="extraLangSwitcher" style="position:fixed;top:18px;right:18px;z-index:9999;"></div>
 <script src="/public/global-features.js"></script>
+<script src="main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  if(window.innerWidth<900){
+    document.body.style.overflowX='hidden';
+    document.documentElement.style.overflowX='hidden';
+  }
+});
+</script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
