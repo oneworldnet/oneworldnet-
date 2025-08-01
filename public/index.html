@@ -189,24 +189,47 @@ document.addEventListener('DOMContentLoaded',renderVideos);
   <img src="images/1.jpg" alt="OneWorldNet" style="width:100%;max-width:900px;object-fit:cover;border-radius:0 0 32px 32px;box-shadow:0 8px 32px #3e272355;">
 </div>
 <!-- النص المتحرك -->
-<div id="marqueeBar" style="width:100vw;overflow:hidden;background:linear-gradient(90deg,#FFD600 60%,#FFA726 100%);color:#3e2723;font-weight:bold;font-size:1.15em;padding:8px 0 8px 0;letter-spacing:1px;white-space:nowrap;direction:rtl;">
-  <span id="marqueeText" style="display:inline-block;animation:marquee 18s linear infinite;"></span>
+<div id="marqueeBar" style="width:100vw;overflow:hidden;background:transparent;padding:0;letter-spacing:1px;white-space:nowrap;direction:rtl;">
+  <span id="marqueeText"></span>
 </div>
 <style>
-@keyframes marquee {
-  0% { transform: translateX(100vw); }
-  100% { transform: translateX(-100vw); }
-}
+/* سيتم توليد الأنيميشن ديناميكياً */
 </style>
 <script>
 // تحميل نص الشريط من localStorage أو نص افتراضي
 function loadMarqueeText() {
-  let txt = '';
-  try {
-    txt = JSON.parse(localStorage.getItem('text_index')||'{}').marquee_text;
-  } catch(e){}
-  if(!txt) txt = '🌍 أسرع إنترنت فضائي في العالم، متاح للجميع بأرخص الأسعار وأعلى أمان! سجّل الآن وكن جزءًا من المستقبل.';
-  document.getElementById('marqueeText').textContent = txt;
+  let store = JSON.parse(localStorage.getItem('text_index')||'{}');
+  let txt = store.marquee_text || '🌍 The world’s fastest satellite internet, available for everyone!';
+  let color = store.marquee_color || '#FFD600';
+  let fontsize = store.marquee_fontsize || 18;
+  let speed = store.marquee_speed || 18;
+  let lang = store.marquee_lang || 'all';
+  // لغة الموقع
+  let pageLang = document.documentElement.lang || 'en';
+  if(lang !== 'all' && lang !== pageLang) {
+    document.getElementById('marqueeBar').style.display = 'none';
+    return;
+  } else {
+    document.getElementById('marqueeBar').style.display = 'block';
+  }
+  let marquee = document.getElementById('marqueeText');
+  marquee.textContent = txt;
+  marquee.style.color = color;
+  marquee.style.fontSize = fontsize + 'px';
+  marquee.style.display = 'inline-block';
+  marquee.style.whiteSpace = 'nowrap';
+  // إزالة أي أنيميشن قديم
+  marquee.style.animation = 'none';
+  // توليد keyframes ديناميكي
+  let styleId = 'marqueeAnimStyle';
+  let oldStyle = document.getElementById(styleId);
+  if(oldStyle) oldStyle.remove();
+  let style = document.createElement('style');
+  style.id = styleId;
+  let animName = 'marqueeAnim';
+  style.innerHTML = `@keyframes ${animName} {0%{transform:translateX(100vw);}100%{transform:translateX(-100vw);}}`;
+  document.head.appendChild(style);
+  marquee.style.animation = `${animName} ${speed}s linear infinite`;
 }
 window.addEventListener('DOMContentLoaded', loadMarqueeText);
 </script>

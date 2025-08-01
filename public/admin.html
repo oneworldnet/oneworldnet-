@@ -495,11 +495,23 @@ function googleTranslateElementInit() {
       </div>
       <div id="faqList"></div>
     </div>
-    <div class="section-title" style="margin-top:32px;">نص الشريط الإعلاني المتحرك (الصفحة الرئيسية)</div>
-    <label for="marqueeTextInput">نص الشريط المتحرك</label>
-    <textarea id="marqueeTextInput" rows="2" placeholder="اكتب نص الشريط الإعلاني هنا..." style="margin-bottom:8px;"></textarea>
-    <button type="button" class="save-btn" onclick="saveMarqueeText()">حفظ نص الشريط</button>
-    <div class="note">هذا النص سيظهر في الشريط المتحرك أعلى الصفحة الرئيسية ويمكن تغييره في أي وقت.</div>
+    <div class="section-title" style="margin-top:32px;">Marquee Banner Settings (Home Page)</div>
+    <label for="marqueeTextInput">Banner Text</label>
+    <textarea id="marqueeTextInput" rows="2" placeholder="Enter the banner text here..." style="margin-bottom:8px;"></textarea>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+      <label>Font Size <input type="number" id="marqueeFontSize" min="10" max="60" value="18" style="width:60px;"></label>
+      <label>Speed (sec) <input type="number" id="marqueeSpeed" min="5" max="60" value="18" style="width:60px;"></label>
+      <label>Color <input type="color" id="marqueeColor" value="#FFD600"></label>
+      <label>Language
+        <select id="marqueeLang">
+          <option value="en">English</option>
+          <option value="ar">العربية</option>
+          <option value="all">All Languages</option>
+        </select>
+      </label>
+    </div>
+    <button type="button" class="save-btn" onclick="saveMarqueeText()">Save Banner Settings</button>
+    <div class="note">This banner will appear at the top of the home page. You can change its text, color, speed, font size, and language instantly.</div>
     <div class="section-title" style="margin-top:32px;">روابط وأيقونات التواصل الاجتماعي</div>
     <div id="socialsManager" style="background:#18120b;border-radius:12px;padding:18px 12px 12px 12px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
       <div style="display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center;">
@@ -1271,18 +1283,29 @@ window.addEventListener('DOMContentLoaded',()=>{
     document.addEventListener('DOMContentLoaded', renderFaqList);
     // إدارة نص الشريط المتحرك
     function loadMarqueeAdmin() {
-      var txt = '';
-      try {
-        txt = JSON.parse(localStorage.getItem('text_index')||'{}').marquee_text;
-      }catch(e){}
-      document.getElementById('marqueeTextInput').value = txt||'';
+      let store = JSON.parse(localStorage.getItem('text_index')||'{}');
+      document.getElementById('marqueeTextInput').value = store.marquee_text||'';
+      document.getElementById('marqueeFontSize').value = store.marquee_fontsize||18;
+      document.getElementById('marqueeSpeed').value = store.marquee_speed||18;
+      document.getElementById('marqueeColor').value = store.marquee_color||'#FFD600';
+      document.getElementById('marqueeLang').value = store.marquee_lang||'all';
     }
     function saveMarqueeText() {
-      var val = document.getElementById('marqueeTextInput').value.trim();
-      var store = JSON.parse(localStorage.getItem('text_index')||'{}');
+      let val = document.getElementById('marqueeTextInput').value.trim();
+      let fontsize = document.getElementById('marqueeFontSize').value;
+      let speed = document.getElementById('marqueeSpeed').value;
+      let color = document.getElementById('marqueeColor').value;
+      let lang = document.getElementById('marqueeLang').value;
+      let store = JSON.parse(localStorage.getItem('text_index')||'{}');
       store.marquee_text = val;
+      store.marquee_fontsize = fontsize;
+      store.marquee_speed = speed;
+      store.marquee_color = color;
+      store.marquee_lang = lang;
       localStorage.setItem('text_index', JSON.stringify(store));
-      alert('تم حفظ نص الشريط المتحرك!');
+      alert('Banner settings saved!');
+      // تحديث لحظي في الصفحة الرئيسية إذا مفتوحة
+      if(window.opener && window.opener.loadMarqueeText) window.opener.loadMarqueeText();
     }
     document.addEventListener('DOMContentLoaded', loadMarqueeAdmin);
     // إدارة روابط التواصل الاجتماعي

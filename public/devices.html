@@ -1,3 +1,39 @@
+<!-- Devices Page (English Only, Clean, No Icon Duplication, No Centered Logo) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Devices | Oneworldnet</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+  <header>
+    <h1>Our Devices</h1>
+  </header>
+  <main class="glass section-glass">
+    <div id="devicesList">
+      <!-- Devices will be loaded dynamically here -->
+    </div>
+  </main>
+  <footer>
+    &copy; 2025 Oneworldnet. All rights reserved.
+  </footer>
+  <script src="main.js"></script>
+  <script>
+    // Example: Render devices dynamically (replace with your logic)
+    const devices = [
+      {name: 'Device A', desc: 'High-speed satellite device', icon: '<i class="fas fa-satellite-dish"></i>'},
+      {name: 'Device B', desc: 'Portable internet terminal', icon: '<i class="fas fa-wifi"></i>'},
+      {name: 'Device C', desc: 'Rugged outdoor router', icon: '<i class="fas fa-network-wired"></i>'}
+    ];
+    document.getElementById('devicesList').innerHTML = devices.map(d =>
+      `<div class='glass-card' style='margin-bottom:18px;display:flex;align-items:center;gap:18px;'>${d.icon}<div><b>${d.name}</b><br>${d.desc}</div></div>`
+    ).join('');
+  </script>
+</body>
+</html>
   <div id="globalShareBtns" style="position:fixed;bottom:18px;left:18px;z-index:9999;display:flex;gap:8px;"></div>
   <div id="globalQR" style="position:fixed;bottom:18px;right:18px;z-index:9999;"></div>
   <a href="reviews.html" id="reviewBtn" style="position:fixed;top:18px;left:18px;z-index:9999;background:#FFD600;color:#18120b;padding:8px 18px;border-radius:18px;font-weight:bold;text-decoration:none;box-shadow:0 2px 8px #FFD60055;">⭐ تقييمات العملاء</a>

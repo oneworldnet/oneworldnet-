@@ -1,3 +1,12 @@
+/* فرض الخلفية السوداء والكتابة البيضاء في كل العناصر الرئيسية */
+body, main, section, header, nav, footer, .glass, .section-glass, .glass-card {
+  background: #000 !important;
+  color: #fff !important;
+}
+/* فرض لون الخط الأبيض في كل العناصر */
+*, *:not(svg):not(path) {
+  color: #fff !important;
+}
 /* صور موحدة الحجم والشكل */
 .main-img, .unified-img {
   width: 100%;
