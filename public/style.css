@@ -43,6 +43,16 @@ body {
   box-shadow: none;
   backdrop-filter: blur(8px);
 }
+body {
+  font-family: 'Cairo', 'Tajawal', Arial, sans-serif;
+  direction: rtl;
+  background: #000 !important;
+  color: #fff !important;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  box-shadow: none;
+}
 header, nav, .navbar-glass {
   background: rgba(18, 18, 18, 0.92) !important;
   color: #fff;
@@ -98,10 +108,25 @@ nav a:hover {
   border: none;
   transition: 0.2s;
 }
+/* أزرار بني شفاف ونص أبيض */
+.main-btn, .btn-glass, button, input[type="submit"] {
+  background: rgba(62, 39, 35, 0.6) !important;
+  color: #fff !important;
+  font-weight: bold;
+  border-radius: 18px;
+  font-size: 1.1em;
+  padding: 12px 32px;
+  border: none;
+  transition: 0.2s;
+}
 .main-btn:hover, .btn-glass:hover, button:hover, input[type="submit"]:hover {
-  background: linear-gradient(90deg,#FFA726,#FFD600);
-  color: #18120b !important;
+  background: #3e2723 !important;
+  color: #FFD600 !important;
   transform: scale(1.04);
+}
+/* لون الخط أبيض في كل العناصر */
+*, *:not(svg):not(path) {
+  color: #fff !important;
 }
 .glass, .section-glass, .glass-card {
   border: 1.5px solid #FFD60044;
@@ -122,64 +147,58 @@ footer {
 }
 .social a {
   margin-left: 10px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: rgba(18, 18, 18, 0.92);
+body {
+  font-family: 'Cairo', 'Tajawal', Arial, sans-serif;
+  direction: rtl;
+  background: #000 !important;
   color: #fff;
-  font-size: 1.6em;
-  transition: background 0.2s, color 0.2s, transform 0.2s;
-  border: 1.5px solid #00e0ff33;
-  text-decoration: none;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  box-shadow: none;
 }
-.social a:hover {
-  background: #FFD600;
-  color: #18120b;
-  transform: scale(1.08);
+header, nav, .navbar-glass {
+  background: #000 !important;
+  color: #fff;
+  padding: 20px 0 10px 0;
+  text-align: center;
+  border-bottom: 1.5px solid #00e0ff33;
+}
+.section-glass {
+  background: #000;
+  border-radius: 18px;
+  border: 1.5px solid #FFD60044;
+  padding: 32px 24px;
+  margin: 32px auto;
+  max-width: 900px;
+}
+.glass-card {
+  background: #000;
+  border-radius: 16px;
+  padding: 24px 18px;
+  margin-bottom: 24px;
+  border: 1.5px solid #FFD60044;
+  min-height: 220px;
 }
 main, .glass, .section-glass {
   max-width: 900px;
   margin: 32px auto;
-  background: rgba(18, 18, 18, 0.92);
+  background: #000;
   border-radius: 18px;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   border: 1.5px solid #FFD60044;
   color: #fff;
   padding: 32px 24px;
 }
-section {
-  margin-bottom: 40px;
+footer {
+  background: #000 !important;
+  color: #fff;
+  text-align: center;
+  padding: 18px 0;
+  border-top: 1.5px solid #00e0ff33;
+  margin-top: 32px;
+  font-size: 1.1em;
+  position: static;
 }
-@media (max-width: 600px) {
-  main, .glass, .section-glass { padding: 16px 4vw; }
-  nav ul { flex-direction: column; gap: 8px; }
-}
-section {
-  margin-bottom: 40px;
-}
-form input, form textarea {
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 10px;
-  border: 1px solid #ccc;
-}
-form button, .btn-glass {
-  background: linear-gradient(90deg,#FFD600,#FFA726);
-  color: #18120b !important;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1em;
-  font-weight: bold;
-  transition: 0.2s;
-}
-form button:hover, .btn-glass:hover {
-  background: linear-gradient(90deg,#FFA726,#FFD600);
   color: #18120b !important;
   transform: scale(1.04);
 }

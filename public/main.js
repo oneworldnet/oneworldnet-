@@ -1,3 +1,53 @@
+// زر القائمة الموحد (يظهر في كل الصفحات)
+function createGlobalMenu() {
+  if(document.getElementById('globalMenuBtn')) return;
+  const menuBtn = document.createElement('button');
+  menuBtn.id = 'globalMenuBtn';
+  menuBtn.className = 'main-btn';
+  menuBtn.style.position = 'fixed';
+  menuBtn.style.top = '18px';
+  menuBtn.style.left = '18px';
+  menuBtn.style.zIndex = '9999';
+  menuBtn.innerHTML = '<svg width="32" height="32" viewBox="0 0 32 32"><rect y="6" width="32" height="4" rx="2" fill="#FFD600"/><rect y="14" width="32" height="4" rx="2" fill="#FFD600"/><rect y="22" width="32" height="4" rx="2" fill="#FFD600"/></svg>';
+  document.body.appendChild(menuBtn);
+  menuBtn.onclick = function() {
+    document.getElementById('globalMenuPanel').style.display = 'block';
+  };
+  // قائمة منسدلة
+  const panel = document.createElement('div');
+  panel.id = 'globalMenuPanel';
+  panel.style.display = 'none';
+  panel.style.position = 'fixed';
+  panel.style.top = '0';
+  panel.style.left = '0';
+  panel.style.width = '100vw';
+  panel.style.height = '100vh';
+  panel.style.background = 'rgba(0,0,0,0.96)';
+  panel.style.zIndex = '9998';
+  panel.innerHTML = '<div style="max-width:340px;margin:60px auto;background:#18120b;border-radius:18px;padding:32px 18px;box-shadow:none;">'+
+    '<a href="index.html" class="main-btn" style="display:block;margin-bottom:12px;">الرئيسية</a>'+
+    '<a href="pricing.html" class="main-btn" style="display:block;margin-bottom:12px;">الأسعار</a>'+
+    '<a href="devices.html" class="main-btn" style="display:block;margin-bottom:12px;">الأجهزة</a>'+
+    '<a href="projects.html" class="main-btn" style="display:block;margin-bottom:12px;">المشاريع</a>'+
+    '<a href="blog.html" class="main-btn" style="display:block;margin-bottom:12px;">الأخبار</a>'+
+    '<a href="gallery.html" class="main-btn" style="display:block;margin-bottom:12px;">المعرض</a>'+
+    '<a href="contact.html" class="main-btn" style="display:block;margin-bottom:12px;">تواصل معنا</a>'+
+    '<a href="faq.html" class="main-btn" style="display:block;margin-bottom:12px;">الأسئلة الشائعة</a>'+
+    '<a href="login.html" class="main-btn" style="display:block;margin-bottom:12px;">دخول</a>'+
+    '<a href="register.html" class="main-btn" style="display:block;margin-bottom:12px;">تسجيل</a>'+
+    '<button onclick="document.getElementById(\'globalMenuPanel\').style.display=\'none\'" class="main-btn" style="background:#e53935;color:#fff;">إغلاق</button>'+
+    '</div>';
+  document.body.appendChild(panel);
+}
+// إخفاء القائمة الأفقية القديمة
+function hideOldMenu() {
+  const nav = document.querySelector('nav');
+  if(nav) nav.style.display = 'none';
+}
+document.addEventListener('DOMContentLoaded', ()=>{
+  createGlobalMenu();
+  hideOldMenu();
+});
 // أدوات وصول لذوي الاحتياجات الخاصة (عالمي)
 function addAccessibilityWidget() {
   if(document.getElementById('accessWidget')) return;
