@@ -1,3 +1,5 @@
+/* إخفاء زر ترجمة جوجل في جميع الصفحات */
+#google_translate_element { display: none !important; }
 /* إخفاء قائمة تسجيل الدخول الافتراضية إلا عند الحاجة */
 #loginForm, #adminLogin, .login-form {
   display: none !important;
