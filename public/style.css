@@ -4,7 +4,7 @@
 }
 /* فرض الخلفية السوداء والكتابة البيضاء في كل العناصر الرئيسية */
 body, main, section, header, nav, footer, .glass, .section-glass, .glass-card {
-  background: #000 !important;
+  background: #181a1b !important;
   color: #fff !important;
 }
 /* فرض لون الخط الأبيض في كل العناصر */
@@ -45,10 +45,9 @@ body, main, section, header, nav, footer, .glass, .section-glass, .glass-card {
     padding: 10px 18px;
   }
 }
-body {
   font-family: 'Cairo', 'Tajawal', Arial, sans-serif;
   direction: rtl;
-  background: rgba(18, 18, 18, 0.98) !important;
+  background: #181a1b !important;
   color: #fff;
   margin: 0;
   padding: 0;
@@ -70,8 +69,7 @@ body {
   min-height: 100vh;
   box-shadow: none;
 }
-header, nav, .navbar-glass {
-  background: rgba(18, 18, 18, 0.92) !important;
+  background: #181a1b !important;
   color: #fff;
   padding: 20px 0 10px 0;
   text-align: center;
