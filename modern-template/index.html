@@ -34,7 +34,18 @@
     <img src="/public/images/1.jpg" alt="قمر صناعي" class="hero-img" />
     <div class="animated-marquee" style="margin: 24px auto 0; max-width:900px;">
       <marquee id="about-marquee" direction="left" scrollamount="6" style="font-weight:bold; color:#0af; background:rgba(0,0,0,0.08); padding:8px 0; font-size:1.15em; border-radius:12px;">
-        About Us | À propos de nous | Über uns | Chi siamo | Sobre nosotros | 关于我们 | من نحن | Connecting the world with the best satellite internet | ربط العالم بأفضل إنترنت فضائي | الاتصال بالعالم بأحدث التقنيات | Bringing the world together | Uniendo el mundo | Unissant le monde | Weltweit verbunden
+        <span id="marquee-dynamic"></span>About Us | À propos de nous | Über uns | Chi siamo | Sobre nosotros | 关于我们 | من نحن | Connecting the world with the best satellite internet | ربط العالم بأفضل إنترنت فضائي | الاتصال بالعالم بأحدث التقنيات | Bringing the world together | Uniendo el mundo | Unissant le monde | Weltweit verbunden</span>
+  <script>
+    // تفعيل النص المتحرك المخصص من localStorage
+    window.addEventListener('DOMContentLoaded', function() {
+      const text = localStorage.getItem('marqueeText');
+      const color = localStorage.getItem('marqueeColor');
+      const size = localStorage.getItem('marqueeSize');
+      if (text) document.getElementById('marquee-dynamic').textContent = text;
+      if (color) document.getElementById('about-marquee').style.color = color;
+      if (size) document.getElementById('about-marquee').style.fontSize = size + 'px';
+    });
+  </script>
       </marquee>
     </div>
     <div class="gallery-row">
