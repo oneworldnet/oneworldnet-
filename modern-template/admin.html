@@ -25,6 +25,22 @@
   <div class="admin-panel glass">
     <h2>لوحة تحكم الموقع</h2>
     <div class="section">
+      <h3>روابط وأيقونات التواصل الاجتماعي</h3>
+      <div id="admin-socials"></div>
+    </div>
+    <div class="section">
+      <h3>إدارة الموظفين</h3>
+      <button type="button" id="admin-add-employee" style="background:#0af;">إضافة موظف</button>
+      <div id="admin-employee-list"></div>
+    </div>
+    <div class="section">
+      <h3>إحصائيات الزوار والتسجيلات</h3>
+      <div id="admin-stats"></div>
+    </div>
+    <div class="section">
+      <h3>تعديل أسعار الباقات</h3>
+      <div id="admin-plans"></div>
+    </div>
       <h3>خيارات الوصول والراحة</h3>
       <button type="button" id="toggle-dark" style="margin-left:12px;">تفعيل الوضع الليلي/النهاري</button>
       <button type="button" id="toggle-font" style="margin-left:12px;">تكبير/تصغير الخط</button>
@@ -109,6 +125,36 @@
     <div id="admin-msg" style="margin-top:18px;color:#0af;font-weight:bold;"></div>
   </div>
   <script src="admin.js"></script>
+  <script>
+    // إدارة روابط التواصل الاجتماعي
+    const defaultSocials = [
+      {name:'واتساب', icon:'icons/whatsapp.svg', url:'https://wa.me/'},
+      {name:'تليجرام', icon:'icons/telegram.svg', url:'https://t.me/'},
+      {name:'فيسبوك', icon:'icons/facebook.svg', url:'https://facebook.com/'},
+      {name:'تويتر', icon:'icons/twitter.svg', url:'https://twitter.com/'},
+      {name:'لينكدإن', icon:'icons/linkedin.svg', url:'https://linkedin.com/'},
+      {name:'يوتيوب', icon:'icons/youtube.svg', url:'https://youtube.com/'},
+      {name:'تيك توك', icon:'icons/tiktok.svg', url:'https://tiktok.com/'},
+      {name:'ديسكورد', icon:'icons/discord.svg', url:'https://discord.com/'},
+      {name:'إيميل', icon:'icons/email.svg', url:'mailto:info@oneworld.net'}
+    ];
+    function renderAdminSocials() {
+      let socials = JSON.parse(localStorage.getItem('socials') || 'null');
+      if (!socials) { socials = defaultSocials; localStorage.setItem('socials', JSON.stringify(socials)); }
+      const div = document.getElementById('admin-socials');
+      div.innerHTML = '';
+      socials.forEach((s, i) => {
+        div.innerHTML += `<div style='margin-bottom:8px;'><img src='${s.icon}' style='width:28px;vertical-align:middle;margin-left:8px;'> <b>${s.name}</b> <input type='text' value='${s.url}' style='width:320px;' onchange='updateSocialUrl(${i},this.value)'/></div>`;
+      });
+    }
+    window.updateSocialUrl = function(i, val) {
+      let socials = JSON.parse(localStorage.getItem('socials') || '[]');
+      socials[i].url = val;
+      localStorage.setItem('socials', JSON.stringify(socials));
+      renderAdminSocials();
+    }
+    document.addEventListener('DOMContentLoaded', renderAdminSocials);
+  </script>
   <script src="translate.js"></script>
 </body>
 </html>

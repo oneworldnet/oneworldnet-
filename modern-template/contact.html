@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تواصل معنا | One World Net</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="top-marquee">
+    <marquee id="multi-lang-marquee" direction="right" scrollamount="5" style="font-weight:bold; color:#0af; background:rgba(0,0,0,0.08); padding:7px 0; font-size:1.1em;">
+      Welcome to One World Net | Bienvenue chez One World Net | Willkommen bei One World Net | Benvenuto su One World Net | Bienvenido a One World Net | 欢迎来到One World Net | مرحبًا بكم في ون وورلد نت
+    </marquee>
+    <button id="darkModeBtn" style="float:left; margin:4px 16px; padding:4px 16px; border-radius:8px; border:none; background:#222; color:#fff; cursor:pointer;">🌙 الوضع الليلي</button>
+  </div>
+  <nav class="main-nav">
+    <!-- ...existing code... -->
+  </nav>
+  <section class="contact-section glass">
+    <h2>تواصل معنا</h2>
+    <form class="contact-form">
+      <input type="text" placeholder="اسمك" required />
+      <input type="email" placeholder="بريدك الإلكتروني" required />
+      <textarea placeholder="رسالتك" required></textarea>
+      <button type="submit">إرسال</button>
+      <div class="accessibility-support" style="margin-top:18px; background:rgba(0,0,0,0.08); border-radius:10px; padding:12px;">
+        <label style="font-weight:bold;">دعم ذوي الاحتياجات الخاصة:</label><br>
+        <input type="checkbox" id="screen-reader" name="screen-reader">
+        <label for="screen-reader">قارئ شاشة</label>
+        <input type="checkbox" id="high-contrast" name="high-contrast">
+        <label for="high-contrast">تباين عالي</label>
+        <input type="checkbox" id="large-text" name="large-text">
+        <label for="large-text">نص كبير</label>
+      </div>
+    </form>
+    <div class="social-icons" id="contact-socials"></div>
+  </section>
+  <!--#include file="footer.html" -->
+  <script src="translate.js"></script>
+  <script>
+    // تفعيل أيقونات وروابط التواصل الاجتماعي ديناميكياً
+    function renderSocialIcons(containerId) {
+      let socials = [];
+      try {
+        socials = JSON.parse(localStorage.getItem('socials'));
+      } catch(e) {}
+      if (!Array.isArray(socials) || !socials.length) {
+        socials = [
+          {icon:'icons/whatsapp.svg', url:'https://wa.me/'},
+          {icon:'icons/telegram.svg', url:'https://t.me/'},
+          {icon:'icons/facebook.svg', url:'https://facebook.com/'},
+          {icon:'icons/twitter.svg', url:'https://twitter.com/'},
+          {icon:'icons/linkedin.svg', url:'https://linkedin.com/'},
+          {icon:'icons/youtube.svg', url:'https://youtube.com/'},
+          {icon:'icons/tiktok.svg', url:'https://tiktok.com/'},
+          {icon:'icons/discord.svg', url:'https://discord.com/'},
+          {icon:'icons/email.svg', url:'mailto:info@oneworld.net'}
+        ];
+      }
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      container.innerHTML = '';
+      socials.forEach(s => {
+        const a = document.createElement('a');
+        a.href = s.url;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.ariaLabel = s.name || '';
+        const img = document.createElement('img');
+        img.src = s.icon.startsWith('icons/') ? s.icon : 'icons/' + s.icon.replace(/^.*[\\\/]/, '');
+        img.alt = s.name || 'social';
+        img.style.width = '32px';
+        img.style.margin = '0 4px';
+        a.appendChild(img);
+        container.appendChild(a);
+      });
+    }
+    window.addEventListener('DOMContentLoaded', function() {
+      renderSocialIcons('contact-socials');
+    });
+  </script>
+</body>
+<script>
+// زر الوضع الليلي/النهاري
+const darkBtn = document.getElementById('darkModeBtn');
+let dark = false;
+darkBtn.onclick = function() {
+  dark = !dark;
+  document.body.classList.toggle('dark-mode', dark);
+  darkBtn.textContent = dark ? '☀️ الوضع النهاري' : '🌙 الوضع الليلي';
+};
+</script>
+</body>
+</html>

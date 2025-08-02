@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تعليقات وتقييمات المستخدمين | One World Net</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    .comments-section {max-width:900px;margin:40px auto;padding:32px;background:rgba(30,30,40,0.93);border-radius:18px;box-shadow:0 4px 32px #0002;}
+    .comment-card {background:#fff2;border-radius:12px;padding:18px;margin-bottom:18px;box-shadow:0 2px 8px #0001;}
+    .comment-country {color:#0af;font-weight:bold;}
+    .comment-vote {color:#fa0;font-weight:bold;}
+    .add-comment {margin:32px 0 0;text-align:center;}
+    .add-comment textarea {width:90%;max-width:500px;padding:8px;border-radius:8px;}
+    .add-comment button {margin-top:8px;padding:8px 32px;border-radius:8px;background:#0af;color:#fff;font-weight:bold;border:none;}
+  </style>
+</head>
+<body>
+  <nav class="main-nav">
+    <!-- ...existing nav... -->
+  </nav>
+  <div class="comments-section glass">
+    <h2>تعليقات وتقييمات المستخدمين من جميع أنحاء العالم</h2>
+    <div id="comments-list"></div>
+    <div class="add-comment">
+      <h3>أضف تعليقك وتقييمك</h3>
+      <input type="text" id="comment-name" placeholder="اسمك أو بلدك" style="margin-bottom:8px;width:220px;" />
+      <select id="comment-vote">
+        <option value="5">⭐⭐⭐⭐⭐ ممتاز</option>
+        <option value="4">⭐⭐⭐⭐ جيد جداً</option>
+        <option value="3">⭐⭐⭐ جيد</option>
+        <option value="2">⭐⭐ مقبول</option>
+        <option value="1">⭐ ضعيف</option>
+      </select><br>
+      <textarea id="comment-text" rows="2" placeholder="اكتب تعليقك هنا..."></textarea><br>
+      <button onclick="addComment()">إرسال التعليق</button>
+    </div>
+  </div>
+  <script>
+    // عينات دولية
+    const sampleCountries = [
+      'مصر','السعودية','الإمارات','المغرب','تونس','الجزائر','السودان','العراق','الأردن','لبنان','سوريا','فلسطين','ليبيا','اليمن','الكويت','قطر','البحرين','عمان','تركيا','إيران','الهند','باكستان','بنغلاديش','إندونيسيا','ماليزيا','الصين','اليابان','كوريا الجنوبية','تايلاند','فيتنام','الفلبين','روسيا','أوكرانيا','بولندا','ألمانيا','فرنسا','إيطاليا','إسبانيا','بريطانيا','السويد','النرويج','الدنمارك','هولندا','بلجيكا','سويسرا','النمسا','البرتغال','اليونان','رومانيا','بلغاريا','المجر','التشيك','سلوفاكيا','كندا','أمريكا','البرازيل','الأرجنتين','المكسيك','تشيلي','كولومبيا','جنوب أفريقيا','نيجيريا','كينيا','إثيوبيا','غانا','السنغال','المغرب العربي','أستراليا','نيوزيلندا','سنغافورة','هونغ كونغ','تايوان'
+    ];
+    function getRandomInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+    function getSampleComments(n) {
+      const comments = [];
+      for (let i = 0; i < n; i++) {
+        const country = sampleCountries[getRandomInt(0, sampleCountries.length-1)];
+        comments.push({
+          name: 'زائر من ' + country,
+          text: [
+            'خدمة رائعة!','أفضل إنترنت جربته.','أنصح الجميع.','الدعم ممتاز.','سعر مذهل.','جودة عالمية.','شكراً لكم!','أسرع شبكة في منطقتي.','التغطية ممتازة.','سهل الاشتراك.'
+          ][getRandomInt(0,9)],
+          vote: getRandomInt(4,5)
+        });
+      }
+      return comments;
+    }
+    function renderComments() {
+      let comments = JSON.parse(localStorage.getItem('globalComments') || 'null');
+      if (!comments) {
+        comments = getSampleComments(70);
+        localStorage.setItem('globalComments', JSON.stringify(comments));
+      }
+      const list = document.getElementById('comments-list');
+      list.innerHTML = '';
+      comments.forEach(c => {
+        list.innerHTML += `<div class='comment-card'><span class='comment-country'>${c.name}</span> <span class='comment-vote'>(${c.vote}⭐)</span><br>${c.text}</div>`;
+      });
+    }
+    function addComment() {
+      const name = document.getElementById('comment-name').value.trim() || 'زائر';
+      const vote = Number(document.getElementById('comment-vote').value);
+      const text = document.getElementById('comment-text').value.trim();
+      if (!text) return alert('اكتب تعليقك أولاً');
+      let comments = JSON.parse(localStorage.getItem('globalComments') || '[]');
+      comments.unshift({name, vote, text});
+      localStorage.setItem('globalComments', JSON.stringify(comments));
+      renderComments();
+      document.getElementById('comment-text').value = '';
+    }
+    renderComments();
+  </script>
+</body>
+</html>

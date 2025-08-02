@@ -10,7 +10,7 @@
 <body>
   <nav class="main-nav">
     <div class="logo">
-      <img src="/public/images/logo.jpg" alt="One World Net Logo" />
+      <img id="site-logo" src="images/logo.jpg" alt="One World Net Logo" />
       <span>ONE WORLD NET</span>
     </div>
     <button id="langSwitcher" class="lang-btn" aria-label="تغيير اللغة">🌐</button>
@@ -140,12 +140,12 @@
       <textarea placeholder="رسالتك" required></textarea>
       <button type="submit">إرسال</button>
     </form>
-    <div class="social-icons">
+    <div class="social-icons" id="contact-socials">
       <!-- أيقونات التواصل -->
     </div>
   </section>
   <footer class="main-footer glass">
-    <div class="footer-socials">
+    <div class="footer-socials" id="footer-socials">
       <!-- أيقونات التواصل -->
     </div>
     <div class="footer-links">
@@ -156,6 +156,55 @@
   </footer>
   <script src="translate.js"></script>
   <script src="main.js"></script>
+  <script>
+    // --- تفعيل الشعار الجديد من localStorage إذا تم تغييره من لوحة التحكم ---
+    window.addEventListener('DOMContentLoaded', function() {
+      const logoImg = document.getElementById('site-logo');
+      const logoUrl = localStorage.getItem('siteLogo');
+      if (logoImg && logoUrl) logoImg.src = logoUrl;
+    });
+    // --- تفعيل أيقونات وروابط التواصل الاجتماعي ديناميكياً ---
+    function renderSocialIcons(containerId) {
+      let socials = [];
+      try {
+        socials = JSON.parse(localStorage.getItem('socials'));
+      } catch(e) {}
+      if (!Array.isArray(socials) || !socials.length) {
+        socials = [
+          {icon:'icons/whatsapp.svg', url:'https://wa.me/'},
+          {icon:'icons/telegram.svg', url:'https://t.me/'},
+          {icon:'icons/facebook.svg', url:'https://facebook.com/'},
+          {icon:'icons/twitter.svg', url:'https://twitter.com/'},
+          {icon:'icons/linkedin.svg', url:'https://linkedin.com/'},
+          {icon:'icons/youtube.svg', url:'https://youtube.com/'},
+          {icon:'icons/tiktok.svg', url:'https://tiktok.com/'},
+          {icon:'icons/discord.svg', url:'https://discord.com/'},
+          {icon:'icons/email.svg', url:'mailto:info@oneworld.net'}
+        ];
+      }
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      container.innerHTML = '';
+      socials.forEach(s => {
+        const a = document.createElement('a');
+        a.href = s.url;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.ariaLabel = s.name || '';
+        const img = document.createElement('img');
+        img.src = s.icon.startsWith('icons/') ? s.icon : 'icons/' + s.icon.replace(/^.*[\\\/]/, '');
+        img.alt = s.name || 'social';
+        img.style.width = '32px';
+        img.style.margin = '0 4px';
+        a.appendChild(img);
+        container.appendChild(a);
+      });
+    }
+    window.addEventListener('DOMContentLoaded', function() {
+      renderSocialIcons('footer-socials');
+      renderSocialIcons('contact-socials');
+    });
+  </script>
   <script>
     // تفعيل النص المتحرك المخصص من localStorage
     window.addEventListener('DOMContentLoaded', function() {

@@ -1,0 +1,58 @@
+<footer class="main-footer glass">
+  <div class="footer-content">
+  <div class="footer-logo">
+    <img id="footer-logo" src="images/logo.jpg" alt="One World Net Logo" style="height:48px; border-radius:12px;">
+    <span>One World Net &copy; 2025</span>
+  </div>
+    <div class="footer-social" id="footer-socials"></div>
+</footer>
+<script>
+// تفعيل الشعار الجديد من localStorage إذا تم تغييره من لوحة التحكم
+window.addEventListener('DOMContentLoaded', function() {
+  const logoImg = document.getElementById('footer-logo');
+  const logoUrl = localStorage.getItem('siteLogo');
+  if (logoImg && logoUrl) logoImg.src = logoUrl;
+});
+// تفعيل أيقونات وروابط التواصل الاجتماعي ديناميكياً
+function renderSocialIcons(containerId) {
+  let socials = [];
+  try {
+    socials = JSON.parse(localStorage.getItem('socials'));
+  } catch(e) {}
+  if (!Array.isArray(socials) || !socials.length) {
+    socials = [
+      {icon:'icons/whatsapp.svg', url:'https://wa.me/'},
+      {icon:'icons/telegram.svg', url:'https://t.me/'},
+      {icon:'icons/facebook.svg', url:'https://facebook.com/'},
+      {icon:'icons/twitter.svg', url:'https://twitter.com/'},
+      {icon:'icons/linkedin.svg', url:'https://linkedin.com/'},
+      {icon:'icons/youtube.svg', url:'https://youtube.com/'},
+      {icon:'icons/tiktok.svg', url:'https://tiktok.com/'},
+      {icon:'icons/discord.svg', url:'https://discord.com/'},
+      {icon:'icons/email.svg', url:'mailto:info@oneworld.net'}
+    ];
+  }
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.innerHTML = '';
+  socials.forEach(s => {
+    const a = document.createElement('a');
+    a.href = s.url;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.ariaLabel = s.name || '';
+    const img = document.createElement('img');
+    img.src = s.icon.startsWith('icons/') ? s.icon : 'icons/' + s.icon.replace(/^.*[\\\/]/, '');
+    img.alt = s.name || 'social';
+    img.style.width = '28px';
+    img.style.margin = '0 4px';
+    a.appendChild(img);
+    container.appendChild(a);
+  });
+}
+window.addEventListener('DOMContentLoaded', function() {
+  renderSocialIcons('footer-socials');
+});
+</script>
+  </div>
+</footer>

@@ -1,3 +1,97 @@
+// --- إدارة الموظفين ---
+function renderAdminEmployees() {
+  let employees = JSON.parse(localStorage.getItem('employees') || '[]');
+  if (!employees.length) {
+    employees = [
+      {name:'أحمد علي', role:'مدير', email:'ahmed@oneworld.net'},
+      {name:'سارة محمد', role:'مسؤول محتوى', email:'sara@oneworld.net'}
+    ];
+    localStorage.setItem('employees', JSON.stringify(employees));
+  }
+  const list = document.getElementById('admin-employee-list');
+  list.innerHTML = '';
+  employees.forEach((emp, i) => {
+    const div = document.createElement('div');
+    div.className = 'employee-card';
+    div.style.marginBottom = '10px';
+    div.innerHTML = `<b>${emp.name}</b> (${emp.role}) - <span style='color:#0af'>${emp.email}</span> <button onclick="editEmployee(${i})">تعديل</button> <button style="background:#c00;" onclick="deleteEmployee(${i})">حذف</button>`;
+    list.appendChild(div);
+  });
+}
+window.editEmployee = function(i) {
+  const employees = JSON.parse(localStorage.getItem('employees') || '[]');
+  const emp = employees[i];
+  const name = prompt('تعديل الاسم:', emp.name);
+  if (!name) return;
+  const role = prompt('تعديل الدور:', emp.role);
+  if (!role) return;
+  const email = prompt('تعديل البريد:', emp.email);
+  employees[i] = {name, role, email};
+  localStorage.setItem('employees', JSON.stringify(employees));
+  renderAdminEmployees();
+}
+window.deleteEmployee = function(i) {
+  const employees = JSON.parse(localStorage.getItem('employees') || '[]');
+  employees.splice(i, 1);
+  localStorage.setItem('employees', JSON.stringify(employees));
+  renderAdminEmployees();
+}
+document.addEventListener('DOMContentLoaded', function() {
+  const btn = document.getElementById('admin-add-employee');
+  if (btn) btn.onclick = function() {
+    const name = prompt('اسم الموظف:');
+    if (!name) return;
+    const role = prompt('الدور/الصلاحية:','موظف');
+    if (!role) return;
+    const email = prompt('البريد الإلكتروني:');
+    if (!email) return;
+    const employees = JSON.parse(localStorage.getItem('employees') || '[]');
+    employees.push({name, role, email});
+    localStorage.setItem('employees', JSON.stringify(employees));
+    renderAdminEmployees();
+  };
+  renderAdminEmployees();
+});
+
+// --- إحصائيات الزوار ---
+function renderAdminStats() {
+  // عينات إحصائية
+  const stats = {
+    visits: 100000 + Math.floor(Math.random()*900000),
+    signups: 5000 + Math.floor(Math.random()*20000),
+    countries: 70,
+    topCountries: ['مصر','السعودية','الهند','الصين','أمريكا','نيجيريا','البرازيل']
+  };
+  const div = document.getElementById('admin-stats');
+  div.innerHTML = `<b>عدد الزيارات:</b> ${stats.visits.toLocaleString()}<br><b>عدد التسجيلات:</b> ${stats.signups.toLocaleString()}<br><b>الدول الأكثر نشاطاً:</b> ${stats.topCountries.join('، ')}<br><b>إجمالي الدول:</b> ${stats.countries}`;
+}
+document.addEventListener('DOMContentLoaded', renderAdminStats);
+
+// --- تعديل أسعار الباقات ---
+function renderAdminPlans() {
+  let plans = JSON.parse(localStorage.getItem('plans') || 'null');
+  if (!plans) {
+    plans = [
+      {name:'Starter', price:5},
+      {name:'Essential', price:10},
+      {name:'Family', price:25},
+      {name:'Business', price:200}
+    ];
+    localStorage.setItem('plans', JSON.stringify(plans));
+  }
+  const div = document.getElementById('admin-plans');
+  div.innerHTML = '';
+  plans.forEach((plan, i) => {
+    div.innerHTML += `<div style='margin-bottom:8px;'><b>${plan.name}:</b> <input type='number' value='${plan.price}' min='1' style='width:80px;' onchange='updatePlanPrice(${i},this.value)'/> $/شهر</div>`;
+  });
+}
+window.updatePlanPrice = function(i, val) {
+  let plans = JSON.parse(localStorage.getItem('plans') || '[]');
+  plans[i].price = Number(val);
+  localStorage.setItem('plans', JSON.stringify(plans));
+  renderAdminPlans();
+}
+document.addEventListener('DOMContentLoaded', renderAdminPlans);
 // --- إدارة المدونة ---
 function renderAdminBlogs() {
   let blogs = JSON.parse(localStorage.getItem('blogs') || '[]');

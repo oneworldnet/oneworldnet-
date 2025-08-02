@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>خريطة تغطية One World Net</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    .coverage-section {max-width:1100px;margin:40px auto;padding:32px;background:rgba(30,30,40,0.93);border-radius:18px;box-shadow:0 4px 32px #0002;}
+    .coverage-map {width:100%;max-width:900px;display:block;margin:0 auto;}
+    .legend {margin:18px 0 0;text-align:center;}
+    .legend span {display:inline-block;width:22px;height:22px;border-radius:50%;margin-left:8px;vertical-align:middle;}
+    .legend .full {background:#0af;}
+    .legend .partial {background:#fa0;}
+    .legend .none {background:#aaa;}
+  </style>
+</head>
+<body>
+  <nav class="main-nav">
+    <!-- ...existing nav... -->
+  </nav>
+  <div class="coverage-section glass">
+    <h2>خريطة تغطية الإنترنت الفضائي حول العالم</h2>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Equirectangular-projection.jpg" alt="خريطة العالم" class="coverage-map" id="coverage-map" />
+    <div class="legend">
+      <span class="full"></span> تغطية كاملة
+      <span class="partial"></span> تغطية جزئية
+      <span class="none"></span> خارج التغطية
+    </div>
+    <div style="margin:24px 0 0;color:#0af;font-weight:bold;text-align:center;">نغطي الآن معظم أفريقيا، آسيا، الصين، الهند، وأوروبا!<br>هدفنا: تغطية العالم كله بحلول 2026.</div>
+  </div>
+  <script>
+    // رسم طبقات تغطية تفاعلية (مبسط)
+    window.addEventListener('DOMContentLoaded', function() {
+      const img = document.getElementById('coverage-map');
+      const canvas = document.createElement('canvas');
+      canvas.width = img.naturalWidth || 900;
+      canvas.height = img.naturalHeight || 450;
+      canvas.style.width = img.style.width;
+      canvas.style.maxWidth = img.style.maxWidth;
+      canvas.style.display = 'block';
+      canvas.style.margin = '0 auto';
+      img.parentNode.replaceChild(canvas, img);
+      const ctx = canvas.getContext('2d');
+      const base = new window.Image();
+      base.src = img.src;
+      base.onload = function() {
+        ctx.drawImage(base,0,0,canvas.width,canvas.height);
+        // أفريقيا تغطية كاملة
+        ctx.fillStyle = '#0af7';
+        ctx.beginPath();ctx.ellipse(340,260,110,90,0,0,2*Math.PI);ctx.fill();
+        // الهند والصين تغطية كاملة
+        ctx.fillStyle = '#0af6';
+        ctx.beginPath();ctx.ellipse(600,220,80,60,0,0,2*Math.PI);ctx.fill();
+        // أوروبا تغطية جزئية
+        ctx.fillStyle = '#fa07';
+        ctx.beginPath();ctx.ellipse(420,120,80,40,0,0,2*Math.PI);ctx.fill();
+        // أمريكا الشمالية تغطية جزئية
+        ctx.fillStyle = '#fa06';
+        ctx.beginPath();ctx.ellipse(180,110,90,50,0,0,2*Math.PI);ctx.fill();
+      };
+    });
+  </script>
+</body>
+</html>
