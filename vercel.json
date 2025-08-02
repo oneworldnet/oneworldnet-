@@ -1,5 +1,4 @@
 {
-  "public": "modern-template",
   "rewrites": [
     { "source": "/(.*)", "destination": "/modern-template/$1" }
   ]
