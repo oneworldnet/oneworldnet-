@@ -69,141 +69,6 @@ function createGlobalMenu() {
       '</div>'+ 
       '<button onclick="document.getElementById(\'globalMenuPanel\').style.display=\'none\'" class="menu-glass-link" style="background:#e53935;color:#222;">إغلاق</button>'+ 
       '</div>';
-      background: #18120b;
-      color: #fff;
-      overflow-x: hidden;
-    }
-    a, a:visited {
-      color: #FFD600;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-<style>
-  .menu-glass-link {
-    display:block;
-    background:rgba(255,255,255,0.55);
-    color:#222 !important;
-    font-weight:bold;
-    border-radius:14px;
-    font-size:1em;
-    box-shadow:0 2px 8px #18120b22;
-    padding:10px 0;
-    text-align:center;
-    margin:0 0 2px 0;
-    text-decoration:none;
-    transition:background 0.2s, color 0.2s;
-    border:none;
-    cursor:pointer;
-  }
-  .menu-glass-link:hover {
-    background:rgba(255,255,255,0.85);
-    color:#18120b !important;
-  }
-  #globalMenuPanel {
-    box-shadow:0 2px 32px #18120b33;
-  }
-</style>
-      border: 2px solid #6d4c2b;
-    }
-    .starlink-section, .starlink-feature-card {
-      background: #18120b;
-    }
-    .starlink-feature-card {
-      border: 2px solid #3e2723;
-    }
-    .starlink-feature-card h3 {
-      color: #fff;
-      /* text-shadow removed */
-    }
-    .starlink-feature-card p {
-      color: #fff;
-    }
-    .starlink-section h2 {
-      color: #fff;
-      font-size: 2em;
-      margin-bottom: 18px;
-      font-weight: bold;
-      letter-spacing: 1px;
-      background: linear-gradient(90deg, #FFD600 0%, #fff 60%, #FFA726 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      /* text-fill-color: transparent; */
-    }
-    .starlink-section p {
-      color: #fff;
-      font-size: 1.15em;
-      margin-bottom: 24px;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .starlink-feature-card h3 {
-      color: #fff;
-      font-size: 1.25em;
-      margin-bottom: 10px;
-      font-weight: bold;
-      background: linear-gradient(90deg, #FFD600 0%, #fff 60%, #FFA726 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      /* text-fill-color: transparent; */
-    }
-    .starlink-feature-card p {
-      color: #fff;
-      font-size: 1.08em;
-    }
-    .starlink-footer {
-      background: #18120b;
-      color: #FFA726;
-      text-align: center;
-      padding: 24px 0 12px 0;
-      border-top: 1.5px solid #FFD60055;
-      margin-top: 40px;
-      font-size: 1.1em;
-    }
-    @media (max-width: 900px) {
-      .starlink-header { flex-direction: row; height: 60px; padding: 0 8px; }
-      .starlink-header .logo { flex: 1; }
-      .menu-toggle { display: block; }
-      .starlink-header nav {
-        position: fixed;
-        top: 0;
-        right: -100vw;
-        height: 100vh;
-        width: 50vw;
-        max-width: 220px;
-        background: #FFD600ee;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0;
-        padding: 80px 16px 0 16px;
-        box-shadow: -2px 0 16px #3e272355;
-        z-index: 150;
-      }
-      .starlink-header nav.open {
-        right: 0;
-      }
-      .starlink-header nav a {
-        width: 100%;
-        padding: 18px 0;
-        font-size: 1.1em;
-        border-radius: 0;
-        border-bottom: 1px solid #3e272322;
-        text-align: right;
-      }
-      .starlink-header nav a:last-child {
-        border-bottom: none;
-      }
-      .starlink-hero h1 { font-size: 2em; }
-      .starlink-section h2 { font-size: 1.2em; }
-      .starlink-features { flex-direction: column; align-items: center; }
-      .starlink-feature-card { min-width: 120px; max-width: 98vw; padding: 10px 2vw; }
-      .starlink-section { padding: 32px 0 18px 0; }
-    }
-  </style>
-</head>
-<body>
 <!-- صورة رئيسية عالمية -->
 <!-- تم حذف الصورة المكررة هنا -->
 <!-- النص المتحرك كما كان سابقاً -->
@@ -408,8 +273,18 @@ aiChatForm.onsubmit = function(e) {
     <div class="footer-content" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px;">
       <div class="footer-logo-socials" style="display:flex;align-items:center;gap:10px;">
       <img src="images/logo.jpg" alt="one world net logo" style="height:38px;max-width:38px;min-width:28px;object-fit:contain;box-shadow:0 2px 8px #3e2723;">
-      <!-- تم حذف كلمة one world net من الفوتر بناءً على طلب العميل -->
-        <div class="footer-socials" id="footerSocials" style="display:flex;gap:8px;"></div>
+    </div>
+    <div class="footer-socials" style="display:flex;gap:10px;justify-content:center;margin:18px 0 0 0;">
+      <a href="https://facebook.com/oneworldnet" target="_blank" aria-label="Facebook"><img src="icons/facebook.svg" alt="Facebook" style="width:28px;"></a>
+      <a href="https://twitter.com/oneworldnet" target="_blank" aria-label="Twitter"><img src="icons/twitter.svg" alt="Twitter" style="width:28px;"></a>
+      <a href="https://youtube.com/oneworldnet" target="_blank" aria-label="YouTube"><img src="icons/youtube.svg" alt="YouTube" style="width:28px;"></a>
+      <a href="https://t.me/oneworldnet" target="_blank" aria-label="Telegram"><img src="icons/telegram.svg" alt="Telegram" style="width:28px;"></a>
+      <a href="https://linkedin.com/company/oneworldnet" target="_blank" aria-label="LinkedIn"><img src="icons/linkedin.svg" alt="LinkedIn" style="width:28px;"></a>
+      <a href="https://wa.me/201005341825" target="_blank" aria-label="WhatsApp"><img src="icons/whatsapp.svg" alt="WhatsApp" style="width:28px;"></a>
+      <a href="https://tiktok.com/@oneworldnet" target="_blank" aria-label="TikTok"><img src="icons/tiktok.svg" alt="TikTok" style="width:28px;"></a>
+      <a href="mailto:info@oneworldnet.com" target="_blank" aria-label="Email"><img src="icons/email.svg" alt="Email" style="width:28px;"></a>
+      <a href="https://discord.gg/oneworldnet" target="_blank" aria-label="Discord"><img src="icons/discord.svg" alt="Discord" style="width:28px;"></a>
+    </div>
       </div>
       <div class="footer-links" style="display:flex;gap:18px;">
         <a href="privacy.html" data-i18n="footer_privacy">Privacy</a>
@@ -421,28 +296,6 @@ aiChatForm.onsubmit = function(e) {
       <span data-i18n="footer">All rights reserved &copy; one world net 2025</span>
     </div>
   <script>
-    // تفعيل أيقونات التواصل من localStorage
-    function renderFooterSocials() {
-      const socials = JSON.parse(localStorage.getItem('socials') || '{}');
-      const icons = {
-        fb: {icon:'fb.svg', label:'Facebook'},
-        tw: {icon:'tw.svg', label:'Twitter'},
-        yt: {icon:'yt.svg', label:'YouTube'},
-        tg: {icon:'tg.svg', label:'Telegram'},
-        li: {icon:'li.svg', label:'LinkedIn'},
-        wa: {icon:'wa.svg', label:'WhatsApp'},
-        tt: {icon:'tt.svg', label:'TikTok'},
-        gm: {icon:'gm.svg', label:'Email'}
-      };
-      const container = document.getElementById('footerSocials');
-      if(!container) return;
-      container.innerHTML = '';
-      Object.keys(icons).forEach(key => {
-        if(socials[key]) {
-          container.innerHTML += `<a href="${socials[key]}" target="_blank" aria-label="${icons[key].label}"><img src="images/${icons[key].icon}" alt="${icons[key].label}" style="width:22px;"></a>`;
-        }
-      });
-    }
 
     // تحميل النصوص والصور المخصصة من localStorage
     function loadCustomContent() {
@@ -474,7 +327,6 @@ aiChatForm.onsubmit = function(e) {
       }
     }
     document.addEventListener('DOMContentLoaded', function() {
-      renderFooterSocials();
       loadCustomContent();
     });
     // language switcher
