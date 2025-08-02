@@ -47,15 +47,15 @@
       } catch(e) {}
       if (!Array.isArray(socials) || !socials.length) {
         socials = [
-          {icon:'icons/whatsapp.svg', url:'https://wa.me/'},
-          {icon:'icons/telegram.svg', url:'https://t.me/'},
-          {icon:'icons/facebook.svg', url:'https://facebook.com/'},
-          {icon:'icons/twitter.svg', url:'https://twitter.com/'},
-          {icon:'icons/linkedin.svg', url:'https://linkedin.com/'},
-          {icon:'icons/youtube.svg', url:'https://youtube.com/'},
-          {icon:'icons/tiktok.svg', url:'https://tiktok.com/'},
-          {icon:'icons/discord.svg', url:'https://discord.com/'},
-          {icon:'icons/email.svg', url:'mailto:info@oneworld.net'}
+          {icon:'/modern-template/icons/whatsapp.svg', url:'https://wa.me/'},
+          {icon:'/modern-template/icons/telegram.svg', url:'https://t.me/'},
+          {icon:'/modern-template/icons/facebook.svg', url:'https://facebook.com/'},
+          {icon:'/modern-template/icons/twitter.svg', url:'https://twitter.com/'},
+          {icon:'/modern-template/icons/linkedin.svg', url:'https://linkedin.com/'},
+          {icon:'/modern-template/icons/youtube.svg', url:'https://youtube.com/'},
+          {icon:'/modern-template/icons/tiktok.svg', url:'https://tiktok.com/'},
+          {icon:'/modern-template/icons/discord.svg', url:'https://discord.com/'},
+          {icon:'/modern-template/icons/email.svg', url:'mailto:info@oneworld.net'}
         ];
       }
       const container = document.getElementById(containerId);
@@ -68,7 +68,7 @@
         a.rel = 'noopener';
         a.ariaLabel = s.name || '';
         const img = document.createElement('img');
-        img.src = s.icon.startsWith('icons/') ? s.icon : 'icons/' + s.icon.replace(/^.*[\\\/]/, '');
+        img.src = s.icon.startsWith('/') ? s.icon : '/modern-template/' + s.icon.replace(/^.*[\\\/]/, '');
         img.alt = s.name || 'social';
         img.style.width = '32px';
         img.style.margin = '0 4px';
