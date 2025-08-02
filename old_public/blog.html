@@ -1,0 +1,198 @@
+<!-- الشعار واسم الموقع أعلى اليمين وزر القائمة أعلى اليسار -->
+<div id="siteLogoContainer" style="position:fixed;top:18px;right:18px;z-index:10000;display:flex;align-items:center;gap:10px;">
+  <img src="images/logo.jpg" alt="Logo" style="height:44px;width:44px;border-radius:12px;box-shadow:0 2px 8px #FFD60055;object-fit:cover;">
+  <span style="font-size:1.3em;font-weight:bold;color:#FFD600;letter-spacing:2px;">ONE WORLD NET</span>
+</div>
+<div id="globalMenuBtnContainer" style="position:fixed;top:18px;left:18px;z-index:10000;"></div>
+<script src="main.js"></script>
+  <div id="globalShareBtns" style="position:fixed;bottom:18px;left:18px;z-index:9999;display:flex;gap:8px;"></div>
+  <div id="globalQR" style="position:fixed;bottom:18px;right:18px;z-index:9999;"></div>
+  <a href="reviews.html" id="reviewBtn" style="position:fixed;top:18px;left:18px;z-index:9999;background:#FFD600;color:#18120b;padding:8px 18px;border-radius:18px;font-weight:bold;text-decoration:none;box-shadow:0 2px 8px #FFD60055;">⭐ تقييمات العملاء</a>
+  <div id="extraLangSwitcher" style="position:fixed;top:18px;right:18px;z-index:9999;"></div>
+<script src="/public/global-features.js"></script>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>one world net | Blog</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <script src="translate.js"></script>
+  <style>
+    body { background: #18120b; color: #fff; overflow-x: hidden; }
+    .logo img { max-width: 44px; height: 44px; min-width: 32px; }
+    html, body { overflow-x: hidden !important; }
+    .blog-section { padding: 90px 0 40px 0; background: #18120b; text-align: center; }
+    .blog-section h1, .blog-section h2 { color: #a97c50; font-weight: bold; text-shadow: 0 2px 8px #3e2723; }
+    .blog-section p { color: #a97c50; font-size: 1.18em; margin-bottom: 32px; }
+    .blog-cards { display: flex; flex-wrap: wrap; gap: 40px; justify-content: center; margin-top: 30px; }
+    .blog-card {
+      background: #23160d;
+      border-radius: 18px;
+      box-shadow: 0 4px 18px #3e272355;
+      padding: 38px 32px;
+      min-width: 260px;
+      max-width: 340px;
+      flex: 1 1 260px;
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: 2px solid #a97c50;
+      margin-bottom: 24px;
+    }
+    .blog-card h3 { color: #a97c50; font-size: 1.25em; margin-bottom: 10px; font-weight: bold; text-shadow: 0 2px 8px #3e2723; }
+    .blog-card p { color: #fff; font-size: 1.08em; }
+    @media (max-width: 900px) {
+      .blog-cards { flex-direction: column; align-items: center; }
+      .blog-card { min-width: 120px; max-width: 98vw; padding: 10px 2vw; }
+      .blog-section { padding: 32px 0 18px 0; }
+    }
+    .blog-form { margin-top: 32px; background: #23160d; border-radius: 18px; box-shadow: 0 2px 12px #3e272355; padding: 24px; max-width: 400px; margin-left: auto; margin-right: auto; }
+    .blog-form input, .blog-form textarea, .blog-form select { width: 100%; margin-bottom: 12px; padding: 10px; border-radius: 8px; border: 1.5px solid #a97c50; background: #18120b; color: #fff; font-size: 1em; }
+    .blog-form button { background: #3e2723; color: #fff; font-weight: bold; padding: 12px 32px; border-radius: 30px; font-size: 1.1em; border: none; cursor: pointer; transition: background 0.2s; }
+    .blog-form button:hover { background: #a97c50; color: #3e2723; }
+  </style>
+</head>
+<body>
+<!-- زر ترجمة جوجل العالمي -->
+<div style="position:fixed;top:18px;left:18px;z-index:9999;">
+  <div id="google_translate_element"></div>
+</div>
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'ar', includedLanguages: '', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <header class="starlink-header">
+    <div class="logo">
+      <img src="images/logo.jpg" alt="one world net logo">
+      <span>one world net</span>
+    </div>
+    <button class="menu-toggle" aria-label="Open menu" onclick="toggleMenu()">&#9776;</button>
+    <nav id="mainNav">
+      <a href="index.html" data-i18n="nav_home">Home</a>
+      <a href="pricing.html" data-i18n="nav_pricing">Plans</a>
+      <a href="devices.html" data-i18n="nav_devices">Devices</a>
+      <a href="map.html" data-i18n="nav_coverage">Coverage Map</a>
+      <a href="blog.html" class="active" data-i18n="nav_blog">Blog</a>
+      <a href="projects.html" data-i18n="nav_projects">Projects</a>
+      <a href="contact.html" data-i18n="nav_contact">Contact</a>
+      <button id="lang-switch" class="cta" style="width:100%;margin-top:18px;">العربية</button>
+    </nav>
+  </header>
+  <section class="blog-section">
+    <h1 data-i18n="blog_title">Latest News & Articles</h1>
+    <p data-i18n="blog_desc">Read the latest updates, tips, and stories about global satellite internet and digital transformation.</p>
+    <div id="blogList" class="blog-cards"></div>
+    <form id="addBlogForm" class="blog-form">
+      <h3 data-i18n="blog_add">Add Article</h3>
+      <input type="text" id="blogTitle" placeholder="Title" required>
+      <textarea id="blogContent" placeholder="Content" required></textarea>
+      <input type="url" id="blogImage" placeholder="Image URL (اختياري)">
+      <select id="blogLang">
+        <option value="en">English</option>
+        <option value="ar">العربية</option>
+      </select>
+      <button type="submit" data-i18n="blog_publish">Publish</button>
+    </form>
+  </section>
+  <footer class="starlink-footer">
+    <div class="social" style="margin-bottom:12px;">
+      <a href="https://facebook.com/oneworldnet" target="_blank" aria-label="Facebook"><img src="icons/facebook.svg" alt="Facebook" style="width:28px;"></a>
+      <a href="https://twitter.com/oneworldnet" target="_blank" aria-label="Twitter"><img src="icons/twitter.svg" alt="Twitter" style="width:28px;"></a>
+      <a href="https://youtube.com/oneworldnet" target="_blank" aria-label="YouTube"><img src="icons/youtube.svg" alt="YouTube" style="width:28px;"></a>
+      <a href="https://t.me/oneworldnet" target="_blank" aria-label="Telegram"><img src="icons/telegram.svg" alt="Telegram" style="width:28px;"></a>
+      <a href="https://linkedin.com/company/oneworldnet" target="_blank" aria-label="LinkedIn"><img src="icons/linkedin.svg" alt="LinkedIn" style="width:28px;"></a>
+      <a href="https://wa.me/201005341825" target="_blank" aria-label="WhatsApp"><img src="icons/whatsapp.svg" alt="WhatsApp" style="width:28px;"></a>
+      <a href="https://tiktok.com/@oneworldnet" target="_blank" aria-label="TikTok"><img src="icons/tiktok.svg" alt="TikTok" style="width:28px;"></a>
+      <a href="mailto:info@oneworldnet.com" target="_blank" aria-label="Email"><img src="icons/email.svg" alt="Email" style="width:28px;"></a>
+      <a href="https://discord.gg/oneworldnet" target="_blank" aria-label="Discord"><img src="icons/discord.svg" alt="Discord" style="width:28px;"></a>
+      <a href="mailto:info@oneworld.net" aria-label="Email"><img src="images/gm.svg" alt="Email"></a>
+    </div>
+    <span data-i18n="footer">All rights reserved &copy; one world net 2025</span>
+    <script>
+      // language switcher
+      document.addEventListener('DOMContentLoaded', function() {
+        var btn = document.getElementById('lang-switch');
+        if(btn) {
+          btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if(document.documentElement.lang === 'en') {
+              window.setLanguage && setLanguage('ar');
+              btn.textContent = 'English';
+            } else {
+              window.setLanguage && setLanguage('en');
+              btn.textContent = 'العربية';
+            }
+          });
+        }
+      });
+      function toggleMenu() {
+        var nav = document.getElementById('mainNav');
+        nav.classList.toggle('open');
+      }
+      document.addEventListener('click', function(e) {
+        var nav = document.getElementById('mainNav');
+        var btn = document.querySelector('.menu-toggle');
+        if (nav.classList.contains('open') && !nav.contains(e.target) && e.target !== btn) {
+          nav.classList.remove('open');
+        }
+        if (nav.contains(e.target) && e.target.tagName === 'A') {
+          nav.classList.remove('open');
+        }
+      });
+      // Blog logic
+      function getDefaultBlogs(lang) {
+        if(lang==='ar') return [
+          {title:'شراكة استراتيجية مع وكالة الفضاء الصينية',content:'يسر one world net الإعلان عن شراكة تقنية مع وكالة صينية رائدة لتوسيع التغطية وتقديم حلول اتصال متقدمة في آسيا.',image:'images/8.jpg'},
+          {title:'تعاون مع وكالة أوروبية للابتكار',content:'تم توقيع اتفاقية تعاون مع وكالة أوروبية متخصصة في تقنيات الأقمار الصناعية لتعزيز جودة الخدمة وتطوير حلول جديدة.',image:'images/9.jpg'},
+          {title:'حضور معارض عالمية',content:'نشارك في أهم معارض التكنولوجيا حول العالم لعرض أحدث حلولنا في الاتصال الفضائي.',image:'images/10.jpg'},
+          {title:'أعلى تشفير في العالم',content:'نستخدم تشفير بلوكتشين غير قابل للاختراق أو التجسس، لضمان خصوصية المستخدمين بشكل مطلق.',image:'images/11.jpg'},
+          {title:'جهاز استقبال بحجم الشريحة',content:'نعمل على تصغير حجم جهاز الاستقبال ليصبح بحجم شريحة الهاتف قريباً.',image:'images/12.jpg'},
+          {title:'دعم الطاقة الشمسية',content:'جميع أجهزتنا تدعم الطاقة الشمسية لتوفير الإنترنت في أي مكان دون الحاجة للكهرباء التقليدية.',image:'images/13.jpg'},
+          {title:'شراكات مع شركات عالمية',content:'لدينا شراكات مع شركات كبرى لتوفير الإنترنت المجاني لكل البشر في المستقبل.',image:'images/14.jpg'},
+          {title:'سرعات تصل ١٠ جيجابت في آسيا والصين',content:'نقدم سرعات غير مسبوقة تصل إلى ١٠ جيجابت في الثانية في آسيا والصين.',image:'images/15.jpg'}
+        ];
+        return [
+          {title:'Strategic Partnership with a Leading Chinese Agency',content:'one world net is proud to announce a new partnership with a top Chinese space agency to expand coverage and deliver advanced connectivity solutions across Asia.',image:'images/8.jpg'},
+          {title:'Collaboration with a European Innovation Agency',content:'We have signed a cooperation agreement with a European satellite technology agency to enhance service quality and develop new solutions.',image:'images/9.jpg'},
+          {title:'Attending Global Tech Exhibitions',content:'We participate in the world’s top tech exhibitions to showcase our latest satellite connectivity solutions.',image:'images/10.jpg'},
+          {title:'World’s Highest Encryption',content:'We use blockchain-based encryption, making your data unbreakable and inaccessible to any third party.',image:'images/11.jpg'},
+          {title:'Nano Receiver Innovation',content:'We are miniaturizing our satellite receiver to the size of a SIM card for the future.',image:'images/12.jpg'},
+          {title:'Solar-Powered Devices',content:'All our devices support solar power for true off-grid internet access.',image:'images/13.jpg'},
+          {title:'Global Partnerships for Free Internet',content:'We partner with leading companies to deliver free internet for all humanity in the future.',image:'images/14.jpg'},
+          {title:'10Gbps in Asia & China',content:'We deliver record-breaking speeds up to 10Gbps in Asia and China.',image:'images/15.jpg'}
+        ];
+      }
+      function showBlogs() {
+        let blogs = JSON.parse(localStorage.getItem('blogs')||'[]');
+        let lang = document.documentElement.lang || 'en';
+        if(blogs.filter(b=>b.lang===lang).length===0) {
+          // inject default blogs if none exist for this lang
+          getDefaultBlogs(lang).forEach(b=>blogs.push({...b,lang}));
+          localStorage.setItem('blogs', JSON.stringify(blogs));
+        }
+        let html = blogs.filter(b=>b.lang===lang).map(b=>{
+          let img = b.image ? `<img src='${b.image}' alt='blog image' style='width:100%;max-height:180px;object-fit:cover;border-radius:12px 12px 0 0;margin-bottom:12px;'>` : '';
+          return `<div class='blog-card'>${img}<h3>${b.title}</h3><p>${b.content}</p></div>`;
+        }).join('');
+        document.getElementById('blogList').innerHTML = html || (lang==='ar'?'لا توجد مقالات.':'No articles yet.');
+      }
+      showBlogs();
+      document.getElementById('addBlogForm').onsubmit = function(e) {
+        e.preventDefault();
+        let blogs = JSON.parse(localStorage.getItem('blogs')||'[]');
+        let image = blogImage.value.trim();
+        blogs.push({title:blogTitle.value,content:blogContent.value,lang:blogLang.value,image:image});
+        localStorage.setItem('blogs', JSON.stringify(blogs));
+        blogTitle.value=''; blogContent.value=''; blogImage.value='';
+        showBlogs();
+      }
+    </script>
+  </footer>
+</body>
+</html>
+  </script>
+</body>
+</html>

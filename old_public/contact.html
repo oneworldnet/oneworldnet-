@@ -1,0 +1,73 @@
+<!-- الشعار واسم الموقع أعلى اليمين وزر القائمة أعلى اليسار -->
+<div id="siteLogoContainer" style="position:fixed;top:18px;right:18px;z-index:10000;display:flex;align-items:center;gap:10px;">
+  <img src="images/logo.jpg" alt="Logo" style="height:44px;width:44px;border-radius:12px;box-shadow:0 2px 8px #FFD60055;object-fit:cover;">
+  <span style="font-size:1.3em;font-weight:bold;color:#FFD600;letter-spacing:2px;">ONE WORLD NET</span>
+</div>
+<div id="globalMenuBtnContainer" style="position:fixed;top:18px;left:18px;z-index:10000;"></div>
+<!-- أزرار احترافية موحدة بدون زر التسجيل -->
+<div style="text-align:center;margin:24px 0;display:flex;flex-direction:column;align-items:center;gap:14px;">
+  <a href="https://g.page/r/Cb2v8k8Qw4wCEBM/review" target="_blank" class="main-btn" style="background:rgba(165,42,42,0.55);color:#fff;font-size:1.2em;width:240px;display:inline-block;border-radius:18px;font-weight:bold;box-shadow:0 2px 8px #3e272355;"><i class="fa-solid fa-star"></i> تقييم الخدمة</a>
+  <a href="reviews.html" class="main-btn" style="background:rgba(165,42,42,0.55);color:#fff;font-size:1.1em;width:240px;display:inline-block;border-radius:18px;font-weight:bold;box-shadow:0 2px 8px #3e272355;"><i class="fa-solid fa-comments"></i> مراجعات العملاء</a>
+</div>
+  <div id="globalShareBtns" style="position:fixed;bottom:18px;left:18px;z-index:9999;display:flex;gap:8px;"></div>
+  <div id="globalQR" style="position:fixed;bottom:18px;right:18px;z-index:9999;"></div>
+  <!-- زر تقييمات العملاء أُزيل ليظهر فقط في صفحة التقييمات -->
+  <div id="extraLangSwitcher" style="position:fixed;top:18px;right:18px;z-index:9999;"></div>
+<script src="/public/global-features.js"></script>
+<script src="main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  if(window.innerWidth<900){
+    document.body.style.overflowX='hidden';
+    document.documentElement.style.overflowX='hidden';
+  }
+});
+</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | One World Net</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body { background: #181a1b; color: #f2f2f2; font-family: 'Cairo', Arial, sans-serif; margin: 0; }
+    .container { max-width: 700px; margin: 0 auto; padding: 32px 8px; }
+    h1 { color: #1a237e; text-align: center; margin-bottom: 32px; }
+    .contact-list { display: flex; flex-wrap: wrap; gap: 24px; justify-content: center; align-items: center; margin-top: 24px; }
+    .contact-list a { display: inline-block; }
+    .contact-list img { width: 48px; }
+    p { color: #ccc; text-align: center; }
+    a.back { display: block; margin: 32px auto 0 auto; text-align: center; color: #00e0ff; text-decoration: none; font-weight: bold; }
+    a.back:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+<!-- زر ترجمة جوجل العالمي -->
+<div style="position:fixed;top:18px;left:18px;z-index:9999;">
+  <div id="google_translate_element"></div>
+</div>
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'ar', includedLanguages: '', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <div class="container">
+    <h1>Contact Us</h1>
+    <p>We are here for you 24/7. Contact us on any platform below and our team will respond as soon as possible.</p>
+    <div class="contact-list">
+      <a href="https://facebook.com/oneworldnet" target="_blank" aria-label="Facebook"><img src="icons/facebook.svg" alt="Facebook" style="width:28px;"></a>
+      <a href="https://twitter.com/oneworldnet" target="_blank" aria-label="Twitter"><img src="icons/twitter.svg" alt="Twitter" style="width:28px;"></a>
+      <a href="https://youtube.com/oneworldnet" target="_blank" aria-label="YouTube"><img src="icons/youtube.svg" alt="YouTube" style="width:28px;"></a>
+      <a href="https://t.me/oneworldnet" target="_blank" aria-label="Telegram"><img src="icons/telegram.svg" alt="Telegram" style="width:28px;"></a>
+      <a href="https://linkedin.com/company/oneworldnet" target="_blank" aria-label="LinkedIn"><img src="icons/linkedin.svg" alt="LinkedIn" style="width:28px;"></a>
+      <a href="https://wa.me/201005341825" target="_blank" aria-label="WhatsApp"><img src="icons/whatsapp.svg" alt="WhatsApp" style="width:28px;"></a>
+      <a href="https://tiktok.com/@oneworldnet" target="_blank" aria-label="TikTok"><img src="icons/tiktok.svg" alt="TikTok" style="width:28px;"></a>
+      <a href="mailto:info@oneworldnet.com" target="_blank" aria-label="Email"><img src="icons/email.svg" alt="Email" style="width:28px;"></a>
+      <a href="https://discord.gg/oneworldnet" target="_blank" aria-label="Discord"><img src="icons/discord.svg" alt="Discord" style="width:28px;"></a>
+    </div>
+    <a href="index.html" class="back">&larr; Back to Home</a>
+  </div>
+</body>
+</html>

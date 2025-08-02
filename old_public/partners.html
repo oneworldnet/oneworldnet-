@@ -1,0 +1,47 @@
+<!-- الشعار واسم الموقع أعلى اليمين وزر القائمة أعلى اليسار -->
+<div id="siteLogoContainer" style="position:fixed;top:18px;right:18px;z-index:10000;display:flex;align-items:center;gap:10px;">
+  <img src="images/logo.jpg" alt="Logo" style="height:44px;width:44px;border-radius:12px;box-shadow:0 2px 8px #FFD60055;object-fit:cover;">
+  <span style="font-size:1.3em;font-weight:bold;color:#FFD600;letter-spacing:2px;">ONE WORLD NET</span>
+</div>
+<div id="globalMenuBtnContainer" style="position:fixed;top:18px;left:18px;z-index:10000;"></div>
+<script src="main.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Partners | OneWorldNet</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav><!-- ...nav... --></nav>
+  <main class="glass section-glass">
+    <h1>شركاؤنا حول العالم</h1>
+    <div id="partnersList" style="display:flex;flex-wrap:wrap;gap:18px;justify-content:center;"></div>
+    <form id="addPartnerForm" style="margin-top:24px;">
+      <h3>Add Partner</h3>
+      <input type="text" id="partnerName" placeholder="Partner Name" required>
+      <input type="text" id="partnerCountry" placeholder="Country" required>
+      <input type="text" id="partnerFlag" placeholder="Flag Emoji 🇺🇸" maxlength="4">
+      <input type="url" id="partnerUrl" placeholder="Website URL">
+      <button type="submit">Add</button>
+    </form>
+  </main>
+  <script>
+    function showPartners() {
+      let partners = JSON.parse(localStorage.getItem('partners')||'[]');
+      let html = partners.map(p=>`<div class='glass-card' style='min-width:180px;'><span style='font-size:2em;'>${p.flag||''}</span><br><b>${p.name}</b><br>${p.country}<br>${p.url?`<a href='${p.url}' target='_blank' style='color:#00e0ff;'>${p.url}</a>`:''}</div>`).join('');
+      document.getElementById('partnersList').innerHTML = html || 'No partners yet.';
+    }
+    showPartners();
+    document.getElementById('addPartnerForm').onsubmit = function(e) {
+      e.preventDefault();
+      let partners = JSON.parse(localStorage.getItem('partners')||'[]');
+      partners.push({name:partnerName.value,country:partnerCountry.value,flag:partnerFlag.value,url:partnerUrl.value});
+      localStorage.setItem('partners', JSON.stringify(partners));
+      partnerName.value=''; partnerCountry.value=''; partnerFlag.value=''; partnerUrl.value='';
+      showPartners();
+    }
+  </script>
+</body>
+</html>

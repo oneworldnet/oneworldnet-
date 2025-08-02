@@ -1,96 +1,29 @@
-<!-- الشعار واسم الموقع أعلى اليمين وزر القائمة أعلى اليسار -->
-<div id="siteLogoContainer" style="position:fixed;top:18px;right:18px;z-index:10000;display:flex;align-items:center;gap:10px;">
-  <img src="images/logo.jpg" alt="Logo" style="height:44px;width:44px;border-radius:12px;box-shadow:0 2px 8px #FFD60055;object-fit:cover;">
-  <span style="font-size:1.3em;font-weight:bold;color:#FFD600;letter-spacing:2px;">ONE WORLD NET</span>
-</div>
-<div id="globalMenuBtnContainer" style="position:fixed;top:18px;left:18px;z-index:10000;"></div>
-<script src="main.js"></script>
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <title>تسجيل الدخول</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تسجيل الدخول | One World Net</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="login-container">
-      <h2>Login</h2>
-      <form id="loginForm" autocomplete="off">
-        <input type="text" id="loginName" placeholder="Enter your name or username" required>
-        <button type="submit">Login</button>
-      </form>
-      <div class="alt">Don't have an account? <a href="register.html">Register</a></div>
-      <div id="loginMsg" style="color:#FFA726;font-weight:bold;margin-top:10px;"></div>
+  <nav class="main-nav">
+    <!-- ...existing code... -->
+  </nav>
+  <section class="login-section glass">
+    <h2>تسجيل الدخول</h2>
+    <form class="login-form">
+      <input type="email" placeholder="البريد الإلكتروني" required />
+      <input type="password" placeholder="كلمة المرور" required />
+      <button type="submit">دخول</button>
+    </form>
+    <div class="form-links">
+      <a href="register.html">إنشاء حساب جديد</a>
+      <a href="#">نسيت كلمة المرور؟</a>
     </div>
-    <style>
-      .login-container {
-        max-width: 400px;
-        margin: 100px auto 0 auto;
-        background: #23160de6;
-        border-radius: 18px;
-        box-shadow: 0 4px 24px #3e272355;
-        padding: 36px 28px 28px 28px;
-        text-align: center;
-      }
-      .login-container h2 {
-        color: #FFD600;
-        margin-bottom: 18px;
-        font-size: 2em;
-        font-weight: bold;
-        letter-spacing: 1px;
-      }
-      .login-container form { display: flex; flex-direction: column; gap: 16px; }
-      .login-container input {
-        padding: 12px;
-        border-radius: 8px;
-        border: 1.5px solid #FFA726;
-        background: #18120b;
-        color: #fff;
-        font-size: 1.1em;
-        outline: none;
-        transition: border 0.2s;
-      }
-      .login-container input:focus {
-        border: 1.5px solid #FFD600;
-      }
-      .login-container button {
-        background: #FFD600;
-        color: #3e2723;
-        font-weight: bold;
-        padding: 12px 0;
-        border-radius: 30px;
-        font-size: 1.15em;
-        border: none;
-        cursor: pointer;
-        margin-top: 8px;
-        transition: background 0.2s, color 0.2s;
-      }
-      .login-container button:hover {
-        background: #FFA726;
-        color: #fff;
-      }
-      .login-container .alt {
-        color: #FFA726;
-        margin-top: 18px;
-        font-size: 1em;
-      }
-      .login-container .alt a { color: #FFD600; text-decoration: underline; }
-      @media (max-width: 600px) {
-        .login-container { margin: 32px 4vw 0 4vw; padding: 18px 4vw; }
-      }
-    </style>
-    <script>
-      document.getElementById('loginForm').onsubmit = function(e) {
-        e.preventDefault();
-        const user = JSON.parse(localStorage.getItem('ownet_user')||'{}');
-        const name = loginName.value.trim();
-        if(!user.name || user.name.toLowerCase() !== name.toLowerCase()) {
-          document.getElementById('loginMsg').textContent = 'Name not found. Please register first.';
-          return;
-        }
-        localStorage.setItem('ownet_loggedin', '1');
-        window.location.href = 'index.html';
-      };
-    </script>
+  </section>
+  <!--#include file="footer.html" -->
+  <script src="translate.js"></script>
 </body>
 </html>

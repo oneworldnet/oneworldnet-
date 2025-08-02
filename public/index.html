@@ -1,386 +1,155 @@
-<!-- زر القائمة أعلى اليسار -->
-  <div id="globalMenuBtnContainer" style="position:fixed;top:18px;left:18px;z-index:10000;">
-    <!-- زر القائمة سيضاف ديناميكياً بواسطة main.js -->
-  </div>
-  <!-- الشعار واسم الموقع أعلى اليمين -->
-  <div id="siteLogoContainer" style="position:fixed;top:18px;right:18px;z-index:10000;display:flex;align-items:center;gap:10px;">
-    <img src="images/logo.jpg" alt="Logo" style="height:44px;width:44px;border-radius:12px;box-shadow:0 2px 8px #FFD60055;object-fit:cover;">
-  <span style="font-size:1.3em;font-weight:bold;color:#FFD600;letter-spacing:2px;">ONE WORLD NET</span>
-  </div>
-  <!-- أزرار المشاركة -->
-  <div id="globalShareBtns" style="position:fixed;bottom:18px;left:18px;z-index:9999;display:flex;gap:8px;"></div>
-  <!-- مولد QR عائم -->
-  <div id="globalQR" style="position:fixed;bottom:18px;right:18px;z-index:9999;"></div>
-  <!-- زر تغيير اللغة الإضافية -->
-  <div id="extraLangSwitcher" style="position:fixed;top:18px;right:18px;z-index:9999;"></div>
-<script src="/public/global-features.js"></script>
-<script src="main.js"></script>
-  <!-- الصورة الرئيسية تظهر فقط هنا -->
-  <!-- تم الإبقاء على صورة واحدة فقط في القسم الرئيسي -->
-  <!-- أزرار المشاركة -->
-  <div id="globalShareBtns" style="position:fixed;bottom:18px;left:18px;z-index:9999;display:flex;gap:8px;"></div>
-  <!-- مولد QR عائم -->
-  <div id="globalQR" style="position:fixed;bottom:18px;right:18px;z-index:9999;"></div>
-  <!-- زر تقييمات العملاء أُزيل ليظهر فقط في صفحة التقييمات -->
-  <!-- زر تغيير اللغة الإضافية -->
-  <div id="extraLangSwitcher" style="position:fixed;top:18px;right:18px;z-index:9999;"></div>
-<script src="/public/global-features.js"></script>
-<!-- ...existing code... -->
-<script>
-// القائمة العالمية المخصصة
-function createGlobalMenu() {
-  if(document.getElementById('globalMenuBtn')) return;
-  const menuBtn = document.createElement('button');
-  menuBtn.id = 'globalMenuBtn';
-  menuBtn.className = 'main-btn';
-  menuBtn.style.position = 'fixed';
-  menuBtn.style.top = '18px';
-  menuBtn.style.left = '18px';
-  menuBtn.style.zIndex = '10001';
-  menuBtn.innerHTML = '<svg width="32" height="32" viewBox="0 0 32 32"><rect y="6" width="32" height="4" rx="2" fill="#FFD600"/><rect y="14" width="32" height="4" rx="2" fill="#FFD600"/><rect y="22" width="32" height="4" rx="2" fill="#FFD600"/></svg>';
-  document.getElementById('globalMenuBtnContainer').appendChild(menuBtn);
-  menuBtn.onclick = function() {
-    document.getElementById('globalMenuPanel').style.display = 'block';
-  };
-  // قائمة منسدلة احترافية
-  const panel = document.createElement('div');
-  panel.id = 'globalMenuPanel';
-  panel.style.display = 'none';
-  panel.style.position = 'fixed';
-  panel.style.top = '0';
-  panel.style.left = '0';
-  panel.style.width = '100vw';
-  panel.style.height = '100vh';
-  panel.style.background = 'rgba(255,255,255,0.82)';
-  panel.style.backdropFilter = 'blur(6px)';
-  panel.style.zIndex = '10000';
-  panel.innerHTML = '<div style="max-width:260px;margin:60px auto;background:rgba(255,255,255,0.92);border-radius:18px;padding:18px 10px;box-shadow:0 2px 18px #18120b22;display:flex;flex-direction:column;gap:10px;backdrop-filter:blur(8px);">'+
-    '<a href="index.html" class="menu-glass-link">الرئيسية</a>'+ 
-    '<a href="pricing.html" class="menu-glass-link">الباقات</a>'+ 
-    '<a href="devices.html" class="menu-glass-link">الأجهزة</a>'+ 
-    '<a href="blog.html" class="menu-glass-link">المدونات</a>'+ 
-    '<a href="contact.html" class="menu-glass-link">تواصل معنا</a>'+ 
-    '<a href="faq.html" class="menu-glass-link">الأسئلة الشائعة</a>'+ 
-    '<a href="login.html" class="menu-glass-link">تسجيل الدخول</a>'+ 
-    '<button id="openRegisterMenu" class="menu-glass-link" style="background:rgba(165,42,42,0.18);color:#222;">إنشاء حساب</button>'+ 
-    '<div id="registerMenu" style="display:none;margin-top:8px;">'+
-      '<a href="register.html?type=customer" class="menu-glass-link" style="margin-bottom:4px;">مشترك</a>'+ 
-      '<a href="register.html?type=other" class="menu-glass-link" style="margin-bottom:4px;">أخرى</a>'+ 
-      '</div>'+ 
-      '<button onclick="document.getElementById(\'globalMenuPanel\').style.display=\'none\'" class="menu-glass-link" style="background:#e53935;color:#222;">إغلاق</button>'+ 
-      '</div>';
-<!-- صورة رئيسية عالمية -->
-<!-- تم حذف الصورة المكررة هنا -->
-<!-- النص المتحرك كما كان سابقاً -->
-<div id="marqueeBar" style="width:100vw;overflow:hidden;background:linear-gradient(90deg,#FFD600 60%,#FFA726 100%);color:#3e2723;font-weight:bold;font-size:1.15em;padding:8px 0 8px 0;letter-spacing:1px;white-space:nowrap;direction:rtl;">
-  <span id="marqueeText" style="display:inline-block;animation:marquee 18s linear infinite;"></span>
-</div>
-<style>
-@keyframes marquee {
-  0% { transform: translateX(100vw); }
-  100% { transform: translateX(-100vw); }
-}
-</style>
-<script>
-// تحميل نص الشريط من localStorage أو نص افتراضي
-function loadMarqueeText() {
-  let txt = '';
-  try {
-    txt = JSON.parse(localStorage.getItem('text_index')||'{}').marquee_text;
-  } catch(e){}
-  if(!txt) txt = '🌍 أسرع إنترنت فضائي في العالم، متاح للجميع بأرخص الأسعار وأعلى أمان! سجّل الآن وكن جزءًا من المستقبل.';
-  document.getElementById('marqueeText').textContent = txt;
-}
-window.addEventListener('DOMContentLoaded', loadMarqueeText);
-</script>
-<!-- التسجيل -->
-<div style="display:flex;justify-content:center;align-items:center;padding:18px 0 0 0;">
-  <a href="register.html" class="main-btn">سجل الآن وانضم للعالمية</a>
-</div>
-<!-- العنوان الرئيسي -->
-<div style="text-align:center;margin:32px 0 0 0;">
-  <h1 style="color:#FFD600;font-size:2.7em;font-family:'Cairo',sans-serif;text-shadow:0 2px 12px #18120b99;">OneWorldNet - الإنترنت للجميع</h1>
-  <p style="color:#fff;font-size:1.2em;max-width:600px;margin:18px auto 0 auto;">{سيتم تحميل وصف قصير من لوحة التحكم}</p>
-</div>
-  <style>
-    body {
-      background:linear-gradient(135deg,#18120b 60%,#3e2723 100%)!important;
-      min-height:100vh;
-      color:#fff;
-      font-family:'Cairo',sans-serif;
-      backdrop-filter:blur(0.5px);
-    }
-    .glass {
-      background:rgba(24,18,11,0.82);
-      border-radius:22px;
-      box-shadow:0 4px 32px #3e272355;
-      backdrop-filter:blur(2.5px);
-    }
-    .main-btn {
-      background:linear-gradient(90deg,#FFD600,#FFA726);
-      color:#18120b;
-      font-weight:bold;
-      border-radius:22px;
-      font-size:1.2em;
-      box-shadow:0 2px 16px #FFD60055;
-      padding:14px 38px;
-      text-decoration:none;
-      transition:0.2s;
-    }
-    .main-btn:hover {
-      background:linear-gradient(90deg,#FFA726,#FFD600);
-      box-shadow:0 4px 24px #FFD60099;
-    }
-  </style>
-<!-- شريط نص متحرك إعلاني عالمي -->
-<div id="marqueeBar" style="width:100vw;overflow:hidden;background:linear-gradient(90deg,#FFD600 60%,#FFA726 100%);color:#3e2723;font-weight:bold;font-size:1.15em;padding:8px 0 8px 0;letter-spacing:1px;white-space:nowrap;direction:rtl;">
-  <span id="marqueeText" style="display:inline-block;animation:marquee 18s linear infinite;"></span>
-</div>
-<style>
-@keyframes marquee {
-  0% { transform: translateX(100vw); }
-  100% { transform: translateX(-100vw); }
-}
-</style>
-<script>
-// تحميل نص الشريط من localStorage أو نص افتراضي
-function loadMarqueeText() {
-  let txt = '';
-  try {
-    txt = JSON.parse(localStorage.getItem('text_index')||'{}').marquee_text;
-  } catch(e){}
-  if(!txt) txt = '🌍 أسرع إنترنت فضائي في العالم، متاح للجميع بأرخص الأسعار وأعلى أمان! سجّل الآن وكن جزءًا من المستقبل.';
-  document.getElementById('marqueeText').textContent = txt;
-}
-window.addEventListener('DOMContentLoaded', loadMarqueeText);
-</script>
-
-<!-- تم حذف البانر التحفيزي بالكامل بناءً على طلب العميل -->
-
-<!-- مساعد ذكي (قريبًا) -->
-<!-- مساعد ذكي فعلي -->
-<div id="aiAssistant" style="position:fixed;bottom:18px;right:18px;z-index:9999;display:flex;align-items:center;gap:8px;background:#fff;border-radius:30px 30px 30px 8px;box-shadow:0 2px 8px #00e0ff33;padding:8px 18px 8px 12px;cursor:pointer;opacity:0.92;">
-  <img src="images/gm.svg" style="width:28px;filter:grayscale(1);">
-  <span style="color:#18120b;font-weight:bold;font-size:1em;">مساعد الشركة الذكي</span>
-</div>
-<div id="aiChatBox" style="display:none;position:fixed;bottom:70px;right:18px;z-index:10000;width:320px;max-width:95vw;background:#fff;border-radius:18px 18px 18px 8px;box-shadow:0 4px 24px #00e0ff33;padding:0;overflow:hidden;">
-  <div style="background:linear-gradient(90deg,#00e0ff 60%,#1a237e 100%);color:#fff;padding:12px 0 10px 0;text-align:center;font-weight:bold;font-size:1.1em;">مساعد الإنترنت الفضائي</div>
-  <div id="aiChatMsgs" style="height:220px;overflow-y:auto;padding:12px 10px 0 10px;background:#f7fafd;"></div>
-  <form id="aiChatForm" style="display:flex;gap:6px;padding:10px;background:#fff;border-top:1px solid #eee;">
-    <input id="aiChatInput" type="text" placeholder="اكتب سؤالك..." style="flex:1;padding:8px 12px;border-radius:8px;border:1.5px solid #00e0ff;font-size:1em;">
-    <button type="submit" style="background:#00e0ff;color:#fff;border:none;border-radius:8px;padding:8px 16px;font-weight:bold;">إرسال</button>
-  </form>
-</div>
-<script>
-const aiAssistant = document.getElementById('aiAssistant');
-const aiChatBox = document.getElementById('aiChatBox');
-const aiChatMsgs = document.getElementById('aiChatMsgs');
-const aiChatForm = document.getElementById('aiChatForm');
-const aiChatInput = document.getElementById('aiChatInput');
-let aiOpen = false;
-let aiHistory = JSON.parse(localStorage.getItem('ai_chat_history')||'[]');
-function aiRenderHistory() {
-  aiChatMsgs.innerHTML = '';
-  aiHistory.forEach(m => aiAddMsg(m.msg, m.from));
-}
-aiAssistant.onclick = function() {
-  aiOpen = !aiOpen;
-  aiChatBox.style.display = aiOpen ? 'block' : 'none';
-  if(aiOpen) { aiRenderHistory(); setTimeout(()=>{aiChatInput.focus();}, 200); }
-};
-function aiAddMsg(msg, from) {
-  const div = document.createElement('div');
-  div.style = from==='user' ? 'text-align:right;margin-bottom:6px;' : 'text-align:left;margin-bottom:6px;';
-  div.innerHTML = `<span style='display:inline-block;background:${from==='user'?'#FFD600':'#e3f2fd'};color:${from==='user'?'#3e2723':'#222'};padding:7px 14px;border-radius:14px;font-size:1em;max-width:90%;'>${msg}</span>`;
-  aiChatMsgs.appendChild(div);
-  aiChatMsgs.scrollTop = aiChatMsgs.scrollHeight;
-  aiHistory.push({msg,from});
-  if(aiHistory.length>30) aiHistory = aiHistory.slice(-30);
-  localStorage.setItem('ai_chat_history', JSON.stringify(aiHistory));
-}
-function aiFaqSearch(userMsg) {
-  let faqs = [];
-  try { faqs = JSON.parse(localStorage.getItem('ai_faqs')||'[]'); }catch(e){}
-  userMsg = userMsg.toLowerCase();
-  for(const f of faqs) {
-    if(f.q && userMsg.includes(f.q.toLowerCase().split(' ')[0])) return f.a;
-  }
-  return null;
-}
-aiChatForm.onsubmit = function(e) {
-  e.preventDefault();
-  const userMsg = aiChatInput.value.trim();
-  if(!userMsg) return;
-  aiAddMsg(userMsg, 'user');
-  aiChatInput.value = '';
-  // بحث في الأسئلة الشائعة من لوحة التحكم
-  let answer = aiFaqSearch(userMsg);
-  if(answer) aiAddMsg(answer, 'ai');
-  else aiAddMsg('شكرًا لتواصلك! سيتم الرد عليك من فريقنا قريبًا أو يمكنك تصفح الأسئلة الشائعة.', 'ai');
-};
-</script>
-<!-- قسم دعائي عالمي للتسجيل -->
-<section style="background:linear-gradient(90deg,#FFD600 60%,#FFA726 100%);color:#222;padding:32px 0 24px 0;text-align:center;border-radius:18px;margin:32px 0 24px 0;box-shadow:0 2px 12px #FFD60033;max-width:700px;margin-left:auto;margin-right:auto;">
-  <h2 style="font-size:2em;font-weight:bold;margin-bottom:12px;">انضم إلى شبكة الإنترنت الفضائي العالمية</h2>
-  <p style="font-size:1.15em;margin-bottom:18px;">سجّل الآن كـ <b>مشترك</b> أو <b>موزع</b> أو <b>جامعة</b> أو <b>مدرسة</b> أو <b>مستشفى</b> أو أي جهة أخرى، وكن جزءًا من ثورة الاتصال العالمي بأسهل وأرخص وأأمن الحلول.</p>
-  <div style="display:flex;flex-wrap:wrap;gap:12px 18px;justify-content:center;margin-bottom:10px;">
-    <a href="register.html" style="background:#3e2723;color:#FFD600;font-weight:bold;padding:12px 28px;border-radius:30px;text-decoration:none;font-size:1.1em;box-shadow:0 2px 8px #3e272355;">تسجيل مشترك</a>
-    <a href="register-distributor.html" style="background:#00bfae;color:#fff;font-weight:bold;padding:12px 28px;border-radius:30px;text-decoration:none;font-size:1.1em;box-shadow:0 2px 8px #00bfae55;">تسجيل موزع</a>
-    <a href="register.html?type=university" style="background:#6d4c2b;color:#FFD600;font-weight:bold;padding:12px 28px;border-radius:30px;text-decoration:none;font-size:1.1em;box-shadow:0 2px 8px #6d4c2b55;">جامعة</a>
-    <a href="register.html?type=school" style="background:#FFA726;color:#3e2723;font-weight:bold;padding:12px 28px;border-radius:30px;text-decoration:none;font-size:1.1em;box-shadow:0 2px 8px #FFA72655;">مدرسة</a>
-    <a href="register.html?type=hospital" style="background:#00e0ff;color:#1a237e;font-weight:bold;padding:12px 28px;border-radius:30px;text-decoration:none;font-size:1.1em;box-shadow:0 2px 8px #00e0ff55;">مستشفى</a>
-    <a href="register.html?type=charity" style="background:#43a047;color:#fff;font-weight:bold;padding:12px 28px;border-radius:30px;text-decoration:none;font-size:1.1em;box-shadow:0 2px 8px #43a04755;">منظمة خيرية</a>
-    <a href="register.html?type=volunteer" style="background:#1a237e;color:#FFD600;font-weight:bold;padding:12px 28px;border-radius:30px;text-decoration:none;font-size:1.1em;box-shadow:0 2px 8px #1a237e55;">متطوع</a>
-    <a href="register.html?type=other" style="background:#FFD600;color:#3e2723;font-weight:bold;padding:12px 28px;border-radius:30px;text-decoration:none;font-size:1.1em;box-shadow:0 2px 8px #FFD60055;">جهة أخرى</a>
-  </div>
-  <div style="color:#3e2723;font-size:1em;margin-top:8px;">ابدأ رحلتك مع الإنترنت الفضائي الآمن الآن!</div>
-</section>
-  <!-- ...existing code... -->
-  <section class="starlink-hero" style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;padding:0;background:none;">
-    <!-- تم حذف الصورة المكررة هنا -->
-    <div style="background:rgba(24,18,11,0.82);backdrop-filter:blur(4px);border-radius:22px;padding:32px 18px 24px 18px;box-shadow:0 4px 32px #3e272355;margin:24px auto 32px auto;max-width:600px;width:90vw;">
-      <h1 id="hero_title" data-i18n="hero_title" style="margin-bottom:18px;">The Fastest, Widest Satellite Internet</h1>
-      <p id="hero_desc" data-i18n="hero_desc" style="margin-bottom:24px;">Connect from anywhere, anytime. one world net brings you high-speed, secure, and reliable internet for every city, village, desert, sea, and even the sky. Empowering education, health, and communities worldwide.</p>
-      <a href="pricing.html" class="cta" id="hero_cta" data-i18n="hero_cta">Get Started</a>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>One World Net | الإنترنت الفضائي للجميع</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="main-nav">
+    <div class="logo">
+      <img src="/public/images/logo.jpg" alt="One World Net Logo" />
+      <span>ONE WORLD NET</span>
     </div>
-  </section>
-  <section class="starlink-section">
-    <h2 data-i18n="features_title">Why Choose one world net?</h2>
-    <div class="starlink-features">
-      <div class="starlink-feature-card">
-        <img src="images/8.jpg" alt="Global Coverage">
-        <h3 data-i18n="feature1_title">Global Coverage</h3>
-        <p data-i18n="feature1_desc">Stay connected anywhere on Earth: cities, villages, deserts, seas, and skies. No more limits.</p>
+    <button id="langSwitcher" class="lang-btn" aria-label="تغيير اللغة">🌐</button>
+    <ul class="nav-links">
+      <li><a href="#home">الرئيسية</a></li>
+      <li><a href="#plans">الباقات</a></li>
+      <li><a href="#devices">الأجهزة</a></li>
+      <li><a href="#blog">المدونة</a></li>
+      <li><a href="#partners">الشركاء</a></li>
+      <li><a href="#contact">تواصل</a></li>
+      <li><a href="#login" class="login-btn">تسجيل الدخول</a></li>
+      <li><a href="#register" class="register-btn">إنشاء حساب</a></li>
+    </ul>
+  </nav>
+  <header class="hero-section" id="home">
+    <div class="hero-content glass">
+      <h1>الإنترنت الفضائي للجميع</h1>
+      <p>أسرع وأأمن إنترنت فضائي في العالم، متاح لكل بيت وشركة ومنظمة.</p>
+      <a href="#register" class="main-btn">سجل الآن</a>
+    </div>
+    <img src="/public/images/1.jpg" alt="قمر صناعي" class="hero-img" />
+    <div class="gallery-row">
+      <img src="/public/images/2.jpg" alt="تغطية عالمية" />
+      <img src="/public/images/3.jpg" alt="أجهزة حديثة" />
+      <img src="/public/images/4.jpg" alt="خدمة عملاء" />
+      <img src="/public/images/5.jpg" alt="شراكات دولية" />
+    </div>
+  </header>
+  <section id="plans" class="plans-section glass">
+    <h2>الباقات</h2>
+    <div class="plans-cards">
+      <div class="plan-card">
+        <h3>Starter</h3>
+        <img src="/public/images/2.jpg" alt="جهاز استقبال أساسي" />
+        <p>سرعة حتى 20 ميجابت<br>دعم أساسي<br>بيانات غير محدودة</p>
+        <div class="price">5$ / شهر</div>
       </div>
-      <div class="starlink-feature-card">
-        <img src="images/9.jpg" alt="Ultra Fast">
-        <h3 data-i18n="feature2_title">Ultra Fast Speeds</h3>
-        <p data-i18n="feature2_desc">Up to 200 Mbps. Stream, work, and play with no interruptions, day or night.</p>
+      <div class="plan-card">
+        <h3>Essential</h3>
+        <img src="/public/images/3.jpg" alt="جهاز استقبال متوسط" />
+        <p>سرعة حتى 50 ميجابت<br>دعم أولوية<br>بيانات غير محدودة</p>
+        <div class="price">10$ / شهر</div>
       </div>
-      <div class="starlink-feature-card">
-        <img src="images/10.jpg" alt="Security & Privacy">
-        <h3 data-i18n="feature3_title">Security & Privacy</h3>
-        <p data-i18n="feature3_desc">Your data is protected with the latest encryption and global security standards.</p>
+      <div class="plan-card">
+        <h3>Family</h3>
+        <img src="/public/images/4.jpg" alt="جهاز استقبال عائلي" />
+        <p>سرعة حتى 100 ميجابت<br>مزايا عائلية<br>بيانات غير محدودة</p>
+        <div class="price">25$ / شهر</div>
       </div>
-      <div class="starlink-feature-card">
-        <img src="images/11.jpg" alt="24/7 Support">
-        <h3 data-i18n="feature4_title">24/7 Support</h3>
-        <p data-i18n="feature4_desc">A global team ready to help you anytime, anywhere.</p>
+      <div class="plan-card">
+        <h3>Business</h3>
+        <img src="/public/images/5.jpg" alt="جهاز استقبال أعمال" />
+        <p>سرعة حتى 500 ميجابت<br>مدير حساب خاص<br>بيانات غير محدودة</p>
+        <div class="price">200$ / شهر</div>
       </div>
     </div>
   </section>
-  <footer class="starlink-footer" style="background:#18120b;">
-    <div class="footer-content" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px;">
-      <div class="footer-logo-socials" style="display:flex;align-items:center;gap:10px;">
-      <img src="images/logo.jpg" alt="one world net logo" style="height:38px;max-width:38px;min-width:28px;object-fit:contain;box-shadow:0 2px 8px #3e2723;">
-    </div>
-    <div class="footer-socials" style="display:flex;gap:10px;justify-content:center;margin:18px 0 0 0;">
-      <a href="https://facebook.com/oneworldnet" target="_blank" aria-label="Facebook"><img src="icons/facebook.svg" alt="Facebook" style="width:28px;"></a>
-      <a href="https://twitter.com/oneworldnet" target="_blank" aria-label="Twitter"><img src="icons/twitter.svg" alt="Twitter" style="width:28px;"></a>
-      <a href="https://youtube.com/oneworldnet" target="_blank" aria-label="YouTube"><img src="icons/youtube.svg" alt="YouTube" style="width:28px;"></a>
-      <a href="https://t.me/oneworldnet" target="_blank" aria-label="Telegram"><img src="icons/telegram.svg" alt="Telegram" style="width:28px;"></a>
-      <a href="https://linkedin.com/company/oneworldnet" target="_blank" aria-label="LinkedIn"><img src="icons/linkedin.svg" alt="LinkedIn" style="width:28px;"></a>
-      <a href="https://wa.me/201005341825" target="_blank" aria-label="WhatsApp"><img src="icons/whatsapp.svg" alt="WhatsApp" style="width:28px;"></a>
-      <a href="https://tiktok.com/@oneworldnet" target="_blank" aria-label="TikTok"><img src="icons/tiktok.svg" alt="TikTok" style="width:28px;"></a>
-      <a href="mailto:info@oneworldnet.com" target="_blank" aria-label="Email"><img src="icons/email.svg" alt="Email" style="width:28px;"></a>
-      <a href="https://discord.gg/oneworldnet" target="_blank" aria-label="Discord"><img src="icons/discord.svg" alt="Discord" style="width:28px;"></a>
-    </div>
+  <section id="devices" class="devices-section glass">
+    <h2>الأجهزة</h2>
+    <div class="devices-cards">
+      <div class="device-card">
+        <img src="/public/images/6.jpg" alt="جهاز استقبال فضائي حديث" />
+        <h3>جهاز استقبال قياسي</h3>
+        <p>سهل التركيب، مناسب للاستخدام المنزلي والشركات الصغيرة.</p>
       </div>
-      <div class="footer-links" style="display:flex;gap:18px;">
-        <a href="privacy.html" data-i18n="footer_privacy">Privacy</a>
-        <a href="faq.html" data-i18n="footer_faq">FAQ</a>
-        <a href="contact.html" data-i18n="footer_contact">Contact</a>
+      <div class="device-card">
+        <img src="/public/images/8.jpg" alt="جهاز استقبال احترافي" />
+        <h3>جهاز استقبال احترافي</h3>
+        <p>أداء عالي، مناسب للمؤسسات والشركات الكبيرة.</p>
+      </div>
+      <div class="device-card">
+        <img src="/public/images/9.jpg" alt="جهاز استقبال مؤسسات" />
+        <h3>جهاز استقبال مؤسسات</h3>
+        <p>حلول متقدمة للشبكات والمنظمات الدولية.</p>
+      </div>
+      <div class="device-card">
+        <img src="/public/images/10.jpg" alt="جهاز استقبال متنقل" />
+        <h3>جهاز استقبال متنقل</h3>
+        <p>تصميم محمول، مثالي للرحلات والمناطق النائية.</p>
       </div>
     </div>
-    <div class="footer-copyright" style="text-align:center;margin-top:8px;color:#FFD600;font-size:0.98em;">
-      <span data-i18n="footer">All rights reserved &copy; one world net 2025</span>
+  </section>
+  <section id="blog" class="blog-section glass">
+    <h2>المدونة</h2>
+    <div class="blog-cards">
+      <div class="blog-card">
+        <img src="/public/images/11.jpg" alt="مقال عن الإنترنت الفضائي" />
+        <h3>مستقبل الإنترنت الفضائي</h3>
+        <p>تعرف على أحدث تقنيات الإنترنت الفضائي وكيف ستغير العالم.</p>
+      </div>
+      <div class="blog-card">
+        <img src="/public/images/12.jpg" alt="مقال عن الأقمار الصناعية" />
+        <h3>الأقمار الصناعية ودورها</h3>
+        <p>كيف تساهم الأقمار الصناعية في ربط العالم وتسهيل الاتصالات.</p>
+      </div>
+      <div class="blog-card">
+        <img src="/public/images/13.jpg" alt="مقال عن الأجهزة" />
+        <h3>أحدث أجهزة الاستقبال</h3>
+        <p>مراجعة لأحدث أجهزة استقبال الإنترنت الفضائي في السوق.</p>
+      </div>
+      <div class="blog-card">
+        <img src="/public/images/8.jpg" alt="مقال عالمي" />
+        <h3>تجارب المستخدمين حول العالم</h3>
+        <p>قصص نجاح من مستخدمي الإنترنت الفضائي في القارات الست.</p>
+      </div>
     </div>
-  <script>
-
-    // تحميل النصوص والصور المخصصة من localStorage
-    function loadCustomContent() {
-      // نصوص الصفحة الرئيسية
-      var page = 'index';
-      var store = {};
-      try { store = JSON.parse(localStorage.getItem('text_' + page) || '{}'); } catch(e){}
-      if(store.hero_title) document.getElementById('hero_title').textContent = store.hero_title;
-      if(store.hero_desc) document.getElementById('hero_desc').textContent = store.hero_desc;
-      if(store.hero_cta) document.getElementById('hero_cta').textContent = store.hero_cta;
-      // صور الهيرو
-      var heroImg = localStorage.getItem('img_1');
-      if(heroImg) document.getElementById('hero-img').src = heroImg;
-      // خصائص الميزات
-      for(let i=1;i<=4;i++){
-        if(store['feature'+i+'_title']) {
-          let el = document.querySelector('[data-i18n="feature'+i+'_title"]');
-          if(el) el.textContent = store['feature'+i+'_title'];
-        }
-        if(store['feature'+i+'_desc']) {
-          let el = document.querySelector('[data-i18n="feature'+i+'_desc"]');
-          if(el) el.textContent = store['feature'+i+'_desc'];
-        }
-        var img = localStorage.getItem('img_'+(i+7));
-        if(img) {
-          let imgEl = document.querySelector('.starlink-feature-card:nth-child('+i+') img');
-          if(imgEl) imgEl.src = img;
-        }
-      }
-    }
-    document.addEventListener('DOMContentLoaded', function() {
-      loadCustomContent();
-    });
-    // language switcher
-    document.addEventListener('DOMContentLoaded', function() {
-      var btn = document.getElementById('lang-switch');
-      if(btn) {
-        btn.addEventListener('click', function(e) {
-          e.stopPropagation();
-          if(document.documentElement.lang === 'en') {
-            window.setLanguage && setLanguage('ar');
-            btn.textContent = 'English';
-          } else {
-            window.setLanguage && setLanguage('en');
-            btn.textContent = 'العربية';
-          }
-        });
-      }
-    });
-    function toggleMenu() {
-      var nav = document.getElementById('mainNav');
-      nav.classList.toggle('open');
-    }
-    // إغلاق القائمة عند الضغط خارجها أو على رابط
-    document.addEventListener('click', function(e) {
-      var nav = document.getElementById('mainNav');
-      var btn = document.querySelector('.menu-toggle');
-      if (nav.classList.contains('open') && !nav.contains(e.target) && e.target !== btn) {
-        nav.classList.remove('open');
-      }
-      if (nav.contains(e.target) && e.target.tagName === 'A') {
-        nav.classList.remove('open');
-      }
-    });
-    // تحميل الصور المخصصة من localStorage
-    function loadCustomImages() {
-      var heroImg = localStorage.getItem('img_1');
-      if(heroImg) document.getElementById('hero-img').src = heroImg;
-      // يمكن إضافة صور أخرى بنفس الطريقة حسب الحاجة
-    }
-    // تحميل النصوص المخصصة من localStorage
-    function loadCustomTexts() {
-      var page = 'index';
-      var store = {};
-      try { store = JSON.parse(localStorage.getItem('text_' + page) || '{}'); } catch(e){}
-      if(store.hero_title) document.getElementById('hero_title').textContent = store.hero_title;
-      if(store.hero_desc) document.getElementById('hero_desc').textContent = store.hero_desc;
-      if(store.hero_cta) document.getElementById('hero_cta').textContent = store.hero_cta;
-      // يمكن إضافة المزيد من الفقرات حسب الحاجة
-    }
-    document.addEventListener('DOMContentLoaded', function() {
-      loadCustomImages();
-      loadCustomTexts();
-    });
-  </script>
+  </section>
+  <section id="partners" class="partners-section glass">
+    <h2>شركاؤنا</h2>
+    <div class="partners-logos">
+      <img src="/public/images/logo.jpg" alt="شريك 1" />
+      <img src="/public/images/14.jpg" alt="شريك عالمي" />
+      <img src="/public/images/15.jpg" alt="شريك تقني" />
+      <img src="/public/images/13.jpg" alt="شريك لوجستي" />
+    </div>
+  </section>
+  <section id="contact" class="contact-section glass">
+    <h2>تواصل معنا</h2>
+    <form class="contact-form">
+      <input type="text" placeholder="اسمك" required />
+      <input type="email" placeholder="بريدك الإلكتروني" required />
+      <textarea placeholder="رسالتك" required></textarea>
+      <button type="submit">إرسال</button>
+    </form>
+    <div class="social-icons">
+      <!-- أيقونات التواصل -->
+    </div>
+  </section>
+  <footer class="main-footer glass">
+    <div class="footer-socials">
+      <!-- أيقونات التواصل -->
+    </div>
+    <div class="footer-links">
+      <a href="#privacy">سياسة الخصوصية</a>
+      <a href="#faq">الأسئلة الشائعة</a>
+    </div>
+    <div class="footer-copy">&copy; 2025 One World Net. جميع الحقوق محفوظة.</div>
   </footer>
+  <script src="translate.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>

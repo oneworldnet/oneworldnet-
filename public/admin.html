@@ -1,1720 +1,64 @@
-<!-- إشعارات فورية -->
-<!-- Font Awesome CDN لأيقونات مجانية وعالمية -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<div id="globalNotification" style="display:none;position:fixed;top:18px;left:50%;transform:translateX(-50%);background:#FFD600;color:#18120b;padding:12px 32px;border-radius:18px;font-weight:bold;z-index:9999;font-size:1.1em;box-shadow:none;min-width:220px;text-align:center;"></div>
-<!-- واجهة تغيير كلمة المرور -->
-<div id="changePassModal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.55);z-index:9998;align-items:center;justify-content:center;">
-  <div style="background:#18120b;padding:32px 24px;border-radius:18px;max-width:350px;margin:auto;">
-    <h3 style="color:#FFD600;">تغيير كلمة المرور</h3>
-    <input type="password" id="oldPass" placeholder="كلمة المرور الحالية" style="width:100%;margin-bottom:10px;">
-    <input type="password" id="newPass1" placeholder="كلمة المرور الجديدة" style="width:100%;margin-bottom:10px;">
-    <input type="password" id="newPass2" placeholder="تأكيد كلمة المرور الجديدة" style="width:100%;margin-bottom:18px;">
-    <button onclick="changePassword()" class="main-btn">تغيير</button>
-    <button onclick="closeChangePass()" class="main-btn" style="background:#e53935;color:#fff;margin-right:8px;">إلغاء</button>
-    <div id="changePassMsg" style="color:#e53935;margin-top:10px;"></div>
-  </div>
-</div>
-<!-- زر تغيير كلمة المرور أعلى لوحة التحكم -->
-<button id="changePassBtn" onclick="openChangePass()" style="position:fixed;top:18px;right:18px;z-index:9997;background:#FFD600;color:#18120b;border:none;border-radius:18px;padding:8px 18px;font-weight:bold;">تغيير كلمة المرور</button>
-<script>
-// إشعار فوري
-function notify(msg, type='info') {
-  const n = document.getElementById('globalNotification');
-  n.textContent = msg;
-  n.style.background = type==='error' ? '#e53935' : (type==='success' ? '#43a047' : '#FFD600');
-  n.style.color = type==='error' ? '#fff' : '#18120b';
-  n.style.display = 'block';
-  setTimeout(()=>{n.style.display='none';}, 2500);
-}
-// نظام المستخدم الحالي
-let currentUser = null;
-function setCurrentUser(user) {
-  currentUser = user;
-  localStorage.setItem('currentUser', JSON.stringify(user));
-}
-function getCurrentUser() {
-  if(currentUser) return currentUser;
-  let u = localStorage.getItem('currentUser');
-  if(u) return JSON.parse(u);
-  return null;
-}
-// تسجيل الدخول
-function checkAdminLogin() {
-  let name = document.getElementById('adminUser').value.trim();
-  let pass = document.getElementById('adminPass').value.trim();
-  let users = JSON.parse(localStorage.getItem('users')||'[]');
-  let user = users.find(u=>u.name===name && u.pass===pass);
-  if(!user) {
-    document.getElementById('loginError').textContent = 'بيانات الدخول غير صحيحة';
-    notify('بيانات الدخول غير صحيحة','error');
-    return;
-  }
-  setCurrentUser(user);
-  document.getElementById('adminLogin').style.display='none';
-  document.getElementById('adminPanel').style.display='block';
-  notify('تم تسجيل الدخول بنجاح','success');
-  logLogin(user.name);
-  renderSectionsByRole();
-}
-// تسجيل الخروج
-function logout() {
-  setCurrentUser(null);
-  localStorage.removeItem('currentUser');
-  document.getElementById('adminPanel').style.display='none';
-  document.getElementById('adminLogin').style.display='block';
-  notify('تم تسجيل الخروج','info');
-}
-// سجل الدخول والخروج
-function logLogin(name) {
-  let log = JSON.parse(localStorage.getItem('loginLog')||'[]');
-  log.unshift({name,time:new Date().toLocaleString(),action:'دخول'});
-  if(log.length>100) log.pop();
-  localStorage.setItem('loginLog',JSON.stringify(log));
-  renderLoginLog();
-}
-function renderLoginLog() {
-  let log = JSON.parse(localStorage.getItem('loginLog')||'[]');
-  let list = document.getElementById('loginLog');
-  if(!list) return;
-  list.innerHTML = log.map(l=>`<div>${l.time} - ${l.name} (${l.action})</div>`).join('');
-}
-document.addEventListener('DOMContentLoaded', renderLoginLog);
-// تغيير كلمة المرور
-function openChangePass() {
-  document.getElementById('changePassModal').style.display='flex';
-  document.getElementById('changePassMsg').textContent='';
-}
-function closeChangePass() {
-  document.getElementById('changePassModal').style.display='none';
-}
-function changePassword() {
-  let oldPass = document.getElementById('oldPass').value.trim();
-  let newPass1 = document.getElementById('newPass1').value.trim();
-  let newPass2 = document.getElementById('newPass2').value.trim();
-  let user = getCurrentUser();
-  if(!user) { notify('يجب تسجيل الدخول','error'); return; }
-  if(user.pass!==oldPass) { document.getElementById('changePassMsg').textContent='كلمة المرور الحالية غير صحيحة'; return; }
-  if(newPass1.length<4) { document.getElementById('changePassMsg').textContent='كلمة المرور قصيرة جداً'; return; }
-  if(newPass1!==newPass2) { document.getElementById('changePassMsg').textContent='كلمتا المرور غير متطابقتان'; return; }
-  let users = JSON.parse(localStorage.getItem('users')||'[]');
-  let idx = users.findIndex(u=>u.name===user.name);
-  if(idx>-1) { users[idx].pass=newPass1; localStorage.setItem('users',JSON.stringify(users)); setCurrentUser(users[idx]); }
-  closeChangePass();
-  notify('تم تغيير كلمة المرور بنجاح','success');
-}
-// إظهار/إخفاء الأقسام حسب الدور
-function renderSectionsByRole() {
-  let user = getCurrentUser();
-  if(!user) return;
-  // المدير يرى كل شيء
-  if(user.role==='admin') {
-    document.querySelectorAll('.admin-section').forEach(e=>e.style.display='block');
-    document.getElementById('changePassBtn').style.display='block';
-    return;
-  }
-  // المحرر: لا يرى إدارة المستخدمين ولا سجل الدخول
-  document.querySelectorAll('.admin-section').forEach(e=>e.style.display='block');
-  document.getElementById('userRolesManager').style.display='none';
-  document.getElementById('loginLogSection').style.display='none';
-  document.getElementById('changePassBtn').style.display='block';
-  // المشاهد: يرى فقط الإحصائيات والرسائل
-  if(user.role==='viewer') {
-    document.querySelectorAll('.admin-section').forEach(e=>e.style.display='none');
-    document.getElementById('activityLogSection').style.display='block';
-    document.getElementById('messagesCenter').style.display='block';
-    document.getElementById('changePassBtn').style.display='block';
-  }
-}
-// عند تحميل الصفحة: تحقق من المستخدم الحالي
-document.addEventListener('DOMContentLoaded', ()=>{
-  let user = getCurrentUser();
-  if(user) {
-    document.getElementById('adminLogin').style.display='none';
-    document.getElementById('adminPanel').style.display='block';
-    renderSectionsByRole();
-  } else {
-    document.getElementById('adminLogin').style.display='block';
-    document.getElementById('adminPanel').style.display='none';
-  }
-});
-</script>
-    <div class="section-title">دعم ذوي الاحتياجات الخاصة</div>
-    <div id="accessibilityManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <label>تفعيل أدوات الوصول:</label>
-      <input type="checkbox" id="enableScreenReader"> قارئ صوتي
-      <input type="checkbox" id="enableZoom"> تكبير النص
-      <input type="checkbox" id="enableContrast"> تباين عالي
-      <button type="button" class="save-btn" onclick="saveAccessibility()">حفظ الإعدادات</button>
-    </div>
-    <div class="section-title">عن المبادرة</div>
-    <div id="aboutManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <textarea id="aboutText" placeholder="نص عن المبادرة" style="width:100%;height:60px;"></textarea>
-      <button type="button" class="save-btn" onclick="saveAbout()">حفظ النص</button>
-    </div>
-    <div class="section-title">شركاء الخير</div>
-    <div id="partnersManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <input type="text" id="partnerName" placeholder="اسم الشريك">
-      <input type="url" id="partnerUrl" placeholder="رابط الشريك">
-      <button type="button" class="save-btn" onclick="addPartner()">إضافة شريك</button>
-      <div id="partnersList"></div>
-    </div>
-    <div class="section-title">قصص نجاح المستخدمين</div>
-    <div id="storiesManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <input type="text" id="storyName" placeholder="اسم المستخدم">
-      <textarea id="storyText" placeholder="القصة أو التجربة" style="width:100%;height:60px;"></textarea>
-      <button type="button" class="save-btn" onclick="addStory()">إضافة قصة</button>
-      <div id="storiesList"></div>
-    </div>
-    <div class="section-title">زر تبرع عالمي</div>
-    <div id="donateManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <input type="url" id="donateUrl" placeholder="رابط التبرع (PayPal, Stripe, ...)">
-      <button type="button" class="save-btn" onclick="saveDonate()">حفظ الرابط</button>
-    </div>
-    <div class="section-title">سياسة الخصوصية</div>
-    <div id="privacyManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <textarea id="privacyText" placeholder="نص سياسة الخصوصية" style="width:100%;height:60px;"></textarea>
-      <button type="button" class="save-btn" onclick="savePrivacy()">حفظ النص</button>
-    </div>
-    <div class="section-title">الأسئلة الإنسانية</div>
-    <div id="humanFaqManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <input type="text" id="humanFaqQ" placeholder="السؤال">
-      <textarea id="humanFaqA" placeholder="الإجابة أو القصة" style="width:100%;height:40px;"></textarea>
-      <button type="button" class="save-btn" onclick="addHumanFaq()">إضافة سؤال</button>
-      <div id="humanFaqList"></div>
-    </div>
-    <div class="section-title">دعم ذوي الاحتياجات الخاصة</div>
-    <div id="accessibilityManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <label>تفعيل خيارات:</label>
-      <input type="checkbox" id="enableScreenReader"> قارئ صوتي
-      <input type="checkbox" id="enableZoom"> تكبير النص
-      <input type="checkbox" id="enableContrast"> تباين عالي
-      <button type="button" class="save-btn" onclick="saveAccessibility()">حفظ الإعدادات</button>
-    </div>
-    <div class="section-title">عن المبادرة</div>
-    <div id="aboutManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <textarea id="aboutText" placeholder="نص تعريفي عن المبادرة" style="width:100%;height:60px;"></textarea>
-      <button type="button" class="save-btn" onclick="saveAbout()">حفظ النص</button>
-    </div>
-    <div class="section-title">شركاء الخير</div>
-    <div id="partnersManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <input type="text" id="partnerName" placeholder="اسم الشريك">
-      <input type="url" id="partnerUrl" placeholder="رابط الشريك">
-      <button type="button" class="save-btn" onclick="addPartner()">إضافة شريك</button>
-      <div id="partnersList"></div>
-    </div>
-    <div class="section-title">قصص نجاح</div>
-    <div id="storiesManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <input type="text" id="storyTitle" placeholder="عنوان القصة">
-      <textarea id="storyContent" placeholder="نص القصة" style="width:100%;height:60px;"></textarea>
-      <button type="button" class="save-btn" onclick="addStory()">إضافة قصة</button>
-      <div id="storiesList"></div>
-    </div>
-    <div class="section-title">زر تبرع عالمي</div>
-    <div id="donateManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <input type="url" id="donateUrl" placeholder="رابط التبرع (PayPal, Patreon, ...)">
-      <button type="button" class="save-btn" onclick="saveDonate()">حفظ الرابط</button>
-    </div>
-    <div class="section-title">سياسة الخصوصية</div>
-    <div id="privacyManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <textarea id="privacyText" placeholder="نص سياسة الخصوصية" style="width:100%;height:60px;"></textarea>
-      <button type="button" class="save-btn" onclick="savePrivacy()">حفظ النص</button>
-    </div>
-    <div class="section-title">الأسئلة الإنسانية</div>
-    <div id="humanFaqManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <input type="text" id="humanFaqQ" placeholder="سؤال">
-      <textarea id="humanFaqA" placeholder="إجابة" style="width:100%;height:40px;"></textarea>
-      <button type="button" class="save-btn" onclick="addHumanFaq()">إضافة سؤال</button>
-      <div id="humanFaqList"></div>
-    </div>
-    <div class="section-title">تسجيل الدخول الاجتماعي</div>
-    <div id="socialLoginManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <label>تفعيل تسجيل الدخول عبر:</label>
-      <input type="checkbox" id="loginGoogle"> Google
-      <input type="checkbox" id="loginFacebook"> Facebook
-      <input type="checkbox" id="loginApple"> Apple
-      <input type="checkbox" id="loginLinkedIn"> LinkedIn
-      <button type="button" class="save-btn" onclick="saveSocialLogin()">حفظ الإعدادات</button>
-    </div>
-    <div class="section-title">أزرار مشاركة المحتوى</div>
-    <div id="shareButtonsManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <label>تفعيل أزرار المشاركة في الصفحات:</label>
-      <input type="checkbox" id="shareHome"> الرئيسية
-      <input type="checkbox" id="shareBlog"> المدونة
-      <input type="checkbox" id="shareProjects"> المشاريع
-      <input type="checkbox" id="shareDevices"> الأجهزة
-      <button type="button" class="save-btn" onclick="saveShareButtons()">حفظ الإعدادات</button>
-    </div>
-    <div class="section-title">مولد QR لأي صفحة</div>
-    <div id="qrManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <input type="url" id="qrUrl" placeholder="رابط الصفحة أو العرض">
-      <button type="button" class="save-btn" onclick="generateQR()">توليد QR</button>
-      <div id="qrResult" style="margin-top:10px;"></div>
-    </div>
-    <div class="section-title">دعم AMP (صفحات سريعة للجوال)</div>
-    <div id="ampManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <label>تفعيل نسخة AMP للصفحات المهمة</label>
-      <input type="checkbox" id="ampHome"> الرئيسية
-      <input type="checkbox" id="ampBlog"> المدونة
-      <input type="checkbox" id="ampProjects"> المشاريع
-      <button type="button" class="save-btn" onclick="saveAMP()">حفظ الإعدادات</button>
-    </div>
-    <div class="section-title">خريطة موقع ديناميكية (Sitemap.xml)</div>
-    <div id="sitemapManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <button type="button" class="save-btn" onclick="generateSitemap()">توليد خريطة الموقع</button>
-      <div id="sitemapResult" style="margin-top:10px;direction:ltr;text-align:left;font-size:0.95em;"></div>
-    </div>
-    <div class="section-title">بيانات منظمة (Schema.org)</div>
-    <div id="schemaManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <label>تفعيل بيانات منظمة:</label>
-      <input type="checkbox" id="schemaOrg"> Organization
-      <input type="checkbox" id="schemaProduct"> Product
-      <input type="checkbox" id="schemaFAQ"> FAQ
-      <input type="checkbox" id="schemaReview"> Review
-      <button type="button" class="save-btn" onclick="saveSchema()">حفظ الإعدادات</button>
-    </div>
-    <div class="section-title">دعم لغات عالمية إضافية</div>
-    <div id="langManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <label>إضافة لغة:</label>
-      <input type="text" id="addLangCode" placeholder="رمز اللغة (مثال: zh, es, fr)">
-      <button type="button" class="save-btn" onclick="addLang()">إضافة</button>
-      <div id="langList"></div>
-    </div>
-    <div class="section-title">صفحة Press/Media Kit</div>
-    <div id="pressManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <input type="text" id="pressTitle" placeholder="عنوان المادة الإعلامية">
-      <textarea id="pressContent" placeholder="وصف أو نص المادة"></textarea>
-      <input type="file" id="pressFile" accept="image/*,application/pdf">
-      <button type="button" class="save-btn" onclick="addPressItem()">إضافة مادة</button>
-      <div id="pressList"></div>
-    </div>
-    <div class="section-title">تكامل مراجعات Google/Trustpilot</div>
-    <div id="reviewIntegrationManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <input type="url" id="googleReviewUrl" placeholder="رابط صفحة Google Reviews">
-      <input type="url" id="trustpilotUrl" placeholder="رابط صفحة Trustpilot">
-      <button type="button" class="save-btn" onclick="saveReviewIntegration()">حفظ الروابط</button>
-    </div>
-    <div class="section-title">تكامل Mailchimp للنشرات البريدية</div>
-    <div id="mailchimpManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <input type="email" id="mailchimpEmail" placeholder="بريد Mailchimp">
-      <button type="button" class="save-btn" onclick="saveMailchimp()">حفظ البريد</button>
-    </div>
-<div class="section-title admin-section" id="userRolesSection">إدارة المستخدمين والصلاحيات</div>
-<div id="userRolesManager" class="admin-section" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-  <input type="text" id="newUserName" placeholder="اسم المستخدم">
-  <input type="password" id="newUserPass" placeholder="كلمة المرور">
-  <select id="newUserRole">
-    <option value="admin">مدير</option>
-    <option value="editor">محرر</option>
-    <option value="viewer">مشاهد</option>
-  </select>
-  <button type="button" class="save-btn" onclick="addUser()">إضافة مستخدم</button>
-  <div id="userList"></div>
-</div>
-<div class="section-title admin-section" id="loginLogSection">سجل الدخول والخروج</div>
-<div id="loginLog" class="admin-section" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;max-height:120px;overflow:auto;box-shadow:0 2px 8px #00e0ff22;color:#FFD600;font-size:0.98em;"></div>
-<div class="section-title admin-section" id="activityLogSection">سجل النشاطات</div>
-<div id="activityLog" class="admin-section" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;max-height:120px;overflow:auto;box-shadow:0 2px 8px #00e0ff22;color:#FFD600;font-size:0.98em;"></div>
-    <div class="section-title">سجل النشاطات</div>
-    <div id="activityLog" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;max-height:120px;overflow:auto;box-shadow:0 2px 8px #00e0ff22;color:#FFD600;font-size:0.98em;"></div>
-    <div class="section-title">مركز الرسائل الداخلية</div>
-    <div id="messagesCenter" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <div id="messagesList"></div>
-      <textarea id="adminReply" placeholder="اكتب ردك هنا..."></textarea>
-      <button type="button" class="save-btn" onclick="sendReply()">إرسال الرد</button>
-    </div>
-    <div class="section-title">إدارة الإعلانات الذكية</div>
-    <div id="adsManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <input type="text" id="adTitle" placeholder="عنوان الإعلان">
-      <textarea id="adContent" placeholder="محتوى الإعلان"></textarea>
-      <input type="date" id="adStart"> <input type="date" id="adEnd">
-      <button type="button" class="save-btn" onclick="addAd()">إضافة إعلان</button>
-      <div id="adsList"></div>
-    </div>
-    <div class="section-title">إدارة SEO ديناميكية</div>
-    <div id="seoManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <input type="text" id="seoTitle" placeholder="عنوان الصفحة">
-      <input type="text" id="seoDesc" placeholder="وصف الصفحة">
-      <input type="text" id="seoKeywords" placeholder="كلمات مفتاحية (مفصولة بفاصلة)">
-      <input type="url" id="seoImage" placeholder="رابط صورة المشاركة">
-      <button type="button" class="save-btn" onclick="saveSEO()">حفظ SEO</button>
-    </div>
-    <div class="section-title">تصدير واستيراد البيانات</div>
-    <div id="backupManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <button type="button" class="save-btn" onclick="exportData()">تصدير نسخة احتياطية</button>
-      <input type="file" id="importFile" accept="application/json">
-      <button type="button" class="save-btn" onclick="importData()">استيراد بيانات</button>
-    </div>
-    <div class="section-title">إشعارات فورية للمستخدمين</div>
-    <div id="pushNotifManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <input type="text" id="notifTitle" placeholder="عنوان الإشعار">
-      <textarea id="notifBody" placeholder="محتوى الإشعار"></textarea>
-      <button type="button" class="save-btn" onclick="sendPushNotif()">إرسال إشعار</button>
-    </div>
-    <div class="section-title">تصنيف الأسئلة الشائعة</div>
-    <div id="faqCatManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <input type="text" id="faqCat" placeholder="اسم التصنيف">
-      <button type="button" class="save-btn" onclick="addFaqCat()">إضافة تصنيف</button>
-      <div id="faqCatList"></div>
-    </div>
 <!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة تحكم الموقع</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        .admin-container { max-width: 600px; margin: 40px auto; background: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
-        .admin-container h2 { margin-top: 0; }
-        .admin-container label { display: block; margin: 10px 0 5px; }
-        .admin-container input, .admin-container textarea { width: 100%; margin-bottom: 10px; padding: 8px; border-radius: 5px; border: 1px solid #ccc; }
-        .admin-container button { background: #222; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
-        .admin-container .row { display: flex; gap: 10px; }
-        .admin-container .row input { flex: 1; }
-        .admin-container .login-log { background: #f5f5f5; padding: 10px; border-radius: 5px; margin-top: 15px; }
-    </style>
-</head>
-<body>
-<!-- زر ترجمة جوجل العالمي -->
-<div style="position:fixed;top:18px;left:18px;z-index:9999;">
-  <div id="google_translate_element"></div>
-</div>
-<script type="text/javascript">
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement({pageLanguage: 'ar', includedLanguages: '', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
-}
-</script>
-<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
-<div class="admin-container" id="adminLogin">
-    <h2>تسجيل دخول لوحة التحكم</h2>
-    <button id="googleLoginBtn" style="background:#fff;color:#222;border:1px solid #ccc;padding:8px 18px;border-radius:6px;font-weight:bold;margin-bottom:10px;display:flex;align-items:center;gap:8px;">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" style="width:22px;height:22px;"> دخول عبر Google
-    </button>
-    <label>اسم المستخدم</label>
-    <input type="text" id="adminUser" placeholder="اسم المستخدم" autocomplete="username">
-    <label>كلمة المرور</label>
-    <input type="password" id="adminPass" placeholder="كلمة المرور" autocomplete="current-password">
-    <button onclick="checkAdminLogin()">دخول</button>
-    <p id="loginError" style="color:red;"></p>
-</div>
-<div class="admin-container" id="adminPanel" style="display:none;">
-    <h2>لوحة تحكم الموقع</h2>
-    <!-- رسالة عالمية ملهمة -->
-    <div style="background:linear-gradient(90deg,#00e0ff 60%,#1a237e 100%);color:#fff;padding:10px 0 10px 0;text-align:center;border-radius:12px;margin-bottom:22px;font-size:1.15em;font-weight:bold;box-shadow:0 2px 8px #00e0ff33;">
-      <span style="font-size:1.1em;">🌍 Together, we connect the world in every language. | معًا نربط العالم بكل لغات البشر</span>
-    </div>
-    <div style="margin-bottom:18px;">
-      <label style="font-weight:bold;">اختر اللغة:</label>
-      <input type="text" id="langSearch" placeholder="ابحث عن لغة..." style="width:220px;padding:6px 10px;border-radius:8px;border:1px solid #ccc;margin-bottom:6px;">
-      <select id="langSelect" size="8" style="width:100%;max-width:340px;min-width:180px;padding:8px 0;border-radius:8px;font-size:1em;"></select>
-      <div style="color:#00bfae;font-size:1em;margin-top:6px;">
-        <span id="langCount"></span> لغة متاحة | All world languages supported
-      </div>
-    </div>
-    <form id="adminForm">
-    <div class="section-title" style="margin-top:32px;">لوحة الإحصائيات المتقدمة</div>
-    <div id="analyticsDashboard" style="background:#18120b;border-radius:12px;padding:18px 12px 12px 12px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <canvas id="visitorsChart" style="width:100%;max-width:400px;background:#fff1;border-radius:8px;"></canvas>
-      <div id="analyticsStats" style="color:#FFD600;font-size:1.1em;margin-top:12px;"></div>
-    </div>
-    <div class="section-title">إشعارات فورية للمسؤول</div>
-    <div id="adminNotifications" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;color:#FFD600;font-size:1em;"></div>
-    <div class="section-title">إدارة الترجمات المخصصة</div>
-    <div id="translationsManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <label>النص الأصلي</label>
-      <input type="text" id="origText" placeholder="النص الأصلي">
-      <label>اللغة</label>
-      <input type="text" id="transLang" placeholder="رمز اللغة (ar, en, fr ...)">
-      <label>الترجمة</label>
-      <input type="text" id="transText" placeholder="النص المترجم">
-      <button type="button" class="save-btn" onclick="addTranslation()">إضافة ترجمة</button>
-      <div id="translationsList"></div>
-    </div>
-    <div class="section-title">مدير الملفات والصور</div>
-    <div id="fileManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <input type="file" id="fileUpload" multiple>
-      <button type="button" class="save-btn" onclick="uploadFiles()">رفع الملفات</button>
-      <div id="fileList"></div>
-    </div>
-    <div class="section-title">فريق العمل</div>
-    <div id="teamManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <input type="text" id="teamName" placeholder="اسم العضو">
-      <input type="text" id="teamRole" placeholder="الدور/الوظيفة">
-      <input type="file" id="teamImg" accept="image/*">
-      <textarea id="teamBio" placeholder="نبذة مختصرة"></textarea>
-      <button type="button" class="save-btn" onclick="addTeamMember()">إضافة عضو</button>
-      <div id="teamList"></div>
-    </div>
-    <div class="section-title">مراجعات وتقييمات العملاء</div>
-    <div id="testimonialsManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <input type="text" id="reviewerName" placeholder="اسم العميل">
-      <textarea id="reviewText" placeholder="نص المراجعة"></textarea>
-      <input type="number" id="reviewStars" min="1" max="5" value="5" style="width:80px;">
-      <input type="file" id="reviewImg" accept="image/*">
-      <input type="url" id="reviewVideo" placeholder="رابط فيديو (اختياري)">
-      <button type="button" class="save-btn" onclick="addTestimonial()">إضافة مراجعة</button>
-      <div id="testimonialsList"></div>
-    </div>
-    <div class="section-title">إضافة فيديو للصفحة الرئيسية/المشاريع/الأجهزة</div>
-    <div id="videoManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <label>رابط فيديو (YouTube أو mp4)</label>
-      <input type="url" id="videoUrl" placeholder="https://...">
-      <select id="videoPage">
-        <option value="index">الصفحة الرئيسية</option>
-        <option value="projects">المشاريع</option>
-        <option value="devices">الأجهزة (كل الأجهزة)</option>
-        <option value="device">جهاز محدد (اكتب رقم الجهاز بالأسفل)</option>
-      </select>
-      <input type="text" id="deviceIdInput" placeholder="معرف الجهاز (مثال: 1)" style="display:none;width:120px;">
-      <button type="button" class="save-btn" onclick="saveVideoUrl()">حفظ الفيديو</button>
-      <div id="videoList"></div>
-    <div class="section-title">إدارة صور الأجهزة</div>
-    <div id="deviceGalleryManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <input type="text" id="galleryDeviceId" placeholder="معرف الجهاز (مثال: 1)">
-      <input type="file" id="galleryDeviceImages" accept="image/*" multiple>
-      <button type="button" class="save-btn" onclick="addDeviceImages()">إضافة صور للجهاز</button>
-      <div id="deviceGalleryList"></div>
-    </div>
-    </div>
-    <div class="section-title">الوضع الليلي/النهاري وتحسين الوصول</div>
-    <button type="button" class="save-btn" onclick="toggleTheme()">تبديل الوضع الليلي/النهاري</button>
-    <button type="button" class="save-btn" onclick="toggleAccessibility()">تحسين الوصول</button>
-    <div class="section-title">صفحة حالة الخدمة</div>
-    <div id="statusPageManager" style="background:#18120b;border-radius:12px;padding:12px 10px 10px 10px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <textarea id="statusText" placeholder="اكتب حالة الخدمة الحالية..."></textarea>
-      <button type="button" class="save-btn" onclick="saveStatusText()">حفظ الحالة</button>
-      <div id="statusDisplay" style="color:#FFD600;margin-top:8px;"></div>
-    </div>
-    <div class="section-title" style="margin-top:32px;">إدارة الأسئلة الشائعة للمساعد الذكي</div>
-    <div id="faqManager" style="background:#18120b;border-radius:12px;padding:18px 12px 12px 12px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <div style="margin-bottom:10px;">
-        <input type="text" id="faqQ" placeholder="السؤال (مثال: كيف أشترك؟)" style="width:48%;margin-left:2%;padding:7px 10px;border-radius:8px;border:1px solid #FFD600;">
-        <input type="text" id="faqA" placeholder="الإجابة المختصرة" style="width:48%;padding:7px 10px;border-radius:8px;border:1px solid #FFD600;">
-        <button type="button" class="save-btn" style="padding:7px 18px;font-size:1em;margin:0 0 0 8px;" onclick="addFaq()">إضافة</button>
-      </div>
-      <div id="faqList"></div>
-    </div>
-    <div class="section-title" style="margin-top:32px;">Marquee Banner Settings (Home Page)</div>
-    <label for="marqueeTextInput">Banner Text</label>
-    <textarea id="marqueeTextInput" rows="2" placeholder="Enter the banner text here..." style="margin-bottom:8px;"></textarea>
-    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
-      <label>Font Size <input type="number" id="marqueeFontSize" min="10" max="60" value="18" style="width:60px;"></label>
-      <label>Speed (sec) <input type="number" id="marqueeSpeed" min="5" max="60" value="18" style="width:60px;"></label>
-      <label>Color <input type="color" id="marqueeColor" value="#FFD600"></label>
-      <label>Language
-        <select id="marqueeLang">
-          <option value="en">English</option>
-          <option value="ar">العربية</option>
-          <option value="all">All Languages</option>
-        </select>
-      </label>
-    </div>
-    <button type="button" class="save-btn" onclick="saveMarqueeText()">Save Banner Settings</button>
-    <div class="note">This banner will appear at the top of the home page. You can change its text, color, speed, font size, and language instantly.</div>
-    <div class="section-title" style="margin-top:32px;">روابط وأيقونات التواصل الاجتماعي</div>
-    <div id="socialsManager" style="background:#18120b;border-radius:12px;padding:18px 12px 12px 12px;margin-bottom:18px;box-shadow:0 2px 8px #00e0ff22;">
-      <div style="display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center;">
-        <div style="display:flex;flex-direction:column;align-items:center;">
-          <img src="images/fb.svg" style="width:28px;">
-          <input type="checkbox" id="fb_on"> <input type="url" id="fb_url" placeholder="رابط فيسبوك" style="width:120px;">
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:center;">
-          <img src="images/tw.svg" style="width:28px;">
-          <input type="checkbox" id="tw_on"> <input type="url" id="tw_url" placeholder="رابط تويتر/X" style="width:120px;">
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:center;">
-          <img src="images/yt.svg" style="width:28px;">
-          <input type="checkbox" id="yt_on"> <input type="url" id="yt_url" placeholder="رابط يوتيوب" style="width:120px;">
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:center;">
-          <img src="images/tg.svg" style="width:28px;">
-          <input type="checkbox" id="tg_on"> <input type="url" id="tg_url" placeholder="رابط تيليجرام" style="width:120px;">
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:center;">
-          <img src="images/li.svg" style="width:28px;">
-          <input type="checkbox" id="li_on"> <input type="url" id="li_url" placeholder="رابط لينكدإن" style="width:120px;">
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:center;">
-          <img src="images/wa.svg" style="width:28px;">
-          <input type="checkbox" id="wa_on"> <input type="url" id="wa_url" placeholder="رابط واتساب" style="width:120px;">
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:center;">
-          <img src="images/tt.svg" style="width:28px;">
-          <input type="checkbox" id="tt_on"> <input type="url" id="tt_url" placeholder="رابط تيك توك" style="width:120px;">
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:center;">
-          <img src="images/gm.svg" style="width:28px;">
-          <input type="checkbox" id="gm_on"> <input type="url" id="gm_url" placeholder="رابط البريد" style="width:120px;">
-        </div>
-      </div>
-      <button type="button" class="save-btn" style="margin-top:14px;" onclick="saveSocials()">حفظ الروابط</button>
-    </div>
-        <label>عنوان الموقع الرئيسي</label>
-        <input type="text" id="mainTitle">
-        <label>وصف رئيسي (بانر)</label>
-        <textarea id="mainDesc"></textarea>
-<!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>لوحة تحكم الموقع | one world net</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <title>لوحة تحكم الموقع | One World Net</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    body {
-      background: #18120b;
-      color: #fff;
-      font-family: 'Cairo', Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-    .admin-header {
-      background: #FFD600;
-      color: #3e2723;
-      padding: 18px 0 12px 0;
-      text-align: center;
-      font-size: 2em;
-      font-weight: bold;
-      letter-spacing: 2px;
-      box-shadow: 0 2px 12px #3e272355;
-    }
-    .admin-container {
-      max-width: 700px;
-      margin: 32px auto;
-      background: #23160d;
-      border-radius: 18px;
-      box-shadow: 0 4px 24px #3e272355;
-      padding: 32px 24px 24px 24px;
-    }
-    label {
-      color: #FFD600;
-      font-weight: bold;
-      margin-top: 18px;
-      display: block;
-    }
-    input[type="text"], textarea, select {
-      width: 100%;
-      padding: 10px;
-      margin: 8px 0 18px 0;
-      border-radius: 8px;
-      border: 1.5px solid #FFD600;
-      background: #18120b;
-      color: #fff;
-      font-size: 1em;
-      font-family: inherit;
-      resize: vertical;
-    }
-    input[type="file"] {
-      margin: 8px 0 18px 0;
-      color: #FFD600;
-    }
-    .img-preview {
-      width: 120px;
-      height: 120px;
-      object-fit: cover;
-      border-radius: 16px;
-      margin-bottom: 12px;
-      border: 2px solid #FFD600;
-      background: #fff1;
-      display: block;
-    }
-    .save-btn {
-      background: #6d4c2b;
-      color: #fff;
-      font-weight: bold;
-      border: none;
-      border-radius: 30px;
-      padding: 14px 38px;
-      font-size: 1.1em;
-      margin-top: 18px;
-      cursor: pointer;
-      box-shadow: 0 2px 8px #3e272355;
-      transition: background 0.2s, color 0.2s;
-    }
-    .save-btn:hover {
-      background: #3e2723;
-      color: #FFD600;
-    }
-    .section-title {
-      color: #FFD600;
-      font-size: 1.2em;
-      margin-top: 32px;
-      margin-bottom: 8px;
-      border-bottom: 1.5px solid #FFD60055;
-      padding-bottom: 4px;
-    }
-    .note {
-      color: #FFA726;
-      font-size: 0.95em;
-      margin-bottom: 18px;
-    }
+    .admin-panel {max-width:900px;margin:40px auto;padding:32px;background:rgba(30,30,40,0.9);border-radius:18px;box-shadow:0 4px 32px #0002;}
+    .admin-panel h2 {margin-bottom:24px;}
+    .admin-panel label {display:block;margin:18px 0 6px;}
+    .admin-panel input[type="file"] {margin-bottom:12px;}
+    .admin-panel textarea, .admin-panel input[type="text"] {width:100%;padding:8px 12px;border-radius:8px;border:1px solid #444;background:#222;color:#fff;}
+    .admin-panel button {margin-top:18px;padding:10px 28px;border:none;border-radius:8px;background:#0af;color:#fff;font-weight:bold;cursor:pointer;}
+    .admin-panel .section {margin-bottom:36px;}
+    .admin-panel .preview-img {max-width:180px;max-height:120px;display:block;margin:8px 0;}
+    .admin-panel select {padding:6px 12px;border-radius:8px;background:#222;color:#fff;border:1px solid #444;}
   </style>
 </head>
 <body>
-  <div class="admin-header">لوحة تحكم الموقع</div>
-  <div class="admin-container">
-    <div class="section-title">تغيير صورة (برقم الصورة)</div>
-    <label for="imgNum">رقم الصورة (مثال: 1, 2, 3 ...)</label>
-    <input type="number" id="imgNum" min="1" max="20" value="1">
-    <label for="imgUpload">اختر صورة جديدة</label>
-    <input type="file" id="imgUpload" accept="image/*">
-    <img id="imgPreview" class="img-preview" src="images/1.jpg" alt="صورة معاينة">
-    <button class="save-btn" onclick="saveImage()">حفظ الصورة</button>
-    <div class="section-title">تعديل نصوص أو فقرات</div>
-    <label for="pageSelect">اختر الصفحة</label>
-    <select id="pageSelect">
-      <option value="index">الصفحة الرئيسية</option>
-      <option value="blog">المدونة</option>
-      <option value="projects">المشاريع</option>
-      <option value="devices">الأجهزة</option>
-      <option value="pricing">الأسعار</option>
-      <option value="contact">تواصل معنا</option>
-      <option value="faq">الأسئلة الشائعة</option>
-    </select>
-    <label for="sectionKey">معرّف الفقرة أو العنوان (مثال: hero_title, feature1_desc ...)</label>
-    <input type="text" id="sectionKey" placeholder="مثال: hero_title">
-    <label for="sectionText">النص الجديد</label>
-    <textarea id="sectionText" rows="3" placeholder="اكتب النص الجديد هنا..."></textarea>
-    <button class="save-btn" onclick="saveText()">حفظ النص</button>
-    <div class="note">أي تغيير يتم حفظه محلياً ويظهر مباشرة في الموقع عند إعادة تحميل الصفحة.</div>
+  <nav class="main-nav">
+    <!-- ...existing code... -->
+  </nav>
+  <div class="admin-panel glass">
+    <h2>لوحة تحكم الموقع</h2>
+    <div class="section">
+      <label for="bg-upload">تغيير خلفية الموقع:</label>
+      <input type="file" id="bg-upload" accept="image/*">
+      <img id="bg-preview" class="preview-img" style="display:none;" />
+      <button onclick="changeBackground()">تطبيق الخلفية</button>
+    </div>
+    <div class="section">
+      <label for="page-select">اختر الصفحة للتعديل:</label>
+      <select id="page-select">
+        <option value="index.html">الصفحة الرئيسية</option>
+        <option value="plans.html">الباقات</option>
+        <option value="devices.html">الأجهزة</option>
+        <option value="blog.html">المدونة</option>
+        <option value="partners.html">الشركاء</option>
+        <option value="contact.html">تواصل</option>
+      </select>
+      <label for="section-select">اختر القسم:</label>
+      <select id="section-select">
+        <option value="hero">Hero/العنوان الرئيسي</option>
+        <option value="gallery">معرض الصور</option>
+        <option value="content">النصوص/المحتوى</option>
+      </select>
+      <label for="content-edit">تعديل النص أو إضافة صورة:</label>
+      <textarea id="content-edit" rows="4" placeholder="اكتب النص الجديد أو أدخل كود صورة HTML..."></textarea>
+      <button onclick="applyEdit()">تطبيق التعديل</button>
+    </div>
+    <div class="section">
+      <label for="img-upload">إضافة صورة لأي صفحة:</label>
+      <input type="file" id="img-upload" accept="image/*">
+      <img id="img-preview" class="preview-img" style="display:none;" />
+      <button onclick="uploadImage()">رفع الصورة</button>
+    </div>
+    <div id="admin-msg" style="margin-top:18px;color:#0af;font-weight:bold;"></div>
   </div>
-  <script>
-// دعم ذوي الاحتياجات الخاصة
-function saveAccessibility() {
-  let acc = {
-    screenReader: document.getElementById('enableScreenReader').checked,
-    zoom: document.getElementById('enableZoom').checked,
-    contrast: document.getElementById('enableContrast').checked
-  };
-  localStorage.setItem('accessibility',JSON.stringify(acc));
-  alert('تم حفظ إعدادات الوصول!');
-}
-// عن المبادرة
-function saveAbout() {
-  let txt = document.getElementById('aboutText').value.trim();
-  localStorage.setItem('aboutText',txt);
-  alert('تم حفظ نص المبادرة!');
-}
-// شركاء الخير
-function addPartner() {
-  let name = document.getElementById('partnerName').value.trim();
-  let url = document.getElementById('partnerUrl').value.trim();
-  if(!name||!url) {alert('أدخل الاسم والرابط');return;}
-  let partners = JSON.parse(localStorage.getItem('goodPartners')||'[]');
-  partners.push({name,url});
-  localStorage.setItem('goodPartners',JSON.stringify(partners));
-  renderPartners();
-  document.getElementById('partnerName').value='';
-  document.getElementById('partnerUrl').value='';
-}
-function renderPartners() {
-  let partners = JSON.parse(localStorage.getItem('goodPartners')||'[]');
-  let list = document.getElementById('partnersList');
-  if(!list) return;
-  list.innerHTML = partners.map((p,i)=>`<div style='color:#fff;background:#3e272355;padding:5px 8px;border-radius:6px;margin-bottom:4px;'><a href='${p.url}' target='_blank' style='color:#FFD600;'>${p.name}</a> <button onclick='removePartner(${i})' style='background:#e53935;color:#fff;border:none;border-radius:6px;padding:2px 10px;'>حذف</button></div>`).join('');
-}
-function removePartner(idx) {
-  let partners = JSON.parse(localStorage.getItem('goodPartners')||'[]');
-  partners.splice(idx,1);
-  localStorage.setItem('goodPartners',JSON.stringify(partners));
-  renderPartners();
-}
-document.addEventListener('DOMContentLoaded', renderPartners);
-// قصص النجاح
-function addStory() {
-  let name = document.getElementById('storyName').value.trim();
-  let text = document.getElementById('storyText').value.trim();
-  if(!name||!text) {alert('أدخل الاسم والقصة');return;}
-  let stories = JSON.parse(localStorage.getItem('successStories')||'[]');
-  stories.push({name,text});
-  localStorage.setItem('successStories',JSON.stringify(stories));
-  renderStories();
-  document.getElementById('storyName').value='';
-  document.getElementById('storyText').value='';
-}
-function renderStories() {
-  let stories = JSON.parse(localStorage.getItem('successStories')||'[]');
-  let list = document.getElementById('storiesList');
-  if(!list) return;
-  list.innerHTML = stories.map((s,i)=>`<div style='color:#fff;background:#3e272355;padding:5px 8px;border-radius:6px;margin-bottom:4px;'><b>${s.name}</b>: ${s.text} <button onclick='removeStory(${i})' style='background:#e53935;color:#fff;border:none;border-radius:6px;padding:2px 10px;'>حذف</button></div>`).join('');
-}
-function removeStory(idx) {
-  let stories = JSON.parse(localStorage.getItem('successStories')||'[]');
-  stories.splice(idx,1);
-  localStorage.setItem('successStories',JSON.stringify(stories));
-  renderStories();
-}
-document.addEventListener('DOMContentLoaded', renderStories);
-// زر التبرع
-function saveDonate() {
-  let url = document.getElementById('donateUrl').value.trim();
-  localStorage.setItem('donateUrl',url);
-  alert('تم حفظ رابط التبرع!');
-}
-// سياسة الخصوصية
-function savePrivacy() {
-  let txt = document.getElementById('privacyText').value.trim();
-  localStorage.setItem('privacyText',txt);
-  alert('تم حفظ سياسة الخصوصية!');
-}
-// الأسئلة الإنسانية
-function addHumanFaq() {
-  let q = document.getElementById('humanFaqQ').value.trim();
-  let a = document.getElementById('humanFaqA').value.trim();
-  if(!q||!a) {alert('أدخل السؤال والإجابة');return;}
-  let faqs = JSON.parse(localStorage.getItem('humanFaqs')||'[]');
-  faqs.push({q,a});
-  localStorage.setItem('humanFaqs',JSON.stringify(faqs));
-  renderHumanFaqs();
-  document.getElementById('humanFaqQ').value='';
-  document.getElementById('humanFaqA').value='';
-}
-function renderHumanFaqs() {
-  let faqs = JSON.parse(localStorage.getItem('humanFaqs')||'[]');
-  let list = document.getElementById('humanFaqList');
-  if(!list) return;
-  list.innerHTML = faqs.map((f,i)=>`<div style='color:#fff;background:#3e272355;padding:5px 8px;border-radius:6px;margin-bottom:4px;'><b>${f.q}</b>: ${f.a} <button onclick='removeHumanFaq(${i})' style='background:#e53935;color:#fff;border:none;border-radius:6px;padding:2px 10px;'>حذف</button></div>`).join('');
-}
-function removeHumanFaq(idx) {
-  let faqs = JSON.parse(localStorage.getItem('humanFaqs')||'[]');
-  faqs.splice(idx,1);
-  localStorage.setItem('humanFaqs',JSON.stringify(faqs));
-  renderHumanFaqs();
-}
-document.addEventListener('DOMContentLoaded', renderHumanFaqs);
-// دعم ذوي الاحتياجات الخاصة
-function saveAccessibility() {
-  let acc = {
-    screenReader: document.getElementById('enableScreenReader').checked,
-    zoom: document.getElementById('enableZoom').checked,
-    contrast: document.getElementById('enableContrast').checked
-  };
-  localStorage.setItem('accessibility',JSON.stringify(acc));
-  alert('تم حفظ إعدادات الوصول!');
-}
-// عن المبادرة
-function saveAbout() {
-  let txt = document.getElementById('aboutText').value.trim();
-  localStorage.setItem('aboutText',txt);
-  alert('تم حفظ النص!');
-}
-// شركاء الخير
-function addPartner() {
-  let name = document.getElementById('partnerName').value.trim();
-  let url = document.getElementById('partnerUrl').value.trim();
-  if(!name||!url) {alert('أدخل الاسم والرابط');return;}
-  let partners = JSON.parse(localStorage.getItem('goodPartners')||'[]');
-  partners.push({name,url});
-  localStorage.setItem('goodPartners',JSON.stringify(partners));
-  renderPartners();
-  document.getElementById('partnerName').value='';
-  document.getElementById('partnerUrl').value='';
-}
-function renderPartners() {
-  let partners = JSON.parse(localStorage.getItem('goodPartners')||'[]');
-  let list = document.getElementById('partnersList');
-  if(!list) return;
-  list.innerHTML = partners.map((p,i)=>`<div style='color:#fff;background:#3e272355;padding:5px 8px;border-radius:6px;margin-bottom:4px;'><a href='${p.url}' target='_blank' style='color:#FFD600;'>${p.name}</a> <button onclick='removePartner(${i})' style='background:#e53935;color:#fff;border:none;border-radius:6px;padding:2px 10px;'>حذف</button></div>`).join('');
-}
-function removePartner(idx) {
-  let partners = JSON.parse(localStorage.getItem('goodPartners')||'[]');
-  partners.splice(idx,1);
-  localStorage.setItem('goodPartners',JSON.stringify(partners));
-  renderPartners();
-}
-document.addEventListener('DOMContentLoaded', renderPartners);
-// قصص نجاح
-function addStory() {
-  let title = document.getElementById('storyTitle').value.trim();
-  let content = document.getElementById('storyContent').value.trim();
-  if(!title||!content) {alert('أدخل العنوان والنص');return;}
-  let stories = JSON.parse(localStorage.getItem('successStories')||'[]');
-  stories.push({title,content});
-  localStorage.setItem('successStories',JSON.stringify(stories));
-  renderStories();
-  document.getElementById('storyTitle').value='';
-  document.getElementById('storyContent').value='';
-}
-function renderStories() {
-  let stories = JSON.parse(localStorage.getItem('successStories')||'[]');
-  let list = document.getElementById('storiesList');
-  if(!list) return;
-  list.innerHTML = stories.map((s,i)=>`<div style='color:#fff;background:#3e272355;padding:5px 8px;border-radius:6px;margin-bottom:4px;'><b>${s.title}</b>: ${s.content} <button onclick='removeStory(${i})' style='background:#e53935;color:#fff;border:none;border-radius:6px;padding:2px 10px;'>حذف</button></div>`).join('');
-}
-function removeStory(idx) {
-  let stories = JSON.parse(localStorage.getItem('successStories')||'[]');
-  stories.splice(idx,1);
-  localStorage.setItem('successStories',JSON.stringify(stories));
-  renderStories();
-}
-document.addEventListener('DOMContentLoaded', renderStories);
-// زر تبرع عالمي
-function saveDonate() {
-  let url = document.getElementById('donateUrl').value.trim();
-  localStorage.setItem('donateUrl',url);
-  alert('تم حفظ رابط التبرع!');
-}
-// سياسة الخصوصية
-function savePrivacy() {
-  let txt = document.getElementById('privacyText').value.trim();
-  localStorage.setItem('privacyText',txt);
-  alert('تم حفظ سياسة الخصوصية!');
-}
-// الأسئلة الإنسانية
-function addHumanFaq() {
-  let q = document.getElementById('humanFaqQ').value.trim();
-  let a = document.getElementById('humanFaqA').value.trim();
-  if(!q||!a) {alert('أدخل السؤال والإجابة');return;}
-  let faqs = JSON.parse(localStorage.getItem('humanFaqs')||'[]');
-  faqs.push({q,a});
-  localStorage.setItem('humanFaqs',JSON.stringify(faqs));
-  renderHumanFaqs();
-  document.getElementById('humanFaqQ').value='';
-  document.getElementById('humanFaqA').value='';
-}
-function renderHumanFaqs() {
-  let faqs = JSON.parse(localStorage.getItem('humanFaqs')||'[]');
-  let list = document.getElementById('humanFaqList');
-  if(!list) return;
-  list.innerHTML = faqs.map((f,i)=>`<div style='color:#fff;background:#3e272355;padding:5px 8px;border-radius:6px;margin-bottom:4px;'><b>${f.q}</b>: ${f.a} <button onclick='removeHumanFaq(${i})' style='background:#e53935;color:#fff;border:none;border-radius:6px;padding:2px 10px;'>حذف</button></div>`).join('');
-}
-function removeHumanFaq(idx) {
-  let faqs = JSON.parse(localStorage.getItem('humanFaqs')||'[]');
-  faqs.splice(idx,1);
-  localStorage.setItem('humanFaqs',JSON.stringify(faqs));
-  renderHumanFaqs();
-}
-document.addEventListener('DOMContentLoaded', renderHumanFaqs);
-// تسجيل الدخول الاجتماعي (وهمي)
-function saveSocialLogin() {
-  let social = {
-    google: document.getElementById('loginGoogle').checked,
-    facebook: document.getElementById('loginFacebook').checked,
-    apple: document.getElementById('loginApple').checked,
-    linkedin: document.getElementById('loginLinkedIn').checked
-  };
-  localStorage.setItem('socialLogin',JSON.stringify(social));
-  alert('تم حفظ إعدادات تسجيل الدخول الاجتماعي!');
-}
-// أزرار المشاركة
-function saveShareButtons() {
-  let share = {
-    home: document.getElementById('shareHome').checked,
-    blog: document.getElementById('shareBlog').checked,
-    projects: document.getElementById('shareProjects').checked,
-    devices: document.getElementById('shareDevices').checked
-  };
-  localStorage.setItem('shareButtons',JSON.stringify(share));
-  alert('تم حفظ إعدادات المشاركة!');
-}
-// مولد QR
-function generateQR() {
-  let url = document.getElementById('qrUrl').value.trim();
-  if(!url) {alert('أدخل الرابط');return;}
-  let api = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(url)}`;
-  document.getElementById('qrResult').innerHTML = `<img src='${api}' alt='QR' style='margin:8px;'>`;
-}
-// دعم AMP (وهمي)
-function saveAMP() {
-  let amp = {
-    home: document.getElementById('ampHome').checked,
-    blog: document.getElementById('ampBlog').checked,
-    projects: document.getElementById('ampProjects').checked
-  };
-  localStorage.setItem('ampPages',JSON.stringify(amp));
-  alert('تم حفظ إعدادات AMP!');
-}
-// خريطة الموقع
-function generateSitemap() {
-  let urls = [
-    location.origin+'/',
-    location.origin+'/blog.html',
-    location.origin+'/projects.html',
-    location.origin+'/devices.html',
-    location.origin+'/pricing.html',
-    location.origin+'/contact.html',
-    location.origin+'/faq.html'
-  ];
-  let xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
-  urls.forEach(u=>{xml += `\n  <url><loc>${u}</loc></url>`;});
-  xml += '\n</urlset>';
-  document.getElementById('sitemapResult').textContent = xml;
-  logActivity('توليد خريطة الموقع');
-}
-// بيانات منظمة Schema.org (وهمي)
-function saveSchema() {
-  let schema = {
-    org: document.getElementById('schemaOrg').checked,
-    product: document.getElementById('schemaProduct').checked,
-    faq: document.getElementById('schemaFAQ').checked,
-    review: document.getElementById('schemaReview').checked
-  };
-  localStorage.setItem('schemaSettings',JSON.stringify(schema));
-  alert('تم حفظ إعدادات البيانات المنظمة!');
-}
-// دعم لغات عالمية
-function addLang() {
-  let code = document.getElementById('addLangCode').value.trim();
-  if(!code) {alert('أدخل رمز اللغة');return;}
-  let langs = JSON.parse(localStorage.getItem('extraLangs')||'[]');
-  langs.push(code);
-  localStorage.setItem('extraLangs',JSON.stringify(langs));
-  document.getElementById('addLangCode').value='';
-  renderLangList();
-}
-function renderLangList() {
-  let langs = JSON.parse(localStorage.getItem('extraLangs')||'[]');
-  let list = document.getElementById('langList');
-  if(!list) return;
-  list.innerHTML = langs.map((c,i)=>`<div style='color:#fff;background:#3e272355;padding:5px 8px;border-radius:6px;margin-bottom:4px;'>${c} <button onclick='removeLang(${i})' style='background:#e53935;color:#fff;border:none;border-radius:6px;padding:2px 10px;'>حذف</button></div>`).join('');
-}
-function removeLang(idx) {
-  let langs = JSON.parse(localStorage.getItem('extraLangs')||'[]');
-  langs.splice(idx,1);
-  localStorage.setItem('extraLangs',JSON.stringify(langs));
-  renderLangList();
-}
-document.addEventListener('DOMContentLoaded', renderLangList);
-// Press/Media Kit
-function addPressItem() {
-  let title = document.getElementById('pressTitle').value.trim();
-  let content = document.getElementById('pressContent').value.trim();
-  let file = document.getElementById('pressFile').files[0];
-  if(!title||!content) {alert('أدخل العنوان والوصف');return;}
-  let press = JSON.parse(localStorage.getItem('pressKit')||'[]');
-  if(file) {
-    let reader = new FileReader();
-    reader.onload = function(ev) {
-      press.push({title,content,file:ev.target.result});
-      localStorage.setItem('pressKit',JSON.stringify(press));
-      renderPressList();
-      document.getElementById('pressTitle').value='';
-      document.getElementById('pressContent').value='';
-      document.getElementById('pressFile').value='';
-    };
-    reader.readAsDataURL(file);
-  } else {
-    press.push({title,content});
-    localStorage.setItem('pressKit',JSON.stringify(press));
-    renderPressList();
-    document.getElementById('pressTitle').value='';
-    document.getElementById('pressContent').value='';
-  }
-}
-function renderPressList() {
-  let press = JSON.parse(localStorage.getItem('pressKit')||'[]');
-  let list = document.getElementById('pressList');
-  if(!list) return;
-  list.innerHTML = press.map((p,i)=>{
-    let file = p.file?`<a href='${p.file}' target='_blank' style='color:#00e0ff;'>ملف</a>`:'';
-    return `<div style='color:#fff;background:#3e272355;padding:5px 8px;border-radius:6px;margin-bottom:4px;'><b>${p.title}</b>: ${p.content} ${file} <button onclick='removePressItem(${i})' style='background:#e53935;color:#fff;border:none;border-radius:6px;padding:2px 10px;'>حذف</button></div>`;
-  }).join('');
-}
-function removePressItem(idx) {
-  let press = JSON.parse(localStorage.getItem('pressKit')||'[]');
-  press.splice(idx,1);
-  localStorage.setItem('pressKit',JSON.stringify(press));
-  renderPressList();
-}
-document.addEventListener('DOMContentLoaded', renderPressList);
-// تكامل مراجعات Google/Trustpilot
-function saveReviewIntegration() {
-  let google = document.getElementById('googleReviewUrl').value.trim();
-  let trust = document.getElementById('trustpilotUrl').value.trim();
-  localStorage.setItem('reviewIntegration',JSON.stringify({google,trust}));
-  alert('تم حفظ روابط المراجعات!');
-}
-// تكامل Mailchimp
-function saveMailchimp() {
-  let email = document.getElementById('mailchimpEmail').value.trim();
-  localStorage.setItem('mailchimpEmail',email);
-  alert('تم حفظ بريد Mailchimp!');
-}
-// نظام المستخدمين والصلاحيات
-function addUser() {
-  let name = document.getElementById('newUserName').value.trim();
-  let pass = document.getElementById('newUserPass').value.trim();
-  let role = document.getElementById('newUserRole').value;
-  if(!name||!pass) {alert('أدخل اسم المستخدم وكلمة المرور');return;}
-  let users = JSON.parse(localStorage.getItem('users')||'[]');
-  users.push({name,pass,role});
-  localStorage.setItem('users',JSON.stringify(users));
-  document.getElementById('newUserName').value='';
-  document.getElementById('newUserPass').value='';
-  renderUserList();
-  logActivity('إضافة مستخدم جديد: '+name);
-}
-function renderUserList() {
-  let users = JSON.parse(localStorage.getItem('users')||'[]');
-  let list = document.getElementById('userList');
-  if(!list) return;
-  list.innerHTML = users.map((u,i)=>`<div style='color:#fff;background:#3e272355;padding:5px 8px;border-radius:6px;margin-bottom:4px;'>${u.name} <b>[${u.role}]</b> <button onclick='removeUser(${i})' style='background:#e53935;color:#fff;border:none;border-radius:6px;padding:2px 10px;'>حذف</button></div>`).join('');
-}
-function removeUser(idx) {
-  let users = JSON.parse(localStorage.getItem('users')||'[]');
-  let name = users[idx].name;
-  users.splice(idx,1);
-  localStorage.setItem('users',JSON.stringify(users));
-  renderUserList();
-  logActivity('حذف مستخدم: '+name);
-}
-document.addEventListener('DOMContentLoaded', renderUserList);
-// سجل النشاطات
-function logActivity(txt) {
-  let log = JSON.parse(localStorage.getItem('activityLog')||'[]');
-  log.unshift({txt,time:new Date().toLocaleString()});
-  if(log.length>100) log.pop();
-  localStorage.setItem('activityLog',JSON.stringify(log));
-  renderActivityLog();
-}
-function renderActivityLog() {
-  let log = JSON.parse(localStorage.getItem('activityLog')||'[]');
-  let list = document.getElementById('activityLog');
-  if(!list) return;
-  list.innerHTML = log.map(l=>`<div>${l.time} - ${l.txt}</div>`).join('');
-}
-document.addEventListener('DOMContentLoaded', renderActivityLog);
-// مركز الرسائل
-function renderMessages() {
-  let msgs = JSON.parse(localStorage.getItem('messages')||'[]');
-  let list = document.getElementById('messagesList');
-  if(!list) return;
-  list.innerHTML = msgs.map((m,i)=>`<div style='color:#fff;background:#3e272355;padding:5px 8px;border-radius:6px;margin-bottom:4px;'><b>${m.from}</b>: ${m.text} <button onclick='selectMsg(${i})' style='background:#00e0ff;color:#fff;border:none;border-radius:6px;padding:2px 10px;'>رد</button></div>`).join('');
-}
-let selectedMsgIdx = null;
-function selectMsg(idx) { selectedMsgIdx=idx; document.getElementById('adminReply').focus(); }
-function sendReply() {
-  let msgs = JSON.parse(localStorage.getItem('messages')||'[]');
-  if(selectedMsgIdx===null) {alert('اختر رسالة للرد');return;}
-  msgs[selectedMsgIdx].reply = document.getElementById('adminReply').value;
-  localStorage.setItem('messages',JSON.stringify(msgs));
-  document.getElementById('adminReply').value='';
-  renderMessages();
-  logActivity('رد على رسالة من: '+msgs[selectedMsgIdx].from);
-  selectedMsgIdx=null;
-}
-document.addEventListener('DOMContentLoaded', renderMessages);
-// إدارة الإعلانات
-function addAd() {
-  let title = document.getElementById('adTitle').value.trim();
-  let content = document.getElementById('adContent').value.trim();
-  let start = document.getElementById('adStart').value;
-  let end = document.getElementById('adEnd').value;
-  if(!title||!content||!start||!end) {alert('أدخل جميع الحقول');return;}
-  let ads = JSON.parse(localStorage.getItem('ads')||'[]');
-  ads.push({title,content,start,end});
-  localStorage.setItem('ads',JSON.stringify(ads));
-  document.getElementById('adTitle').value='';
-  document.getElementById('adContent').value='';
-  document.getElementById('adStart').value='';
-  document.getElementById('adEnd').value='';
-  renderAds();
-  logActivity('إضافة إعلان: '+title);
-}
-function renderAds() {
-  let ads = JSON.parse(localStorage.getItem('ads')||'[]');
-  let list = document.getElementById('adsList');
-  if(!list) return;
-  list.innerHTML = ads.map((a,i)=>`<div style='color:#fff;background:#3e272355;padding:5px 8px;border-radius:6px;margin-bottom:4px;'><b>${a.title}</b> (${a.start} - ${a.end}): ${a.content} <button onclick='removeAd(${i})' style='background:#e53935;color:#fff;border:none;border-radius:6px;padding:2px 10px;'>حذف</button></div>`).join('');
-}
-function removeAd(idx) {
-  let ads = JSON.parse(localStorage.getItem('ads')||'[]');
-  let title = ads[idx].title;
-  ads.splice(idx,1);
-  localStorage.setItem('ads',JSON.stringify(ads));
-  renderAds();
-  logActivity('حذف إعلان: '+title);
-}
-document.addEventListener('DOMContentLoaded', renderAds);
-// إدارة SEO
-function saveSEO() {
-  let title = document.getElementById('seoTitle').value.trim();
-  let desc = document.getElementById('seoDesc').value.trim();
-  let keywords = document.getElementById('seoKeywords').value.trim();
-  let image = document.getElementById('seoImage').value.trim();
-  let seo = {title,desc,keywords,image};
-  localStorage.setItem('seo',JSON.stringify(seo));
-  alert('تم حفظ بيانات SEO!');
-  logActivity('تحديث بيانات SEO');
-}
-// تصدير واستيراد البيانات
-function exportData() {
-  let data = {};
-  ["users","activityLog","messages","ads","seo","testimonials","team","galleryImagesV2","deviceGallery","videos","socials","translations","ai_faqs","faqCats"].forEach(k=>{data[k]=localStorage.getItem(k)});
-  let blob = new Blob([JSON.stringify(data)],{type:'application/json'});
-  let a = document.createElement('a');
-  a.href=URL.createObjectURL(blob);a.download='backup.json';a.click();
-  logActivity('تصدير نسخة احتياطية');
-}
-function importData() {
-  let file = document.getElementById('importFile').files[0];
-  if(!file) {alert('اختر ملفاً');return;}
-  let reader = new FileReader();
-  reader.onload = function(ev) {
-    let data = JSON.parse(ev.target.result);
-    Object.keys(data).forEach(k=>{if(data[k]) localStorage.setItem(k,data[k]);});
-    alert('تم استيراد البيانات!');
-    logActivity('استيراد بيانات');
-    location.reload();
-  };
-  reader.readAsText(file);
-}
-// إشعارات فورية (تنبيه وهمي)
-function sendPushNotif() {
-  let title = document.getElementById('notifTitle').value.trim();
-  let body = document.getElementById('notifBody').value.trim();
-  if(!title||!body) {alert('أدخل العنوان والمحتوى');return;}
-  alert('تم إرسال إشعار: '+title+' - '+body);
-  logActivity('إرسال إشعار: '+title);
-}
-// تصنيف الأسئلة الشائعة
-function addFaqCat() {
-  let cat = document.getElementById('faqCat').value.trim();
-  if(!cat) {alert('أدخل اسم التصنيف');return;}
-  let cats = JSON.parse(localStorage.getItem('faqCats')||'[]');
-  cats.push(cat);
-  localStorage.setItem('faqCats',JSON.stringify(cats));
-  document.getElementById('faqCat').value='';
-  renderFaqCats();
-}
-function renderFaqCats() {
-  let cats = JSON.parse(localStorage.getItem('faqCats')||'[]');
-  let list = document.getElementById('faqCatList');
-  if(!list) return;
-  list.innerHTML = cats.map((c,i)=>`<div style='color:#fff;background:#3e272355;padding:5px 8px;border-radius:6px;margin-bottom:4px;'>${c} <button onclick='removeFaqCat(${i})' style='background:#e53935;color:#fff;border:none;border-radius:6px;padding:2px 10px;'>حذف</button></div>`).join('');
-}
-function removeFaqCat(idx) {
-  let cats = JSON.parse(localStorage.getItem('faqCats')||'[]');
-  cats.splice(idx,1);
-  localStorage.setItem('faqCats',JSON.stringify(cats));
-  renderFaqCats();
-}
-document.addEventListener('DOMContentLoaded', renderFaqCats);
-// دعم تقييمات بالصور والفيديو
-function addTestimonial() {
-  let name = document.getElementById('reviewerName').value.trim();
-  let text = document.getElementById('reviewText').value.trim();
-  let stars = document.getElementById('reviewStars').value;
-  let imgFile = document.getElementById('reviewImg').files[0];
-  let video = document.getElementById('reviewVideo').value.trim();
-  if(!name||!text||!stars) {alert('أدخل جميع الحقول');return;}
-  let testimonials = JSON.parse(localStorage.getItem('testimonials')||'[]');
-  if(imgFile) {
-    let reader = new FileReader();
-    reader.onload = function(ev) {
-      testimonials.push({name,text,stars,img:ev.target.result,video});
-      localStorage.setItem('testimonials',JSON.stringify(testimonials));
-      renderTestimonials();
-      document.getElementById('reviewerName').value='';
-      document.getElementById('reviewText').value='';
-      document.getElementById('reviewStars').value=5;
-      document.getElementById('reviewImg').value='';
-      document.getElementById('reviewVideo').value='';
-      logActivity('إضافة تقييم جديد');
-    };
-    reader.readAsDataURL(imgFile);
-  } else {
-    testimonials.push({name,text,stars,video});
-    localStorage.setItem('testimonials',JSON.stringify(testimonials));
-    renderTestimonials();
-    document.getElementById('reviewerName').value='';
-    document.getElementById('reviewText').value='';
-    document.getElementById('reviewStars').value=5;
-    document.getElementById('reviewImg').value='';
-    document.getElementById('reviewVideo').value='';
-    logActivity('إضافة تقييم جديد');
-  }
-}
-function renderTestimonials() {
-  let testimonials = JSON.parse(localStorage.getItem('testimonials')||'[]');
-  let list = document.getElementById('testimonialsList');
-  if(!list) return;
-  list.innerHTML = testimonials.map((t,i)=>{
-    let img = t.img?`<img src='${t.img}' style='width:60px;height:60px;border-radius:8px;object-fit:cover;margin-left:8px;'>`:'';
-    let vid = t.video?`<a href='${t.video}' target='_blank' style='color:#00e0ff;margin-left:8px;'>فيديو</a>`:'';
-    return `<div style='color:#fff;background:#3e272355;padding:5px 8px;border-radius:6px;margin-bottom:4px;'><b>${t.name}</b>: ${t.text} <span style='color:#FFD600;'>${'★'.repeat(t.stars)}</span> ${img} ${vid} <button onclick='removeTestimonial(${i})' style='background:#e53935;color:#fff;border:none;border-radius:6px;padding:2px 10px;'>حذف</button></div>`;
-  }).join('');
-}
-document.addEventListener('DOMContentLoaded', renderTestimonials);
-// Google Analytics/Meta Pixel تكامل (وهمي)
-window.addEventListener('DOMContentLoaded',()=>{
-  logActivity('تم تحميل لوحة التحكم');
-});
-    // إدارة الأسئلة الشائعة للمساعد الذكي
-    function renderFaqList() {
-      const faqList = document.getElementById('faqList');
-      let faqs = JSON.parse(localStorage.getItem('ai_faqs')||'[]');
-      faqList.innerHTML = '';
-      faqs.forEach((f, i) => {
-        const row = document.createElement('div');
-        row.style = 'background:#fff1;color:#222;padding:7px 10px;border-radius:8px;margin-bottom:7px;display:flex;align-items:center;gap:8px;';
-        row.innerHTML = `<b style='color:#3e2723;'>س:</b> <input type='text' value='${f.q.replace(/'/g,"&#39;")}' style='width:32%;border-radius:6px;border:1px solid #FFD600;padding:4px 7px;' onchange='updateFaqQ(${i},this.value)'> <b style='color:#3e2723;'>ج:</b> <input type='text' value='${f.a.replace(/'/g,"&#39;")}' style='width:48%;border-radius:6px;border:1px solid #FFD600;padding:4px 7px;' onchange='updateFaqA(${i},this.value)'> <button onclick='removeFaq(${i})' style='background:#e53935;color:#fff;border:none;border-radius:6px;padding:2px 10px;'>حذف</button>`;
-        faqList.appendChild(row);
-      });
-    }
-    function addFaq() {
-      let q = document.getElementById('faqQ').value.trim();
-      let a = document.getElementById('faqA').value.trim();
-      if(!q||!a) { alert('أدخل السؤال والإجابة'); return; }
-      let faqs = JSON.parse(localStorage.getItem('ai_faqs')||'[]');
-      faqs.push({q,a});
-      localStorage.setItem('ai_faqs', JSON.stringify(faqs));
-      document.getElementById('faqQ').value = '';
-      document.getElementById('faqA').value = '';
-      renderFaqList();
-    }
-    function removeFaq(idx) {
-      let faqs = JSON.parse(localStorage.getItem('ai_faqs')||'[]');
-      faqs.splice(idx,1);
-      localStorage.setItem('ai_faqs', JSON.stringify(faqs));
-      renderFaqList();
-    }
-    function updateFaqQ(idx, val) {
-      let faqs = JSON.parse(localStorage.getItem('ai_faqs')||'[]');
-      faqs[idx].q = val;
-      localStorage.setItem('ai_faqs', JSON.stringify(faqs));
-    }
-    function updateFaqA(idx, val) {
-      let faqs = JSON.parse(localStorage.getItem('ai_faqs')||'[]');
-      faqs[idx].a = val;
-      localStorage.setItem('ai_faqs', JSON.stringify(faqs));
-    }
-    document.addEventListener('DOMContentLoaded', renderFaqList);
-    // إدارة نص الشريط المتحرك
-    function loadMarqueeAdmin() {
-      let store = JSON.parse(localStorage.getItem('text_index')||'{}');
-      document.getElementById('marqueeTextInput').value = store.marquee_text||'';
-      document.getElementById('marqueeFontSize').value = store.marquee_fontsize||18;
-      document.getElementById('marqueeSpeed').value = store.marquee_speed||18;
-      document.getElementById('marqueeColor').value = store.marquee_color||'#FFD600';
-      document.getElementById('marqueeLang').value = store.marquee_lang||'all';
-    }
-    function saveMarqueeText() {
-      let val = document.getElementById('marqueeTextInput').value.trim();
-      let fontsize = document.getElementById('marqueeFontSize').value;
-      let speed = document.getElementById('marqueeSpeed').value;
-      let color = document.getElementById('marqueeColor').value;
-      let lang = document.getElementById('marqueeLang').value;
-      let store = JSON.parse(localStorage.getItem('text_index')||'{}');
-      store.marquee_text = val;
-      store.marquee_fontsize = fontsize;
-      store.marquee_speed = speed;
-      store.marquee_color = color;
-      store.marquee_lang = lang;
-      localStorage.setItem('text_index', JSON.stringify(store));
-      alert('Banner settings saved!');
-      // تحديث لحظي في الصفحة الرئيسية إذا مفتوحة
-      if(window.opener && window.opener.loadMarqueeText) window.opener.loadMarqueeText();
-    }
-    document.addEventListener('DOMContentLoaded', loadMarqueeAdmin);
-    // إدارة روابط التواصل الاجتماعي
-    function loadSocials() {
-      const socials = JSON.parse(localStorage.getItem('socials') || '{}');
-      const keys = ['fb','tw','yt','tg','li','wa','tt','gm'];
-      keys.forEach(k => {
-        document.getElementById(k+'_url').value = socials[k]||'';
-        document.getElementById(k+'_on').checked = !!socials[k];
-      });
-    }
-    function saveSocials() {
-      const keys = ['fb','tw','yt','tg','li','wa','tt','gm'];
-      let socials = {};
-      keys.forEach(k => {
-        const url = document.getElementById(k+'_url').value.trim();
-        if(document.getElementById(k+'_on').checked && url) socials[k]=url;
-      });
-      localStorage.setItem('socials', JSON.stringify(socials));
-      alert('تم حفظ روابط التواصل!');
-    }
-    document.addEventListener('DOMContentLoaded', loadSocials);
-    // معاينة الصورة حسب الرقم
-    document.getElementById('imgNum').addEventListener('input', function() {
-      var num = this.value;
-      document.getElementById('imgPreview').src = 'images/' + num + '.jpg';
-    });
-    // معاينة الصورة عند الرفع
-    document.getElementById('imgUpload').addEventListener('change', function(e) {
-      var file = e.target.files[0];
-      if(file) {
-        var reader = new FileReader();
-        reader.onload = function(ev) {
-          document.getElementById('imgPreview').src = ev.target.result;
-        };
-        reader.readAsDataURL(file);
-      }
-    });
-    // حفظ الصورة (محلي فقط)
-    function saveImage() {
-      var num = document.getElementById('imgNum').value;
-      var file = document.getElementById('imgUpload').files[0];
-      if(file) {
-        var reader = new FileReader();
-        reader.onload = function(ev) {
-          localStorage.setItem('img_' + num, ev.target.result);
-          alert('تم حفظ الصورة رقم ' + num + ' محلياً!');
-        };
-        reader.readAsDataURL(file);
-      } else {
-        alert('اختر صورة أولاً');
-      }
-    }
-    // حفظ النص
-    function saveText() {
-      var page = document.getElementById('pageSelect').value;
-      var key = document.getElementById('sectionKey').value.trim();
-      var val = document.getElementById('sectionText').value;
-      if(key && val) {
-        var store = JSON.parse(localStorage.getItem('text_' + page) || '{}');
-        store[key] = val;
-        localStorage.setItem('text_' + page, JSON.stringify(store));
-        alert('تم حفظ النص!');
-      } else {
-        alert('أدخل معرّف الفقرة والنص الجديد');
-      }
-    }
-  </script>
-  <!-- سكريبتات الميزات العالمية الجديدة -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script>
-  // إحصائيات وهمية للعرض
-  function renderAnalytics() {
-    const ctx = document.getElementById('visitorsChart');
-    if(!ctx) return;
-    const data = {
-      labels: ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو'],
-      datasets: [{
-        label: 'عدد الزوار',
-        data: [120, 190, 300, 500, 200, 300, 450],
-        backgroundColor: '#FFD60088',
-        borderColor: '#FFD600',
-        borderWidth: 2
-      }]
-    };
-    new Chart(ctx, {type:'line',data,options:{plugins:{legend:{labels:{color:'#FFD600'}}},scales:{x:{ticks:{color:'#FFD600'}},y:{ticks:{color:'#FFD600'}}}}});
-    document.getElementById('analyticsStats').innerHTML = 'إجمالي الزوار: 2060 | الدول الأكثر زيارة: مصر، السعودية، الإمارات';
-  }
-  document.addEventListener('DOMContentLoaded', renderAnalytics);
-  // إشعارات وهمية
-  function renderNotifications() {
-    const n = [
-      'تسجيل جديد: أحمد من مصر',
-      'رسالة من زائر: "كيف أشترك؟"',
-      'تنبيه: محاولة دخول غير مصرح',
-    ];
-    document.getElementById('adminNotifications').innerHTML = n.map(x=>'<div>🔔 '+x+'</div>').join('');
-  }
-  document.addEventListener('DOMContentLoaded', renderNotifications);
-  // إدارة الترجمات
-  function addTranslation() {
-    let orig = document.getElementById('origText').value.trim();
-    let lang = document.getElementById('transLang').value.trim();
-    let trans = document.getElementById('transText').value.trim();
-    if(!orig||!lang||!trans) {alert('أدخل جميع الحقول');return;}
-    let translations = JSON.parse(localStorage.getItem('translations')||'[]');
-    translations.push({orig,lang,trans});
-    localStorage.setItem('translations',JSON.stringify(translations));
-    document.getElementById('origText').value='';
-    document.getElementById('transLang').value='';
-    document.getElementById('transText').value='';
-    renderTranslations();
-  }
-  function renderTranslations() {
-    let translations = JSON.parse(localStorage.getItem('translations')||'[]');
-    let list = document.getElementById('translationsList');
-    if(!list) return;
-    list.innerHTML = translations.map((t,i)=>`<div style='color:#fff;background:#3e272355;padding:5px 8px;border-radius:6px;margin-bottom:4px;'>${t.orig} <b>[${t.lang}]</b>: ${t.trans} <button onclick='removeTranslation(${i})' style='background:#e53935;color:#fff;border:none;border-radius:6px;padding:2px 10px;'>حذف</button></div>`).join('');
-  }
-  function removeTranslation(idx) {
-    let translations = JSON.parse(localStorage.getItem('translations')||'[]');
-    translations.splice(idx,1);
-    localStorage.setItem('translations',JSON.stringify(translations));
-    renderTranslations();
-  }
-  document.addEventListener('DOMContentLoaded', renderTranslations);
-  // مدير الملفات
-  function uploadFiles() {
-    let files = document.getElementById('fileUpload').files;
-    let fileList = JSON.parse(localStorage.getItem('fileManager')||'[]');
-    for(let f of files) {
-      let reader = new FileReader();
-      reader.onload = function(ev) {
-        fileList.push({name:f.name,url:ev.target.result});
-        localStorage.setItem('fileManager',JSON.stringify(fileList));
-        renderFileList();
-      };
-      reader.readAsDataURL(f);
-    }
-  }
-  function renderFileList() {
-    let fileList = JSON.parse(localStorage.getItem('fileManager')||'[]');
-    let list = document.getElementById('fileList');
-    if(!list) return;
-    list.innerHTML = fileList.map((f,i)=>`<div style='color:#fff;background:#3e272355;padding:5px 8px;border-radius:6px;margin-bottom:4px;'><a href='${f.url}' target='_blank' style='color:#FFD600;'>${f.name}</a> <button onclick='removeFile(${i})' style='background:#e53935;color:#fff;border:none;border-radius:6px;padding:2px 10px;'>حذف</button></div>`).join('');
-  }
-  function removeFile(idx) {
-    let fileList = JSON.parse(localStorage.getItem('fileManager')||'[]');
-    fileList.splice(idx,1);
-    localStorage.setItem('fileManager',JSON.stringify(fileList));
-    renderFileList();
-  }
-  document.addEventListener('DOMContentLoaded', renderFileList);
-  // إدارة فريق العمل
-  function addTeamMember() {
-    let name = document.getElementById('teamName').value.trim();
-    let role = document.getElementById('teamRole').value.trim();
-    let bio = document.getElementById('teamBio').value.trim();
-    let imgFile = document.getElementById('teamImg').files[0];
-    if(!name||!role||!bio||!imgFile) {alert('أدخل جميع الحقول');return;}
-    let reader = new FileReader();
-    reader.onload = function(ev) {
-      let team = JSON.parse(localStorage.getItem('team')||'[]');
-      team.push({name,role,bio,img:ev.target.result});
-      localStorage.setItem('team',JSON.stringify(team));
-      renderTeamList();
-      document.getElementById('teamName').value='';
-      document.getElementById('teamRole').value='';
-      document.getElementById('teamBio').value='';
-      document.getElementById('teamImg').value='';
-    };
-    reader.readAsDataURL(imgFile);
-  }
-  function renderTeamList() {
-    let team = JSON.parse(localStorage.getItem('team')||'[]');
-    let list = document.getElementById('teamList');
-    if(!list) return;
-    list.innerHTML = team.map((m,i)=>`<div style='color:#fff;background:#3e272355;padding:5px 8px;border-radius:6px;margin-bottom:4px;display:flex;align-items:center;gap:10px;'><img src='${m.img}' style='width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid #FFD600;'> <b>${m.name}</b> - ${m.role} <span style='font-size:0.95em;color:#FFD600;'>${m.bio}</span> <button onclick='removeTeamMember(${i})' style='background:#e53935;color:#fff;border:none;border-radius:6px;padding:2px 10px;'>حذف</button></div>`).join('');
-  }
-  function removeTeamMember(idx) {
-    let team = JSON.parse(localStorage.getItem('team')||'[]');
-    team.splice(idx,1);
-    localStorage.setItem('team',JSON.stringify(team));
-    renderTeamList();
-  }
-  document.addEventListener('DOMContentLoaded', renderTeamList);
-  // إدارة مراجعات العملاء
-  function addTestimonial() {
-    let name = document.getElementById('reviewerName').value.trim();
-    let text = document.getElementById('reviewText').value.trim();
-    let stars = document.getElementById('reviewStars').value;
-    if(!name||!text||!stars) {alert('أدخل جميع الحقول');return;}
-    let testimonials = JSON.parse(localStorage.getItem('testimonials')||'[]');
-    testimonials.push({name,text,stars});
-    localStorage.setItem('testimonials',JSON.stringify(testimonials));
-    renderTestimonials();
-    document.getElementById('reviewerName').value='';
-    document.getElementById('reviewText').value='';
-    document.getElementById('reviewStars').value=5;
-  }
-  function renderTestimonials() {
-    let testimonials = JSON.parse(localStorage.getItem('testimonials')||'[]');
-    let list = document.getElementById('testimonialsList');
-    if(!list) return;
-    list.innerHTML = testimonials.map((t,i)=>`<div style='color:#fff;background:#3e272355;padding:5px 8px;border-radius:6px;margin-bottom:4px;'><b>${t.name}</b>: ${t.text} <span style='color:#FFD600;'>${'★'.repeat(t.stars)}</span> <button onclick='removeTestimonial(${i})' style='background:#e53935;color:#fff;border:none;border-radius:6px;padding:2px 10px;'>حذف</button></div>`).join('');
-  }
-  function removeTestimonial(idx) {
-    let testimonials = JSON.parse(localStorage.getItem('testimonials')||'[]');
-    testimonials.splice(idx,1);
-    localStorage.setItem('testimonials',JSON.stringify(testimonials));
-    renderTestimonials();
-  }
-  document.addEventListener('DOMContentLoaded', renderTestimonials);
-  // إدارة الفيديوهات
-  // دعم فيديوهات الأجهزة المنفردة
-  document.getElementById('videoPage').addEventListener('change',function(){
-    document.getElementById('deviceIdInput').style.display = this.value==='device'?'inline-block':'none';
-  });
-  function saveVideoUrl() {
-    let url = document.getElementById('videoUrl').value.trim();
-    let page = document.getElementById('videoPage').value;
-    let videos = JSON.parse(localStorage.getItem('videos')||'{}');
-    if(page==='device') {
-      let deviceId = document.getElementById('deviceIdInput').value.trim();
-      if(!url||!deviceId) {alert('أدخل رابط الفيديو ومعرف الجهاز');return;}
-      let gallery = JSON.parse(localStorage.getItem('deviceGallery')||'{}');
-      if(!gallery[deviceId]) gallery[deviceId]={images:[],videos:[]};
-      gallery[deviceId].videos = gallery[deviceId].videos||[];
-      gallery[deviceId].videos.push(url);
-      localStorage.setItem('deviceGallery',JSON.stringify(gallery));
-      document.getElementById('videoUrl').value='';
-      document.getElementById('deviceIdInput').value='';
-      renderDeviceGalleryList();
-    } else {
-      if(!url) {alert('أدخل رابط الفيديو');return;}
-      if(!videos[page]) videos[page]=[];
-      videos[page].push(url);
-      localStorage.setItem('videos',JSON.stringify(videos));
-      document.getElementById('videoUrl').value='';
-      renderVideoList();
-    }
-  }
-  // إدارة صور الأجهزة
-  function addDeviceImages() {
-    let deviceId = document.getElementById('galleryDeviceId').value.trim();
-    let files = document.getElementById('galleryDeviceImages').files;
-    if(!deviceId||!files.length) {alert('أدخل معرف الجهاز واختر صوراً');return;}
-    let gallery = JSON.parse(localStorage.getItem('deviceGallery')||'{}');
-    if(!gallery[deviceId]) gallery[deviceId]={images:[],videos:[]};
-    for(let f of files) {
-      let reader = new FileReader();
-      reader.onload = function(ev) {
-        gallery[deviceId].images.push(ev.target.result);
-        localStorage.setItem('deviceGallery',JSON.stringify(gallery));
-        renderDeviceGalleryList();
-      };
-      reader.readAsDataURL(f);
-    }
-    document.getElementById('galleryDeviceImages').value='';
-    document.getElementById('galleryDeviceId').value='';
-  }
-  function renderDeviceGalleryList() {
-    let gallery = JSON.parse(localStorage.getItem('deviceGallery')||'{}');
-    let list = document.getElementById('deviceGalleryList');
-    if(!list) return;
-    let html = '';
-    Object.keys(gallery).forEach(id=>{
-      html += `<div style='color:#FFD600;margin-bottom:6px;'><b>جهاز ${id}</b>:</div>`;
-      if(gallery[id].images && gallery[id].images.length) {
-        html += '<div style="display:flex;flex-wrap:wrap;gap:8px 12px;">';
-        gallery[id].images.forEach((url,i)=>{
-          html += `<img src='${url}' style='width:80px;height:60px;border-radius:8px;object-fit:cover;margin-bottom:4px;'> <button onclick='removeDeviceImage("${id}",${i})' style='background:#e53935;color:#fff;border:none;border-radius:6px;padding:2px 8px;'>حذف</button>`;
-        });
-        html += '</div>';
-      }
-      if(gallery[id].videos && gallery[id].videos.length) {
-        html += '<div style="margin-top:6px;">';
-        gallery[id].videos.forEach((url,i)=>{
-          html += `<a href='${url}' target='_blank' style='color:#00e0ff;'>فيديو ${i+1}</a> <button onclick='removeDeviceVideo("${id}",${i})' style='background:#e53935;color:#fff;border:none;border-radius:6px;padding:2px 8px;'>حذف</button> `;
-        });
-        html += '</div>';
-      }
-    });
-    list.innerHTML = html;
-  }
-  function removeDeviceImage(id,idx) {
-    let gallery = JSON.parse(localStorage.getItem('deviceGallery')||'{}');
-    gallery[id].images.splice(idx,1);
-    localStorage.setItem('deviceGallery',JSON.stringify(gallery));
-    renderDeviceGalleryList();
-  }
-  function removeDeviceVideo(id,idx) {
-    let gallery = JSON.parse(localStorage.getItem('deviceGallery')||'{}');
-    gallery[id].videos.splice(idx,1);
-    localStorage.setItem('deviceGallery',JSON.stringify(gallery));
-    renderDeviceGalleryList();
-  }
-  document.addEventListener('DOMContentLoaded', renderDeviceGalleryList);
-  function renderVideoList() {
-    let videos = JSON.parse(localStorage.getItem('videos')||'{}');
-    let list = document.getElementById('videoList');
-    if(!list) return;
-    let html = '';
-    Object.keys(videos).forEach(page=>{
-      html += `<div style='color:#FFD600;margin-bottom:6px;'><b>${page==='index'?'الرئيسية':page==='projects'?'المشاريع':'الأجهزة'}</b>:</div>`;
-      videos[page].forEach((url,i)=>{
-        html += `<div style='margin-bottom:4px;'><a href='${url}' target='_blank' style='color:#00e0ff;'>${url}</a> <button onclick='removeVideoUrl("${page}",${i})' style='background:#e53935;color:#fff;border:none;border-radius:6px;padding:2px 10px;'>حذف</button></div>`;
-      });
-    });
-    list.innerHTML = html;
-  }
-  function removeVideoUrl(page,idx) {
-    let videos = JSON.parse(localStorage.getItem('videos')||'{}');
-    videos[page].splice(idx,1);
-    localStorage.setItem('videos',JSON.stringify(videos));
-    renderVideoList();
-  }
-  document.addEventListener('DOMContentLoaded', renderVideoList);
-  // الوضع الليلي/النهاري
-  function toggleTheme() {
-    let theme = localStorage.getItem('theme')==='dark'?'light':'dark';
-    localStorage.setItem('theme',theme);
-    document.body.style.background = theme==='dark'?'#18120b':'#fff';
-    document.body.style.color = theme==='dark'?'#fff':'#18120b';
-    alert('تم تبديل الوضع!');
-  }
-  // تحسين الوصول
-  function toggleAccessibility() {
-    let acc = localStorage.getItem('accessibility')==='on'?'off':'on';
-    localStorage.setItem('accessibility',acc);
-    alert(acc==='on'?'تم تفعيل تحسين الوصول':'تم إيقاف تحسين الوصول');
-  }
-  // صفحة حالة الخدمة
-  function saveStatusText() {
-    let txt = document.getElementById('statusText').value.trim();
-    localStorage.setItem('statusText',txt);
-    renderStatusText();
-  }
-  function renderStatusText() {
-    let txt = localStorage.getItem('statusText')||'';
-    let disp = document.getElementById('statusDisplay');
-    if(disp) disp.textContent = txt;
-  }
-  document.addEventListener('DOMContentLoaded', renderStatusText);
-  </script>
-document.getElementById('replyForm').onsubmit = function(e) {
-  e.preventDefault();
-  let idx = +this.getAttribute('data-idx');
-  let msgs = JSON.parse(localStorage.getItem('visitorMsgs')||'[]');
-  msgs[idx].reply = document.getElementById('replyMsg').value;
-  localStorage.setItem('visitorMsgs', JSON.stringify(msgs));
-  document.getElementById('replyStatus').textContent = 'تم إرسال الرد!';
-  setTimeout(()=>{document.getElementById('replyStatus').textContent='';document.getElementById('replyForm').style.display='none';}, 1500);
-  showVisitorMsgs();
-}
-// إدارة معرض الصور مع نص توضيحي
-// إدارة معرض الصور مع نص توضيحي
-const galleryForm = document.getElementById('galleryForm');
-const galleryList = document.getElementById('galleryList');
-let galleryImages = JSON.parse(localStorage.getItem('galleryImagesV2') || '[]');
-
-function renderGalleryList() {
-    if (!galleryList) return;
-    galleryList.innerHTML = '';
-    galleryImages.forEach((img, idx) => {
-        const div = document.createElement('div');
-        div.className = 'gallery-admin-item';
-        div.style = 'text-align:center;max-width:200px;';
-        const safeUrl = img.url ? img.url : 'images/1.jpg';
-        const safeCaption = (typeof img.caption === 'string' && img.caption.trim()) ? img.caption : 'صورة';
-        div.innerHTML =
-          '<img src="' + safeUrl + '" class="unified-img" style="margin-bottom:8px;"/>' +
-          '<br><span style="color:#222;font-size:1em;">' + safeCaption + '</span>' +
-          '<br><button onclick="removeGalleryImage(' + idx + ')" style="margin-top:6px;background:#e53935;color:#fff;border:none;border-radius:6px;padding:2px 10px;">حذف</button>';
-        galleryList.appendChild(div);
-    });
-}
-
-function removeGalleryImage(idx) {
-    galleryImages.splice(idx, 1);
-    localStorage.setItem('galleryImagesV2', JSON.stringify(galleryImages));
-    renderGalleryList();
-}
-
-if(galleryForm) {
-    galleryForm.onsubmit = function(e) {
-        e.preventDefault();
-        const file = document.getElementById('galleryImage').files[0];
-        const caption = document.getElementById('galleryCaption').value.trim();
-        if (!file) {
-            alert('يرجى اختيار صورة');
-            return;
-        }
-        if (!caption) {
-            alert('يرجى كتابة نص توضيحي للصورة');
-            return;
-        }
-        const reader = new FileReader();
-        reader.onload = function(ev) {
-            galleryImages.push({ url: ev.target.result, caption });
-            localStorage.setItem('galleryImagesV2', JSON.stringify(galleryImages));
-            renderGalleryList();
-            document.getElementById('galleryImage').value = '';
-            document.getElementById('galleryCaption').value = '';
-            alert('تمت إضافة الصورة للمعرض!');
-        };
-        reader.readAsDataURL(file);
-    };
-    // عند تحميل الصفحة، عرض الصور الحالية
-    renderGalleryList();
-}
+  <script src="admin.js"></script>
+  <script src="translate.js"></script>
+</body>
 </html>
