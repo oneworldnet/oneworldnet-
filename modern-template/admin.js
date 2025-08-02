@@ -1,3 +1,231 @@
+// --- إدارة المدونة ---
+function renderAdminBlogs() {
+  let blogs = JSON.parse(localStorage.getItem('blogs') || '[]');
+  // إضافة تدوينات تسويقية افتراضية إذا كانت القائمة فارغة
+  if (!blogs.length) {
+    blogs = [
+      {title:'لماذا One World Net؟', summary:'شبكتك الفضائية الأسرع والأكثر أماناً في العالم. جرب الإنترنت بلا حدود أينما كنت.', img:'/public/images/11.jpg'},
+      {title:'خدمات مجانية للمناطق النائية', summary:'مبادرة عالمية لتوصيل الإنترنت المجاني للمدارس والمستشفيات في المناطق المحرومة.', img:'/public/images/12.jpg'},
+      {title:'عروض الشركات: وفر أكثر', summary:'حلول إنترنت فضائي للشركات والمؤسسات بأسعار لا تقبل المنافسة ودعم فني عالمي.', img:'/public/images/13.jpg'}
+    ];
+    localStorage.setItem('blogs', JSON.stringify(blogs));
+  }
+  const list = document.getElementById('admin-blog-list');
+  list.innerHTML = '';
+  if (!blogs.length) {
+    list.innerHTML = '<div style="color:#aaa;text-align:center;">لا توجد تدوينات بعد.</div>';
+    return;
+  }
+  blogs.forEach((blog, i) => {
+    const div = document.createElement('div');
+    div.className = 'blog-card';
+    div.style.marginBottom = '12px';
+    div.innerHTML = `<img src="${blog.img}" alt="${blog.title}" style="max-width:80px;max-height:60px;vertical-align:middle;" /> <b>${blog.title}</b> <button style="margin-right:8px;" onclick="editBlog(${i})">تعديل</button> <button style="background:#c00;" onclick="deleteBlog(${i})">حذف</button>`;
+    list.appendChild(div);
+  });
+}
+window.editBlog = function(i) {
+  const blogs = JSON.parse(localStorage.getItem('blogs') || '[]');
+  const blog = blogs[i];
+  const title = prompt('تعديل العنوان:', blog.title);
+  if (!title) return;
+  const summary = prompt('تعديل الملخص:', blog.summary);
+  if (!summary) return;
+  const img = prompt('تعديل رابط الصورة:', blog.img);
+  blogs[i] = {title, summary, img};
+  localStorage.setItem('blogs', JSON.stringify(blogs));
+  renderAdminBlogs();
+  if (typeof renderBlogs === 'function') renderBlogs();
+}
+window.deleteBlog = function(i) {
+  const blogs = JSON.parse(localStorage.getItem('blogs') || '[]');
+  blogs.splice(i, 1);
+  localStorage.setItem('blogs', JSON.stringify(blogs));
+  renderAdminBlogs();
+  if (typeof renderBlogs === 'function') renderBlogs();
+}
+document.addEventListener('DOMContentLoaded', function() {
+  const btn = document.getElementById('admin-add-blog');
+  if (btn) btn.onclick = function() {
+    const title = prompt('عنوان التدوينة:');
+    if (!title) return;
+    const summary = prompt('ملخص قصير:');
+    if (!summary) return;
+    const img = prompt('رابط صورة (أو استخدم /public/images/11.jpg):','/public/images/11.jpg');
+    const blogs = JSON.parse(localStorage.getItem('blogs') || '[]');
+    blogs.unshift({title, summary, img});
+    localStorage.setItem('blogs', JSON.stringify(blogs));
+    renderAdminBlogs();
+    if (typeof renderBlogs === 'function') renderBlogs();
+  };
+  renderAdminBlogs();
+});
+
+// --- إدارة المشاريع ---
+function renderAdminProjects() {
+  let projects = JSON.parse(localStorage.getItem('projects') || '[]');
+  // مشاريع افتراضية تسويقية
+  if (!projects.length) {
+    projects = [
+      {title:'مشروع "العالم متصل"', summary:'تغطية الإنترنت الفضائي المجاني لكل قرية ومدينة في أفريقيا وآسيا بحلول 2026.', img:'/public/images/15.jpg'},
+      {title:'دعم رواد الأعمال', summary:'منح مجانية للشركات الناشئة في المناطق النامية للاتصال بالعالم.', img:'/public/images/14.jpg'}
+    ];
+    localStorage.setItem('projects', JSON.stringify(projects));
+  }
+  const list = document.getElementById('admin-project-list');
+  list.innerHTML = '';
+  if (!projects.length) {
+    list.innerHTML = '<div style="color:#aaa;text-align:center;">لا توجد مشاريع بعد.</div>';
+    return;
+  }
+  projects.forEach((proj, i) => {
+    const div = document.createElement('div');
+    div.className = 'project-card';
+    div.style.marginBottom = '12px';
+    div.innerHTML = `<img src="${proj.img}" alt="${proj.title}" style="max-width:80px;max-height:60px;vertical-align:middle;" /> <b>${proj.title}</b> <button style="margin-right:8px;" onclick="editProject(${i})">تعديل</button> <button style="background:#c00;" onclick="deleteProject(${i})">حذف</button>`;
+    list.appendChild(div);
+  });
+}
+window.editProject = function(i) {
+  const projects = JSON.parse(localStorage.getItem('projects') || '[]');
+  const proj = projects[i];
+  const title = prompt('تعديل اسم المشروع:', proj.title);
+  if (!title) return;
+  const summary = prompt('تعديل الملخص:', proj.summary);
+  if (!summary) return;
+  const img = prompt('تعديل رابط الصورة:', proj.img);
+  projects[i] = {title, summary, img};
+  localStorage.setItem('projects', JSON.stringify(projects));
+  renderAdminProjects();
+  if (typeof renderProjects === 'function') renderProjects();
+}
+window.deleteProject = function(i) {
+  const projects = JSON.parse(localStorage.getItem('projects') || '[]');
+  projects.splice(i, 1);
+  localStorage.setItem('projects', JSON.stringify(projects));
+  renderAdminProjects();
+  if (typeof renderProjects === 'function') renderProjects();
+}
+document.addEventListener('DOMContentLoaded', function() {
+  const btn = document.getElementById('admin-add-project');
+  if (btn) btn.onclick = function() {
+    const title = prompt('اسم المشروع:');
+    if (!title) return;
+    const summary = prompt('ملخص قصير:');
+    if (!summary) return;
+    const img = prompt('رابط صورة (أو استخدم /public/images/15.jpg):','/public/images/15.jpg');
+    const projects = JSON.parse(localStorage.getItem('projects') || '[]');
+    projects.unshift({title, summary, img});
+    localStorage.setItem('projects', JSON.stringify(projects));
+    renderAdminProjects();
+    if (typeof renderProjects === 'function') renderProjects();
+  };
+  renderAdminProjects();
+});
+// --- زر تشغيل الرد الصوتي ---
+document.addEventListener('DOMContentLoaded', function() {
+  const btn = document.getElementById('play-reply-voice');
+  if (btn) {
+    btn.onclick = function() {
+      const txt = document.getElementById('reply-voice').value.trim();
+      if (!txt) return alert('اكتب الرد أولاً');
+      if (!('speechSynthesis' in window)) {
+        alert('الرد الصوتي غير مدعوم في هذا المتصفح');
+        return;
+      }
+      const utter = new SpeechSynthesisUtterance(txt);
+      utter.lang = 'ar';
+      window.speechSynthesis.speak(utter);
+    };
+  }
+});
+// --- قارئ الشاشة ---
+let screenReaderActive = false;
+function speakPage() {
+  if (!('speechSynthesis' in window)) {
+    alert('قارئ الشاشة غير مدعوم في هذا المتصفح');
+    return;
+  }
+  if (screenReaderActive) {
+    window.speechSynthesis.cancel();
+    screenReaderActive = false;
+    document.getElementById('admin-msg').textContent = 'تم إيقاف قارئ الشاشة.';
+    return;
+  }
+  // جمع نصوص الصفحة الرئيسية فقط (مثال)
+  let text = '';
+  text += document.title + '. ';
+  const h1 = document.querySelector('h1');
+  if (h1) text += h1.textContent + '. ';
+  const h2s = document.querySelectorAll('h2');
+  h2s.forEach(h2 => text += h2.textContent + '. ');
+  const ps = document.querySelectorAll('p');
+  ps.forEach(p => text += p.textContent + '. ');
+  if (text.trim().length === 0) text = 'لا يوجد نص لقراءته.';
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.lang = 'ar';
+  window.speechSynthesis.speak(utter);
+  screenReaderActive = true;
+  document.getElementById('admin-msg').textContent = 'جاري قراءة النصوص...';
+  utter.onend = function() {
+    screenReaderActive = false;
+    document.getElementById('admin-msg').textContent = 'انتهت القراءة.';
+  };
+}
+document.addEventListener('DOMContentLoaded', function() {
+  const btn = document.getElementById('screen-reader-btn');
+  if (btn) btn.onclick = speakPage;
+});
+// --- خيارات الوصول ---
+function applyAccessibility() {
+  // الوضع الليلي
+  const dark = localStorage.getItem('darkMode') === '1';
+  if (dark) {
+    document.body.classList.add('dark-mode');
+  } else {
+    document.body.classList.remove('dark-mode');
+  }
+  // تكبير الخط
+  const bigFont = localStorage.getItem('bigFont') === '1';
+  if (bigFont) {
+    document.body.classList.add('big-font');
+  } else {
+    document.body.classList.remove('big-font');
+  }
+  // تباين عالي
+  const highContrast = localStorage.getItem('highContrast') === '1';
+  if (highContrast) {
+    document.body.classList.add('high-contrast');
+  } else {
+    document.body.classList.remove('high-contrast');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  // تفعيل الخيارات عند التحميل
+  applyAccessibility();
+  // زر الوضع الليلي
+  document.getElementById('toggle-dark').onclick = function() {
+    const dark = localStorage.getItem('darkMode') === '1';
+    localStorage.setItem('darkMode', dark ? '0' : '1');
+    applyAccessibility();
+    document.getElementById('admin-msg').textContent = dark ? 'تم إيقاف الوضع الليلي.' : 'تم تفعيل الوضع الليلي.';
+  };
+  // زر تكبير الخط
+  document.getElementById('toggle-font').onclick = function() {
+    const bigFont = localStorage.getItem('bigFont') === '1';
+    localStorage.setItem('bigFont', bigFont ? '0' : '1');
+    applyAccessibility();
+    document.getElementById('admin-msg').textContent = bigFont ? 'تم إرجاع حجم الخط الطبيعي.' : 'تم تكبير الخط.';
+  };
+  // زر التباين العالي
+  document.getElementById('toggle-contrast').onclick = function() {
+    const highContrast = localStorage.getItem('highContrast') === '1';
+    localStorage.setItem('highContrast', highContrast ? '0' : '1');
+    applyAccessibility();
+    document.getElementById('admin-msg').textContent = highContrast ? 'تم إيقاف التباين العالي.' : 'تم تفعيل التباين العالي.';
+  };
+});
 // تحديث النص المتحرك في الصفحة الرئيسية
 function updateMarquee() {
   const text = document.getElementById('marquee-text').value;
@@ -38,6 +266,41 @@ function uploadImage() {
   };
   reader.readAsDataURL(file);
 }
+ 
+// رفع صورة للمعرض أو الهيرو (1-5)
+function uploadGalleryImage() {
+  const file = document.getElementById('gallery-img-upload').files[0];
+  const imgNum = document.getElementById('gallery-img-select').value;
+  if (!file) return alert('اختر صورة أولاً');
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    localStorage.setItem('galleryImg' + imgNum, e.target.result);
+    document.getElementById('admin-msg').textContent = 'تم تحديث صورة رقم ' + imgNum + ' (ستظهر مباشرة في الصفحة الرئيسية).';
+    // عرض معاينة
+    const preview = document.getElementById('gallery-img-preview');
+    preview.src = e.target.result;
+    preview.style.display = 'block';
+  };
+  reader.readAsDataURL(file);
+}
+
+// معاينة الصورة الحالية عند تغيير الاختيار
+document.addEventListener('DOMContentLoaded', function() {
+  const select = document.getElementById('gallery-img-select');
+  const preview = document.getElementById('gallery-img-preview');
+  function updatePreview() {
+    const imgNum = select.value;
+    const imgData = localStorage.getItem('galleryImg' + imgNum);
+    if (imgData) {
+      preview.src = imgData;
+      preview.style.display = 'block';
+    } else {
+      preview.style.display = 'none';
+    }
+  }
+  select.addEventListener('change', updatePreview);
+  updatePreview();
+});
 
 // تعديل نص أو إضافة صورة (واجهة فقط)
 function applyEdit() {

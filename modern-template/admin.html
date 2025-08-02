@@ -25,6 +25,19 @@
   <div class="admin-panel glass">
     <h2>لوحة تحكم الموقع</h2>
     <div class="section">
+      <h3>خيارات الوصول والراحة</h3>
+      <button type="button" id="toggle-dark" style="margin-left:12px;">تفعيل الوضع الليلي/النهاري</button>
+      <button type="button" id="toggle-font" style="margin-left:12px;">تكبير/تصغير الخط</button>
+      <button type="button" id="toggle-contrast">تفعيل التباين العالي</button>
+      <button type="button" id="screen-reader-btn" style="margin-right:12px;background:#090;">تشغيل/إيقاف قارئ الشاشة</button>
+      <div style="font-size:0.95em;color:#aaa;margin-top:8px;">
+        <span>الوضع الليلي: خلفية داكنة مريحة للعينين.</span><br>
+        <span>تكبير الخط: تسهيل القراءة لذوي الاحتياجات.</span><br>
+        <span>تباين عالي: ألوان أوضح لضعاف البصر.</span>
+        <br><span>قارئ الشاشة: قراءة نصوص الصفحة صوتياً.</span>
+      </div>
+    </div>
+    <div class="section">
       <label for="marquee-text">النص المتحرك (كل اللغات):</label>
       <textarea id="marquee-text" rows="2" style="width:100%;font-size:1em;">About Us | À propos de nous | Über uns | Chi siamo | Sobre nosotros | 关于我们 | من نحن | Connecting the world with the best satellite internet | ربط العالم بأفضل إنترنت فضائي | الاتصال بالعالم بأحدث التقنيات | Bringing the world together | Uniendo el mundo | Unissant le monde | Weltweit verbunden</textarea>
       <label for="marquee-color">لون النص:</label>
@@ -32,6 +45,34 @@
       <label for="marquee-size">حجم الخط:</label>
       <input type="number" id="marquee-size" min="10" max="40" value="18" style="width:80px;"> px
       <button onclick="updateMarquee()" style="margin-right:18px;">تحديث النص المتحرك</button>
+      <br><br>
+      <label for="reply-voice">رد صوتي سريع:</label>
+      <textarea id="reply-voice" rows="2" placeholder="اكتب الرد أو الرسالة الصوتية هنا..." style="width:100%;font-size:1em;"></textarea>
+      <button type="button" id="play-reply-voice" style="background:#090;margin-top:8px;">تشغيل الرد صوتياً</button>
+    </div>
+    <div class="section">
+      <h3>إدارة المدونة</h3>
+      <button type="button" id="admin-add-blog" style="background:#0af;">إضافة تدوينة</button>
+      <div id="admin-blog-list"></div>
+    </div>
+    <div class="section">
+      <h3>إدارة المشاريع</h3>
+      <button type="button" id="admin-add-project" style="background:#0af;">إضافة مشروع</button>
+      <div id="admin-project-list"></div>
+    </div>
+    <div class="section">
+      <h3>تغيير صور الصفحة الرئيسية</h3>
+      <label for="gallery-img-select">اختر الصورة:</label>
+      <select id="gallery-img-select">
+        <option value="1">صورة الهيرو الرئيسية (1)</option>
+        <option value="2">صورة المعرض 2</option>
+        <option value="3">صورة المعرض 3</option>
+        <option value="4">صورة المعرض 4</option>
+        <option value="5">صورة المعرض 5</option>
+      </select>
+      <input type="file" id="gallery-img-upload" accept="image/*" style="margin-right:12px;">
+      <button type="button" onclick="uploadGalleryImage()">رفع/تغيير الصورة</button>
+      <img id="gallery-img-preview" class="preview-img" style="display:none;" alt="معاينة الصورة" />
     </div>
     <div class="section">
       <label for="bg-upload">تغيير خلفية الموقع:</label>

@@ -35,24 +35,13 @@
     <div class="animated-marquee" style="margin: 24px auto 0; max-width:900px;">
       <marquee id="about-marquee" direction="left" scrollamount="6" style="font-weight:bold; color:#0af; background:rgba(0,0,0,0.08); padding:8px 0; font-size:1.15em; border-radius:12px;">
         <span id="marquee-dynamic"></span>About Us | À propos de nous | Über uns | Chi siamo | Sobre nosotros | 关于我们 | من نحن | Connecting the world with the best satellite internet | ربط العالم بأفضل إنترنت فضائي | الاتصال بالعالم بأحدث التقنيات | Bringing the world together | Uniendo el mundo | Unissant le monde | Weltweit verbunden</span>
-  <script>
-    // تفعيل النص المتحرك المخصص من localStorage
-    window.addEventListener('DOMContentLoaded', function() {
-      const text = localStorage.getItem('marqueeText');
-      const color = localStorage.getItem('marqueeColor');
-      const size = localStorage.getItem('marqueeSize');
-      if (text) document.getElementById('marquee-dynamic').textContent = text;
-      if (color) document.getElementById('about-marquee').style.color = color;
-      if (size) document.getElementById('about-marquee').style.fontSize = size + 'px';
-    });
-  </script>
       </marquee>
     </div>
     <div class="gallery-row">
-      <img src="/public/images/2.jpg" alt="تغطية عالمية" />
-      <img src="/public/images/3.jpg" alt="أجهزة حديثة" />
-      <img src="/public/images/4.jpg" alt="خدمة عملاء" />
-      <img src="/public/images/5.jpg" alt="شراكات دولية" />
+      <img id="gallery-img-2" src="/public/images/2.jpg" alt="تغطية عالمية" />
+      <img id="gallery-img-3" src="/public/images/3.jpg" alt="أجهزة حديثة" />
+      <img id="gallery-img-4" src="/public/images/4.jpg" alt="خدمة عملاء" />
+      <img id="gallery-img-5" src="/public/images/5.jpg" alt="شراكات دولية" />
     </div>
   </header>
   <section id="plans" class="plans-section glass">
@@ -167,5 +156,84 @@
   </footer>
   <script src="translate.js"></script>
   <script src="main.js"></script>
+  <script>
+    // تفعيل النص المتحرك المخصص من localStorage
+    window.addEventListener('DOMContentLoaded', function() {
+      // النص المتحرك
+      const text = localStorage.getItem('marqueeText');
+      const color = localStorage.getItem('marqueeColor');
+      const size = localStorage.getItem('marqueeSize');
+      if (text) document.getElementById('marquee-dynamic').textContent = text;
+      if (color) document.getElementById('about-marquee').style.color = color;
+      if (size) document.getElementById('about-marquee').style.fontSize = size + 'px';
+
+      // صور المعرض الرئيسية (2-5)
+      for (let i = 2; i <= 5; i++) {
+        const imgKey = 'galleryImg' + i;
+        const imgUrl = localStorage.getItem(imgKey);
+        if (imgUrl) {
+          const imgEl = document.getElementById('gallery-img-' + i);
+          if (imgEl) imgEl.src = imgUrl;
+        }
+      }
+      // صورة الهيرو الرئيسية (1)
+      const heroImgUrl = localStorage.getItem('galleryImg1');
+      if (heroImgUrl) {
+        const heroImg = document.querySelector('.hero-img');
+        if (heroImg) heroImg.src = heroImgUrl;
+      }
+    });
+    // --- تفعيل خيارات الوصول عالمياً ---
+    function applyAccessibility() {
+      const dark = localStorage.getItem('darkMode') === '1';
+      const bigFont = localStorage.getItem('bigFont') === '1';
+      const highContrast = localStorage.getItem('highContrast') === '1';
+      document.body.classList.toggle('dark-mode', dark);
+      document.body.classList.toggle('big-font', bigFont);
+      document.body.classList.toggle('high-contrast', highContrast);
+    }
+    window.addEventListener('DOMContentLoaded', applyAccessibility);
+    window.addEventListener('storage', applyAccessibility); // تحديث فوري عند التغيير من لوحة التحكم
+
+    // --- قارئ شاشة عالمي ---
+    function speakPage() {
+      if (!('speechSynthesis' in window)) {
+        alert('قارئ الشاشة غير مدعوم في هذا المتصفح');
+        return;
+      }
+      let text = '';
+      text += document.title + '. ';
+      const h1 = document.querySelector('h1');
+      if (h1) text += h1.textContent + '. ';
+      const h2s = document.querySelectorAll('h2');
+      h2s.forEach(h2 => text += h2.textContent + '. ');
+      const ps = document.querySelectorAll('p');
+      ps.forEach(p => text += p.textContent + '. ');
+      if (text.trim().length === 0) text = 'لا يوجد نص لقراءته.';
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = 'ar';
+      window.speechSynthesis.speak(utter);
+    }
+    // زر عائم لتشغيل القارئ
+    window.addEventListener('DOMContentLoaded', function() {
+      const btn = document.createElement('button');
+      btn.textContent = '🔊 قراءة الصفحة';
+      btn.style.position = 'fixed';
+      btn.style.bottom = '24px';
+      btn.style.left = '24px';
+      btn.style.zIndex = 9999;
+      btn.style.background = '#090';
+      btn.style.color = '#fff';
+      btn.style.padding = '10px 18px';
+      btn.style.borderRadius = '12px';
+      btn.style.border = 'none';
+      btn.style.fontWeight = 'bold';
+      btn.style.boxShadow = '0 2px 12px #0003';
+      btn.style.cursor = 'pointer';
+      btn.onclick = speakPage;
+      btn.title = 'تشغيل قارئ الشاشة';
+      document.body.appendChild(btn);
+    });
+  </script>
 </body>
 </html>
