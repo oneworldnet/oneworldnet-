@@ -37,7 +37,7 @@ body.high-contrast, .high-contrast .glass {
   color: #000 !important;
 }
 body {
-  background: linear-gradient(135deg, #101014 0%, #23243a 100%) !important;
+  background: #000 !important;
   color: #fff;
   font-family: 'Cairo', 'Inter', Arial, sans-serif;
   margin: 0;
