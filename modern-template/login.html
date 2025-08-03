@@ -25,5 +25,28 @@
   </section>
   <!--#include file="footer.html" -->
   <script src="/modern-template/translate.js"></script>
+  <script>
+    // تفعيل خلفية سوداء دائماً
+    document.addEventListener('DOMContentLoaded', function() {
+      document.body.style.background = '#000';
+    });
+    // تفعيل نموذج تسجيل دخول وهمي
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.querySelector('.login-form');
+      if(form) {
+        form.onsubmit = function(e) {
+          e.preventDefault();
+          const email = form.querySelector('input[type="email"]').value;
+          const pass = form.querySelector('input[type="password"]').value;
+          if(email && pass) {
+            alert('تم تسجيل الدخول بنجاح (وهمي)');
+            form.reset();
+          } else {
+            alert('يرجى إدخال البريد وكلمة المرور');
+          }
+        };
+      }
+    });
+  </script>
 </body>
 </html>
