@@ -1,7 +1,26 @@
 // main.js
 // ملف جافاسكريبت رئيسي لتفعيل وظائف الموقع الأساسية
 
-// مثال: رسالة ترحيب في الكونسول
-console.log('مرحباً بك في One World Net!');
+console.log('مرحباً بك في ONE WORLD NET!');
 
-// يمكن إضافة وظائف ديناميكية هنا لاحقاً
+// زر القائمة يعمل على جميع الصفحات
+window.addEventListener('DOMContentLoaded', function() {
+  var menuBtn = document.querySelector('.menu-toggle');
+  var navLinks = document.querySelector('.nav-links');
+  if(menuBtn && navLinks) {
+    menuBtn.onclick = function() {
+      navLinks.classList.toggle('show');
+    };
+  }
+
+  // شعار الموقع من التخزين المحلي
+  var logoImg = document.getElementById('site-logo');
+  var logoUrl = localStorage.getItem('siteLogo');
+  if(logoImg && logoUrl) logoImg.src = logoUrl;
+
+  // منع تكرار اسم الشعار
+  var logoSpans = document.querySelectorAll('.logo span');
+  if(logoSpans.length > 1) {
+    for(var i=1;i<logoSpans.length;i++) logoSpans[i].remove();
+  }
+});
