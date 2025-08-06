@@ -1,1 +1,96 @@
-...existing code...
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One World Net | الإنترنت الفضائي للجميع</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Inter:wght@400;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <nav class="main-nav">
+        <div class="logo">
+            <img id="site-logo" src="images/logo.jpg" alt="One World Net Logo" />
+            <span>ONE WORLD NET</span>
+        </div>
+        <button id="langSwitcher" class="lang-btn" aria-label="تغيير اللغة">🌐</button>
+        <ul class="nav-links">
+            <li><a href="index.html">الرئيسية</a></li>
+            <li><a href="plans.html">الباقات</a></li>
+            <li><a href="devices.html">الأجهزة</a></li>
+            <li><a href="blog.html">المدونة</a></li>
+            <li><a href="partners.html">الشركاء</a></li>
+            <li><a href="contact.html">تواصل</a></li>
+            <li><a href="login.html" class="login-btn">تسجيل الدخول</a></li>
+            <li><a href="register.html" class="register-btn">إنشاء حساب</a></li>
+        </ul>
+    </nav>
+    <section class="hero-section glass">
+        <h1>الإنترنت الفضائي للجميع</h1>
+        <p>أسرع وأأمن إنترنت فضائي في العالم، متاح لكل بيت وشركة ومنظمة.</p>
+        <a href="register.html" class="main-btn">انضم إلينا الآن</a>
+    </section>
+    <section class="news-section glass">
+        <h2>أحدث الأخبار</h2>
+        <div class="blog-cards">
+            <div class="blog-card">
+                <img src="images/11.jpg" alt="خبر 1" />
+                <h3>إطلاق باقات جديدة بسرعات أعلى</h3>
+                <p>تم إطلاق باقات جديدة بسرعات تصل إلى 1 جيجابت في جميع الدول المدعومة.</p>
+            </div>
+            <div class="blog-card">
+                <img src="images/12.jpg" alt="خبر 2" />
+                <h3>توسيع التغطية العالمية</h3>
+                <p>تمت إضافة 10 دول جديدة إلى شبكة التغطية العالمية لـ One World Net.</p>
+            </div>
+            <div class="blog-card">
+                <img src="images/8.jpg" alt="مقال عالمي" />
+                <h3>تجارب المستخدمين حول العالم</h3>
+                <p>قصص نجاح من مستخدمي الإنترنت الفضائي في القارات الست.</p>
+            </div>
+        </div>
+    </section>
+    <section class="join-section glass">
+        <h2>انضم إلينا</h2>
+        <p>كن جزءًا من شبكة One World Net وساهم في ربط العالم بالإنترنت الفضائي.</p>
+        <a href="register.html" class="main-btn">سجل الآن</a>
+    </section>
+    <section class="partners-section glass">
+        <h2>شركاؤنا</h2>
+        <div class="partners-logos">
+            <img src="images/logo.jpg" alt="شريك 1" />
+            <img src="images/14.jpg" alt="شريك عالمي" />
+            <img src="images/15.jpg" alt="شريك تقني" />
+            <img src="images/13.jpg" alt="شريك لوجستي" />
+        </div>
+    </section>
+    <section id="contact" class="contact-section glass">
+        <h2>تواصل معنا</h2>
+        <form class="contact-form">
+            <input type="text" placeholder="اسمك" required />
+            <input type="email" placeholder="بريدك الإلكتروني" required />
+            <textarea placeholder="رسالتك" required></textarea>
+            <button type="submit">إرسال</button>
+        </form>
+        <div class="social-icons" id="contact-socials">
+            <!-- أيقونات التواصل -->
+        </div>
+    </section>
+    <footer class="main-footer glass">
+        <div class="footer-socials" id="footer-socials">
+            <!-- أيقونات التواصل -->
+        </div>
+        <div class="footer-links">
+            <a href="#privacy">سياسة الخصوصية</a>
+            <a href="#faq">الأسئلة الشائعة</a>
+        </div>
+        <div class="footer-copy">&copy; 2025 One World Net. جميع الحقوق محفوظة.</div>
+    </footer>
+    <script src="main.js"></script>
+    <script src="translate.js"></script>
+</body>
+
+</html>

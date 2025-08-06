@@ -1,1 +1,39 @@
-...existing code...
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تواصل معنا | One World Net</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="main-nav">
+    <!-- ...existing code... -->
+  </nav>
+  <section class="contact-section glass">
+    <h2>تواصل معنا</h2>
+    <form class="contact-form">
+      <input type="text" placeholder="اسمك" required />
+      <input type="email" placeholder="بريدك الإلكتروني" required />
+      <textarea placeholder="رسالتك" required></textarea>
+      <button type="submit">إرسال</button>
+      <div class="accessibility-support" style="margin-top:18px; background:rgba(0,0,0,0.08); border-radius:10px; padding:12px;">
+        <label style="font-weight:bold;">دعم ذوي الاحتياجات الخاصة:</label><br>
+        <input type="checkbox" id="screen-reader" name="screen-reader">
+        <label for="screen-reader">قارئ شاشة</label>
+        <input type="checkbox" id="high-contrast" name="high-contrast">
+        <label for="high-contrast">تباين عالي</label>
+        <input type="checkbox" id="large-text" name="large-text">
+        <label for="large-text">نص كبير</label>
+      </div>
+    </form>
+    <div class="social-icons" id="contact-socials"></div>
+  </section>
+  <footer class="main-footer glass">
+    <!-- ...existing code... -->
+  </footer>
+  <script src="main.js"></script>
+  <script src="translate.js"></script>
+</body>
+</html>
