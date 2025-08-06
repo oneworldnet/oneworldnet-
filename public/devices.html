@@ -6,40 +6,70 @@
   <title>الأجهزة | One World Net</title>
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
 </head>
 <body>
   <nav class="main-nav">
-    <!-- ...existing code... -->
+    <button class="menu-toggle" aria-label="القائمة"><i class="fas fa-bars"></i></button>
+    <div class="logo">
+      <img id="site-logo" src="images/logo.jpg" alt="One World Net Logo" />
+      <span>ONE WORLD NET</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">الرئيسية</a></li>
+      <li><a href="plans.html">الباقات</a></li>
+      <li><a href="devices.html">الأجهزة</a></li>
+      <li><a href="blog.html">المدونة</a></li>
+      <li><a href="partners.html">الشركاء</a></li>
+      <li><a href="contact.html">تواصل</a></li>
+      <li><a href="login.html" class="login-btn">تسجيل الدخول</a></li>
+      <li><a href="register.html" class="register-btn">إنشاء حساب</a></li>
+    </ul>
   </nav>
   <section class="devices-section glass">
-    <h2>الأجهزة</h2>
+    <h2><i class="fas fa-satellite"></i> الأجهزة</h2>
     <div class="devices-cards">
       <div class="device-card">
         <img src="images/6.jpg" alt="جهاز استقبال فضائي حديث" />
-        <h3>جهاز استقبال قياسي</h3>
+        <h3><i class="fas fa-wifi"></i> جهاز استقبال قياسي</h3>
         <p>سهل التركيب، مناسب للاستخدام المنزلي والشركات الصغيرة.</p>
       </div>
       <div class="device-card">
         <img src="images/8.jpg" alt="جهاز استقبال احترافي" />
-        <h3>جهاز استقبال احترافي</h3>
+        <h3><i class="fas fa-bolt"></i> جهاز استقبال احترافي</h3>
         <p>أداء عالي، مناسب للمؤسسات والشركات الكبيرة.</p>
       </div>
       <div class="device-card">
         <img src="images/9.jpg" alt="جهاز استقبال مؤسسات" />
-        <h3>جهاز استقبال مؤسسات</h3>
+        <h3><i class="fas fa-building"></i> جهاز استقبال مؤسسات</h3>
         <p>حلول متقدمة للشبكات والمنظمات الدولية.</p>
       </div>
       <div class="device-card">
         <img src="images/10.jpg" alt="جهاز استقبال متنقل" />
-        <h3>جهاز استقبال متنقل</h3>
+        <h3><i class="fas fa-mobile-alt"></i> جهاز استقبال متنقل</h3>
         <p>تصميم محمول، مثالي للرحلات والمناطق النائية.</p>
       </div>
     </div>
   </section>
   <footer class="main-footer glass">
-    <!-- ...existing code... -->
+    <div class="footer-socials">
+      <a href="https://facebook.com" target="_blank" aria-label="فيسبوك"><i class="fab fa-facebook"></i></a>
+      <a href="https://twitter.com" target="_blank" aria-label="تويتر"><i class="fab fa-twitter"></i></a>
+      <a href="https://linkedin.com" target="_blank" aria-label="لينكدإن"><i class="fab fa-linkedin"></i></a>
+      <a href="https://youtube.com" target="_blank" aria-label="يوتيوب"><i class="fab fa-youtube"></i></a>
+    </div>
+    <div class="footer-links">
+      <a href="#privacy">سياسة الخصوصية</a>
+      <a href="#faq">الأسئلة الشائعة</a>
+    </div>
+    <div class="footer-copy">&copy; 2025 One World Net. جميع الحقوق محفوظة.</div>
   </footer>
   <script src="main.js"></script>
   <script src="translate.js"></script>
+  <script>
+    document.querySelector('.menu-toggle').onclick = function() {
+      document.querySelector('.nav-links').classList.toggle('show');
+    };
+  </script>
 </body>
 </html>
