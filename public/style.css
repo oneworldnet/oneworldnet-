@@ -1,0 +1,117 @@
+/* --- الوضع الليلي --- */
+body.dark-mode, .glass.dark-mode {
+  background: #181828 !important;
+  color: #fff !important;
+}
+.dark-mode .glass {
+  background: rgba(24,24,40,0.92) !important;
+  color: #fff !important;
+}
+.dark-mode input, .dark-mode textarea, .dark-mode select {
+  background: #222 !important;
+  color: #fff !important;
+  border-color: #444 !important;
+}
+.dark-mode .main-btn, .dark-mode button {
+  background: #0af !important;
+  color: #fff !important;
+}
+
+/* --- تكبير الخط --- */
+body.big-font, .big-font .glass {
+  font-size: 1.25em !important;
+}
+
+/* --- تباين عالي --- */
+body.high-contrast, .high-contrast .glass {
+  background: #000 !important;
+  color: #ff0 !important;
+}
+.high-contrast input, .high-contrast textarea, .high-contrast select {
+  background: #000 !important;
+  color: #ff0 !important;
+  border-color: #ff0 !important;
+}
+.high-contrast .main-btn, .high-contrast button {
+  background: #ff0 !important;
+  color: #000 !important;
+}
+body {
+  background: #000 !important;
+  color: #fff;
+  font-family: 'Cairo', 'Inter', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+.glass {
+  background: rgba(24, 26, 27, 0.55);
+  border-radius: 22px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+  backdrop-filter: blur(14px) saturate(1.2);
+  margin: 24px auto;
+  padding: 32px 18px;
+  max-width: 1100px;
+  border: 1.5px solid rgba(255,255,255,0.10);
+}
+.main-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  margin-bottom: 24px;
+}
+.logo {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #0af;
+}
+.nav-links {
+  display: flex;
+  gap: 24px;
+}
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+.nav-link:hover {
+  color: #0af;
+}
+.main-btn {
+  display: inline-block;
+  padding: 12px 24px;
+  background: #0af;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background 0.3s;
+}
+.main-btn:hover {
+  background: #09f;
+}
+footer {
+  text-align: center;
+  padding: 24px 0;
+  background: rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+footer p {
+  margin: 0;
+  color: #fff;
+  font-size: 0.9em;
+}
+@media (max-width: 768px) {
+  .main-nav {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .nav-links {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
