@@ -330,52 +330,61 @@
         </div>
         <div class="footer-copy">&copy; 2025 ONE WORLD NET. جميع الحقوق محفوظة.</div>
     </footer>
-    <script src="main.js"></script>
-    <script src="translate.js"></script>
     <script>
+    // تأكد من تحميل كل العناصر قبل التنفيذ
+    window.addEventListener('DOMContentLoaded', function() {
         // زر القائمة
-        document.querySelector('.menu-toggle').onclick = function () {
-            document.querySelector('.nav-links').classList.toggle('show');
-        };
+        var menuToggle = document.querySelector('.menu-toggle');
+        var navLinks = document.querySelector('.nav-links');
+        if(menuToggle && navLinks) {
+            menuToggle.onclick = function () {
+                navLinks.classList.toggle('show');
+            };
+        }
 
         // زر الوضع الليلي
-        document.querySelector('.dark-toggle').addEventListener('click', function () {
-            document.body.classList.toggle('dark-mode');
-            if(document.body.classList.contains('dark-mode')) {
-                document.body.style.background = '#222';
-            } else {
-                document.body.style.background = '#111';
-            }
-        });
+        var darkToggle = document.querySelector('.dark-toggle');
+        if(darkToggle) {
+            darkToggle.addEventListener('click', function () {
+                document.body.classList.toggle('dark-mode');
+                if(document.body.classList.contains('dark-mode')) {
+                    document.body.style.background = '#222';
+                } else {
+                    document.body.style.background = '#111';
+                }
+            });
+        }
 
         // زر ذوي الاحتياجات
-        const accessToggle = document.querySelector('.accessibility-toggle');
-        const accessDropdown = document.querySelector('.accessibility-dropdown');
-        accessToggle.addEventListener('click', function(e) {
-            e.stopPropagation();
-            accessDropdown.style.display = accessDropdown.style.display === 'block' ? 'none' : 'block';
-        });
-        document.addEventListener('click', function(e) {
-            if(accessDropdown.style.display === 'block') accessDropdown.style.display = 'none';
-        });
-        accessDropdown.addEventListener('click', function(e){ e.stopPropagation(); });
-        // تفعيل الخيارات
-        function setAccessibility(option) {
-            document.body.classList.remove('high-contrast','large-text','screen-reader');
-            if(option === 'contrast') document.body.classList.add('high-contrast');
-            if(option === 'large-text') document.body.classList.add('large-text');
-            if(option === 'screen-reader') document.body.classList.add('screen-reader');
-        }
-        document.querySelectorAll('.access-btn').forEach(function(btn){
-            btn.addEventListener('click',function(){
-                if(this.dataset.access === 'reset') {
-                    document.body.classList.remove('high-contrast','large-text','screen-reader');
-                } else {
-                    setAccessibility(this.dataset.access);
-                }
-                accessDropdown.style.display = 'none';
+        var accessToggle = document.querySelector('.accessibility-toggle');
+        var accessDropdown = document.querySelector('.accessibility-dropdown');
+        if(accessToggle && accessDropdown) {
+            accessToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                accessDropdown.style.display = accessDropdown.style.display === 'block' ? 'none' : 'block';
             });
-        });
+            document.addEventListener('click', function(e) {
+                if(accessDropdown.style.display === 'block') accessDropdown.style.display = 'none';
+            });
+            accessDropdown.addEventListener('click', function(e){ e.stopPropagation(); });
+            // تفعيل الخيارات
+            function setAccessibility(option) {
+                document.body.classList.remove('high-contrast','large-text','screen-reader');
+                if(option === 'contrast') document.body.classList.add('high-contrast');
+                if(option === 'large-text') document.body.classList.add('large-text');
+                if(option === 'screen-reader') document.body.classList.add('screen-reader');
+            }
+            document.querySelectorAll('.access-btn').forEach(function(btn){
+                btn.addEventListener('click',function(){
+                    if(this.dataset.access === 'reset') {
+                        document.body.classList.remove('high-contrast','large-text','screen-reader');
+                    } else {
+                        setAccessibility(this.dataset.access);
+                    }
+                    accessDropdown.style.display = 'none';
+                });
+            });
+        }
 
         // أنماط CSS للخيارات وأيقونات التواصل
         const style = document.createElement('style');
@@ -430,11 +439,9 @@
             if(marquee) {
                 marquee.textContent = msg;
                 marquee.style.animation = 'none';
-                // إعادة تشغيل الأنيميشن
                 void marquee.offsetWidth;
                 marquee.style.animation = 'marquee 18s linear infinite';
             }
-            // اتجاه النص حسب اللغة
             var marqueeDiv = document.getElementById('global-marquee');
             if(marqueeDiv) {
                 if(lang === 'ar' || lang === 'fa') {
@@ -559,16 +566,18 @@
             } else {
                 document.documentElement.dir = 'ltr';
             }
-            // تحديث اختيار اللغة في القائمة
             document.getElementById('lang-select').value = lang;
             setMarquee(lang);
         }
-        document.getElementById('lang-select').addEventListener('change', function(e) {
-            setLang(e.target.value);
-        });
-        // اللغة الافتراضية حسب لغة الصفحة
+        var langSelect = document.getElementById('lang-select');
+        if(langSelect) {
+            langSelect.addEventListener('change', function(e) {
+                setLang(e.target.value);
+            });
+        }
         setLang(document.documentElement.lang || 'en');
         setMarquee(document.documentElement.lang || 'en');
+    });
     </script>
 </body>
 
