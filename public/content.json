@@ -1,0 +1,36 @@
+{
+  "site_title": {
+    "ar": "ون وورلد نت",
+    "en": "ONE WORLD NET"
+  },
+  "hero": {
+    "ar": "الإنترنت الفضائي للجميع",
+    "en": "Satellite Internet for All"
+  },
+  "news": [
+    {
+      "ar": {"title": "إطلاق باقات جديدة بسرعات أعلى", "desc": "تم إطلاق باقات جديدة بسرعات تصل إلى 1 جيجابت في جميع الدول المدعومة.", "img": "images/blog/1.jpg", "link": "#"},
+      "en": {"title": "Launching new plans with higher speeds", "desc": "New plans launched with speeds up to 1Gbps in all supported countries.", "img": "images/blog/1.jpg", "link": "#"}
+    }
+  ],
+  "blog": [
+    {
+      "ar": {"title": "مقال تقني", "desc": "أحدث تقنيات الإنترنت الفضائي.", "img": "images/blog/2.jpg", "link": "#"},
+      "en": {"title": "Tech Article", "desc": "Latest satellite internet technologies.", "img": "images/blog/2.jpg", "link": "#"}
+    }
+  ],
+  "devices": [
+    {
+      "ar": {"title": "جهاز استقبال قياسي", "desc": "سهل التركيب، مناسب للاستخدام المنزلي والشركات الصغيرة.", "img": "images/devices/1.jpg"},
+      "en": {"title": "Standard Receiver", "desc": "Easy to install, suitable for home and small business use.", "img": "images/devices/1.jpg"}
+    }
+  ],
+  "plans": [
+    {"ar": {"title": "باقة أساسية", "desc": "سرعة 100 ميجابت", "price": "100 ج.م"}, "en": {"title": "Basic Plan", "desc": "100 Mbps speed", "price": "$10"}},
+    {"ar": {"title": "باقة متقدمة", "desc": "سرعة 500 ميجابت", "price": "300 ج.م"}, "en": {"title": "Advanced Plan", "desc": "500 Mbps speed", "price": "$25"}}
+  ],
+  "partners": [
+    {"ar": {"name": "شريك 1", "img": "images/partners/1.jpg", "link": "#"}, "en": {"name": "Partner 1", "img": "images/partners/1.jpg", "link": "#"}},
+    {"ar": {"name": "شريك عالمي", "img": "images/partners/2.jpg", "link": "#"}, "en": {"name": "Global Partner", "img": "images/partners/2.jpg", "link": "#"}}
+  ]
+}

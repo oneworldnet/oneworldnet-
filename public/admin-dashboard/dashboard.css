@@ -1,0 +1,102 @@
+body {
+    margin: 0;
+    font-family: 'Cairo', 'Inter', sans-serif;
+    background: #10131a;
+    color: #fff;
+}
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+.sidebar {
+    width: 250px;
+    background: #181c24;
+    padding: 24px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 2px 0 16px #0002;
+}
+.sidebar-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 32px;
+}
+.sidebar-logo span {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #0af;
+}
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+.sidebar nav ul li {
+    padding: 14px 32px;
+    cursor: pointer;
+    color: #fff;
+    transition: background 0.2s, color 0.2s;
+    font-size: 1.1em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.sidebar nav ul li.active, .sidebar nav ul li:hover {
+    background: #0af2;
+    color: #fff;
+}
+.main-content {
+    flex: 1;
+    padding: 32px 40px;
+    background: #151925;
+    min-height: 100vh;
+}
+.dashboard-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+}
+.dashboard-header h1 {
+    font-size: 2em;
+    color: #0af;
+    margin: 0;
+}
+#dashboard-lang {
+    background: #222;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 1em;
+}
+#dashboard-forms {
+    margin-bottom: 32px;
+}
+#dashboard-preview {
+    background: #181c24;
+    border-radius: 14px;
+    padding: 18px 18px 8px 18px;
+    box-shadow: 0 2px 12px #0002;
+}
+#dashboard-preview h2 {
+    color: #0af;
+    margin-top: 0;
+}
+@media (max-width: 900px) {
+    .dashboard-container {
+        flex-direction: column;
+    }
+    .sidebar {
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 12px 0;
+    }
+    .main-content {
+        padding: 16px 4vw;
+    }
+}

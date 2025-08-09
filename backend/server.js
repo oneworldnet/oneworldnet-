@@ -1,3 +1,10 @@
+// API لإرجاع قائمة الموظفين
+app.get('/api/users', (req, res) => {
+  fs.readFile(USERS_PATH, 'utf8', (err, data) => {
+    if (err) return res.json([]);
+    res.json(JSON.parse(data));
+  });
+});
 // API بسيط لحفظ وقراءة content.json
 
 const USERS_PATH = path.join(__dirname, 'users.json');

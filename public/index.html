@@ -386,6 +386,17 @@
             });
         }
 
+    // دعم استقبال الرسائل من لوحة التحكم (Live Preview)
+    window.addEventListener('message', function(event) {
+        if (!event.data || event.data.type !== 'update') return;
+        // مثال: تحديث العنوان الرئيسي فقط
+        if(event.data.section === 'site-title') {
+            var siteTitle = document.getElementById('site-title');
+            if(siteTitle) siteTitle.textContent = event.data.value;
+        }
+        // يمكن التوسعة لاحقاً لتشمل باقي الأقسام
+    });
+
         // أنماط CSS للخيارات وأيقونات التواصل
         const style = document.createElement('style');
         style.innerHTML = `

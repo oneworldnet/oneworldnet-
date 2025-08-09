@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إحصائيات الدخول | لوحة تحكم ONE WORLD NET</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <img src="../images/logo.jpg" alt="Logo" style="height:48px;border-radius:8px;">
+                <span>ONE WORLD NET</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="dashboard.html"><i class="fas fa-cogs"></i> لوحة التحكم</a></li>
+                    <li class="active"><i class="fas fa-chart-bar"></i> الإحصائيات</li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <header class="dashboard-header">
+                <h1><i class="fas fa-chart-bar"></i> إحصائيات الدخول</h1>
+            </header>
+            <section id="stats-table">
+                <table style="width:100%;background:#181c24;border-radius:12px;box-shadow:0 2px 12px #0002;">
+                    <thead>
+                        <tr style="background:#0af;color:#fff;">
+                            <th>اسم المستخدم</th>
+                            <th>الدولة</th>
+                            <th>IP</th>
+                            <th>تاريخ الدخول</th>
+                        </tr>
+                    </thead>
+                    <tbody id="stats-body">
+                        <!-- سيتم حقن الصفوف هنا -->
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+    <script>
+    // جلب بيانات الدخول من API (login-logs)
+    fetch('http://localhost:3001/api/login-logs')
+      .then(r=>r.json())
+      .then(logs => {
+        const body = document.getElementById('stats-body');
+        if(!logs || !Array.isArray(logs)) return;
+        logs.forEach(log => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `<td>${log.username}</td><td>${log.country||'-'}</td><td>${log.ip}</td><td>${log.date}</td>`;
+          body.appendChild(tr);
+        });
+      });
+    </script>
+</body>
+</html>

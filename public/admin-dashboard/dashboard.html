@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم الموقع | ONE WORLD NET</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <img src="../images/logo.jpg" alt="Logo" style="height:48px;border-radius:8px;">
+                <span>ONE WORLD NET</span>
+            </div>
+            <nav>
+                <ul>
+                    <li class="active" data-section="site-title"><i class="fas fa-heading"></i> <span>العنوان الرئيسي</span></li>
+                    <li data-section="hero"><i class="fas fa-rocket"></i> <span>قسم البطل</span></li>
+                    <li data-section="news"><i class="fas fa-bolt"></i> <span>الأخبار</span></li>
+                    <li data-section="partners"><i class="fas fa-handshake"></i> <span>الشركاء</span></li>
+                    <li data-section="devices"><i class="fas fa-satellite"></i> <span>الأجهزة</span></li>
+                    <li data-section="contact"><i class="fas fa-envelope"></i> <span>التواصل</span></li>
+                    <li data-section="footer"><i class="fas fa-shoe-prints"></i> <span>الفوتر</span></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <header class="dashboard-header">
+                <h1><i class="fas fa-cogs"></i> لوحة تحكم الموقع</h1>
+                <div style="display:flex;gap:12px;align-items:center;">
+                    <select id="dashboard-lang" aria-label="تغيير اللغة">
+                        <option value="ar">العربية</option>
+                        <option value="en">English</option>
+                    </select>
+                    <button id="add-section-btn" style="background:#0af;color:#fff;padding:8px 18px;border:none;border-radius:8px;font-size:1em;cursor:pointer;">إضافة قسم جديد</button>
+                </div>
+            </header>
+            <section id="dashboard-forms">
+                <!-- سيتم حقن النماذج هنا -->
+            </section>
+            <section id="custom-sections">
+                <!-- الأقسام المضافة ديناميكياً -->
+            </section>
+            <section id="dashboard-preview">
+                <h2>معاينة مباشرة</h2>
+                <iframe id="live-preview" src="../index.html" style="width:100%;height:400px;border:1px solid #ccc;border-radius:12px;background:#fff;"></iframe>
+            </section>
+        </main>
+    </div>
+    <script src="dashboard.js"></script>
+</body>
+</html>
