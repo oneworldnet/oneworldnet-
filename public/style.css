@@ -69,9 +69,41 @@ body {
   font-weight: bold;
   color: #0af;
 }
+/* قائمة التنقل الرئيسية */
 .nav-links {
   display: flex;
   gap: 24px;
+  position: relative;
+  z-index: 2002;
+}
+/* قائمة منسدلة للجوال */
+.nav-links.show {
+  display: block !important;
+  position: absolute;
+  top: 70px;
+  right: 24px;
+  left: 24px;
+  background: #181818f2 !important;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px #000a;
+  padding: 18px 0 12px 0;
+  z-index: 3000;
+  text-align: right;
+  min-width: 220px;
+  max-width: 95vw;
+}
+.nav-links.show a {
+  color: #fff !important;
+  font-size: 1.15em;
+  padding: 10px 18px;
+  display: block;
+  border-radius: 8px;
+  margin-bottom: 6px;
+  transition: background 0.2s;
+}
+.nav-links.show a:hover {
+  background: #0af2;
+  color: #fff !important;
 }
 .nav-link {
   color: #fff;
@@ -105,13 +137,53 @@ footer p {
   color: #fff;
   font-size: 0.9em;
 }
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .main-nav {
     flex-direction: column;
     gap: 16px;
+    align-items: stretch;
+    padding: 8px 4vw 0 4vw;
+  }
+  .logo {
+    justify-content: center;
+    margin-bottom: 8px;
+  }
+  .nav-actions {
+    justify-content: flex-end;
+    position: relative;
+    z-index: 2100;
   }
   .nav-links {
+    display: none;
+    position: absolute;
+    top: 70px;
+    right: 24px;
+    left: 24px;
+    background: #181818f2 !important;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px #000a;
+    padding: 18px 0 12px 0;
+    z-index: 3000;
+    text-align: right;
+    min-width: 220px;
+    max-width: 95vw;
     flex-direction: column;
     gap: 8px;
+  }
+  .nav-links.show {
+    display: block !important;
+  }
+  .nav-links.show a {
+    color: #fff !important;
+    font-size: 1.15em;
+    padding: 10px 18px;
+    display: block;
+    border-radius: 8px;
+    margin-bottom: 6px;
+    transition: background 0.2s;
+  }
+  .nav-links.show a:hover {
+    background: #0af2;
+    color: #fff !important;
   }
 }
