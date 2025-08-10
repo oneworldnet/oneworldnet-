@@ -94,6 +94,31 @@ const translations = {
 };
 
 function setLang(lang) {
+  // تحقق من وجود عناصر الترجمة والنص المتحرك
+  let found = false;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key]) {
+      el.textContent = t[key];
+      found = true;
+    }
+  });
+  var marquee = document.getElementById('marquee-text');
+  if(marquee && t.marquee_news) {
+    marquee.textContent = t.marquee_news;
+    found = true;
+  }
+  if(!found) {
+    let warn = document.getElementById('translate-warning');
+    if(!warn) {
+      warn = document.createElement('div');
+      warn.id = 'translate-warning';
+      warn.style = 'background:#c00;color:#fff;padding:10px;text-align:center;font-size:1.1em;position:fixed;top:0;left:0;width:100%;z-index:9999;';
+      warn.textContent = '⚠️ لم يتم تفعيل الترجمة أو النص المتحرك بشكل صحيح في هذه الصفحة.';
+      document.body.appendChild(warn);
+      setTimeout(()=>{warn.remove();},6000);
+    }
+  }
   const t = translations[lang] || translations['en'];
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
