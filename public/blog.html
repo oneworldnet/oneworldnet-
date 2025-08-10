@@ -41,14 +41,20 @@
         <option value="hi">हिन्दी</option>
         <option value="fa">فارسی</option>
       </select>
-      <select class="accessibility-select" id="accessibility-select" aria-label="Accessibility options">
-        <option value="none" selected>Accessibility</option>
-        <option value="high-contrast">High Contrast</option>
-        <option value="large-text">Large Text</option>
-        <option value="screen-reader">Screen Reader</option>
-      </select>
+      <div class="accessibility-menu-wrapper" style="position:relative;display:inline-block;">
+        <button class="accessibility-toggle" aria-label="خيارات ذوي الاحتياجات" style="background:#222;color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:1.2em;cursor:pointer;margin-right:6px;">
+          <i class="fas fa-universal-access"></i>
+        </button>
+        <div class="accessibility-dropdown" style="display:none;position:absolute;top:110%;right:0;min-width:180px;background:#222;border-radius:0 0 12px 12px;box-shadow:0 8px 32px #0006;padding:12px 10px;z-index:2000;">
+          <button class="access-btn" data-access="contrast" style="display:block;width:100%;background:none;border:none;color:#fff;text-align:right;padding:8px 0;font-size:1em;cursor:pointer;">وضع تباين عالي</button>
+          <button class="access-btn" data-access="large-text" style="display:block;width:100%;background:none;border:none;color:#fff;text-align:right;padding:8px 0;font-size:1em;cursor:pointer;">نص كبير</button>
+          <button class="access-btn" data-access="screen-reader" style="display:block;width:100%;background:none;border:none;color:#fff;text-align:right;padding:8px 0;font-size:1em;cursor:pointer;">تسهيل لقارئ الشاشة</button>
+          <button class="access-btn" data-access="reset" style="display:block;width:100%;background:none;border:none;color:#fff;text-align:right;padding:8px 0;font-size:1em;cursor:pointer;">إعادة للوضع الافتراضي</button>
+        </div>
+      </div>
       <button class="dark-toggle" aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button>
       <button class="menu-toggle" aria-label="القائمة"><i class="fas fa-bars"></i></button>
+      <button id="tts-btn" aria-label="تشغيل النطق الصوتي" style="background:#0af;color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:1.2em;cursor:pointer;margin-right:6px;"><i class="fas fa-volume-up"></i></button>
     </div>
     <ul class="nav-links">
       <li><a href="index.html" data-i18n="nav_home">الرئيسية</a></li>
@@ -133,12 +139,42 @@
         document.body.style.background = '#111';
       }
     };
-    document.getElementById('accessibility-select').addEventListener('change', function(e) {
-      document.body.classList.remove('high-contrast', 'large-text');
-      if(e.target.value === 'high-contrast') document.body.classList.add('high-contrast');
-      if(e.target.value === 'large-text') document.body.classList.add('large-text');
-      if(e.target.value === 'screen-reader') alert('Screen reader mode: Please use your system screen reader.');
-    });
+    // زر ذوي الاحتياجات
+    var accessToggle = document.querySelector('.accessibility-toggle');
+    var accessDropdown = document.querySelector('.accessibility-dropdown');
+    if(accessToggle && accessDropdown) {
+      accessToggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        accessDropdown.style.display = accessDropdown.style.display === 'block' ? 'none' : 'block';
+      });
+      document.addEventListener('click', function(e) {
+        if(accessDropdown.style.display === 'block') accessDropdown.style.display = 'none';
+      });
+      accessDropdown.addEventListener('click', function(e){ e.stopPropagation(); });
+      function setAccessibility(option) {
+        document.body.classList.remove('high-contrast','large-text','screen-reader');
+        if(option === 'contrast') document.body.classList.add('high-contrast');
+        if(option === 'large-text') document.body.classList.add('large-text');
+        if(option === 'screen-reader') document.body.classList.add('screen-reader');
+      }
+      document.querySelectorAll('.access-btn').forEach(function(btn){
+        btn.addEventListener('click',function(){
+          if(this.dataset.access === 'reset') {
+            document.body.classList.remove('high-contrast','large-text','screen-reader');
+          } else {
+            setAccessibility(this.dataset.access);
+          }
+          accessDropdown.style.display = 'none';
+        });
+      });
+    }
+    // زر النطق الصوتي
+    document.getElementById('tts-btn').onclick = function() {
+      var text = document.body.innerText;
+      var utter = new (window.SpeechSynthesisUtterance || window.webkitSpeechSynthesisUtterance)(text);
+      utter.lang = document.documentElement.lang || 'ar';
+      window.speechSynthesis.speak(utter);
+    };
     // ترجمة الموقع (نفس كود index.html)
     const translations = {
       en: {site_title: "ONE WORLD NET", nav_home: "Home", nav_plans: "Plans", nav_devices: "Devices", nav_blog: "Blog", nav_partners: "Partners", nav_contact: "Contact", nav_login: "Login", nav_register: "Register", blog_title: "Blog | One World Net"},
