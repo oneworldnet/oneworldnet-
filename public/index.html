@@ -223,6 +223,7 @@
     </section>
     <div id="global-marquee" style="width:100%;background:#181818e6;color:#fff;font-size:1.1em;padding:10px 0 8px 0;text-align:center;overflow:hidden;direction:ltr;letter-spacing:1px;">
         <span id="marquee-text" style="display:inline-block;white-space:nowrap;"></span>
+        <span id="marquee-extra" style="display:inline-block;white-space:nowrap;margin-right:32px;font-weight:bold;color:#0af;"></span>
     </div>
     <style>
     @keyframes marquee {
@@ -431,7 +432,7 @@
         `;
         document.head.appendChild(style);
 
-        // نص متحرك بجميع اللغات
+        // نص متحرك بجميع اللغات + عبارة تشجيعية للتسجيل المجاني
         const marqueeMessages = {
             en: "Welcome to One World Net! Connecting the world with respect, peace, and technology for all.",
             ar: "مرحباً بكم في ون وورلد نت! نربط العالم بالاحترام والسلام والتقنية للجميع.",
@@ -443,14 +444,33 @@
             hi: "One World Net में आपका स्वागत है! सभी के लिए सम्मान, शांति और तकनीक के साथ दुनिया को जोड़ना।",
             fa: "به وان ورلد نت خوش آمدید! اتصال جهان با احترام، صلح و فناوری برای همه."
         };
+        const marqueeExtra = {
+            en: "Register your school, hospital, or university for FREE!",
+            ar: "سجّل مدرستك أو مستشفاك أو جامعتك مجاناً الآن!",
+            fr: "Inscrivez votre école, hôpital ou université GRATUITEMENT!",
+            es: "¡Registra tu escuela, hospital o universidad GRATIS!",
+            it: "Registra la tua scuola, ospedale o università GRATIS!",
+            zh: "免费注册您的学校、医院或大学！",
+            de: "Registrieren Sie Ihre Schule, Ihr Krankenhaus oder Ihre Universität KOSTENLOS!",
+            hi: "अपना स्कूल, अस्पताल या विश्वविद्यालय मुफ्त में पंजीकृत करें!",
+            fa: "مدرسه، بیمارستان یا دانشگاه خود را رایگان ثبت کنید!"
+        };
         function setMarquee(lang) {
             var msg = marqueeMessages[lang] || marqueeMessages['en'];
+            var extra = marqueeExtra[lang] || marqueeExtra['en'];
             var marquee = document.getElementById('marquee-text');
+            var extraSpan = document.getElementById('marquee-extra');
             if(marquee) {
                 marquee.textContent = msg;
                 marquee.style.animation = 'none';
                 void marquee.offsetWidth;
                 marquee.style.animation = 'marquee 18s linear infinite';
+            }
+            if(extraSpan) {
+                extraSpan.textContent = extra;
+                extraSpan.style.animation = 'none';
+                void extraSpan.offsetWidth;
+                extraSpan.style.animation = 'marquee 22s linear infinite';
             }
             var marqueeDiv = document.getElementById('global-marquee');
             if(marqueeDiv) {
