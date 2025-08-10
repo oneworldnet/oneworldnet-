@@ -221,23 +221,20 @@
         <a href="register.html" class="main-btn">انضم إلينا الآن</a>
         <img src="images/index/2.jpg" alt="عنوان الشركة" style="width:100%;max-width:600px;border-radius:18px;margin:24px auto;display:block;box-shadow:0 8px 32px #0af2;" />
     </section>
-    <div id="global-marquee" style="width:100vw;max-width:100vw;overflow:hidden;background:#181818e6;color:#fff;font-size:1.1em;padding:10px 0 8px 0;text-align:center;direction:ltr;letter-spacing:1px;position:relative;z-index:3001;">
-        <span id="marquee-text" style="display:inline-block;white-space:nowrap;animation:marquee 18s linear infinite;"></span>
-        <span id="marquee-extra" style="display:inline-block;white-space:nowrap;margin-right:32px;font-weight:bold;color:#0af;animation:marquee 22s linear infinite;"></span>
-    </div>
-    <style>
-    @keyframes marquee {
-        0% { transform: translateX(100vw); }
-        100% { transform: translateX(-100vw); }
-    }
-    #global-marquee { box-shadow:none !important; text-shadow:none !important; overflow:hidden; }
-    #marquee-text, #marquee-extra {
-        text-shadow:none !important;
-        display:inline-block;
-        white-space:nowrap;
-        min-width: 60vw;
-    }
-    </style>
+        <div id="global-marquee" style="width:100%;background:#181818e6;color:#fff;font-size:1.1em;padding:10px 0 8px 0;text-align:center;overflow:hidden;direction:ltr;letter-spacing:1px;">
+            <span id="marquee-text" style="display:inline-block;white-space:nowrap;"></span>
+        </div>
+        <style>
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        #global-marquee { box-shadow:none !important; text-shadow:none !important; overflow:hidden; }
+        #marquee-text {
+            display:inline-block;white-space:nowrap;
+            animation:marquee 18s linear infinite;
+        }
+        </style>
     <!-- شريط كتابي احترافي متعدد اللغات أعلى قسم الأخبار -->
     <div id="global-marquee-news" style="width:100%;background:#181818e6;color:#fff;font-size:1.1em;padding:10px 0 8px 0;text-align:center;overflow:hidden;direction:ltr;letter-spacing:1px;">
         <span id="marquee-text-news" style="display:inline-block;white-space:nowrap;"></span>
@@ -433,34 +430,26 @@
         `;
         document.head.appendChild(style);
 
-    // نص متحرك بجميع اللغات + عبارة تشجيعية للتسجيل المجاني (للماركيه الرئيسي)
-        // ماركيه ثانية أعلى الأخبار
-        function setMarqueeNews(lang) {
-            var msg = marqueeMessages[lang] || marqueeMessages['en'];
-            var extra = marqueeExtra[lang] || marqueeExtra['en'];
-            var marquee = document.getElementById('marquee-text-news');
-            var extraSpan = document.getElementById('marquee-extra-news');
-            if(marquee) {
-                marquee.textContent = msg;
-                marquee.style.animation = 'none';
-                void marquee.offsetWidth;
-                marquee.style.animation = 'marquee 18s linear infinite';
-            }
-            if(extraSpan) {
-                extraSpan.textContent = extra;
-                extraSpan.style.animation = 'none';
-                void extraSpan.offsetWidth;
-                extraSpan.style.animation = 'marquee 22s linear infinite';
-            }
-            var marqueeDiv = document.getElementById('global-marquee-news');
-            if(marqueeDiv) {
-                if(lang === 'ar' || lang === 'fa') {
-                    marqueeDiv.style.direction = 'rtl';
-                } else {
-                    marqueeDiv.style.direction = 'ltr';
+            // نص متحرك بجميع اللغات (ماركيه رئيسي)
+            // تم نقل تعريف marqueeMessages للأعلى ليكون مشتركاً بين جميع الدوال
+                function setMarquee(lang) {
+                    var msg = marqueeMessages[lang] || marqueeMessages['en'];
+                    var marquee = document.getElementById('marquee-text');
+                    if(marquee) {
+                        marquee.textContent = msg;
+                        marquee.style.animation = 'none';
+                        void marquee.offsetWidth;
+                        marquee.style.animation = 'marquee 18s linear infinite';
+                    }
+                    var marqueeDiv = document.getElementById('global-marquee');
+                    if(marqueeDiv) {
+                        if(lang === 'ar' || lang === 'fa') {
+                            marqueeDiv.style.direction = 'rtl';
+                        } else {
+                            marqueeDiv.style.direction = 'ltr';
+                        }
+                    }
                 }
-            }
-        }
         const marqueeMessages = {
             en: "Welcome to One World Net! Connecting the world with respect, peace, and technology for all.",
             ar: "مرحباً بكم في ون وورلد نت! نربط العالم بالاحترام والسلام والتقنية للجميع.",
@@ -629,15 +618,13 @@
                 setLang(e.target.value);
             });
         }
-        setLang(document.documentElement.lang || 'en');
-        setMarquee(document.documentElement.lang || 'en');
-        setMarqueeNews(document.documentElement.lang || 'en');
-        // عند تغيير اللغة، حدث الماركيه الثاني أيضًا
-        if(langSelect) {
-            langSelect.addEventListener('change', function(e) {
-                setMarqueeNews(e.target.value);
-            });
-        }
+                setLang(document.documentElement.lang || 'en');
+                setMarquee(document.documentElement.lang || 'en');
+                if(langSelect) {
+                    langSelect.addEventListener('change', function(e) {
+                        setMarquee(e.target.value);
+                    });
+                }
     });
     </script>
 </body>
