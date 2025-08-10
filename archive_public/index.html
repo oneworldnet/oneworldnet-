@@ -167,5 +167,13 @@
   </footer>
   <script src="translate.js"></script>
   <script src="main.js"></script>
+<script>
+// تفعيل الترجمة والشريط المتحرك مباشرة بعد تحميل الصفحة
+document.addEventListener('DOMContentLoaded', function() {
+  if(typeof setLang === 'function') {
+    setLang(document.getElementById('lang-select')?.value || 'en');
+  }
+});
+</script>
 </body>
 </html>
