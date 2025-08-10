@@ -92,6 +92,7 @@ const translations = {
   }
 };
 
+
 function setLang(lang) {
   const t = translations[lang] || translations['en'];
   document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -115,31 +116,10 @@ if(langSelect) {
 }
 setLang('en');
 
-function setLanguage(lang) {
-  document.documentElement.lang = lang;
-  document.querySelectorAll('.nav-links a')[0].textContent = translations[lang].home;
-  document.querySelectorAll('.nav-links a')[1].textContent = translations[lang].plans;
-  document.querySelectorAll('.nav-links a')[2].textContent = translations[lang].devices;
-  document.querySelectorAll('.nav-links a')[3].textContent = translations[lang].blog;
-  document.querySelectorAll('.nav-links a')[4].textContent = translations[lang].partners;
-  document.querySelectorAll('.nav-links a')[5].textContent = translations[lang].contact;
-  document.querySelector('.login-btn').textContent = translations[lang].login;
-  document.querySelector('.register-btn').textContent = translations[lang].register;
-  document.querySelector('.hero-content h1').textContent = translations[lang].heroTitle;
-  document.querySelector('.hero-content p').textContent = translations[lang].heroDesc;
-  document.querySelector('.main-btn').textContent = translations[lang].registerNow;
-  if (["ar"].includes(lang)) {
-    document.documentElement.dir = "rtl";
-  } else {
-    document.documentElement.dir = "ltr";
-  }
-}
-
 document.getElementById('langSwitcher').onclick = function() {
   const langs = ['en', 'fr', 'it', 'es', 'de', 'ar'];
   const current = document.documentElement.lang;
   let nextIndex = langs.indexOf(current) + 1;
   if (nextIndex >= langs.length) nextIndex = 0;
-  setLanguage(langs[nextIndex]);
+  setLang(langs[nextIndex]);
 };
-setLanguage('en');
