@@ -40,10 +40,9 @@
 </head>
 <body>
   <nav class="main-nav">
-    <button class="menu-toggle" aria-label="القائمة"><i class="fas fa-bars"></i></button>
     <div class="logo">
       <img id="site-logo" src="images/logo.jpg" alt="ONE WORLD NET Logo" style="height:44px; border-radius:8px; box-shadow:0 2px 8px #0af4;" />
-      <span id="site-title" data-i18n="site_title"></span>
+      <span id="site-title" data-i18n="site_title">ONE WORLD NET</span>
     </div>
     <div class="nav-actions">
       <select class="lang-select" id="lang-select" aria-label="Select language">
@@ -52,18 +51,9 @@
         <option value="fr">Français</option>
         <option value="es">Español</option>
         <option value="it">Italiano</option>
-        <option value="zh">中文</option>
         <option value="de">Deutsch</option>
-        <option value="hi">हिन्दी</option>
-        <option value="fa">فارسی</option>
       </select>
-      <select class="accessibility-select" id="accessibility-select" aria-label="Accessibility options">
-        <option value="none" selected>Accessibility</option>
-        <option value="high-contrast">High Contrast</option>
-        <option value="large-text">Large Text</option>
-        <option value="screen-reader">Screen Reader</option>
-      </select>
-      <button class="dark-toggle" aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button>
+      <button class="menu-toggle" aria-label="القائمة"><i class="fas fa-bars"></i></button>
     </div>
     <ul class="nav-links">
       <li><a href="index.html" data-i18n="nav_home">الرئيسية</a></li>
@@ -76,6 +66,9 @@
       <li><a href="register.html" class="register-btn" data-i18n="nav_register">إنشاء حساب</a></li>
     </ul>
   </nav>
+  <div class="marquee-bar" style="background:#0af;color:#fff;padding:8px 0;text-align:center;font-weight:bold;font-size:1.1em;">
+    <span data-i18n="marquee_text">Welcome to One World Net! أفضل حلول الإنترنت الفضائي لجميع أنحاء العالم. Now available in English, Français, Italiano, Español, Deutsch.</span>
+  </div>
   <section class="login-section glass">
     <h2><i class="fas fa-sign-in-alt"></i> <span data-i18n="nav_login">تسجيل الدخول</span></h2>
     <form class="login-form">
