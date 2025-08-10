@@ -11,25 +11,32 @@
   <nav class="main-nav">
     <div class="logo">
       <img src="/public/images/logo.jpg" alt="One World Net Logo" />
-      <span>ONE WORLD NET</span>
+      <span id="site-title" data-i18n="site_title">ONE WORLD NET</span>
     </div>
-    <button id="langSwitcher" class="lang-btn" aria-label="تغيير اللغة">🌐</button>
+    <select id="lang-select" class="lang-select" aria-label="اختيار اللغة">
+      <option value="en">English</option>
+      <option value="ar">العربية</option>
+      <option value="fr">Français</option>
+      <option value="es">Español</option>
+      <option value="it">Italiano</option>
+      <option value="de">Deutsch</option>
+    </select>
     <ul class="nav-links">
-      <li><a href="#home">الرئيسية</a></li>
-      <li><a href="#plans">الباقات</a></li>
-      <li><a href="#devices">الأجهزة</a></li>
-      <li><a href="#blog">المدونة</a></li>
-      <li><a href="#partners">الشركاء</a></li>
-      <li><a href="#contact">تواصل</a></li>
-      <li><a href="#login" class="login-btn">تسجيل الدخول</a></li>
-      <li><a href="#register" class="register-btn">إنشاء حساب</a></li>
+      <li><a href="#home" data-i18n="nav_home">الرئيسية</a></li>
+      <li><a href="#plans" data-i18n="nav_plans">الباقات</a></li>
+      <li><a href="#devices" data-i18n="nav_devices">الأجهزة</a></li>
+      <li><a href="#blog" data-i18n="nav_blog">المدونة</a></li>
+      <li><a href="#partners" data-i18n="nav_partners">الشركاء</a></li>
+      <li><a href="#contact" data-i18n="nav_contact">تواصل</a></li>
+      <li><a href="#login" class="login-btn" data-i18n="nav_login">تسجيل الدخول</a></li>
+      <li><a href="#register" class="register-btn" data-i18n="nav_register">إنشاء حساب</a></li>
     </ul>
   </nav>
   <header class="hero-section" id="home">
     <div class="hero-content glass">
-      <h1>الإنترنت الفضائي للجميع</h1>
-      <p>أسرع وأأمن إنترنت فضائي في العالم، متاح لكل بيت وشركة ومنظمة.</p>
-      <a href="#register" class="main-btn">سجل الآن</a>
+  <h1 data-i18n="hero_title">الإنترنت الفضائي للجميع</h1>
+  <p data-i18n="hero_desc">أسرع وأأمن إنترنت فضائي في العالم، متاح لكل بيت وشركة ومنظمة.</p>
+  <a href="#register" class="main-btn" data-i18n="hero_btn">سجل الآن</a>
     </div>
     <img src="/public/images/1.jpg" alt="قمر صناعي" class="hero-img" />
     <div class="gallery-row">
@@ -94,6 +101,9 @@
     </div>
   </section>
   <section id="blog" class="blog-section glass">
+  <div class="marquee-news" style="width:100%;background:#181818e6;color:#fff;font-size:1.1em;padding:10px 0 8px 0;text-align:center;overflow:hidden;direction:ltr;letter-spacing:1px;">
+    <span id="marquee-text" data-i18n="marquee_news">مرحباً بكم في ون وورلد نت! نربط العالم بالاحترام والسلام والتقنية للجميع.</span>
+  </div>
     <h2>المدونة</h2>
     <div class="blog-cards">
       <div class="blog-card">
