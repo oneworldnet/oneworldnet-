@@ -221,17 +221,22 @@
         <a href="register.html" class="main-btn">انضم إلينا الآن</a>
         <img src="images/index/2.jpg" alt="عنوان الشركة" style="width:100%;max-width:600px;border-radius:18px;margin:24px auto;display:block;box-shadow:0 8px 32px #0af2;" />
     </section>
-    <div id="global-marquee" style="width:100%;background:#181818e6;color:#fff;font-size:1.1em;padding:10px 0 8px 0;text-align:center;overflow:hidden;direction:ltr;letter-spacing:1px;">
-        <span id="marquee-text" style="display:inline-block;white-space:nowrap;"></span>
-        <span id="marquee-extra" style="display:inline-block;white-space:nowrap;margin-right:32px;font-weight:bold;color:#0af;"></span>
+    <div id="global-marquee" style="width:100vw;max-width:100vw;overflow:hidden;background:#181818e6;color:#fff;font-size:1.1em;padding:10px 0 8px 0;text-align:center;direction:ltr;letter-spacing:1px;position:relative;z-index:3001;">
+        <span id="marquee-text" style="display:inline-block;white-space:nowrap;animation:marquee 18s linear infinite;"></span>
+        <span id="marquee-extra" style="display:inline-block;white-space:nowrap;margin-right:32px;font-weight:bold;color:#0af;animation:marquee 22s linear infinite;"></span>
     </div>
     <style>
     @keyframes marquee {
-        0% { transform: translateX(100%); }
-        100% { transform: translateX(-100%); }
+        0% { transform: translateX(100vw); }
+        100% { transform: translateX(-100vw); }
     }
-    #global-marquee { box-shadow:none !important; text-shadow:none !important; }
-    #marquee-text { text-shadow:none !important; display:inline-block; white-space:nowrap; }
+    #global-marquee { box-shadow:none !important; text-shadow:none !important; overflow:hidden; }
+    #marquee-text, #marquee-extra {
+        text-shadow:none !important;
+        display:inline-block;
+        white-space:nowrap;
+        min-width: 60vw;
+    }
     </style>
     <!-- شريط كتابي احترافي متعدد اللغات أعلى قسم الأخبار -->
     <div id="global-marquee-news" style="width:100%;background:#181818e6;color:#fff;font-size:1.1em;padding:10px 0 8px 0;text-align:center;overflow:hidden;direction:ltr;letter-spacing:1px;">
@@ -494,15 +499,11 @@
             var extraSpan = document.getElementById('marquee-extra');
             if(marquee) {
                 marquee.textContent = msg;
-                marquee.style.animation = 'none';
-                void marquee.offsetWidth;
-                marquee.style.animation = 'marquee 18s linear infinite';
+                marquee.style.animation = '';
             }
             if(extraSpan) {
                 extraSpan.textContent = extra;
-                extraSpan.style.animation = 'none';
-                void extraSpan.offsetWidth;
-                extraSpan.style.animation = 'marquee 22s linear infinite';
+                extraSpan.style.animation = '';
             }
             var marqueeDiv = document.getElementById('global-marquee');
             if(marqueeDiv) {
