@@ -28,20 +28,56 @@ const translations = {
   },
   // فاصلة مضافة هنا
   fr: {
-    title: "Bienvenue chez One World Net",
-    description: "Internet satellite mondial à grande vitesse et prix compétitifs."
+    home: "Accueil",
+    plans: "Forfaits",
+    devices: "Appareils",
+    blog: "Blog",
+    partners: "Partenaires",
+    contact: "Contact",
+    login: "Connexion",
+    register: "Inscription",
+    heroTitle: "Internet satellite pour tous",
+    heroDesc: "L'internet satellite le plus rapide et le plus sûr au monde, disponible pour chaque maison, entreprise et organisation.",
+    registerNow: "Inscrivez-vous maintenant"
   },
   es: {
-    title: "Bienvenido a One World Net",
-    description: "Internet satelital global con alta velocidad y precios competitivos."
+    home: "Inicio",
+    plans: "Planes",
+    devices: "Dispositivos",
+    blog: "Blog",
+    partners: "Socios",
+    contact: "Contacto",
+    login: "Iniciar sesión",
+    register: "Registrarse",
+    heroTitle: "Internet satelital para todos",
+    heroDesc: "El internet satelital más rápido y seguro del mundo, disponible para cada hogar, empresa y organización.",
+    registerNow: "Regístrate ahora"
   },
   it: {
-    title: "Benvenuto su One World Net",
-    description: "Internet satellitare globale ad alta velocità e prezzi competitivi."
+    home: "Home",
+    plans: "Piani",
+    devices: "Dispositivi",
+    blog: "Blog",
+    partners: "Partner",
+    contact: "Contatto",
+    login: "Accedi",
+    register: "Registrati",
+    heroTitle: "Internet satellitare per tutti",
+    heroDesc: "L'internet satellitare più veloce e sicuro al mondo, disponibile per ogni casa, azienda e organizzazione.",
+    registerNow: "Registrati ora"
   },
   de: {
-    title: "Willkommen bei One World Net",
-    description: "Globales Satelliteninternet mit hoher Geschwindigkeit und günstigen Preisen."
+    home: "Startseite",
+    plans: "Tarife",
+    devices: "Geräte",
+    blog: "Blog",
+    partners: "Partner",
+    contact: "Kontakt",
+    login: "Anmelden",
+    register: "Registrieren",
+    heroTitle: "Satelliteninternet für alle",
+    heroDesc: "Das schnellste und sicherste Satelliteninternet der Welt, verfügbar für jedes Zuhause, Unternehmen und jede Organisation.",
+    registerNow: "Jetzt registrieren"
   },
   zh: {
     title: "欢迎来到One World Net",
@@ -71,13 +107,16 @@ function setLanguage(lang) {
   }
 }
 
+// زر اختيار اللغة متعدد الخيارات
 document.getElementById('langSwitcher').onclick = function() {
+  const langs = ['en', 'fr', 'it', 'es', 'de', 'ar'];
   const current = document.documentElement.lang;
-  const next = current === 'ar' ? 'en' : 'ar';
-  setLanguage(next);
+  let nextIndex = langs.indexOf(current) + 1;
+  if (nextIndex >= langs.length) nextIndex = 0;
+  setLanguage(langs[nextIndex]);
 };
-// افتراضي عربي
-setLanguage('ar');
+// افتراضي إنجليزي
+setLanguage('en');
 document.addEventListener('DOMContentLoaded', () => {
   const lang = localStorage.getItem('lang') || 'ar';
   setLanguage(lang);
