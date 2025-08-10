@@ -52,7 +52,7 @@
     </ul>
   </nav>
   <div class="marquee-bar" style="background:#0af;color:#fff;padding:8px 0;text-align:center;font-weight:bold;font-size:1.1em;">
-  <span data-i18n="marquee_text">Welcome to One World Net! أفضل حلول الإنترنت الفضائي لجميع أنحاء العالم. ندعم المدارس والجامعات والمستشفيات حول العالم، إنترنت الأشياء، وسرعات تصل إلى ١٠ جيجابت في الثانية، وتغطية المحيطات والبحار والجبال والفضاء، ونستخدم حماية بتقنية بلوك تشين غير قابلة للاختراق أو الاطلاع عليها من أي طرف ثالث. Now available in English, Français, Italiano, Español, Deutsch.</span>
+  <!-- شريط النص المتحرك يظهر فقط في الصفحة الرئيسية -->
   </div>
   <section class="contact-section glass">
     <h2><i class="fas fa-envelope"></i> تواصل معنا</h2>
@@ -79,27 +79,22 @@
     </div>
   </section>
   <footer class="main-footer glass">
-    <div class="footer-socials">
-      <a href="https://facebook.com" target="_blank" aria-label="فيسبوك"><i class="fab fa-facebook"></i></a>
-      <a href="https://twitter.com" target="_blank" aria-label="تويتر"><i class="fab fa-twitter"></i></a>
-      <a href="https://linkedin.com" target="_blank" aria-label="لينكدإن"><i class="fab fa-linkedin"></i></a>
-      <a href="https://youtube.com" target="_blank" aria-label="يوتيوب"><i class="fab fa-youtube"></i></a>
+    <div class="footer-socials" style="display:flex;gap:10px;justify-content:center;margin-bottom:8px;">
+      <a href="https://facebook.com" target="_blank" aria-label="فيسبوك" class="social-circle fb"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://twitter.com" target="_blank" aria-label="تويتر" class="social-circle tw"><i class="fab fa-twitter"></i></a>
+      <a href="https://linkedin.com" target="_blank" aria-label="لينكدإن" class="social-circle in"><i class="fab fa-linkedin-in"></i></a>
+      <a href="https://youtube.com" target="_blank" aria-label="يوتيوب" class="social-circle yt"><i class="fab fa-youtube"></i></a>
+      <a href="https://discord.com" target="_blank" aria-label="ديسكورد" class="social-circle ds"><i class="fab fa-discord"></i></a>
+      <a href="https://wa.me/" target="_blank" aria-label="واتساب" class="social-circle wa"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://t.me/" target="_blank" aria-label="تليجرام" class="social-circle tg"><i class="fab fa-telegram-plane"></i></a>
+      <a href="https://tiktok.com" target="_blank" aria-label="تيك توك" class="social-circle tt"><i class="fab fa-tiktok"></i></a>
     </div>
     <div class="footer-links">
       <a href="#privacy">سياسة الخصوصية</a>
       <a href="#faq">الأسئلة الشائعة</a>
     </div>
     <div class="footer-copy">&copy; 2025 One World Net. جميع الحقوق محفوظة.</div>
-    <div class="footer-socials">
-      <a href="https://facebook.com" target="_blank" aria-label="فيسبوك"><i class="fab fa-facebook"></i></a>
-      <a href="https://twitter.com" target="_blank" aria-label="تويتر"><i class="fab fa-twitter"></i></a>
-      <a href="https://linkedin.com" target="_blank" aria-label="لينكدإن"><i class="fab fa-linkedin"></i></a>
-      <a href="https://youtube.com" target="_blank" aria-label="يوتيوب"><i class="fab fa-youtube"></i></a>
-    </div>
-    <div class="footer-links">
-      <a href="#privacy" data-i18n="footer_privacy">سياسة الخصوصية</a>
-      <a href="#faq" data-i18n="footer_faq">الأسئلة الشائعة</a>
-    </div>
+  <!-- تم حذف التكرار وتوحيد الفوتر -->
     <div class="footer-copy">&copy; 2025 ONE WORLD NET. جميع الحقوق محفوظة.</div>
   </footer>
   <script src="main.js"></script>
