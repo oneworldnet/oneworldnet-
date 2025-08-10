@@ -15,10 +15,7 @@ const sections = {
     'plans': [],
     'partners': []
 };
-
-// الأقسام المخصصة التي يضيفها المستخدم
 let customSections = [];
-};
 
 let currentLang = 'ar';
 let currentSection = 'site-title';

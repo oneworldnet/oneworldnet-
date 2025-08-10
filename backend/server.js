@@ -1,3 +1,23 @@
+
+
+
+import express from 'express';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const app = express();
+const PORT = process.env.PORT || 3001;
+
+app.use(express.json());
+
+const USERS_PATH = path.join(__dirname, 'users.json');
+const LOGS_PATH = path.join(__dirname, 'login-logs.json');
+const CONTENT_PATH = path.join(__dirname, 'content.json');
+
 // API لإرجاع قائمة الموظفين
 app.get('/api/users', (req, res) => {
   fs.readFile(USERS_PATH, 'utf8', (err, data) => {
@@ -5,10 +25,6 @@ app.get('/api/users', (req, res) => {
     res.json(JSON.parse(data));
   });
 });
-// API بسيط لحفظ وقراءة content.json
-
-const USERS_PATH = path.join(__dirname, 'users.json');
-const LOGS_PATH = path.join(__dirname, 'login-logs.json');
 
 // قراءة بيانات الموقع
 app.get('/api/content', (req, res) => {
