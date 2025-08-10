@@ -18,9 +18,15 @@ window.addEventListener('DOMContentLoaded', function() {
   var logoUrl = localStorage.getItem('siteLogo');
   if(logoImg && logoUrl) logoImg.src = logoUrl;
 
-  // منع تكرار اسم الشعار
+  // منع تكرار اسم الشعار في كل الصفحات
   var logoSpans = document.querySelectorAll('.logo span');
   if(logoSpans.length > 1) {
     for(var i=1;i<logoSpans.length;i++) logoSpans[i].remove();
   }
+  // إزالة أي تكرار لاسم ONE WORLD NET خارج الشعار
+  document.querySelectorAll('span, h1, h2, h3, h4, h5, h6, p, div').forEach(function(el){
+    if(el !== document.querySelector('.logo span') && el.textContent.trim() === 'ONE WORLD NET') {
+      el.remove();
+    }
+  });
 });
