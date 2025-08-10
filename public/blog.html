@@ -39,6 +39,8 @@
         <option value="it">Italiano</option>
         <option value="de">Deutsch</option>
       </select>
+      <button class="accessibility-toggle" aria-label="ذوي الاحتياجات" title="ذوي الاحتياجات"><i class="fas fa-universal-access"></i></button>
+      <button class="dark-toggle" aria-label="الوضع الليلي" title="الوضع الليلي"><i class="fas fa-moon"></i></button>
     </div>
     <ul class="nav-links">
       <li><a href="index.html" data-i18n="nav_home">الرئيسية</a></li>
@@ -107,10 +109,10 @@
       <a href="https://youtube.com" target="_blank" aria-label="يوتيوب"><i class="fab fa-youtube"></i></a>
     </div>
     <div class="footer-links">
-      <a href="#privacy">سياسة الخصوصية</a>
-      <a href="#faq">الأسئلة الشائعة</a>
+      <a href="#privacy" data-i18n="footer_privacy">سياسة الخصوصية</a>
+      <a href="#faq" data-i18n="footer_faq">الأسئلة الشائعة</a>
     </div>
-    <div class="footer-copy">&copy; 2025 One World Net. جميع الحقوق محفوظة.</div>
+    <div class="footer-copy">&copy; 2025 ONE WORLD NET. جميع الحقوق محفوظة.</div>
   </footer>
   <script src="main.js"></script>
   <script src="translate.js"></script>
@@ -156,43 +158,10 @@
       });
     }
     // زر النطق الصوتي
-    document.getElementById('tts-btn').onclick = function() {
-      var text = document.body.innerText;
-      var utter = new (window.SpeechSynthesisUtterance || window.webkitSpeechSynthesisUtterance)(text);
-      utter.lang = document.documentElement.lang || 'ar';
-      window.speechSynthesis.speak(utter);
-    };
-    // ترجمة الموقع (نفس كود index.html)
-    const translations = {
-      en: {site_title: "ONE WORLD NET", nav_home: "Home", nav_plans: "Plans", nav_devices: "Devices", nav_blog: "Blog", nav_partners: "Partners", nav_contact: "Contact", nav_login: "Login", nav_register: "Register", blog_title: "Blog | One World Net"},
-      ar: {site_title: "ون وورلد نت", nav_home: "الرئيسية", nav_plans: "الباقات", nav_devices: "الأجهزة", nav_blog: "المدونة", nav_partners: "الشركاء", nav_contact: "تواصل", nav_login: "تسجيل الدخول", nav_register: "إنشاء حساب", blog_title: "المدونة | ون وورلد نت"},
-      fr: {site_title: "ONE WORLD NET", nav_home: "Accueil", nav_plans: "Forfaits", nav_devices: "Appareils", nav_blog: "Blog", nav_partners: "Partenaires", nav_contact: "Contact", nav_login: "Connexion", nav_register: "S'inscrire", blog_title: "Blog | ONE WORLD NET"},
-      es: {site_title: "ONE WORLD NET", nav_home: "Inicio", nav_plans: "Planes", nav_devices: "Dispositivos", nav_blog: "Blog", nav_partners: "Socios", nav_contact: "Contacto", nav_login: "Iniciar sesión", nav_register: "Registrarse", blog_title: "Blog | ONE WORLD NET"},
-      it: {site_title: "ONE WORLD NET", nav_home: "Home", nav_plans: "Piani", nav_devices: "Dispositivi", nav_blog: "Blog", nav_partners: "Partner", nav_contact: "Contatto", nav_login: "Accedi", nav_register: "Registrati", blog_title: "Blog | ONE WORLD NET"},
-      zh: {site_title: "ONE WORLD NET", nav_home: "首页", nav_plans: "套餐", nav_devices: "设备", nav_blog: "博客", nav_partners: "合作伙伴", nav_contact: "联系", nav_login: "登录", nav_register: "注册", blog_title: "博客 | ONE WORLD NET"},
-      de: {site_title: "ONE WORLD NET", nav_home: "Startseite", nav_plans: "Tarife", nav_devices: "Geräte", nav_blog: "Blog", nav_partners: "Partner", nav_contact: "Kontakt", nav_login: "Anmelden", nav_register: "Registrieren", blog_title: "Blog | ONE WORLD NET"},
-      hi: {site_title: "ONE WORLD NET", nav_home: "होम", nav_plans: "प्लान्स", nav_devices: "डिवाइसेस", nav_blog: "ब्लॉग", nav_partners: "साझेदार", nav_contact: "संपर्क करें", nav_login: "लॉगिन", nav_register: "रजिस्टर करें", blog_title: "ब्लॉग | ONE WORLD NET"},
-      fa: {site_title: "وان ورلد نت", nav_home: "خانه", nav_plans: "پلن‌ها", nav_devices: "دستگاه‌ها", nav_blog: "بلاگ", nav_partners: "شرکا", nav_contact: "تماس", nav_login: "ورود", nav_register: "ثبت‌نام", blog_title: "بلاگ | وان ورلد نت"}
-    };
-    function setLang(lang) {
-      const t = translations[lang] || translations['en'];
-      document.getElementById('site-title').textContent = t.site_title;
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (t[key]) el.textContent = t[key];
-      });
-      document.title = t.blog_title;
-      document.documentElement.lang = lang;
-      if(lang === 'ar' || lang === 'fa') {
-        document.documentElement.dir = 'rtl';
-      } else {
-        document.documentElement.dir = 'ltr';
-      }
-    }
-    document.getElementById('lang-select').addEventListener('change', function(e) {
-      setLang(e.target.value);
-    });
-    setLang('en');
+    // يمكنك هنا تفعيل النطق الصوتي حسب الحاجة
+    // مثال: window.speechSynthesis.speak(new SpeechSynthesisUtterance('مرحبا في ون وورلد نت'));
   </script>
+  <script src="main.js"></script>
+  <script src="translate.js"></script>
 </body>
-</html>
+  </html>

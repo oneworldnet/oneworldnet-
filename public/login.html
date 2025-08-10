@@ -54,6 +54,8 @@
         <option value="it">Italiano</option>
         <option value="de">Deutsch</option>
       </select>
+  <button class="accessibility-toggle" aria-label="ذوي الاحتياجات" title="ذوي الاحتياجات"><i class="fas fa-universal-access"></i></button>
+  <button class="dark-toggle" aria-label="الوضع الليلي" title="الوضع الليلي"><i class="fas fa-moon"></i></button>
     </div>
     <ul class="nav-links">
       <li><a href="index.html" data-i18n="nav_home">الرئيسية</a></li>
@@ -95,15 +97,11 @@
     <span id="marquee-text" style="display:inline-block;white-space:nowrap;"></span>
   </div>
   <footer class="main-footer glass">
-    <div class="footer-socials" style="display:flex;gap:10px;justify-content:center;margin-bottom:8px;">
-      <a href="https://facebook.com" target="_blank" aria-label="فيسبوك" class="social-circle fb"><i class="fab fa-facebook-f"></i></a>
-      <a href="https://twitter.com" target="_blank" aria-label="تويتر" class="social-circle tw"><i class="fab fa-twitter"></i></a>
-      <a href="https://linkedin.com" target="_blank" aria-label="لينكدإن" class="social-circle in"><i class="fab fa-linkedin-in"></i></a>
-      <a href="https://youtube.com" target="_blank" aria-label="يوتيوب" class="social-circle yt"><i class="fab fa-youtube"></i></a>
-      <a href="https://discord.com" target="_blank" aria-label="ديسكورد" class="social-circle ds"><i class="fab fa-discord"></i></a>
-      <a href="https://wa.me/" target="_blank" aria-label="واتساب" class="social-circle wa"><i class="fab fa-whatsapp"></i></a>
-      <a href="https://t.me/" target="_blank" aria-label="تليجرام" class="social-circle tg"><i class="fab fa-telegram-plane"></i></a>
-      <a href="https://tiktok.com" target="_blank" aria-label="تيك توك" class="social-circle tt"><i class="fab fa-tiktok"></i></a>
+    <div class="footer-socials">
+    <a href="https://facebook.com" target="_blank" aria-label="فيسبوك" class="social-circle fb"><i class="fab fa-facebook-f"></i></a>
+    <a href="https://twitter.com" target="_blank" aria-label="تويتر" class="social-circle tw"><i class="fab fa-twitter"></i></a>
+    <a href="https://linkedin.com" target="_blank" aria-label="لينكدإن" class="social-circle in"><i class="fab fa-linkedin-in"></i></a>
+    <a href="https://youtube.com" target="_blank" aria-label="يوتيوب" class="social-circle yt"><i class="fab fa-youtube"></i></a>
     </div>
     <div class="footer-links">
       <a href="#privacy" data-i18n="footer_privacy">سياسة الخصوصية</a>
@@ -162,44 +160,22 @@
     // ترجمة الموقع (نفس كود index.html)
     const translations = {
       en: {site_title: "ONE WORLD NET", nav_home: "Home", nav_plans: "Plans", nav_devices: "Devices", nav_blog: "Blog", nav_partners: "Partners", nav_contact: "Contact", nav_login: "Login", nav_register: "Register", login_title: "Login | ONE WORLD NET", login_btn: "Login", login_create: "Create new account", login_forgot: "Forgot password?", login_user_placeholder: "Username or Email", login_pass_placeholder: "Password", footer_privacy: "Privacy Policy", footer_faq: "FAQ"},
-      ar: {site_title: "ون وورلد نت", nav_home: "الرئيسية", nav_plans: "الباقات", nav_devices: "الأجهزة", nav_blog: "المدونة", nav_partners: "الشركاء", nav_contact: "تواصل", nav_login: "تسجيل الدخول", nav_register: "إنشاء حساب", login_title: "تسجيل الدخول | ون وورلد نت", login_btn: "دخول", login_create: "إنشاء حساب جديد", login_forgot: "نسيت كلمة المرور؟", login_user_placeholder: "اسم المستخدم أو البريد الإلكتروني", login_pass_placeholder: "كلمة المرور", footer_privacy: "سياسة الخصوصية", footer_faq: "الأسئلة الشائعة"},
-      fr: {site_title: "ONE WORLD NET", nav_home: "Accueil", nav_plans: "Forfaits", nav_devices: "Appareils", nav_blog: "Blog", nav_partners: "Partenaires", nav_contact: "Contact", nav_login: "Connexion", nav_register: "S'inscrire", login_title: "Connexion | ONE WORLD NET", login_btn: "Connexion", login_create: "Créer un compte", login_forgot: "Mot de passe oublié?", login_user_placeholder: "Nom d'utilisateur ou Email", login_pass_placeholder: "Mot de passe", footer_privacy: "Politique de confidentialité", footer_faq: "FAQ"},
-      es: {site_title: "ONE WORLD NET", nav_home: "Inicio", nav_plans: "Planes", nav_devices: "Dispositivos", nav_blog: "Blog", nav_partners: "Socios", nav_contact: "Contacto", nav_login: "Iniciar sesión", nav_register: "Registrarse", login_title: "Iniciar sesión | ONE WORLD NET", login_btn: "Entrar", login_create: "Crear cuenta nueva", login_forgot: "¿Olvidaste tu contraseña?", login_user_placeholder: "Usuario o Email", login_pass_placeholder: "Contraseña", footer_privacy: "Política de privacidad", footer_faq: "Preguntas frecuentes"},
-      it: {site_title: "ONE WORLD NET", nav_home: "Home", nav_plans: "Piani", nav_devices: "Dispositivi", nav_blog: "Blog", nav_partners: "Partner", nav_contact: "Contatto", nav_login: "Accedi", nav_register: "Registrati", login_title: "Accedi | ONE WORLD NET", login_btn: "Accedi", login_create: "Crea nuovo account", login_forgot: "Password dimenticata?", login_user_placeholder: "Nome utente o Email", login_pass_placeholder: "Password", footer_privacy: "Privacy Policy", footer_faq: "FAQ"},
-      zh: {site_title: "ONE WORLD NET", nav_home: "首页", nav_plans: "套餐", nav_devices: "设备", nav_blog: "博客", nav_partners: "合作伙伴", nav_contact: "联系", nav_login: "登录", nav_register: "注册", login_title: "登录 | ONE WORLD NET", login_btn: "登录", login_create: "创建新账户", login_forgot: "忘记密码？", login_user_placeholder: "用户名或邮箱", login_pass_placeholder: "密码", footer_privacy: "隐私政策", footer_faq: "常见问题"},
-      de: {site_title: "ONE WORLD NET", nav_home: "Startseite", nav_plans: "Tarife", nav_devices: "Geräte", nav_blog: "Blog", nav_partners: "Partner", nav_contact: "Kontakt", nav_login: "Anmelden", nav_register: "Registrieren", login_title: "Anmelden | ONE WORLD NET", login_btn: "Anmelden", login_create: "Neues Konto erstellen", login_forgot: "Passwort vergessen?", login_user_placeholder: "Benutzername oder E-Mail", login_pass_placeholder: "Passwort", footer_privacy: "Datenschutz", footer_faq: "FAQ"},
-      hi: {site_title: "ONE WORLD NET", nav_home: "होम", nav_plans: "प्लान्स", nav_devices: "डिवाइसेस", nav_blog: "ब्लॉग", nav_partners: "साझेदार", nav_contact: "संपर्क करें", nav_login: "लॉगिन", nav_register: "रजिस्टर करें", login_title: "लॉगिन | ONE WORLD NET", login_btn: "लॉगिन", login_create: "नया खाता बनाएँ", login_forgot: "पासवर्ड भूल गए?", login_user_placeholder: "यूज़रनेम या ईमेल", login_pass_placeholder: "पासवर्ड", footer_privacy: "गोपनीयता नीति", footer_faq: "सामान्य प्रश्न"},
-      fa: {site_title: "وان ورلد نت", nav_home: "خانه", nav_plans: "پلن‌ها", nav_devices: "دستگاه‌ها", nav_blog: "بلاگ", nav_partners: "شرکا", nav_contact: "تماس", nav_login: "ورود", nav_register: "ثبت‌نام", login_title: "ورود | وان ورلد نت", login_btn: "ورود", login_create: "ایجاد حساب جدید", login_forgot: "رمز عبور را فراموش کرده‌اید؟", login_user_placeholder: "نام کاربری یا ایمیل", login_pass_placeholder: "رمز عبور", footer_privacy: "سیاست حفظ حریم خصوصی", footer_faq: "سوالات متداول"}
+      ar: {site_title: "ون وورلد نت", nav_home: "الرئيسية", nav_plans: "الباقات", nav_devices: "الأجهزة", nav_blog: "المدونة", nav_partners: "الشركاء", nav_contact: "تواصل", nav_login: "تسجيل الدخول", nav_register: "إنشاء حساب", login_title: "تسجيل الدخول | ون وورلد نت", login_btn: "دخول", login_create: "إنشاء حساب جديد", login_forgot: "نسيت كلمة المرور؟", login_user_placeholder: "اسم المستخدم أو البريد الإلكتروني", login_pass_placeholder: "كلمة المرور", footer_privacy: "سياسة الخصوصية", footer_faq: "الأسئلة الشائعة"}
     };
-    async function setLang(lang) {
+    function setLang(lang) {
       const t = translations[lang] || translations['en'];
-      // جلب العنوان الرئيسي من content.json
-      try {
-        const res = await fetch('content.json');
-        if(res.ok) {
-          const content = await res.json();
-          if(content.site_title && content.site_title[lang]) {
-            document.getElementById('site-title').textContent = content.site_title[lang];
-          } else {
-            document.getElementById('site-title').textContent = t.site_title;
-          }
-        } else {
-          document.getElementById('site-title').textContent = t.site_title;
-        }
-      } catch(e) {
-        document.getElementById('site-title').textContent = t.site_title;
-      }
-      document.querySelectorAll('[data-i18n]').forEach(el => {
+      document.getElementById('site-title').textContent = t.site_title;
+      document.querySelectorAll('[data-i18n]').forEach(function(el){
         const key = el.getAttribute('data-i18n');
         if (t[key]) el.textContent = t[key];
       });
-      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el){
         const key = el.getAttribute('data-i18n-placeholder');
         if (t[key]) el.setAttribute('placeholder', t[key]);
       });
       document.title = t.login_title;
       document.documentElement.lang = lang;
-      if(lang === 'ar' || lang === 'fa') {
+      if(lang === 'ar') {
         document.documentElement.dir = 'rtl';
       } else {
         document.documentElement.dir = 'ltr';
@@ -209,11 +185,14 @@
     document.getElementById('lang-select').addEventListener('change', function(e) {
       setLang(e.target.value);
     });
-    setLang('en');
+    setLang('ar');
     // ماركيه متحرك
     const style = document.createElement('style');
     style.innerHTML = `@keyframes marquee {0%{transform:translateX(100%);}100%{transform:translateX(-100%);}}#marquee-text{display:inline-block;white-space:nowrap;}`;
     document.head.appendChild(style);
   </script>
+  <script src="main.js"></script>
+  <script src="translate.js"></script>
 </body>
 </html>
+      setMarquee(lang);
