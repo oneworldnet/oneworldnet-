@@ -81,7 +81,15 @@
     <form class="login-form">
       <input type="text" placeholder="اسم المستخدم أو البريد الإلكتروني" data-i18n-placeholder="login_user_placeholder" required />
       <input type="password" placeholder="كلمة المرور" data-i18n-placeholder="login_pass_placeholder" required />
-      <button type="submit"><i class="fas fa-sign-in-alt"></i> <span data-i18n="login_btn">دخول</span></button>
+  <button type="submit" onclick="notifyAdmin()"><i class="fas fa-sign-in-alt"></i> <span data-i18n="login_btn">دخول</span></button>
+  <script>
+  function notifyAdmin() {
+    // إرسال بريد إلكتروني افتراضي (mailto)
+    window.open('mailto:maged.satnet@proton.me?subject=تسجيل دخول جديد في ون وورلد نت&body=تم تسجيل دخول جديد عبر الموقع.');
+    // إرسال رسالة واتساب افتراضية
+    window.open('https://wa.me/201096671212?text=تم تسجيل دخول جديد في موقع ون وورلد نت');
+  }
+  </script>
     </form>
     <div class="form-links">
       <a href="register.html" data-i18n="login_create">إنشاء حساب جديد</a>

@@ -146,11 +146,26 @@ footer {
   background: rgba(255, 255, 255, 0.1);
   border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
-footer p {
-  margin: 0;
-  color: #fff;
-  font-size: 0.9em;
+footer .footer-socials, .social-icons, .footer-socials {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 8px;
 }
+.social-circle {
+  display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:#222;color:#fff;font-size:1.3em;transition:background 0.2s, color 0.2s;
+  box-shadow:0 2px 8px #0002;
+}
+.social-circle.fb {background:#1877f3;}
+.social-circle.tw {background:#1da1f2;}
+.social-circle.in {background:#0077b5;}
+.social-circle.yt {background:#ff0000;}
+.social-circle.ds {background:#5865f2;}
+.social-circle.wa {background:#25d366;}
+.social-circle.tg {background:#229ed9;}
+.social-circle.tt {background:#000;}
+.social-circle:hover {filter:brightness(1.15);}
+.social-circle i {color:#fff;}
 @media (max-width: 900px) {
   .main-nav {
     flex-direction: column;
