@@ -175,6 +175,44 @@
 
 <body>
     <nav class="main-nav">
+        <div class="logo">
+            <img src="images/logo.jpg" alt="One World Net Logo" />
+            <span id="site-title" data-i18n="site_title">ONE WORLD NET</span>
+        </div>
+        <select id="lang-select" class="lang-select" aria-label="اختيار اللغة">
+            <option value="en">English</option>
+            <option value="ar">العربية</option>
+            <option value="fr">Français</option>
+            <option value="es">Español</option>
+            <option value="it">Italiano</option>
+            <option value="de">Deutsch</option>
+        </select>
+        <ul class="nav-links">
+            <li><a href="#home" data-i18n="nav_home">الرئيسية</a></li>
+            <li><a href="#plans" data-i18n="nav_plans">الباقات</a></li>
+            <li><a href="#devices" data-i18n="nav_devices">الأجهزة</a></li>
+            <li><a href="#blog" data-i18n="nav_blog">المدونة</a></li>
+            <li><a href="#partners" data-i18n="nav_partners">الشركاء</a></li>
+            <li><a href="#contact" data-i18n="nav_contact">تواصل</a></li>
+            <li><a href="#login" class="login-btn" data-i18n="nav_login">تسجيل الدخول</a></li>
+            <li><a href="#register" class="register-btn" data-i18n="nav_register">إنشاء حساب</a></li>
+        </ul>
+    </nav>
+        <div class="hero-content glass">
+            <h1 data-i18n="hero_title">الإنترنت الفضائي للجميع</h1>
+            <p data-i18n="hero_desc">أسرع وأأمن إنترنت فضائي في العالم، متاح لكل بيت وشركة ومنظمة.</p>
+            <a href="#register" class="main-btn" data-i18n="hero_btn">سجل الآن</a>
+        </div>
+    <div class="marquee-news" style="width:100%;background:#181818e6;color:#fff;font-size:1.1em;padding:10px 0 8px 0;text-align:center;overflow:hidden;direction:ltr;letter-spacing:1px;">
+        <span id="marquee-text" data-i18n="marquee_news" style="display:inline-block;white-space:nowrap;animation:marquee 18s linear infinite;">مرحباً بكم في ون وورلد نت! نربط العالم بالاحترام والسلام والتقنية للجميع.</span>
+        <style>
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        </style>
+    </div>
+    <nav class="main-nav">
         <div class="logo" style="position:sticky;top:0;z-index:2001;background:transparent;">
             <img id="site-logo" src="images/logo.jpg" alt="ONE WORLD NET Logo" style="height:44px; border-radius:8px; box-shadow:0 2px 8px #0af4;" />
         </div>
@@ -312,6 +350,14 @@
     <!-- تم إزالة تكرار أيقونات السوشيال من قسم تواصل معنا، الأيقونات تظهر فقط في الفوتر -->
     </section>
     <footer class="main-footer glass">
+    <script src="translate.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        if(typeof setLang === 'function') {
+            setLang(document.getElementById('lang-select')?.value || 'en');
+        }
+    });
+    </script>
         <div class="footer-socials" style="display:flex;gap:10px;justify-content:center;margin-bottom:8px;">
             <a href="https://facebook.com" target="_blank" aria-label="فيسبوك" class="social-circle fb"><i class="fab fa-facebook-f"></i></a>
             <a href="https://twitter.com" target="_blank" aria-label="تويتر" class="social-circle tw"><i class="fab fa-twitter"></i></a>
