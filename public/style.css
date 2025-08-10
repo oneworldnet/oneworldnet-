@@ -1,4 +1,15 @@
 /* --- الوضع الليلي --- */
+/* تصحيح صور المدونة والشركاء بدون شريط أفقي */
+.blog-card img, .partners-logos img {
+  border: none !important;
+  box-shadow: 0 2px 12px #0002 !important;
+  background: none !important;
+  outline: none !important;
+  margin: 0 auto 12px auto !important;
+  display: block;
+  max-width: 100%;
+  border-radius: 12px;
+}
 body.dark-mode, .glass.dark-mode {
   background: #181828 !important;
   color: #fff !important;
