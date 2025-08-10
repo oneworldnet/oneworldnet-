@@ -14,6 +14,26 @@ const translations = {
     hero_title: "Satellite Internet for Everyone",
     hero_desc: "The fastest and safest satellite internet in the world, available for every home, company, and organization.",
     hero_btn: "Register Now"
+  ,blog_title: "Blog | One World Net"
+  ,blog_main: "Blog"
+  ,blog_card1_title: "The Future of Satellite Internet"
+  ,blog_card1_text: "Discover the latest satellite internet technologies and how they will change the world."
+  ,blog_card2_title: "Role of Satellites"
+  ,blog_card2_text: "How satellites help connect the world and facilitate communications."
+  ,blog_card3_title: "Latest Receiver Devices"
+  ,blog_card3_text: "Review of the latest satellite internet receiver devices on the market."
+  ,blog_card4_title: "Global Satellite Internet Coverage"
+  ,blog_card4_text: "One World Net network reaches all continents and provides fast and secure connection."
+  ,blog_card5_title: "Advanced Reception Technologies"
+  ,blog_card5_text: "Learn about the latest satellite internet receiver devices and how they work."
+  ,blog_card6_title: "User Experiences"
+  ,blog_card6_text: "Success stories from service users in remote areas and major cities."
+  ,blog_card7_title: "Space Infrastructure Development"
+  ,blog_card7_text: "Huge investments in satellites to ensure the best coverage and speed."
+  ,blog_card8_title: "Launching New Services"
+  ,blog_card8_text: "Special services for schools, universities, hospitals, and distributors."
+  ,footer_privacy: "Privacy Policy"
+  ,footer_faq: "FAQ"
   },
   ar: {
     marquee_news: "مرحباً بكم في ون وورلد نت! نربط العالم بالاحترام والسلام والتقنية للجميع.",
@@ -29,6 +49,26 @@ const translations = {
     hero_title: "الإنترنت الفضائي للجميع",
     hero_desc: "أسرع وأأمن إنترنت فضائي في العالم، متاح لكل بيت وشركة ومنظمة.",
     hero_btn: "سجل الآن"
+  ,blog_title: "المدونة | ون وورلد نت"
+  ,blog_main: "المدونة"
+  ,blog_card1_title: "مستقبل الإنترنت الفضائي"
+  ,blog_card1_text: "تعرف على أحدث تقنيات الإنترنت الفضائي وكيف ستغير العالم."
+  ,blog_card2_title: "الأقمار الصناعية ودورها"
+  ,blog_card2_text: "كيف تساهم الأقمار الصناعية في ربط العالم وتسهيل الاتصالات."
+  ,blog_card3_title: "أحدث أجهزة الاستقبال"
+  ,blog_card3_text: "مراجعة لأحدث أجهزة استقبال الإنترنت الفضائي في السوق."
+  ,blog_card4_title: "تغطية الإنترنت الفضائي حول العالم"
+  ,blog_card4_text: "شبكة One World Net تصل إلى جميع القارات وتوفر اتصالاً سريعاً وآمناً."
+  ,blog_card5_title: "تقنيات استقبال متطورة"
+  ,blog_card5_text: "تعرف على أحدث أجهزة استقبال الإنترنت الفضائي وكيفية عملها."
+  ,blog_card6_title: "تجارب المستخدمين"
+  ,blog_card6_text: "قصص نجاح من مستخدمي الخدمة في المناطق النائية والمدن الكبرى."
+  ,blog_card7_title: "تطوير البنية التحتية الفضائية"
+  ,blog_card7_text: "استثمارات ضخمة في الأقمار الصناعية لضمان أفضل تغطية وسرعة."
+  ,blog_card8_title: "إطلاق خدمات جديدة"
+  ,blog_card8_text: "خدمات مخصصة للمدارس والجامعات والمستشفيات والموزعين."
+  ,footer_privacy: "سياسة الخصوصية"
+  ,footer_faq: "الأسئلة الشائعة"
   },
   fr: {
     marquee_news: "Bienvenue chez One World Net ! Connecter le monde avec respect, paix et technologie pour tous.",
