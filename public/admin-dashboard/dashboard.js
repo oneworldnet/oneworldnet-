@@ -214,9 +214,122 @@ document.addEventListener('DOMContentLoaded', async function() {
             document.querySelectorAll('.sidebar nav ul li').forEach(e => e.classList.remove('active'));
             this.classList.add('active');
             currentSection = this.getAttribute('data-section');
-            renderForm(currentSection);
+            // عند اختيار صفحة، اعرض عناصرها للتحكم الكامل
+            renderPageElements(currentSection);
         };
     });
+
+    // دالة جديدة: عرض عناصر الصفحة للتحكم الكامل
+    function renderPageElements(page) {
+        const formArea = document.getElementById('dashboard-forms');
+        if (!formArea) return;
+        formArea.innerHTML = `<h2>تحكم في عناصر صفحة: ${page}</h2>`;
+        // مثال: جلب عناصر الصفحة من content.json
+        let elements = [];
+        if(page==='index') {
+            elements = [
+                {type:'title',label:'العنوان الرئيسي',value:sections['site-title'].ar.value},
+                {type:'hero',label:'قسم البطل',value:sections['hero'].ar.value},
+                {type:'news',label:'الأخبار',value:sections['news']},
+                {type:'devices',label:'الأجهزة',value:sections['devices']},
+                {type:'plans',label:'الباقات',value:sections['plans']},
+                {type:'partners',label:'الشركاء',value:sections['partners']}
+            ];
+        }
+        if(page==='blog') {
+            elements = [
+                {type:'blog',label:'المدونة',value:sections['blog']}
+            ];
+        }
+        if(page==='devices') {
+            elements = [
+                {type:'devices',label:'الأجهزة',value:sections['devices']}
+            ];
+        }
+        if(page==='plans') {
+            elements = [
+                {type:'plans',label:'الباقات',value:sections['plans']}
+            ];
+        }
+        if(page==='partners') {
+            elements = [
+                {type:'partners',label:'الشركاء',value:sections['partners']}
+            ];
+        }
+        // عرض العناصر للتحكم (تعديل/حذف/إضافة)
+        elements.forEach(el => {
+            if(Array.isArray(el.value)) {
+                formArea.innerHTML += `<h3>${el.label}</h3>`;
+                el.value.forEach((item, idx) => {
+                    formArea.innerHTML += `
+                    <div class="item-card" style="background:#222;border-radius:10px;padding:14px;margin-bottom:12px;box-shadow:0 2px 8px #0002;">
+                        <form class="item-form" data-idx="${idx}" data-type="${el.type}">
+                            <input type="text" name="ar_title" value="${item.ar.title||item.ar.name||''}" placeholder="العنوان (عربي)" style="width:40%;padding:8px;border-radius:6px;">
+                            <input type="text" name="en_title" value="${item.en.title||item.en.name||''}" placeholder="Title (EN)" style="width:40%;padding:8px;border-radius:6px;">
+                            <input type="text" name="img" value="${item.ar.img||item.en.img||''}" placeholder="رابط صورة/صورة" style="width:40%;padding:8px;border-radius:6px;">
+                            <input type="text" name="link" value="${item.ar.link||item.en.link||''}" placeholder="رابط خارجي (اختياري)" style="width:40%;padding:8px;border-radius:6px;">
+                            <button type="submit" style="background:#0af;color:#fff;padding:6px 18px;border:none;border-radius:8px;font-size:1em;margin-top:10px;">حفظ</button>
+                            <button type="button" class="delete-item-btn" data-idx="${idx}" data-type="${el.type}" style="background:#c00;color:#fff;padding:6px 14px;border:none;border-radius:8px;font-size:1em;margin-top:10px;margin-right:10px;">حذف</button>
+                        </form>
+                    </div>
+                    `;
+                });
+                formArea.innerHTML += `<button id="add-item-btn-${el.type}" style="background:#0af;color:#fff;padding:8px 18px;border:none;border-radius:8px;font-size:1em;margin-bottom:12px;">إضافة عنصر جديد</button>`;
+            } else {
+                formArea.innerHTML += `
+                <div style="margin-bottom:18px;">
+                    <label style="font-weight:bold;">${el.label}</label>
+                    <input type="text" value="${el.value}" style="width:80%;padding:8px;border-radius:6px;">
+                </div>
+                `;
+            }
+        });
+        // تفعيل إضافة عنصر جديد
+        elements.forEach(el => {
+            if(Array.isArray(el.value)) {
+                const btn = document.getElementById(`add-item-btn-${el.type}`);
+                if(btn) {
+                    btn.onclick = function() {
+                        let empty = {ar:{title:'',desc:'',img:'',link:'',video:''},en:{title:'',desc:'',img:'',link:'',video:''}};
+                        if(el.type==='plans') empty = {ar:{title:'',desc:'',price:'',img:'',link:'',video:''},en:{title:'',desc:'',price:'',img:'',link:'',video:''}};
+                        if(el.type==='partners') empty = {ar:{name:'',img:'',link:'',video:''},en:{name:'',img:'',link:'',video:''}};
+                        el.value.push(empty);
+                        renderPageElements(page);
+                    };
+                }
+            }
+        });
+        // تفعيل حفظ/تعديل وحذف العناصر
+        document.querySelectorAll('.item-form').forEach(form => {
+            form.onsubmit = function(e) {
+                e.preventDefault();
+                const idx = +form.getAttribute('data-idx');
+                const type = form.getAttribute('data-type');
+                const fd = new FormData(form);
+                let obj = elements.find(e=>e.type===type).value[idx];
+                if(type==='partners') {
+                    obj.ar.name = fd.get('ar_title');
+                    obj.en.name = fd.get('en_title');
+                } else {
+                    obj.ar.title = fd.get('ar_title');
+                    obj.en.title = fd.get('en_title');
+                }
+                obj.ar.img = obj.en.img = fd.get('img');
+                obj.ar.link = obj.en.link = fd.get('link');
+                // حفظ التغييرات
+                renderPageElements(page);
+            };
+        });
+        document.querySelectorAll('.delete-item-btn').forEach(btn => {
+            btn.onclick = function() {
+                const idx = +btn.getAttribute('data-idx');
+                const type = btn.getAttribute('data-type');
+                let arr = elements.find(e=>e.type===type).value;
+                arr.splice(idx,1);
+                renderPageElements(page);
+            };
+        });
+    }
     // تفعيل اللغة
     document.getElementById('dashboard-lang').onchange = function(e) {
         currentLang = e.target.value;
