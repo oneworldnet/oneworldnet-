@@ -73,15 +73,50 @@
 			<div class="stats-box">عدد المشاريع: <span id="projectsCount">0</span></div>
 			<div class="stats-box">عدد التدوينات: <span id="blogCount">0</span></div>
 		</div>
-		<div id="usersSection" class="section" style="display:none;"></div>
+		<div id="usersSection" class="section" style="display:none;">
+			<div class="section-title">إدارة المستخدمين</div>
+			<div class="section-controls">
+				<button class="add-btn" onclick="openUserModal()"><i class="fa fa-plus"></i> إضافة مستخدم</button>
+			</div>
+			<div class="item-list" id="usersList"></div>
+		</div>
 		<div id="employeesSection" class="section" style="display:none;"></div>
-		<div id="contentSection" class="section" style="display:none;"></div>
+		<div id="contentSection" class="section" style="display:none;">
+			<div class="section-title">إدارة محتوى الصفحة الرئيسية</div>
+			<div class="section-controls">
+				<button class="add-btn" onclick="openContentModal()"><i class="fa fa-edit"></i> تعديل المحتوى</button>
+			</div>
+			<div class="item-list" id="contentList"></div>
+		</div>
 		<div id="blogSection" class="section" style="display:none;"></div>
 		<div id="projectsSection" class="section" style="display:none;"></div>
 		<div id="statsSection" class="section" style="display:none;"></div>
 		<div id="settingsSection" class="section" style="display:none;"></div>
 		</div>
 		<script src="admin.js"></script>
+		<!-- مودال المستخدمين -->
+		<div class="modal" id="userModal">
+			<div class="modal-content">
+				<h3 id="userModalTitle">إضافة مستخدم</h3>
+				<input type="text" id="userNameInput" placeholder="اسم المستخدم" />
+				<input type="password" id="userPassInput" placeholder="كلمة المرور" />
+				<select id="userRoleInput">
+					<option value="admin">مدير</option>
+					<option value="editor">محرر</option>
+				</select>
+				<button onclick="saveUser()">حفظ</button>
+				<button onclick="closeUserModal()" style="background:#e53935;">إلغاء</button>
+			</div>
+		</div>
+		<!-- مودال المحتوى -->
+		<div class="modal" id="contentModal">
+			<div class="modal-content">
+				<h3>تعديل محتوى الصفحة الرئيسية</h3>
+				<textarea id="contentJsonInput" rows="12" style="font-family:monospace;"></textarea>
+				<button onclick="saveContent()">حفظ التعديلات</button>
+				<button onclick="closeContentModal()" style="background:#e53935;">إلغاء</button>
+			</div>
+		</div>
 		<script>
 			// إشعار فوري
 			function notify(msg, type='info') {
@@ -118,7 +153,109 @@
 			document.getElementById('adminUserName').textContent = 'مدير النظام';
 			// تسجيل الخروج
 			function logout() { notify('تم تسجيل الخروج!','info'); }
-			// يمكن إضافة منطق المستخدمين، الموظفين، المحتوى، المدونة، المشاريع، الإعدادات لاحقاً هنا
+			// --- إدارة المستخدمين ---
+			let editingUserIndex = null;
+			async function renderUsers() {
+				const users = await fetchUsers();
+				const list = document.getElementById('usersList');
+				list.innerHTML = '';
+				users.forEach((u, i) => {
+					const card = document.createElement('div');
+					card.className = 'item-card';
+					card.innerHTML = `<b>${u.username}</b><br><span style='color:#888'>[${u.role}]</span>
+						<div class='actions'>
+							<button class='edit' onclick='editUser(${i})'><i class="fa fa-edit"></i></button>
+							<button onclick='deleteUser(${i})'><i class="fa fa-trash"></i></button>
+						</div>`;
+					list.appendChild(card);
+				});
+			}
+			function openUserModal(editIdx) {
+				editingUserIndex = (typeof editIdx === 'number') ? editIdx : null;
+				document.getElementById('userModalTitle').textContent = editingUserIndex!==null ? 'تعديل مستخدم' : 'إضافة مستخدم';
+				document.getElementById('userNameInput').value = '';
+				document.getElementById('userPassInput').value = '';
+				document.getElementById('userRoleInput').value = 'admin';
+				if(editingUserIndex!==null) fetchUsers().then(users=>{
+					const u = users[editingUserIndex];
+					document.getElementById('userNameInput').value = u.username;
+					document.getElementById('userRoleInput').value = u.role;
+				});
+				document.getElementById('userModal').style.display = 'flex';
+			}
+			function closeUserModal() {
+				document.getElementById('userModal').style.display = 'none';
+			}
+			async function saveUser() {
+				const username = document.getElementById('userNameInput').value.trim();
+				const password = document.getElementById('userPassInput').value.trim();
+				const role = document.getElementById('userRoleInput').value;
+				if(!username || (!password && editingUserIndex===null)) return notify('يرجى إدخال جميع البيانات','error');
+				if(editingUserIndex===null) {
+					await addUser(username, password, role);
+					notify('تمت إضافة المستخدم','success');
+				} else {
+					// تحديث المستخدم: حذف ثم إضافة جديد بنفس الاسم
+					const users = await fetchUsers();
+					users.splice(editingUserIndex,1);
+					await updateUsers(users);
+					await addUser(username, password, role);
+					notify('تم تحديث المستخدم','success');
+				}
+				closeUserModal();
+				renderUsers();
+			}
+			async function deleteUser(idx) {
+				if(!confirm('هل أنت متأكد من حذف المستخدم؟')) return;
+				const users = await fetchUsers();
+				users.splice(idx,1);
+				await updateUsers(users);
+				notify('تم حذف المستخدم','success');
+				renderUsers();
+			}
+			// تحديث ملف المستخدمين بالكامل (مطلوب endpoint في backend)
+			async function updateUsers(users) {
+				await fetch('/api/users', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify(users)
+				});
+			}
+			// --- إدارة المحتوى ---
+			async function renderContent() {
+				const content = await fetchContent();
+				document.getElementById('contentList').innerHTML = `<pre style='white-space:pre-wrap;direction:ltr;text-align:left;background:#f5f5f5;padding:12px;border-radius:8px;'>${JSON.stringify(content,null,2)}</pre>`;
+			}
+			function openContentModal() {
+				fetchContent().then(content=>{
+					document.getElementById('contentJsonInput').value = JSON.stringify(content,null,2);
+					document.getElementById('contentModal').style.display = 'flex';
+				});
+			}
+			function closeContentModal() {
+				document.getElementById('contentModal').style.display = 'none';
+			}
+			async function saveContent() {
+				try {
+					const newContent = JSON.parse(document.getElementById('contentJsonInput').value);
+					await updateContent(newContent);
+					notify('تم تحديث المحتوى','success');
+					closeContentModal();
+					renderContent();
+				} catch(e) {
+					notify('صيغة JSON غير صحيحة','error');
+				}
+			}
+			// عند فتح القسم المناسب
+			document.getElementById('usersSection').addEventListener('show', renderUsers);
+			document.getElementById('contentSection').addEventListener('show', renderContent);
+			// تفعيل عرض القسم عند الضغط
+			const origShowSection = showSection;
+			showSection = function(section, btn) {
+				origShowSection(section, btn);
+				const sec = document.getElementById(section+'Section');
+				if(sec) sec.dispatchEvent(new Event('show'));
+			}
 		</script>
 </body>
 </html>

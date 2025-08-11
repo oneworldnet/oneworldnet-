@@ -49,8 +49,12 @@ async function login(username, password) {
   return await res.json();
 }
 
-// يمكن الآن ربط هذه الدوال مع واجهة لوحة التحكم في admin.html
-// مثال: عند فتح قسم المستخدمين، استدعي fetchUsers() واعرض النتائج
-// عند إضافة مستخدم جديد، استخدم addUser(...)
-// عند تعديل المحتوى، استخدم updateContent(...)
-// وهكذا لباقي الأقسام
+
+// تحديث ملف المستخدمين بالكامل (مطلوب endpoint في backend)
+async function updateUsers(users) {
+  await fetch('/api/users', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(users)
+  });
+}
