@@ -1,1 +1,121 @@
-...existing code...
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>لوحة تحكم الموقع | One World Net</title>
+	<link rel="stylesheet" href="style.css">
+	<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<style>
+		body {background:#f5f6fa;font-family:'Cairo',sans-serif;}
+		.admin-container {max-width:1200px;margin:40px auto;padding:32px;background:#fff;border-radius:18px;box-shadow:0 4px 32px #0001;}
+		.admin-header {display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;}
+		.admin-header h2 {margin:0;letter-spacing:1px;}
+		.admin-header .user {font-size:1.1em;color:#0af;display:flex;align-items:center;gap:8px;}
+		.admin-header button {background:#0af;color:#fff;padding:10px 28px;border:none;border-radius:8px;font-weight:bold;cursor:pointer;}
+		.admin-nav {display:flex;gap:18px;margin-bottom:32px;flex-wrap:wrap;}
+		.admin-nav button {background:#eee;color:#222;padding:8px 18px;border:none;border-radius:8px;font-weight:bold;cursor:pointer;transition:0.2s;}
+		.admin-nav button.active, .admin-nav button:hover {background:#0af;color:#fff;}
+		.section {margin-bottom:36px;}
+		.section-title {font-size:1.2em;margin-bottom:18px;color:#0af;}
+		.item-list {display:flex;flex-wrap:wrap;gap:18px;}
+		.item-card {background:#f9f9fb;border:1px solid #eee;border-radius:12px;padding:18px;min-width:220px;flex:1;position:relative;}
+		.item-card img {max-width:100%;max-height:90px;display:block;margin-bottom:10px;border-radius:8px;}
+		.item-card .actions {position:absolute;top:10px;left:10px;display:flex;gap:8px;}
+		.item-card button {background:#e53935;color:#fff;border:none;padding:4px 10px;border-radius:6px;cursor:pointer;font-size:0.9em;}
+		.item-card button.edit {background:#0af;}
+		.add-btn {background:#43a047;color:#fff;padding:8px 18px;border:none;border-radius:8px;font-weight:bold;cursor:pointer;}
+		.modal {display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.45);z-index:9999;align-items:center;justify-content:center;}
+		.modal-content {background:#fff;padding:32px 24px;border-radius:18px;max-width:350px;margin:auto;}
+		.modal-content input, .modal-content textarea {width:100%;margin-bottom:12px;padding:8px 12px;border-radius:8px;border:1px solid #ccc;}
+		.modal-content button {margin-top:8px;}
+		.section-controls {margin-bottom:12px;}
+		.section-controls button {margin-left:8px;}
+		.notification {display:none;position:fixed;top:18px;left:50%;transform:translateX(-50%);background:#FFD600;color:#18120b;padding:12px 32px;border-radius:18px;font-weight:bold;z-index:9999;font-size:1.1em;box-shadow:none;min-width:220px;text-align:center;}
+		.stats-box {background:#f1f8e9;border:1px solid #c5e1a5;border-radius:12px;padding:18px;min-width:180px;display:inline-block;margin:8px;}
+		.marquee {background:#e3f2fd;color:#0af;padding:8px 18px;border-radius:8px;font-weight:bold;margin-bottom:18px;overflow-x:auto;white-space:nowrap;}
+		.dark-mode {background:#222;color:#fff;}
+		.dark-mode .admin-container {background:#18120b;}
+		.dark-mode .item-card {background:#23232b;border-color:#333;}
+		.dark-mode .modal-content {background:#23232b;}
+		.dark-mode .admin-nav button {background:#333;color:#fff;}
+		.dark-mode .admin-nav button.active, .dark-mode .admin-nav button:hover {background:#FFD600;color:#18120b;}
+		.dark-mode .stats-box {background:#263238;color:#FFD600;border-color:#FFD600;}
+		.dark-mode .marquee {background:#263238;color:#FFD600;}
+	</style>
+</head>
+<body>
+	<div class="notification" id="globalNotification"></div>
+	<div class="admin-container">
+		<div class="admin-header">
+			<h2>لوحة تحكم الموقع</h2>
+			<div class="user"><i class="fa fa-user-circle"></i> <span id="adminUserName">مدير</span></div>
+			<button onclick="logout()">تسجيل الخروج</button>
+		</div>
+		<div class="admin-nav" id="adminNav">
+			<button class="active" onclick="showSection('dashboard',this)"><i class="fa fa-home"></i> الرئيسية</button>
+			<button onclick="showSection('users',this)"><i class="fa fa-users"></i> المستخدمون</button>
+			<button onclick="showSection('employees',this)"><i class="fa fa-id-badge"></i> الموظفون</button>
+			<button onclick="showSection('content',this)"><i class="fa fa-edit"></i> المحتوى</button>
+			<button onclick="showSection('blog',this)"><i class="fa fa-blog"></i> المدونة</button>
+			<button onclick="showSection('projects',this)"><i class="fa fa-briefcase"></i> المشاريع</button>
+			<button onclick="showSection('stats',this)"><i class="fa fa-chart-bar"></i> الإحصائيات</button>
+			<button onclick="showSection('settings',this)"><i class="fa fa-cogs"></i> الإعدادات</button>
+		</div>
+		<div class="marquee" id="marqueeBox">Connecting the world with the best satellite internet | ربط العالم بأفضل إنترنت فضائي</div>
+		<div id="dashboardSection" class="section">
+			<div class="section-title">مرحباً بك في لوحة التحكم</div>
+			<div class="stats-box">عدد الزوار: <span id="visitorsCount">0</span></div>
+			<div class="stats-box">عدد المستخدمين: <span id="usersCount">0</span></div>
+			<div class="stats-box">عدد الموظفين: <span id="employeesCount">0</span></div>
+			<div class="stats-box">عدد المشاريع: <span id="projectsCount">0</span></div>
+			<div class="stats-box">عدد التدوينات: <span id="blogCount">0</span></div>
+		</div>
+		<div id="usersSection" class="section" style="display:none;"></div>
+		<div id="employeesSection" class="section" style="display:none;"></div>
+		<div id="contentSection" class="section" style="display:none;"></div>
+		<div id="blogSection" class="section" style="display:none;"></div>
+		<div id="projectsSection" class="section" style="display:none;"></div>
+		<div id="statsSection" class="section" style="display:none;"></div>
+		<div id="settingsSection" class="section" style="display:none;"></div>
+	</div>
+	<script>
+		// إشعار فوري
+		function notify(msg, type='info') {
+			const n = document.getElementById('globalNotification');
+			n.textContent = msg;
+			n.style.background = type==='error' ? '#e53935' : (type==='success' ? '#43a047' : '#FFD600');
+			n.style.color = type==='error' ? '#fff' : '#18120b';
+			n.style.display = 'block';
+			setTimeout(()=>{n.style.display='none';}, 2500);
+		}
+		// تبديل الأقسام
+		function showSection(section, btn) {
+			document.querySelectorAll('.admin-nav button').forEach(b=>b.classList.remove('active'));
+			btn.classList.add('active');
+			['dashboard','users','employees','content','blog','projects','stats','settings'].forEach(s=>{
+				document.getElementById(s+'Section').style.display = (s===section)?'block':'none';
+			});
+		}
+		// الوضع الليلي
+		let dark = false;
+		function toggleDarkMode() {
+			dark = !dark;
+			document.body.classList.toggle('dark-mode', dark);
+		}
+		// بيانات وهمية للإحصائيات
+		document.getElementById('visitorsCount').textContent = 1234;
+		document.getElementById('usersCount').textContent = 5;
+		document.getElementById('employeesCount').textContent = 3;
+		document.getElementById('projectsCount').textContent = 7;
+		document.getElementById('blogCount').textContent = 12;
+		// اسم المستخدم
+		document.getElementById('adminUserName').textContent = 'مدير النظام';
+		// تسجيل الخروج
+		function logout() { notify('تم تسجيل الخروج!','info'); }
+		// يمكن إضافة منطق المستخدمين، الموظفين، المحتوى، المدونة، المشاريع، الإعدادات لاحقاً هنا
+	</script>
+</body>
+</html>
