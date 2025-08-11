@@ -296,9 +296,10 @@
 					notify('صيغة JSON غير صحيحة','error');
 				}
 			}
-			// --- إدارة الموظفين (نموذج أولي محلي) ---
+			// --- إدارة الموظفين (ديناميكي مع backend) ---
 			let employees = [];
-			function renderEmployees() {
+			async function renderEmployees() {
+				employees = await fetchEmployees();
 				const list = document.getElementById('employeesList');
 				list.innerHTML = '';
 				employees.forEach((e, i) => {
@@ -326,7 +327,7 @@
 				document.getElementById('employeeModal').style.display = 'flex';
 			}
 			function closeEmployeeModal() { document.getElementById('employeeModal').style.display = 'none'; }
-			function saveEmployee() {
+			async function saveEmployee() {
 				const name = document.getElementById('employeeNameInput').value.trim();
 				const role = document.getElementById('employeeRoleInput').value.trim();
 				if(!name || !role) return notify('يرجى إدخال جميع البيانات','error');
@@ -335,15 +336,17 @@
 				} else {
 					employees.push({name, role});
 				}
+				await updateEmployees(employees);
 				closeEmployeeModal();
 				renderEmployees();
 			}
 			function editEmployee(idx) { openEmployeeModal(idx); }
-			function deleteEmployee(idx) { if(confirm('حذف الموظف؟')) { employees.splice(idx,1); renderEmployees(); } }
+			async function deleteEmployee(idx) { if(confirm('حذف الموظف؟')) { employees.splice(idx,1); await updateEmployees(employees); renderEmployees(); } }
 
-			// --- إدارة المدونة (نموذج أولي محلي) ---
+			// --- إدارة المدونة (ديناميكي مع backend) ---
 			let blogPosts = [];
-			function renderBlog() {
+			async function renderBlog() {
+				blogPosts = await fetchBlog();
 				const list = document.getElementById('blogList');
 				list.innerHTML = '';
 				blogPosts.forEach((b, i) => {
@@ -373,7 +376,7 @@
 				document.getElementById('blogModal').style.display = 'flex';
 			}
 			function closeBlogModal() { document.getElementById('blogModal').style.display = 'none'; }
-			function saveBlog() {
+			async function saveBlog() {
 				const title = document.getElementById('blogTitleInput').value.trim();
 				const desc = document.getElementById('blogDescInput').value.trim();
 				const image = document.getElementById('blogImageInput').value.trim();
@@ -383,15 +386,17 @@
 				} else {
 					blogPosts.push({title, desc, image});
 				}
+				await updateBlog(blogPosts);
 				closeBlogModal();
 				renderBlog();
 			}
 			function editBlog(idx) { openBlogModal(idx); }
-			function deleteBlog(idx) { if(confirm('حذف التدوينة؟')) { blogPosts.splice(idx,1); renderBlog(); } }
+			async function deleteBlog(idx) { if(confirm('حذف التدوينة؟')) { blogPosts.splice(idx,1); await updateBlog(blogPosts); renderBlog(); } }
 
-			// --- إدارة المشاريع (نموذج أولي محلي) ---
+			// --- إدارة المشاريع (ديناميكي مع backend) ---
 			let projects = [];
-			function renderProjects() {
+			async function renderProjects() {
+				projects = await fetchProjects();
 				const list = document.getElementById('projectsList');
 				list.innerHTML = '';
 				projects.forEach((p, i) => {
@@ -421,7 +426,7 @@
 				document.getElementById('projectModal').style.display = 'flex';
 			}
 			function closeProjectModal() { document.getElementById('projectModal').style.display = 'none'; }
-			function saveProject() {
+			async function saveProject() {
 				const title = document.getElementById('projectTitleInput').value.trim();
 				const desc = document.getElementById('projectDescInput').value.trim();
 				const image = document.getElementById('projectImageInput').value.trim();
@@ -431,11 +436,12 @@
 				} else {
 					projects.push({title, desc, image});
 				}
+				await updateProjects(projects);
 				closeProjectModal();
 				renderProjects();
 			}
 			function editProject(idx) { openProjectModal(idx); }
-			function deleteProject(idx) { if(confirm('حذف المشروع؟')) { projects.splice(idx,1); renderProjects(); } }
+			async function deleteProject(idx) { if(confirm('حذف المشروع؟')) { projects.splice(idx,1); await updateProjects(projects); renderProjects(); } }
 
 			// عند فتح القسم المناسب
 			document.getElementById('usersSection').addEventListener('show', renderUsers);
