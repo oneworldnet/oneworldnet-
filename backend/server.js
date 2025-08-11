@@ -1,3 +1,12 @@
+// تحديث ملف المستخدمين بالكامل (للحذف والتعديل)
+app.post('/api/users', (req, res) => {
+  const users = req.body;
+  if (!Array.isArray(users)) return res.status(400).json({ error: 'Invalid users array' });
+  fs.writeFile(USERS_PATH, JSON.stringify(users, null, 2), 'utf8', err => {
+    if (err) return res.status(500).json({ error: 'Write error' });
+    res.json({ success: true });
+  });
+});
 
 
 
