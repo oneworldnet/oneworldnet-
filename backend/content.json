@@ -47,5 +47,15 @@
     {"image": "images/devices/2.jpg", "title": "جهاز استقبال احترافي", "desc": "أداء عالي، مناسب للمؤسسات والشركات الكبيرة.", "icon": "fa-bolt"},
     {"image": "images/devices/3.jpg", "title": "جهاز استقبال مؤسسات", "desc": "حلول متقدمة للشبكات والمنظمات الدولية.", "icon": "fa-building"},
     {"image": "images/devices/4.jpg", "title": "جهاز استقبال متنقل", "desc": "تصميم محمول، مثالي للرحلات والمناطق النائية.", "icon": "fa-mobile-alt"}
+  ],
+  "employees": [
+    {"name": "محمد علي", "role": "مدير تقنية"},
+    {"name": "سارة أحمد", "role": "دعم فني"}
+  ],
+  "blog": [
+    {"title": "أول تدوينة", "desc": "مرحبا بكم في مدونة ون وورلد نت!", "image": "images/blog/1.jpg"}
+  ],
+  "projects": [
+    {"title": "مشروع أفريقيا", "desc": "تغطية الإنترنت الفضائي في أفريقيا.", "image": "images/projects/1.jpg"}
   ]
 }

@@ -1,3 +1,35 @@
+// --- جلب وتحديث الموظفين ---
+async function fetchEmployees() {
+  const content = await fetchContent();
+  return content.employees || [];
+}
+async function updateEmployees(newEmployees) {
+  const content = await fetchContent();
+  content.employees = newEmployees;
+  await updateContent(content);
+}
+
+// --- جلب وتحديث المدونة ---
+async function fetchBlog() {
+  const content = await fetchContent();
+  return content.blog || [];
+}
+async function updateBlog(newBlog) {
+  const content = await fetchContent();
+  content.blog = newBlog;
+  await updateContent(content);
+}
+
+// --- جلب وتحديث المشاريع ---
+async function fetchProjects() {
+  const content = await fetchContent();
+  return content.projects || [];
+}
+async function updateProjects(newProjects) {
+  const content = await fetchContent();
+  content.projects = newProjects;
+  await updateContent(content);
+}
 // admin.js
 // سكريبت ربط لوحة التحكم مع backend وتفعيل كل الأقسام
 
