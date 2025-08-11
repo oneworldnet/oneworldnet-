@@ -102,6 +102,14 @@
     </div>
   </section>
   <footer class="main-footer glass">
+    <script src="translate.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        if(typeof setLang === 'function') {
+          setLang(document.getElementById('lang-select')?.value || 'en');
+        }
+      });
+    </script>
     <div class="footer-socials" style="display:flex;gap:10px;justify-content:center;margin-bottom:8px;">
       <a href="https://facebook.com" target="_blank" aria-label="فيسبوك" class="social-circle fb"><i class="fab fa-facebook-f"></i></a>
       <a href="https://twitter.com" target="_blank" aria-label="تويتر" class="social-circle tw"><i class="fab fa-twitter"></i></a>

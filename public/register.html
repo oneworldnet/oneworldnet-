@@ -80,6 +80,14 @@
   <img src="images/register/1.jpg" alt="إنشاء حساب" style="width:100%;max-width:350px;border-radius:18px;margin:24px auto;display:block;box-shadow:0 8px 32px #0af2;filter:brightness(1.1);" />
   </section>
   <footer class="main-footer glass">
+    <script src="translate.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        if(typeof setLang === 'function') {
+          setLang(document.getElementById('lang-select')?.value || 'en');
+        }
+      });
+    </script>
     <div class="footer-socials" style="display:flex;gap:10px;justify-content:center;margin-bottom:8px;">
       <a href="https://facebook.com" target="_blank" aria-label="فيسبوك" class="social-circle fb"><i class="fab fa-facebook-f"></i></a>
       <a href="https://twitter.com" target="_blank" aria-label="تويتر" class="social-circle tw"><i class="fab fa-twitter"></i></a>
