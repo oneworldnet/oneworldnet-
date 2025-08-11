@@ -80,7 +80,13 @@
 			</div>
 			<div class="item-list" id="usersList"></div>
 		</div>
-		<div id="employeesSection" class="section" style="display:none;"></div>
+		<div id="employeesSection" class="section" style="display:none;">
+			<div class="section-title">إدارة الموظفين</div>
+			<div class="section-controls">
+				<button class="add-btn" onclick="openEmployeeModal()"><i class="fa fa-plus"></i> إضافة موظف</button>
+			</div>
+			<div class="item-list" id="employeesList"></div>
+		</div>
 		<div id="contentSection" class="section" style="display:none;">
 			<div class="section-title">إدارة محتوى الصفحة الرئيسية</div>
 			<div class="section-controls">
@@ -88,8 +94,52 @@
 			</div>
 			<div class="item-list" id="contentList"></div>
 		</div>
-		<div id="blogSection" class="section" style="display:none;"></div>
-		<div id="projectsSection" class="section" style="display:none;"></div>
+		<div id="blogSection" class="section" style="display:none;">
+			<div class="section-title">إدارة المدونة</div>
+			<div class="section-controls">
+				<button class="add-btn" onclick="openBlogModal()"><i class="fa fa-plus"></i> إضافة تدوينة</button>
+			</div>
+			<div class="item-list" id="blogList"></div>
+		</div>
+		<div id="projectsSection" class="section" style="display:none;">
+			<div class="section-title">إدارة المشاريع</div>
+			<div class="section-controls">
+				<button class="add-btn" onclick="openProjectModal()"><i class="fa fa-plus"></i> إضافة مشروع</button>
+			</div>
+			<div class="item-list" id="projectsList"></div>
+		</div>
+		<!-- مودال الموظفين -->
+		<div class="modal" id="employeeModal">
+			<div class="modal-content">
+				<h3 id="employeeModalTitle">إضافة موظف</h3>
+				<input type="text" id="employeeNameInput" placeholder="اسم الموظف" />
+				<input type="text" id="employeeRoleInput" placeholder="الوظيفة" />
+				<button onclick="saveEmployee()">حفظ</button>
+				<button onclick="closeEmployeeModal()" style="background:#e53935;">إلغاء</button>
+			</div>
+		</div>
+		<!-- مودال المدونة -->
+		<div class="modal" id="blogModal">
+			<div class="modal-content">
+				<h3 id="blogModalTitle">إضافة تدوينة</h3>
+				<input type="text" id="blogTitleInput" placeholder="عنوان التدوينة" />
+				<textarea id="blogDescInput" placeholder="محتوى التدوينة"></textarea>
+				<input type="text" id="blogImageInput" placeholder="رابط الصورة" />
+				<button onclick="saveBlog()">حفظ</button>
+				<button onclick="closeBlogModal()" style="background:#e53935;">إلغاء</button>
+			</div>
+		</div>
+		<!-- مودال المشاريع -->
+		<div class="modal" id="projectModal">
+			<div class="modal-content">
+				<h3 id="projectModalTitle">إضافة مشروع</h3>
+				<input type="text" id="projectTitleInput" placeholder="اسم المشروع" />
+				<textarea id="projectDescInput" placeholder="وصف المشروع"></textarea>
+				<input type="text" id="projectImageInput" placeholder="رابط الصورة" />
+				<button onclick="saveProject()">حفظ</button>
+				<button onclick="closeProjectModal()" style="background:#e53935;">إلغاء</button>
+			</div>
+		</div>
 		<div id="statsSection" class="section" style="display:none;"></div>
 		<div id="settingsSection" class="section" style="display:none;"></div>
 		</div>
@@ -246,9 +296,153 @@
 					notify('صيغة JSON غير صحيحة','error');
 				}
 			}
+			// --- إدارة الموظفين (نموذج أولي محلي) ---
+			let employees = [];
+			function renderEmployees() {
+				const list = document.getElementById('employeesList');
+				list.innerHTML = '';
+				employees.forEach((e, i) => {
+					const card = document.createElement('div');
+					card.className = 'item-card';
+					card.innerHTML = `<b>${e.name}</b><br><span style='color:#888'>${e.role}</span>
+						<div class='actions'>
+							<button class='edit' onclick='editEmployee(${i})'><i class="fa fa-edit"></i></button>
+							<button onclick='deleteEmployee(${i})'><i class="fa fa-trash"></i></button>
+						</div>`;
+					list.appendChild(card);
+				});
+			}
+			function openEmployeeModal(editIdx) {
+				document.getElementById('employeeModalTitle').textContent = typeof editIdx==='number' ? 'تعديل موظف' : 'إضافة موظف';
+				document.getElementById('employeeNameInput').value = '';
+				document.getElementById('employeeRoleInput').value = '';
+				if(typeof editIdx==='number') {
+					document.getElementById('employeeNameInput').value = employees[editIdx].name;
+					document.getElementById('employeeRoleInput').value = employees[editIdx].role;
+					window._editingEmployee = editIdx;
+				} else {
+					window._editingEmployee = null;
+				}
+				document.getElementById('employeeModal').style.display = 'flex';
+			}
+			function closeEmployeeModal() { document.getElementById('employeeModal').style.display = 'none'; }
+			function saveEmployee() {
+				const name = document.getElementById('employeeNameInput').value.trim();
+				const role = document.getElementById('employeeRoleInput').value.trim();
+				if(!name || !role) return notify('يرجى إدخال جميع البيانات','error');
+				if(window._editingEmployee!==null) {
+					employees[window._editingEmployee] = {name, role};
+				} else {
+					employees.push({name, role});
+				}
+				closeEmployeeModal();
+				renderEmployees();
+			}
+			function editEmployee(idx) { openEmployeeModal(idx); }
+			function deleteEmployee(idx) { if(confirm('حذف الموظف؟')) { employees.splice(idx,1); renderEmployees(); } }
+
+			// --- إدارة المدونة (نموذج أولي محلي) ---
+			let blogPosts = [];
+			function renderBlog() {
+				const list = document.getElementById('blogList');
+				list.innerHTML = '';
+				blogPosts.forEach((b, i) => {
+					const card = document.createElement('div');
+					card.className = 'item-card';
+					card.innerHTML = `<b>${b.title}</b><br><span style='color:#888'>${b.desc}</span>
+						<div class='actions'>
+							<button class='edit' onclick='editBlog(${i})'><i class="fa fa-edit"></i></button>
+							<button onclick='deleteBlog(${i})'><i class="fa fa-trash"></i></button>
+						</div>`;
+					list.appendChild(card);
+				});
+			}
+			function openBlogModal(editIdx) {
+				document.getElementById('blogModalTitle').textContent = typeof editIdx==='number' ? 'تعديل تدوينة' : 'إضافة تدوينة';
+				document.getElementById('blogTitleInput').value = '';
+				document.getElementById('blogDescInput').value = '';
+				document.getElementById('blogImageInput').value = '';
+				if(typeof editIdx==='number') {
+					document.getElementById('blogTitleInput').value = blogPosts[editIdx].title;
+					document.getElementById('blogDescInput').value = blogPosts[editIdx].desc;
+					document.getElementById('blogImageInput').value = blogPosts[editIdx].image;
+					window._editingBlog = editIdx;
+				} else {
+					window._editingBlog = null;
+				}
+				document.getElementById('blogModal').style.display = 'flex';
+			}
+			function closeBlogModal() { document.getElementById('blogModal').style.display = 'none'; }
+			function saveBlog() {
+				const title = document.getElementById('blogTitleInput').value.trim();
+				const desc = document.getElementById('blogDescInput').value.trim();
+				const image = document.getElementById('blogImageInput').value.trim();
+				if(!title || !desc) return notify('يرجى إدخال جميع البيانات','error');
+				if(window._editingBlog!==null) {
+					blogPosts[window._editingBlog] = {title, desc, image};
+				} else {
+					blogPosts.push({title, desc, image});
+				}
+				closeBlogModal();
+				renderBlog();
+			}
+			function editBlog(idx) { openBlogModal(idx); }
+			function deleteBlog(idx) { if(confirm('حذف التدوينة؟')) { blogPosts.splice(idx,1); renderBlog(); } }
+
+			// --- إدارة المشاريع (نموذج أولي محلي) ---
+			let projects = [];
+			function renderProjects() {
+				const list = document.getElementById('projectsList');
+				list.innerHTML = '';
+				projects.forEach((p, i) => {
+					const card = document.createElement('div');
+					card.className = 'item-card';
+					card.innerHTML = `<b>${p.title}</b><br><span style='color:#888'>${p.desc}</span>
+						<div class='actions'>
+							<button class='edit' onclick='editProject(${i})'><i class="fa fa-edit"></i></button>
+							<button onclick='deleteProject(${i})'><i class="fa fa-trash"></i></button>
+						</div>`;
+					list.appendChild(card);
+				});
+			}
+			function openProjectModal(editIdx) {
+				document.getElementById('projectModalTitle').textContent = typeof editIdx==='number' ? 'تعديل مشروع' : 'إضافة مشروع';
+				document.getElementById('projectTitleInput').value = '';
+				document.getElementById('projectDescInput').value = '';
+				document.getElementById('projectImageInput').value = '';
+				if(typeof editIdx==='number') {
+					document.getElementById('projectTitleInput').value = projects[editIdx].title;
+					document.getElementById('projectDescInput').value = projects[editIdx].desc;
+					document.getElementById('projectImageInput').value = projects[editIdx].image;
+					window._editingProject = editIdx;
+				} else {
+					window._editingProject = null;
+				}
+				document.getElementById('projectModal').style.display = 'flex';
+			}
+			function closeProjectModal() { document.getElementById('projectModal').style.display = 'none'; }
+			function saveProject() {
+				const title = document.getElementById('projectTitleInput').value.trim();
+				const desc = document.getElementById('projectDescInput').value.trim();
+				const image = document.getElementById('projectImageInput').value.trim();
+				if(!title || !desc) return notify('يرجى إدخال جميع البيانات','error');
+				if(window._editingProject!==null) {
+					projects[window._editingProject] = {title, desc, image};
+				} else {
+					projects.push({title, desc, image});
+				}
+				closeProjectModal();
+				renderProjects();
+			}
+			function editProject(idx) { openProjectModal(idx); }
+			function deleteProject(idx) { if(confirm('حذف المشروع؟')) { projects.splice(idx,1); renderProjects(); } }
+
 			// عند فتح القسم المناسب
 			document.getElementById('usersSection').addEventListener('show', renderUsers);
 			document.getElementById('contentSection').addEventListener('show', renderContent);
+			document.getElementById('employeesSection').addEventListener('show', renderEmployees);
+			document.getElementById('blogSection').addEventListener('show', renderBlog);
+			document.getElementById('projectsSection').addEventListener('show', renderProjects);
 			// تفعيل عرض القسم عند الضغط
 			const origShowSection = showSection;
 			showSection = function(section, btn) {
