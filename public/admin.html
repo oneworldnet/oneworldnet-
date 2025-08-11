@@ -80,42 +80,45 @@
 		<div id="projectsSection" class="section" style="display:none;"></div>
 		<div id="statsSection" class="section" style="display:none;"></div>
 		<div id="settingsSection" class="section" style="display:none;"></div>
-	</div>
-	<script>
-		// إشعار فوري
-		function notify(msg, type='info') {
-			const n = document.getElementById('globalNotification');
-			n.textContent = msg;
-			n.style.background = type==='error' ? '#e53935' : (type==='success' ? '#43a047' : '#FFD600');
-			n.style.color = type==='error' ? '#fff' : '#18120b';
-			n.style.display = 'block';
-			setTimeout(()=>{n.style.display='none';}, 2500);
-		}
-		// تبديل الأقسام
-		function showSection(section, btn) {
-			document.querySelectorAll('.admin-nav button').forEach(b=>b.classList.remove('active'));
-			btn.classList.add('active');
-			['dashboard','users','employees','content','blog','projects','stats','settings'].forEach(s=>{
-				document.getElementById(s+'Section').style.display = (s===section)?'block':'none';
-			});
-		}
-		// الوضع الليلي
-		let dark = false;
-		function toggleDarkMode() {
-			dark = !dark;
-			document.body.classList.toggle('dark-mode', dark);
-		}
-		// بيانات وهمية للإحصائيات
-		document.getElementById('visitorsCount').textContent = 1234;
-		document.getElementById('usersCount').textContent = 5;
-		document.getElementById('employeesCount').textContent = 3;
-		document.getElementById('projectsCount').textContent = 7;
-		document.getElementById('blogCount').textContent = 12;
-		// اسم المستخدم
-		document.getElementById('adminUserName').textContent = 'مدير النظام';
-		// تسجيل الخروج
-		function logout() { notify('تم تسجيل الخروج!','info'); }
-		// يمكن إضافة منطق المستخدمين، الموظفين، المحتوى، المدونة، المشاريع، الإعدادات لاحقاً هنا
-	</script>
+		</div>
+		<script src="admin.js"></script>
+		<script>
+			// إشعار فوري
+			function notify(msg, type='info') {
+				const n = document.getElementById('globalNotification');
+				n.textContent = msg;
+				n.style.background = type==='error' ? '#e53935' : (type==='success' ? '#43a047' : '#FFD600');
+				n.style.color = type==='error' ? '#fff' : '#18120b';
+				n.style.display = 'block';
+				setTimeout(()=>{n.style.display='none';}, 2500);
+			}
+			// تبديل الأقسام
+			function showSection(section, btn) {
+				document.querySelectorAll('.admin-nav button').forEach(b=>b.classList.remove('active'));
+				btn.classList.add('active');
+				['dashboard','users','employees','content','blog','projects','stats','settings'].forEach(s=>{
+					document.getElementById(s+'Section').style.display = (s===section)?'block':'none';
+				});
+			}
+			// الوضع الليلي
+			let dark = false;
+			function toggleDarkMode() {
+				dark = !dark;
+				document.body.classList.toggle('dark-mode', dark);
+			}
+			// بيانات الإحصائيات من backend
+			async function updateStats() {
+				// مثال: جلب عدد المستخدمين
+				const users = await fetchUsers();
+				document.getElementById('usersCount').textContent = users.length;
+				// يمكن إضافة جلب باقي الإحصائيات بنفس الطريقة
+			}
+			updateStats();
+			// اسم المستخدم
+			document.getElementById('adminUserName').textContent = 'مدير النظام';
+			// تسجيل الخروج
+			function logout() { notify('تم تسجيل الخروج!','info'); }
+			// يمكن إضافة منطق المستخدمين، الموظفين، المحتوى، المدونة، المشاريع، الإعدادات لاحقاً هنا
+		</script>
 </body>
 </html>

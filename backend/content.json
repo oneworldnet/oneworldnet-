@@ -1,0 +1,51 @@
+{
+  "hero": {
+    "title": "الإنترنت الفضائي للجميع",
+    "desc": "أسرع وأأمن إنترنت فضائي في العالم، متاح لكل بيت وشركة ومنظمة.",
+    "btnText": "سجل الآن",
+    "btnLink": "register.html",
+    "image": "images/index/2.jpg"
+  },
+  "marquee": {
+    "text": "مرحباً بكم في ون وورلد نت! أفضل حلول الإنترنت الفضائي لجميع أنحاء العالم. ندعم المدارس والجامعات والمستشفيات حول العالم، إنترنت الأشياء، وسرعات تصل إلى ١٠ جيجابت في الثانية، وتغطية المحيطات والبحار والجبال والفضاء، ونستخدم حماية بتقنية بلوك تشين غير قابلة للاختراق أو الاطلاع عليها من أي طرف ثالث. Now available in English, Français, Italiano, Español, Deutsch."
+  },
+  "news": [
+    {
+      "image": "images/blog/1.jpg",
+      "title": "إطلاق باقات جديدة بسرعات أعلى",
+      "desc": "تم إطلاق باقات جديدة بسرعات تصل إلى 1 جيجابت في جميع الدول المدعومة.",
+      "icon": "fa-rocket"
+    },
+    {
+      "image": "images/blog/2.jpg",
+      "title": "توسيع التغطية العالمية",
+      "desc": "تمت إضافة 10 دول جديدة إلى شبكة التغطية العالمية لـ One World Net.",
+      "icon": "fa-globe"
+    },
+    {
+      "image": "images/blog/3.jpg",
+      "title": "تجارب المستخدمين حول العالم",
+      "desc": "قصص نجاح من مستخدمي الإنترنت الفضائي في القارات الست.",
+      "icon": "fa-users"
+    }
+  ],
+  "join": {
+    "title": "انضم إلينا",
+    "desc": "كن جزءًا من شبكة One World Net وساهم في ربط العالم بالإنترنت الفضائي.",
+    "btnText": "سجل الآن",
+    "btnLink": "register.html",
+    "image": "images/join/1.jpg"
+  },
+  "partners": [
+    {"image": "images/partners/1.jpg", "alt": "شريك 1"},
+    {"image": "images/partners/2.jpg", "alt": "شريك عالمي"},
+    {"image": "images/partners/3.jpg", "alt": "شريك تقني"},
+    {"image": "images/partners/4.jpg", "alt": "شريك لوجستي"}
+  ],
+  "devices": [
+    {"image": "images/devices/1.jpg", "title": "جهاز استقبال قياسي", "desc": "سهل التركيب، مناسب للاستخدام المنزلي والشركات الصغيرة.", "icon": "fa-wifi"},
+    {"image": "images/devices/2.jpg", "title": "جهاز استقبال احترافي", "desc": "أداء عالي، مناسب للمؤسسات والشركات الكبيرة.", "icon": "fa-bolt"},
+    {"image": "images/devices/3.jpg", "title": "جهاز استقبال مؤسسات", "desc": "حلول متقدمة للشبكات والمنظمات الدولية.", "icon": "fa-building"},
+    {"image": "images/devices/4.jpg", "title": "جهاز استقبال متنقل", "desc": "تصميم محمول، مثالي للرحلات والمناطق النائية.", "icon": "fa-mobile-alt"}
+  ]
+}

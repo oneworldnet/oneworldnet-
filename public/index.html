@@ -2,173 +2,23 @@
 <html lang="ar" dir="rtl">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>One World Net | الإنترنت الفضائي للجميع</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Inter:wght@400;700&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
     <style>
-        /* قائمة اختيار اللغة */
-        .lang-select {
-            background: #222;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            padding: 8px 14px;
-            font-size: 1em;
-            margin-right: 8px;
-            cursor: pointer;
-        }
-        .lang-select:focus {
-            outline: 2px solid #0af;
-        }
-        body {
-            background: #111 !important;
-            overflow-x: hidden;
-        }
-
-        .logo span {
-            font-weight: bold;
-            font-size: 1.3em;
-            letter-spacing: 2px;
-            color: #0af;
-        }
-
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-family: 'Cairo', 'Inter', sans-serif;
-        }
-
-        .logo span {
-            font-weight: bold;
-            font-size: 1.5em;
-            letter-spacing: 2px;
-            color: #0af;
-            text-shadow: 0 2px 8px #000a;
-        }
-
-        .main-nav {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 24px 0 24px;
-            background: #181818e6;
-            border-radius: 0 0 18px 18px;
-            box-shadow: 0 2px 16px #0002;
-        }
-
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .main-nav {
-            position: relative;
-        }
-
-        .menu-toggle {
-            background: #222;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            padding: 8px 16px;
-            font-size: 1.3em;
-            cursor: pointer;
-            z-index: 10;
-            transition: background 0.2s;
-        }
-        .menu-toggle:hover {
-            background: #0af;
-            color: #fff;
-        }
-
-        .dark-toggle {
-            background: #222;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            padding: 8px 14px;
-            font-size: 1.2em;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .dark-toggle:hover {
-            background: #0af;
-            color: #fff;
-        }
-
-        .nav-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .nav-links.show {
-            display: block;
-            position: absolute;
-            top: 100%; /* أسفل زر القائمة مباشرة */
-            right: 0;
-            left: auto;
-            min-width: 180px;
-            background: #222;
-            border-radius: 0 0 12px 12px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.28);
-            padding: 18px 12px;
-            z-index: 1000;
-        }
-        .nav-links.show a {
-            color: #fff !important;
-        }
-
+        /* ضع هنا جميع أكواد CSS فقط */
+        .main-nav { position: relative; }
+        .menu-toggle { background: #222; color: #fff; border: none; border-radius: 8px; padding: 8px 16px; font-size: 1.3em; cursor: pointer; z-index: 10; transition: background 0.2s; }
+        .menu-toggle:hover { background: #0af; color: #fff; }
+        .dark-toggle { background: #222; color: #fff; border: none; border-radius: 8px; padding: 8px 14px; font-size: 1.2em; cursor: pointer; transition: background 0.2s; }
+        .dark-toggle:hover { background: #0af; color: #fff; }
+        .nav-links { display: flex; flex-wrap: wrap; gap: 12px; list-style: none; margin: 0; padding: 0; }
+        .nav-links.show { display: block; position: absolute; top: 100%; right: 0; left: auto; min-width: 180px; background: #222; border-radius: 0 0 12px 12px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.28); padding: 18px 12px; z-index: 1000; }
+        .nav-links.show a { color: #fff !important; }
         @media (max-width: 900px) {
-            .main-nav {
-                flex-direction: column;
-                align-items: stretch;
-                padding: 8px 4vw 0 4vw;
-            }
-            .logo {
-                justify-content: center;
-                margin-bottom: 8px;
-            }
-            .nav-actions {
-                justify-content: flex-end;
-                position: relative;
-                z-index: 1100;
-            }
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                right: 0;
-                left: auto;
-                min-width: 180px;
-                background: #222;
-                border-radius: 0 0 12px 12px;
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.28);
-                padding: 18px 12px;
-                z-index: 1200;
-            }
-            .nav-links.show {
-                display: block;
-            }
-            .nav-links.show a {
-                color: #fff !important;
-            }
+            .main-nav { flex-direction: column; align-items: stretch; padding: 8px 4vw 0 4vw; }
+            .logo { justify-content: center; margin-bottom: 8px; }
+            .nav-actions { justify-content: flex-end; position: relative; z-index: 1100; }
+            .nav-links { display: none; position: absolute; top: 100%; right: 0; left: auto; min-width: 180px; background: #222; border-radius: 0 0 12px 12px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.28); padding: 18px 12px; z-index: 1200; }
+            .nav-links.show { display: block; }
+            .nav-links.show a { color: #fff !important; }
         }
     </style>
 </head>
@@ -206,73 +56,21 @@
             <p data-i18n="hero_desc">أسرع وأأمن إنترنت فضائي في العالم، متاح لكل بيت وشركة ومنظمة.</p>
             <a href="register.html" class="main-btn" data-i18n="hero_btn">سجل الآن</a>
         </div>
-    <div class="marquee-news" style="width:100%;background:#181818e6;color:#fff;font-size:1.1em;padding:10px 0 8px 0;text-align:center;overflow:hidden;direction:ltr;letter-spacing:1px;">
-    <span id="marquee-text" data-i18n="marquee_news" style="display:inline-block;white-space:nowrap;animation:marquee 18s linear infinite;">مرحباً بكم في ون وورلد نت! أفضل حلول الإنترنت الفضائي لجميع أنحاء العالم. ندعم المدارس والجامعات والمستشفيات حول العالم، إنترنت الأشياء، وسرعات تصل إلى ١٠ جيجابت في الثانية، وتغطية المحيطات والبحار والجبال والفضاء، ونستخدم حماية بتقنية بلوك تشين غير قابلة للاختراق أو الاطلاع عليها من أي طرف ثالث. Now available in English, Français, Italiano, Español, Deutsch.</span>
-        <style>
-        @keyframes marquee {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
-        </style>
-    </div>
-    <nav class="main-nav">
-        <div class="logo" style="position:sticky;top:0;z-index:2001;background:transparent;">
-            <img id="site-logo" src="images/logo.jpg" alt="ONE WORLD NET Logo" style="height:44px; border-radius:8px; box-shadow:0 2px 8px #0af4;" />
+        <div class="marquee-news" style="width:100%;background:#181818e6;color:#fff;font-size:1.1em;padding:10px 0 8px 0;text-align:center;overflow:hidden;direction:ltr;letter-spacing:1px;">
+            <span id="marquee-text" data-i18n="marquee_news" style="display:inline-block;white-space:nowrap;animation:marquee 18s linear infinite;"></span>
         </div>
-        <div class="nav-actions" style="position:relative;flex-direction:row;align-items:center;gap:10px;">
-            <button class="menu-toggle" aria-label="القائمة" style="margin-bottom:2px;"><i class="fas fa-bars"></i></button>
-            <select class="lang-select" id="lang-select" aria-label="Select language">
-                <option value="en">English</option>
-                <option value="ar">العربية</option>
-                <option value="fr">Français</option>
-                <option value="es">Español</option>
-                <option value="it">Italiano</option>
-                <option value="zh">中文</option>
-                <option value="de">Deutsch</option>
-                <option value="hi">हिन्दी</option>
-                <option value="fa">فارسی</option>
-            </select>
-            <div class="accessibility-menu-wrapper" style="position:relative;display:inline-block;">
-                <button class="accessibility-toggle" aria-label="خيارات ذوي الاحتياجات" style="background:#222;color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:1.2em;cursor:pointer;margin-right:6px;">
-                    <i class="fas fa-universal-access"></i>
-                </button>
-                <div class="accessibility-dropdown" style="display:none;position:absolute;top:110%;right:0;min-width:180px;background:#222;border-radius:0 0 12px 12px;box-shadow:0 8px 32px #0006;padding:12px 10px;z-index:2000;">
-                    <button class="access-btn" data-access="contrast" style="display:block;width:100%;background:none;border:none;color:#fff;text-align:right;padding:8px 0;font-size:1em;cursor:pointer;">وضع تباين عالي</button>
-                    <button class="access-btn" data-access="large-text" style="display:block;width:100%;background:none;border:none;color:#fff;text-align:right;padding:8px 0;font-size:1em;cursor:pointer;">نص كبير</button>
-                    <button class="access-btn" data-access="screen-reader" style="display:block;width:100%;background:none;border:none;color:#fff;text-align:right;padding:8px 0;font-size:1em;cursor:pointer;">تسهيل لقارئ الشاشة</button>
-                    <button class="access-btn" data-access="reset" style="display:block;width:100%;background:none;border:none;color:#fff;text-align:right;padding:8px 0;font-size:1em;cursor:pointer;">إعادة للوضع الافتراضي</button>
-                </div>
-            </div>
-            <button class="dark-toggle" aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button>
-        </div>
-        <ul class="nav-links">
-            <li><a href="index.html" data-i18n="nav_home">الرئيسية</a></li>
-            <li><a href="plans.html" data-i18n="nav_plans">الباقات</a></li>
-            <li><a href="devices.html" data-i18n="nav_devices">الأجهزة</a></li>
-            <li><a href="blog.html" data-i18n="nav_blog">المدونة</a></li>
-            <li><a href="partners.html" data-i18n="nav_partners">الشركاء</a></li>
-            <li><a href="contact.html" data-i18n="nav_contact">تواصل</a></li>
-            <li><a href="login.html" class="login-btn" data-i18n="nav_login">تسجيل الدخول</a></li>
-            <li><a href="register.html" class="register-btn" data-i18n="nav_register">إنشاء حساب</a></li>
-        </ul>
-    </nav>
-    <section class="hero-section glass">
-    <img src="images/index/2.jpg" alt="عنوان الشركة" style="width:100%;max-width:600px;border-radius:18px;margin:24px auto;display:block;box-shadow:0 8px 32px #0af2;filter:brightness(1.1);" />
-    </section>
+
+
+        <section class="hero-section glass" id="hero-section">
+            <img id="hero-image" src="" alt="عنوان الشركة" style="width:100%;max-width:600px;border-radius:18px;margin:24px auto;display:block;box-shadow:0 8px 32px #0af2;filter:brightness(1.1);" />
+            <h1 id="hero-title"></h1>
+            <p id="hero-desc"></p>
+            <a id="hero-btn" href="#" class="main-btn"></a>
+        </section>
         <div id="global-marquee" style="width:100%;background:#181818e6;color:#fff;font-size:1.1em;padding:10px 0 8px 0;text-align:center;overflow:hidden;direction:ltr;letter-spacing:1px;">
             <span id="marquee-text" style="display:inline-block;white-space:nowrap;"></span>
         </div>
-        <style>
-        @keyframes marquee {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
-        #global-marquee { box-shadow:none !important; text-shadow:none !important; overflow:hidden; }
-        #marquee-text {
-            display:inline-block;white-space:nowrap;
-            animation:marquee 18s linear infinite;
-        }
-        </style>
+
     <!-- شريط كتابي احترافي متعدد اللغات أعلى قسم الأخبار -->
     <div id="global-marquee-news" style="width:100%;background:#181818e6;color:#fff;font-size:1.1em;padding:10px 0 8px 0;text-align:center;overflow:hidden;direction:ltr;letter-spacing:1px;">
         <span id="marquee-text-news" style="display:inline-block;white-space:nowrap;"></span>
@@ -350,14 +148,7 @@
     <!-- تم إزالة تكرار أيقونات السوشيال من قسم تواصل معنا، الأيقونات تظهر فقط في الفوتر -->
     </section>
     <footer class="main-footer glass">
-    <script src="translate.js"></script>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                if(typeof setLang === 'function') {
-                    setLang(document.getElementById('lang-select')?.value || 'en');
-                }
-            });
-        </script>
+
         <div class="footer-socials" style="display:flex;gap:10px;justify-content:center;margin-bottom:8px;">
             <a href="https://facebook.com" target="_blank" aria-label="فيسبوك" class="social-circle fb"><i class="fab fa-facebook-f"></i></a>
             <a href="https://twitter.com" target="_blank" aria-label="تويتر" class="social-circle tw"><i class="fab fa-twitter"></i></a>
@@ -374,10 +165,68 @@
         </div>
         <div class="footer-copy">&copy; 2025 ONE WORLD NET. جميع الحقوق محفوظة.</div>
     </footer>
-    <script>
-    // تأكد من تحميل كل العناصر قبل التنفيذ
-    // ...existing code for menu, dark mode, accessibility, إلخ (بدون كود الترجمة المكرر)...
-    </script>
-</body>
-
-</html>
+        <script src="translate.js"></script>
+        <script>
+        // جلب بيانات الصفحة من backend وعرضها ديناميكياً
+        async function fetchContent() {
+            const res = await fetch('/api/content');
+            return await res.json();
+        }
+        function setHero(hero) {
+            document.getElementById('hero-image').src = hero.image;
+            document.getElementById('hero-title').textContent = hero.title;
+            document.getElementById('hero-desc').textContent = hero.desc;
+            const btn = document.getElementById('hero-btn');
+            btn.textContent = hero.btnText;
+            btn.href = hero.btnLink;
+        }
+        function setMarquee(marquee) {
+            document.getElementById('marquee-text').textContent = marquee.text;
+        }
+        function setJoin(join) {
+            document.getElementById('join-title').innerHTML = `<i class='fas fa-user-plus'></i> ${join.title}`;
+            document.getElementById('join-desc').textContent = join.desc;
+            const btn = document.getElementById('join-btn');
+            btn.textContent = join.btnText;
+            btn.href = join.btnLink;
+            document.getElementById('join-image').src = join.image;
+        }
+        function setPartners(partners) {
+            const container = document.getElementById('partners-logos');
+            container.innerHTML = '';
+            partners.forEach(p => {
+                container.innerHTML += `<img src="${p.image}" alt="${p.alt}" />`;
+            });
+        }
+        function setDevices(devices) {
+            const container = document.getElementById('devices-cards');
+            container.innerHTML = '';
+            devices.forEach(d => {
+                container.innerHTML += `<div class='device-card'>
+                    <img src='${d.image}' alt='${d.title}' />
+                    <h3><i class='fas ${d.icon}'></i> ${d.title}</h3>
+                    <p>${d.desc}</p>
+                </div>`;
+            });
+        }
+        function setNews(news) {
+            const container = document.getElementById('news-cards');
+            container.innerHTML = '';
+            news.forEach(n => {
+                container.innerHTML += `<div class='blog-card' style='margin-bottom:18px;flex:1 1 260px;min-width:220px;max-width:340px;background:#181818e6;border-radius:14px;box-shadow:0 2px 12px #0002;padding:16px;'>
+                    <img src='${n.image}' alt='${n.title}' style='border-radius:10px;' />
+                    <h3 style='margin-top:12px;'><i class='fas ${n.icon}'></i> ${n.title}</h3>
+                    <p>${n.desc}</p>
+                </div>`;
+            });
+        }
+        document.addEventListener('DOMContentLoaded', async function() {
+            const content = await fetchContent();
+            setHero(content.hero);
+            setMarquee(content.marquee);
+            setJoin(content.join);
+            setPartners(content.partners);
+            setDevices(content.devices);
+            setNews(content.news);
+        });
+        </script>
