@@ -21,6 +21,64 @@
     @media (max-width:900px){.main-nav{flex-direction:column;align-items:stretch;padding:8px 4vw 0 4vw;}.logo{justify-content:center;margin-bottom:8px;}.nav-actions{justify-content:flex-end;}.nav-links{display:none;}.nav-links.show{display:block;}}
     body.high-contrast {filter:contrast(1.5) grayscale(0.1) !important;}
     body.large-text {font-size:1.3em !important;}
+    body {
+      background: #000;
+      color: #fff;
+    }
+    .contact-section {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 24px;
+      margin: 16px 0;
+      backdrop-filter: blur(10px);
+    }
+    .contact-form input,
+    .contact-form textarea {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 16px;
+      width: 100%;
+      color: #fff;
+    }
+    .contact-form button {
+      background: #0af;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 24px;
+      font-size: 1.1em;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .contact-form button:hover {
+      background: #09f;
+    }
+    .social-icons a {
+      color: #0af;
+      font-size: 1.5em;
+      transition: color 0.3s;
+    }
+    .social-icons a:hover {
+      color: #09f;
+    }
+    .footer-socials a {
+      color: #0af;
+      font-size: 1.2em;
+      transition: color 0.3s;
+    }
+    .footer-socials a:hover {
+      color: #09f;
+    }
+    .footer-links a {
+      color: #0af;
+      margin: 0 10px;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover {
+      color: #09f;
+    }
   </style>
 </head>
 <body>
@@ -31,6 +89,8 @@
     </div>
     <div class="nav-actions">
       <button class="menu-toggle" aria-label="القائمة"><i class="fas fa-bars"></i></button>
+      <button class="dark-toggle" aria-label="الوضع الليلي" onclick="toggleDarkMode()"><i class="fas fa-moon"></i></button>
+      <button class="access-toggle" aria-label="ذوي الاحتياجات" onclick="toggleAccessibility()"><i class="fas fa-universal-access"></i></button>
       <select class="lang-select" id="lang-select" aria-label="Select language">
         <option value="en">English</option>
         <option value="ar">العربية</option>
@@ -55,12 +115,12 @@
   <!-- شريط النص المتحرك يظهر فقط في الصفحة الرئيسية -->
   </div>
   <section class="contact-section glass">
-    <h2><i class="fas fa-envelope"></i> تواصل معنا</h2>
+    <h2 style="color:#0af;text-align:center;font-size:2em;margin-bottom:24px;"><i class="fas fa-envelope"></i> تواصل معنا عالمياً</h2>
     <form class="contact-form">
       <input type="text" placeholder="اسمك" required />
       <input type="email" placeholder="بريدك الإلكتروني" required />
       <textarea placeholder="رسالتك" required></textarea>
-      <button type="submit">إرسال</button>
+      <button type="submit" class="main-btn" style="background:#0af;color:#fff;">إرسال</button>
       <div class="accessibility-support" style="margin-top:18px; background:rgba(0,0,0,0.08); border-radius:10px; padding:12px;">
         <label style="font-weight:bold;">دعم ذوي الاحتياجات الخاصة:</label><br>
         <input type="checkbox" id="screen-reader" name="screen-reader">
@@ -71,23 +131,7 @@
         <label for="large-text">نص كبير</label>
       </div>
     </form>
-    <div class="social-icons" id="contact-socials">
-      <a href="https://facebook.com" target="_blank" aria-label="فيسبوك"><i class="fab fa-facebook"></i></a>
-      <a href="https://twitter.com" target="_blank" aria-label="تويتر"><i class="fab fa-twitter"></i></a>
-      <a href="https://linkedin.com" target="_blank" aria-label="لينكدإن"><i class="fab fa-linkedin"></i></a>
-      <a href="https://youtube.com" target="_blank" aria-label="يوتيوب"><i class="fab fa-youtube"></i></a>
-    </div>
-  </section>
-  <footer class="main-footer glass">
-    <script src="translate.js"></script>
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        if(typeof setLang === 'function') {
-          setLang(document.getElementById('lang-select')?.value || 'en');
-        }
-      });
-    </script>
-    <div class="footer-socials" style="display:flex;gap:10px;justify-content:center;margin-bottom:8px;">
+    <div class="footer-socials" style="display:flex;gap:10px;justify-content:center;margin:24px 0;">
       <a href="https://facebook.com" target="_blank" aria-label="فيسبوك" class="social-circle fb"><i class="fab fa-facebook-f"></i></a>
       <a href="https://twitter.com" target="_blank" aria-label="تويتر" class="social-circle tw"><i class="fab fa-twitter"></i></a>
       <a href="https://linkedin.com" target="_blank" aria-label="لينكدإن" class="social-circle in"><i class="fab fa-linkedin-in"></i></a>
@@ -97,12 +141,12 @@
       <a href="https://t.me/" target="_blank" aria-label="تليجرام" class="social-circle tg"><i class="fab fa-telegram-plane"></i></a>
       <a href="https://tiktok.com" target="_blank" aria-label="تيك توك" class="social-circle tt"><i class="fab fa-tiktok"></i></a>
     </div>
+  </section>
+  <footer class="main-footer glass">
     <div class="footer-links">
       <a href="#privacy">سياسة الخصوصية</a>
       <a href="#faq">الأسئلة الشائعة</a>
     </div>
-    <div class="footer-copy">&copy; 2025 One World Net. جميع الحقوق محفوظة.</div>
-  <!-- تم حذف التكرار وتوحيد الفوتر -->
     <div class="footer-copy">&copy; 2025 ONE WORLD NET. جميع الحقوق محفوظة.</div>
   </footer>
   <script src="main.js"></script>

@@ -16,6 +16,8 @@
     </div>
     <div class="nav-actions">
       <button class="menu-toggle" aria-label="القائمة"><i class="fas fa-bars"></i></button>
+      <button class="dark-toggle" aria-label="الوضع الليلي" onclick="toggleDarkMode()"><i class="fas fa-moon"></i></button>
+      <button class="access-toggle" aria-label="ذوي الاحتياجات" onclick="toggleAccessibility()"><i class="fas fa-universal-access"></i></button>
       <select class="lang-select" id="lang-select" aria-label="Select language">
         <option value="en">English</option>
         <option value="ar">العربية</option>
@@ -36,9 +38,7 @@
       <li><a href="register.html" class="register-btn" data-i18n="nav_register">إنشاء حساب</a></li>
     </ul>
   </nav>
-  <div class="marquee-bar" style="background:#0af;color:#fff;padding:8px 0;text-align:center;font-weight:bold;font-size:1.1em;">
   <!-- شريط النص المتحرك يظهر فقط في الصفحة الرئيسية -->
-  </div>
   <section class="plans-section glass" id="plans-section">
     <h2><i class="fas fa-layer-group"></i> الباقات</h2>
     <div class="plans-cards">
@@ -69,14 +69,6 @@
     </div>
   </section>
   <footer class="main-footer glass">
-    <script src="translate.js"></script>
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        if(typeof setLang === 'function') {
-          setLang(document.getElementById('lang-select')?.value || 'en');
-        }
-      });
-    </script>
     <div class="footer-socials" style="display:flex;gap:10px;justify-content:center;margin-bottom:8px;">
       <a href="https://facebook.com" target="_blank" aria-label="فيسبوك" class="social-circle fb"><i class="fab fa-facebook-f"></i></a>
       <a href="https://twitter.com" target="_blank" aria-label="تويتر" class="social-circle tw"><i class="fab fa-twitter"></i></a>
@@ -90,53 +82,10 @@
     <div class="footer-links">
       <a href="#privacy">سياسة الخصوصية</a>
       <a href="#faq">الأسئلة الشائعة</a>
-  <!-- تم حذف التكرار وتوحيد الفوتر -->
+    </div>
     <div class="footer-copy">&copy; 2025 ONE WORLD NET. جميع الحقوق محفوظة.</div>
   </footer>
   <script src="main.js"></script>
   <script src="translate.js"></script>
-  <script>
-    document.querySelector('.menu-toggle').onclick = function() {
-      document.querySelector('.nav-links').classList.toggle('show');
-    };
-    document.querySelector('.dark-toggle').onclick = function () {
-      document.body.classList.toggle('dark-mode');
-      if(document.body.classList.contains('dark-mode')) {
-        document.body.style.background = '#222';
-      } else {
-        document.body.style.background = '#111';
-      }
-    };
-    document.getElementById('accessibility-select').addEventListener('change', function(e) {
-      document.body.classList.remove('high-contrast', 'large-text');
-      if(e.target.value === 'high-contrast') document.body.classList.add('high-contrast');
-      if(e.target.value === 'large-text') document.body.classList.add('large-text');
-      if(e.target.value === 'screen-reader') alert('Screen reader mode: Please use your system screen reader.');
-    });
-    // تفعيل الترجمة الكاملة
-    const translations = {
-      en: {site_title: "ONE WORLD NET", nav_home: "Home", nav_plans: "Plans", nav_devices: "Devices", nav_blog: "Blog", nav_partners: "Partners", nav_contact: "Contact", nav_login: "Login", nav_register: "Register", plans_title: "Plans | One World Net", footer_privacy: "Privacy Policy", footer_faq: "FAQ"},
-      ar: {site_title: "ون وورلد نت", nav_home: "الرئيسية", nav_plans: "الباقات", nav_devices: "الأجهزة", nav_blog: "المدونة", nav_partners: "الشركاء", nav_contact: "تواصل", nav_login: "تسجيل الدخول", nav_register: "إنشاء حساب", plans_title: "الباقات | ون وورلد نت", footer_privacy: "سياسة الخصوصية", footer_faq: "الأسئلة الشائعة"}
-    };
-    function setLang(lang) {
-      const t = translations[lang] || translations['en'];
-      document.getElementById('site-title').textContent = t.site_title;
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (t[key]) el.textContent = t[key];
-      });
-      document.title = t.plans_title;
-      document.documentElement.lang = lang;
-      if(lang === 'ar') {
-        document.documentElement.dir = 'rtl';
-      } else {
-        document.documentElement.dir = 'ltr';
-      }
-    }
-    document.getElementById('lang-select').addEventListener('change', function(e) {
-      setLang(e.target.value);
-    });
-    setLang('ar');
-  </script>
 </body>
 </html>
