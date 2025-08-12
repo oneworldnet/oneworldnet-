@@ -19,10 +19,30 @@
             .nav-links.show { display: block; }
             .nav-links.show a { color: #fff !important; }
         }
+        .main-img, .blog-card img, .partners-logos img, .devices-cards img, .join-section img {
+            display: block;
+            margin: 0 auto 12px auto;
+            max-width: 220px;
+            width: 100%;
+            height: auto;
+            border-radius: 14px;
+            box-shadow: 0 2px 12px #0af2, 0 2px 8px #0002;
+            background: #fff;
+            object-fit: cover;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .main-img:hover, .blog-card img:hover, .partners-logos img:hover, .devices-cards img:hover, .join-section img:hover {
+            box-shadow: 0 8px 32px #0af6, 0 4px 16px #0003;
+            transform: scale(1.03);
+        }
+        .hero-section img {max-width: 320px;}
+        .join-section img {max-width: 220px;}
+        .devices-cards img, .partners-logos img {max-width: 180px;}
+        .blog-card img {max-width: 180px;}
     </style>
 </head>
 
-<body>
+<body style="background:#000; color:#fff;">
     <nav class="main-nav">
         <div class="logo">
             <img id="site-logo" src="images/logo.jpg" alt="ONE WORLD NET Logo" style="height:44px; border-radius:8px; box-shadow:0 2px 8px #0af4;" />
@@ -52,42 +72,30 @@
             <li><a href="register.html" class="register-btn" data-i18n="nav_register">إنشاء حساب</a></li>
         </ul>
     </nav>
-    <!-- تم إلغاء تكرار الهيرو، الهيرو فقط في section -->
-        <div class="marquee-news" style="width:100%;background:#181818e6;color:#fff;font-size:1.1em;padding:10px 0 8px 0;text-align:center;overflow:hidden;direction:ltr;letter-spacing:1px;">
-            <span id="marquee-text" data-i18n="marquee_news" style="display:inline-block;white-space:nowrap;animation:marquee 18s linear infinite;"></span>
-        </div>
-
-
-        <section class="hero-section glass" id="hero-section">
-            <img id="hero-image" src="" alt="عنوان الشركة" style="width:100%;max-width:600px;border-radius:18px;margin:24px auto;display:block;box-shadow:0 8px 32px #0af2;filter:brightness(1.1);" />
-            <h1 id="hero-title"></h1>
-            <p id="hero-desc"></p>
-            <a id="hero-btn" href="#" class="main-btn"></a>
-        </section>
-        <div id="global-marquee" style="width:100%;background:#181818e6;color:#fff;font-size:1.1em;padding:10px 0 8px 0;text-align:center;overflow:hidden;direction:ltr;letter-spacing:1px;">
-            <span id="marquee-text" style="display:inline-block;white-space:nowrap;"></span>
-        </div>
-
-    <!-- شريط كتابي احترافي متعدد اللغات أعلى قسم الأخبار -->
-    <div id="global-marquee-news" style="width:100%;background:#181818e6;color:#fff;font-size:1.1em;padding:10px 0 8px 0;text-align:center;overflow:hidden;direction:ltr;letter-spacing:1px;">
-        <span id="marquee-text-news" style="display:inline-block;white-space:nowrap;"></span>
-        <span id="marquee-extra-news" style="display:inline-block;white-space:nowrap;margin-right:32px;font-weight:bold;color:#0af;"></span>
+    <div class="marquee-news" style="width:100%;background:#181818e6;color:#fff;font-size:1.1em;padding:10px 0 8px 0;text-align:center;overflow:hidden;direction:ltr;letter-spacing:1px;">
+        <span id="marquee-text" data-i18n="marquee_news" style="display:inline-block;white-space:nowrap;animation:marquee 18s linear infinite;"></span>
     </div>
+    <section class="hero-section glass" id="hero-section">
+        <img id="hero-image" src="" alt="عنوان الشركة" class="main-img" />
+        <h1 id="hero-title"></h1>
+        <p id="hero-desc"></p>
+        <a id="hero-btn" href="#" class="main-btn"></a>
+    </section>
     <section class="news-section glass" id="news-section">
         <h2><i class="fas fa-bolt"></i> أحدث الأخبار</h2>
         <div class="blog-cards" style="display:flex;flex-wrap:wrap;gap:28px 18px;">
             <div class="blog-card" style="margin-bottom:18px;flex:1 1 260px;min-width:220px;max-width:340px;background:#181818e6;border-radius:14px;box-shadow:0 2px 12px #0002;padding:16px;">
-        <img src="images/blog/1.jpg" alt="خبر 1" style="border-radius:10px;" />
+                <img src="images/blog/1.jpg" alt="خبر 1" style="border-radius:10px;" />
                 <h3 style="margin-top:12px;"><i class="fas fa-rocket"></i> إطلاق باقات جديدة بسرعات أعلى</h3>
                 <p>تم إطلاق باقات جديدة بسرعات تصل إلى 1 جيجابت في جميع الدول المدعومة.</p>
             </div>
             <div class="blog-card" style="margin-bottom:18px;flex:1 1 260px;min-width:220px;max-width:340px;background:#181818e6;border-radius:14px;box-shadow:0 2px 12px #0002;padding:16px;">
-        <img src="images/blog/2.jpg" alt="خبر 2" style="border-radius:10px;" />
+                <img src="images/blog/2.jpg" alt="خبر 2" style="border-radius:10px;" />
                 <h3 style="margin-top:12px;"><i class="fas fa-globe"></i> توسيع التغطية العالمية</h3>
                 <p>تمت إضافة 10 دول جديدة إلى شبكة التغطية العالمية لـ One World Net.</p>
             </div>
             <div class="blog-card" style="margin-bottom:18px;flex:1 1 260px;min-width:220px;max-width:340px;background:#181818e6;border-radius:14px;box-shadow:0 2px 12px #0002;padding:16px;">
-        <img src="images/blog/3.jpg" alt="مقال عالمي" style="border-radius:10px;" />
+                <img src="images/blog/3.jpg" alt="مقال عالمي" style="border-radius:10px;" />
                 <h3 style="margin-top:12px;"><i class="fas fa-users"></i> تجارب المستخدمين حول العالم</h3>
                 <p>قصص نجاح من مستخدمي الإنترنت الفضائي في القارات الست.</p>
             </div>
@@ -238,3 +246,6 @@
             setNews(content.news);
         });
         </script>
+</body>
+
+</html>
