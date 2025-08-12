@@ -25,7 +25,8 @@
 .join-section img,
 .partners-logos img,
 .devices-cards img,
-.blog-card img {
+.blog-card img,
+.device-card img {
   display: block;
   margin: 0 auto 18px auto;
   max-width: 340px;
@@ -41,7 +42,8 @@
 .join-section img:hover,
 .partners-logos img:hover,
 .devices-cards img:hover,
-.blog-card img:hover {
+.blog-card img:hover,
+.device-card img:hover {
   box-shadow: 0 8px 32px #0af6, 0 4px 16px #0003;
   transform: scale(1.03);
 }
@@ -91,11 +93,6 @@
   flex-direction: column;
   align-items: center;
 }
-/* --- تحسين صور الصفحة الرئيسية --- */
-.hero-section img,
-.join-section img,
-.partners-logos img,
-.devices-cards img,
 .blog-card img {
   display: block;
   margin: 0 auto 18px auto;
@@ -108,59 +105,9 @@
   object-fit: cover;
   transition: box-shadow 0.2s, transform 0.2s;
 }
-.hero-section img:hover,
-.join-section img:hover,
-.partners-logos img:hover,
-.devices-cards img:hover,
 .blog-card img:hover {
   box-shadow: 0 8px 32px #0af6, 0 4px 16px #0003;
   transform: scale(1.03);
-}
-.partners-logos {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 18px;
-  justify-content: center;
-  align-items: center;
-}
-.devices-cards {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 24px 18px;
-  justify-content: center;
-  align-items: stretch;
-}
-.device-card {
-  background: #181818e6;
-  border-radius: 14px;
-  box-shadow: 0 2px 12px #0002;
-  padding: 18px;
-  margin-bottom: 18px;
-  flex: 1 1 260px;
-  min-width: 220px;
-  max-width: 340px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.blog-cards {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 28px 18px;
-  justify-content: center;
-}
-.blog-card {
-  margin-bottom: 18px;
-  flex: 1 1 260px;
-  min-width: 220px;
-  max-width: 340px;
-  background: #181818e6;
-  border-radius: 14px;
-  box-shadow: 0 2px 12px #0002;
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 /* --- الوضع الليلي --- */
 /* تصحيح صور المدونة والشركاء بدون شريط أفقي */
@@ -219,6 +166,14 @@ body {
   padding: 0;
   min-height: 100vh;
   overflow-x: hidden !important;
+}
+/* شريط متحرك احترافي أعلى الصفحة */
+@keyframes marquee {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+.marquee-news span {
+  animation: marquee 18s linear infinite;
 }
 .glass {
   background: rgba(24, 26, 27, 0.55);
