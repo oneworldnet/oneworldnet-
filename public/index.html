@@ -3,12 +3,11 @@
 
 <head>
     <style>
-        /* ضع هنا جميع أكواد CSS فقط */
         .main-nav { position: relative; }
-        .menu-toggle { background: #222; color: #fff; border: none; border-radius: 8px; padding: 8px 16px; font-size: 1.3em; cursor: pointer; z-index: 10; transition: background 0.2s; }
-        .menu-toggle:hover { background: #0af; color: #fff; }
-        .dark-toggle { background: #222; color: #fff; border: none; border-radius: 8px; padding: 8px 14px; font-size: 1.2em; cursor: pointer; transition: background 0.2s; }
-        .dark-toggle:hover { background: #0af; color: #fff; }
+        .menu-toggle, .dark-toggle, .access-toggle {
+            background: #222; color: #fff; border: none; border-radius: 8px; padding: 8px 16px; font-size: 1.3em; cursor: pointer; z-index: 10; transition: background 0.2s; margin-left: 8px;
+        }
+        .menu-toggle:hover, .dark-toggle:hover, .access-toggle:hover { background: #0af; color: #fff; }
         .nav-links { display: flex; flex-wrap: wrap; gap: 12px; list-style: none; margin: 0; padding: 0; }
         .nav-links.show { display: block; position: absolute; top: 100%; right: 0; left: auto; min-width: 180px; background: #222; border-radius: 0 0 12px 12px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.28); padding: 18px 12px; z-index: 1000; }
         .nav-links.show a { color: #fff !important; }
@@ -31,6 +30,8 @@
         </div>
         <div class="nav-actions">
             <button class="menu-toggle" aria-label="القائمة"><i class="fas fa-bars"></i></button>
+            <button class="dark-toggle" aria-label="الوضع الليلي" onclick="toggleDarkMode()"><i class="fas fa-moon"></i></button>
+            <button class="access-toggle" aria-label="ذوي الاحتياجات" onclick="toggleAccessibility()"><i class="fas fa-universal-access"></i></button>
             <select class="lang-select" id="lang-select" aria-label="Select language">
                 <option value="en">English</option>
                 <option value="ar">العربية</option>
@@ -51,11 +52,7 @@
             <li><a href="register.html" class="register-btn" data-i18n="nav_register">إنشاء حساب</a></li>
         </ul>
     </nav>
-        <div class="hero-content glass">
-            <h1 data-i18n="hero_title">الإنترنت الفضائي للجميع</h1>
-            <p data-i18n="hero_desc">أسرع وأأمن إنترنت فضائي في العالم، متاح لكل بيت وشركة ومنظمة.</p>
-            <a href="register.html" class="main-btn" data-i18n="hero_btn">سجل الآن</a>
-        </div>
+    <!-- تم إلغاء تكرار الهيرو، الهيرو فقط في section -->
         <div class="marquee-news" style="width:100%;background:#181818e6;color:#fff;font-size:1.1em;padding:10px 0 8px 0;text-align:center;overflow:hidden;direction:ltr;letter-spacing:1px;">
             <span id="marquee-text" data-i18n="marquee_news" style="display:inline-block;white-space:nowrap;animation:marquee 18s linear infinite;"></span>
         </div>
@@ -167,6 +164,17 @@
     </footer>
         <script src="translate.js"></script>
         <script>
+        // تفعيل الوضع الليلي
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+        // تفعيل وضع ذوي الاحتياجات (تكبير خط/تباين عالي)
+        let accessMode = 0;
+        function toggleAccessibility() {
+            accessMode = (accessMode + 1) % 3;
+            document.body.classList.toggle('big-font', accessMode === 1);
+            document.body.classList.toggle('high-contrast', accessMode === 2);
+        }
         // جلب بيانات الصفحة من backend وعرضها ديناميكياً
         async function fetchContent() {
             const res = await fetch('/api/content');

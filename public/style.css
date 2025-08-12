@@ -1,3 +1,96 @@
+/* زر القائمة وزر الوضع الليلي وذوي الاحتياجات */
+.menu-toggle, .dark-toggle, .access-toggle {
+  background: #222;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 1.3em;
+  cursor: pointer;
+  z-index: 10;
+  transition: background 0.2s;
+  margin-left: 8px;
+  outline: none;
+}
+.menu-toggle:focus, .dark-toggle:focus, .access-toggle:focus {
+  box-shadow: 0 0 0 2px #0af6;
+}
+.menu-toggle:hover, .dark-toggle:hover, .access-toggle:hover {
+  background: #0af;
+  color: #fff;
+}
+
+/* الصور متجاوبة ووسطية ومرتبطة بالنص */
+.hero-section img,
+.join-section img,
+.partners-logos img,
+.devices-cards img,
+.blog-card img {
+  display: block;
+  margin: 0 auto 18px auto;
+  max-width: 340px;
+  width: 100%;
+  height: auto;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px #0af2, 0 2px 12px #0002;
+  background: #fff;
+  object-fit: cover;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.hero-section img:hover,
+.join-section img:hover,
+.partners-logos img:hover,
+.devices-cards img:hover,
+.blog-card img:hover {
+  box-shadow: 0 8px 32px #0af6, 0 4px 16px #0003;
+  transform: scale(1.03);
+}
+.partners-logos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  justify-content: center;
+  align-items: center;
+}
+.devices-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px 18px;
+  justify-content: center;
+  align-items: stretch;
+}
+.device-card {
+  background: #181818e6;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px #0002;
+  padding: 18px;
+  margin-bottom: 18px;
+  flex: 1 1 260px;
+  min-width: 220px;
+  max-width: 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.blog-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px 18px;
+  justify-content: center;
+}
+.blog-card {
+  margin-bottom: 18px;
+  flex: 1 1 260px;
+  min-width: 220px;
+  max-width: 340px;
+  background: #181818e6;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px #0002;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 /* --- تحسين صور الصفحة الرئيسية --- */
 .hero-section img,
 .join-section img,
