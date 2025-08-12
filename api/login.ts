@@ -1,11 +1,11 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { NextApiRequest, NextApiResponse } from 'next';
+// import { NextApiRequest, NextApiResponse } from 'next';
 
 const USERS_PATH = path.join(process.cwd(), 'backend', 'users.json');
 const LOGS_PATH = path.join(process.cwd(), 'backend', 'login-logs.json');
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+export default function handler(req: any, res: any) {
   if (req.method === 'POST') {
     const { username, password } = req.body;
     try {

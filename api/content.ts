@@ -1,10 +1,10 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { NextApiRequest, NextApiResponse } from 'next';
+// import { NextApiRequest, NextApiResponse } from 'next';
 
 const CONTENT_PATH = path.join(process.cwd(), 'backend', 'content.json');
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+export default function handler(req: any, res: any) {
   if (req.method === 'GET') {
     try {
       const data = fs.readFileSync(CONTENT_PATH, 'utf8');
