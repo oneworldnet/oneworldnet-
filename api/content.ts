@@ -1,20 +1,35 @@
-import * as fs from 'fs';
-import * as path from 'path';
-// import { NextApiRequest, NextApiResponse } from 'next';
 
-const CONTENT_PATH = path.join(process.cwd(), 'backend', 'content.json');
+const KV_URL = process.env.KV_REST_API_URL;
+const KV_TOKEN = process.env.KV_REST_API_TOKEN;
 
-export default function handler(req: any, res: any) {
+async function kvGet(key: string) {
+  const res = await fetch(`${KV_URL}/get/${key}`, {
+    headers: { Authorization: `Bearer ${KV_TOKEN}` }
+  });
+  if (!res.ok) return null;
+  return await res.json();
+}
+async function kvSet(key: string, value: any) {
+  await fetch(`${KV_URL}/set/${key}`,
+    {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${KV_TOKEN}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(value)
+    }
+  );
+}
+
+export default async function handler(req: any, res: any) {
   if (req.method === 'GET') {
     try {
-      const data = fs.readFileSync(CONTENT_PATH, 'utf8');
-      res.status(200).json(JSON.parse(data));
+      const content = await kvGet('content') || {};
+      res.status(200).json(content);
     } catch (e) {
       res.status(500).json({ error: 'Read error' });
     }
   } else if (req.method === 'POST') {
     try {
-      fs.writeFileSync(CONTENT_PATH, JSON.stringify(req.body, null, 2), 'utf8');
+      await kvSet('content', req.body);
       res.status(200).json({ success: true });
     } catch (e) {
       res.status(500).json({ error: 'Write error' });
