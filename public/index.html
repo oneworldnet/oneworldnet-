@@ -44,10 +44,11 @@
 
 <body style="background:#000; color:#fff;">
     <nav class="main-nav">
-        <div class="logo">
-            <img id="site-logo" src="images/logo.jpg" alt="ONE WORLD NET Logo" style="height:44px; border-radius:8px; box-shadow:0 2px 8px #0af4;" />
-            <span id="site-title" data-i18n="site_title">ONE WORLD NET</span>
+        <div class="logo" style="margin-bottom:32px;">
+            <img id="site-logo" src="images/logo.jpg" alt="ONE WORLD NET Logo" style="height:70px; border-radius:14px; box-shadow:0 2px 12px #0af4; margin-bottom:18px;" />
+            <span id="site-title" data-i18n="site_title" style="font-size:2em;">ONE WORLD NET</span>
         </div>
+        <div style="height:18px;"></div>
         <div class="nav-actions">
             <button class="menu-toggle" aria-label="القائمة"><i class="fas fa-bars"></i></button>
             <select class="lang-select" id="lang-select" aria-label="Select language" style="margin-left:8px;">
@@ -61,7 +62,7 @@
             <button class="dark-toggle" aria-label="الوضع الليلي" onclick="toggleDarkMode()" style="margin-left:8px;"><i class="fas fa-moon"></i></button>
             <button class="access-toggle" aria-label="ذوي الاحتياجات" onclick="toggleAccessibility()" style="margin-left:8px;"><i class="fas fa-universal-access"></i></button>
         </div>
-        <ul class="nav-links">
+        <ul class="nav-links" style="margin-top:18px;">
             <li><a href="index.html" data-i18n="nav_home">الرئيسية</a></li>
             <li><a href="plans.html" data-i18n="nav_plans">الباقات</a></li>
             <li><a href="devices.html" data-i18n="nav_devices">الأجهزة</a></li>
@@ -72,7 +73,13 @@
             <li><a href="register.html" class="register-btn" data-i18n="nav_register">إنشاء حساب</a></li>
         </ul>
     </nav>
-    <div class="marquee-container">
+    <section class="hero-section glass" id="hero-section">
+        <img id="hero-image" src="images/logo.jpg" alt="عنوان الشركة" class="main-img" style="max-width:420px; margin-bottom:18px;" />
+        <h1 id="hero-title">ONE WORLD NET</h1>
+        <p id="hero-desc">شبكة عالمية للإنترنت الفضائي تربط العالم كله بسرعة وأمان.</p>
+        <a id="hero-btn" href="#" class="main-btn">اكتشف المزيد</a>
+    </section>
+    <div class="marquee-container" style="margin:32px 0 0 0;">
         <span class="marquee-text">
             🌍 انضم إلى شبكة ONE WORLD NET العالمية! أسرع إنترنت فضائي، تغطية لكل القارات، حلول للمنازل والشركات والمدارس والمستشفيات والجامعات. مستقبل العالم يبدأ من هنا. 🚀
         </span>
