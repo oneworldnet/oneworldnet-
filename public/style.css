@@ -282,6 +282,7 @@ footer {
   padding: 24px 0;
   background: rgba(255, 255, 255, 0.1);
   border-top: 1px solid rgba(255, 255, 255, 0.2);
+  margin-top: 48px;
 }
 .footer-socials {
     display: flex;
@@ -318,6 +319,34 @@ footer {
 .social-circle.tt {background:#000;}
 .social-circle:hover {filter:brightness(1.15);}
 .social-circle i {color:#fff;}
+/* تكبير الصور الرئيسية وتوضيح المسافات بين الفقرات */
+.hero-section img,
+.join-section img,
+.partners-logos img,
+.devices-cards img,
+.blog-card img,
+.device-card img {
+  max-width: 480px;
+  margin-bottom: 32px;
+}
+.hero-section {
+  margin-bottom: 48px;
+}
+.news-section {
+  margin-bottom: 48px;
+}
+.join-section {
+  margin-bottom: 48px;
+}
+.partners-section {
+  margin-bottom: 48px;
+}
+.devices-section {
+  margin-bottom: 48px;
+}
+.contact-section {
+  margin-bottom: 48px;
+}
 @media (max-width: 900px) {
   .main-nav {
     flex-direction: column;
