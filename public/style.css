@@ -168,10 +168,10 @@ body {
   overflow-x: hidden !important;
 }
 /* شريط متحرك احترافي أعلى الصفحة */
-.marquee-news {
-    position: relative;
+.marquee-container {
     width: 100%;
     overflow: hidden;
+    position: relative;
     background: #181818e6;
     color: #fff;
     font-size: 1.35em;
@@ -182,15 +182,16 @@ body {
     letter-spacing: 1.5px;
     font-family: 'Cairo', sans-serif;
 }
-.marquee-news span {
+.marquee-text {
     display: inline-block;
     white-space: nowrap;
     min-width: 100vw;
+    position: relative;
     animation: marquee 18s linear infinite;
 }
 @keyframes marquee {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
+    0% { left: 100vw; }
+    100% { left: -100vw; }
 }
 .glass {
   background: rgba(24, 26, 27, 0.55);
@@ -282,11 +283,11 @@ footer {
   background: rgba(255, 255, 255, 0.1);
   border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
-footer .footer-socials, .social-icons, .footer-socials {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  margin-bottom: 8px;
+.footer-socials {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 8px;
 }
 .social-circle {
     display: inline-flex;
