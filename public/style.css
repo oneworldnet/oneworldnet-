@@ -173,6 +173,8 @@ body {
   100% { transform: translateX(-100%); }
 }
 .marquee-news span {
+  display: inline-block;
+  white-space: nowrap;
   animation: marquee 18s linear infinite;
 }
 .glass {
