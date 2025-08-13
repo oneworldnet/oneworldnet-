@@ -50,9 +50,7 @@
         </div>
         <div class="nav-actions">
             <button class="menu-toggle" aria-label="القائمة"><i class="fas fa-bars"></i></button>
-            <button class="dark-toggle" aria-label="الوضع الليلي" onclick="toggleDarkMode()"><i class="fas fa-moon"></i></button>
-            <button class="access-toggle" aria-label="ذوي الاحتياجات" onclick="toggleAccessibility()"><i class="fas fa-universal-access"></i></button>
-            <select class="lang-select" id="lang-select" aria-label="Select language">
+            <select class="lang-select" id="lang-select" aria-label="Select language" style="margin-left:8px;">
                 <option value="en">English</option>
                 <option value="ar">العربية</option>
                 <option value="fr">Français</option>
@@ -60,6 +58,8 @@
                 <option value="it">Italiano</option>
                 <option value="de">Deutsch</option>
             </select>
+            <button class="dark-toggle" aria-label="الوضع الليلي" onclick="toggleDarkMode()" style="margin-left:8px;"><i class="fas fa-moon"></i></button>
+            <button class="access-toggle" aria-label="ذوي الاحتياجات" onclick="toggleAccessibility()" style="margin-left:8px;"><i class="fas fa-universal-access"></i></button>
         </div>
         <ul class="nav-links">
             <li><a href="index.html" data-i18n="nav_home">الرئيسية</a></li>
@@ -74,7 +74,7 @@
     </nav>
     <div class="marquee-news" style="width:100%;background:#181818e6;color:#fff;font-size:1.35em;font-weight:bold;padding:12px 0 10px 0;text-align:center;overflow:hidden;direction:ltr;letter-spacing:1.5px;font-family:'Cairo',sans-serif;">
         <span id="marquee-text" style="display:inline-block;white-space:nowrap;animation:marquee 18s linear infinite;">
-            🌍 انضم إلى شبكة ONE WORLD NET العالمية! أسرع إنترنت فضائي، تغطية لكل القارات، حلول للمنازل والشركات والمدارس والمستشفيات والجامعات. مستقبل العالم يبدأ من هنا. 🚀
+            <span style="display:inline-block;min-width:100vw;">🌍 انضم إلى شبكة ONE WORLD NET العالمية! أسرع إنترنت فضائي، تغطية لكل القارات، حلول للمنازل والشركات والمدارس والمستشفيات والجامعات. مستقبل العالم يبدأ من هنا. 🚀</span>
         </span>
     </div>
     <section class="hero-section glass" id="hero-section">
