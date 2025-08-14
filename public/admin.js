@@ -32,6 +32,18 @@ async function updateProjects(newProjects) {
 }
 // admin.js
 // سكريبت ربط لوحة التحكم مع backend وتفعيل كل الأقسام
+// --- جلب وتحديث الصفحات ---
+async function fetchPages() {
+  const res = await fetch('/api/pages');
+  return await res.json();
+}
+async function updatePages(newPages) {
+  await fetch('/api/pages', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(newPages)
+  });
+}
 
 const API_BASE = '/api';
 
