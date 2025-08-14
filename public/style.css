@@ -258,15 +258,19 @@ body {
   margin-bottom: 6px;
   transition: background 0.2s;
 }
-.nav-links.show a:hover {
-  background: #0af2;
-  color: #fff !important;
-}
-.nav-link {
+.nav-links a {
   color: #fff;
   text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s;
+  font-weight: bold;
+  font-size: 1.1em;
+  padding: 8px 18px;
+  border-radius: 8px;
+  transition: background 0.2s, color 0.2s;
+}
+.nav-links a:hover {
+  background: #fff;
+  color: #0af;
+}
 }
 .nav-link:hover {
   color: #0af;
