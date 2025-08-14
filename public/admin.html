@@ -93,6 +93,7 @@
 			<button onclick="showSection('content',this)"><i class="fa fa-edit"></i> المحتوى</button>
 			<button onclick="showSection('blog',this)"><i class="fa fa-blog"></i> المدونة</button>
 			<button onclick="showSection('projects',this)"><i class="fa fa-briefcase"></i> المشاريع</button>
+			<button onclick="showSection('pages',this)"><i class="fa fa-file"></i> الصفحات</button>
 			<button onclick="showSection('stats',this)"><i class="fa fa-chart-bar"></i> الإحصائيات</button>
 			<button onclick="showSection('settings',this)"><i class="fa fa-cogs"></i> الإعدادات</button>
 		</div>
@@ -172,6 +173,13 @@
 				<button onclick="closeProjectModal()" style="background:#e53935;">إلغاء</button>
 			</div>
 		</div>
+		<div id="pagesSection" class="section" style="display:none;">
+			<div class="section-title">إدارة الصفحات</div>
+			<div class="section-controls">
+				<button class="add-btn" onclick="openPageModal()"><i class="fa fa-plus"></i> إضافة صفحة جديدة</button>
+			</div>
+			<div class="item-list" id="pagesList"></div>
+		</div>
 		<div id="statsSection" class="section" style="display:none;"></div>
 		<div id="settingsSection" class="section" style="display:none;"></div>
 		</div>
@@ -200,6 +208,83 @@
 			</div>
 		</div>
 		<script>
+// --- إدارة الصفحات ---
+let pages = [];
+async function renderPages() {
+	pages = await fetchPages();
+	const list = document.getElementById('pagesList');
+	list.innerHTML = '';
+	pages.forEach((p, i) => {
+		const card = document.createElement('div');
+		card.className = 'item-card';
+		card.innerHTML = `
+			<b>${p.title}</b><br><span style='color:#888'>${p.path}</span>
+			<div class='actions'>
+				<button class='edit' onclick='editPage(${i})'><i class="fa fa-edit"></i></button>
+				<button onclick='deletePage(${i})'><i class="fa fa-trash"></i></button>
+			</div>
+			<div class='edit-overlay'>
+				<button class='edit-btn' onclick='editPage(${i});event.stopPropagation();'>تعديل</button>
+				<button class='edit-btn' style='background:#e53935;color:#fff;' onclick='deletePage(${i});event.stopPropagation();'>حذف</button>
+			</div>
+		`;
+		list.appendChild(card);
+	});
+}
+
+function openPageModal(editIdx) {
+	const modal = document.createElement('div');
+	modal.className = 'modal';
+	modal.style.display = 'flex';
+	modal.innerHTML = `
+		<div class='modal-content'>
+			<h3>${typeof editIdx==='number' ? 'تعديل صفحة' : 'إضافة صفحة جديدة'}</h3>
+			<input type='text' id='pageTitleInput' placeholder='عنوان الصفحة' value='${editIdx!==undefined ? pages[editIdx].title : ''}' />
+			<input type='text' id='pagePathInput' placeholder='مسار الصفحة (مثال: about.html)' value='${editIdx!==undefined ? pages[editIdx].path : ''}' />
+			<button onclick='savePage(${editIdx!==undefined ? editIdx : ''})'>حفظ</button>
+			<button onclick='this.parentElement.parentElement.remove();' style='background:#e53935;'>إلغاء</button>
+		</div>
+	`;
+	document.body.appendChild(modal);
+}
+
+async function savePage(idx) {
+	const title = document.getElementById('pageTitleInput').value.trim();
+	const path = document.getElementById('pagePathInput').value.trim();
+	if(!title || !path) return notify('يرجى إدخال جميع البيانات','error');
+	if(idx!==undefined && idx!==null) {
+		pages[idx] = {title, path};
+	} else {
+		pages.push({title, path});
+	}
+	await updatePages(pages);
+	document.querySelectorAll('.modal').forEach(m=>m.remove());
+	renderPages();
+}
+
+async function deletePage(idx) {
+	if(confirm('حذف الصفحة؟')) {
+		pages.splice(idx,1);
+		await updatePages(pages);
+		renderPages();
+	}
+}
+
+// جلب وتحديث الصفحات من backend
+async function fetchPages() {
+	const res = await fetch('/api/pages');
+	return await res.json();
+}
+async function updatePages(newPages) {
+	await fetch('/api/pages', {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify(newPages)
+	});
+}
+
+// تفعيل عرض قسم الصفحات عند الضغط
+document.getElementById('pagesSection').addEventListener('show', renderPages);
 			// إشعار فوري
 			function notify(msg, type='info') {
 				const n = document.getElementById('globalNotification');
