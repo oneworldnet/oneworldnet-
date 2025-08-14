@@ -44,41 +44,39 @@
 </head>
 
 <body style="background:#000; color:#fff;">
-    <nav class="main-nav">
-        <div class="logo" style="margin-bottom:32px;">
-            <img id="site-logo" src="images/logo.jpg" alt="ONE WORLD NET Logo" style="height:70px; border-radius:14px; box-shadow:0 2px 12px #0af4; margin-bottom:18px;" />
-            <span id="site-title" data-i18n="site_title" style="font-size:2em;">ONE WORLD NET</span>
-        </div>
-        <div style="height:18px;"></div>
-        <div class="nav-actions">
-            <button class="menu-toggle" aria-label="القائمة"><i class="fas fa-bars"></i></button>
-            <select class="lang-select" id="lang-select" aria-label="Select language" style="margin-left:8px;">
-                <option value="en">English</option>
-                <option value="ar">العربية</option>
-                <option value="fr">Français</option>
-                <option value="es">Español</option>
-                <option value="it">Italiano</option>
-                <option value="de">Deutsch</option>
-            </select>
-            <button class="dark-toggle" aria-label="الوضع الليلي" onclick="toggleDarkMode()" style="margin-left:8px;"><i class="fas fa-moon"></i></button>
-            <button class="access-toggle" aria-label="ذوي الاحتياجات" onclick="toggleAccessibility()" style="margin-left:8px;"><i class="fas fa-universal-access"></i></button>
-        </div>
-        <ul class="nav-links" style="margin-top:18px;">
-            <li><a href="index.html" data-i18n="nav_home">الرئيسية</a></li>
-            <li><a href="plans.html" data-i18n="nav_plans">الباقات</a></li>
-            <li><a href="devices.html" data-i18n="nav_devices">الأجهزة</a></li>
-            <li><a href="blog.html" data-i18n="nav_blog">المدونة</a></li>
-            <li><a href="partners.html" data-i18n="nav_partners">الشركاء</a></li>
-            <li><a href="contact.html" data-i18n="nav_contact">تواصل</a></li>
-            <li><a href="login.html" class="login-btn" data-i18n="nav_login">تسجيل الدخول</a></li>
-            <li><a href="register.html" class="register-btn" data-i18n="nav_register">إنشاء حساب</a></li>
-        </ul>
-    </nav>
+        <nav class="main-nav">
+            <div class="logo">
+                <img id="site-logo" src="images/logo.jpg" alt="ONE WORLD NET Logo" style="height:44px; border-radius:8px; box-shadow:0 2px 8px #0af4;" />
+                <span id="site-title" data-i18n="site_title">ONE WORLD NET</span>
+            </div>
+            <div class="nav-actions">
+                <button class="menu-toggle" aria-label="القائمة"><i class="fas fa-bars"></i></button>
+                <select class="lang-select" id="lang-select" aria-label="Select language">
+                    <option value="en">English</option>
+                    <option value="ar">العربية</option>
+                    <option value="fr">Français</option>
+                    <option value="es">Español</option>
+                    <option value="it">Italiano</option>
+                    <option value="de">Deutsch</option>
+                </select>
+                <button class="access-toggle" aria-label="ذوي الاحتياجات" onclick="toggleAccessibility()"><i class="fas fa-universal-access"></i></button>
+                <button class="dark-toggle" aria-label="الوضع الليلي" onclick="toggleDarkMode()"><i class="fas fa-moon"></i></button>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" data-i18n="nav_home">الرئيسية</a></li>
+                <li><a href="plans.html" data-i18n="nav_plans">الباقات</a></li>
+                <li><a href="devices.html" data-i18n="nav_devices">الأجهزة</a></li>
+                <li><a href="blog.html" data-i18n="nav_blog">المدونة</a></li>
+                <li><a href="partners.html" data-i18n="nav_partners">الشركاء</a></li>
+                <li><a href="contact.html" data-i18n="nav_contact">تواصل</a></li>
+                <li><a href="login.html" class="login-btn" data-i18n="nav_login">تسجيل الدخول</a></li>
+                <li><a href="register.html" class="register-btn" data-i18n="nav_register">إنشاء حساب</a></li>
+            </ul>
+        </nav>
     <section class="hero-section glass" id="hero-section">
-        <img id="hero-image" src="images/logo.jpg" alt="عنوان الشركة" class="main-img" style="max-width:420px; margin-bottom:18px;" />
-        <h1 id="hero-title">ONE WORLD NET</h1>
-        <p id="hero-desc">شبكة عالمية للإنترنت الفضائي تربط العالم كله بسرعة وأمان.</p>
-        <a id="hero-btn" href="#" class="main-btn">اكتشف المزيد</a>
+    <h1 id="hero-title">ONE WORLD NET</h1>
+    <p id="hero-desc">شبكة عالمية للإنترنت الفضائي تربط العالم كله بسرعة وأمان.</p>
+    <a id="hero-btn" href="#" class="main-btn">اكتشف المزيد</a>
     </section>
     <div class="marquee-container" style="margin:32px 0 0 0;">
         <div class="marquee-text">
@@ -261,6 +259,16 @@
             setNews(content.news);
         });
         </script>
+        <footer class="main-footer glass">
+            <div class="footer-social" style="text-align:center;margin-bottom:18px;">
+                <a href="https://facebook.com" target="_blank" rel="noopener" title="Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="https://twitter.com" target="_blank" rel="noopener" title="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://t.me" target="_blank" rel="noopener" title="Telegram"><i class="fab fa-telegram"></i></a>
+                <a href="mailto:info@oneworldnet.com" target="_blank" rel="noopener" title="Email"><i class="fas fa-envelope"></i></a>
+                <a href="https://youtube.com" target="_blank" rel="noopener" title="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div style="text-align:center;font-size:1em;color:#aaa;">جميع الحقوق محفوظة &copy; ONE WORLD NET 2025</div>
+        </footer>
 </body>
-
 </html>
