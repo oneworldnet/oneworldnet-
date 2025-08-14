@@ -245,7 +245,8 @@
 					const card = document.createElement('div');
 					card.className = 'item-card';
 					card.innerHTML = `
-						<b>${u.username}</b><br><span style='color:#888'>[${u.role}]</span>
+						<img src="${u.image || 'images/1.jpg'}" alt="صورة المستخدم" onclick="openUserImageModal(${i})" style="cursor:pointer;">
+						<b>${u.name}</b><br><span style='color:#888'>${u.role}</span>
 						<div class='actions'>
 							<button class='edit' onclick='editUser(${i})'><i class="fa fa-edit"></i></button>
 							<button onclick='deleteUser(${i})'><i class="fa fa-trash"></i></button>
@@ -253,44 +254,39 @@
 						<div class='edit-overlay'>
 							<button class='edit-btn' onclick='editUser(${i});event.stopPropagation();'>تعديل</button>
 							<button class='edit-btn' style='background:#e53935;color:#fff;' onclick='deleteUser(${i});event.stopPropagation();'>حذف</button>
+							<button class='edit-btn' style='background:#FFD600;color:#18120b;' onclick='openUserImageModal(${i});event.stopPropagation();'>تغيير الصورة</button>
 						</div>
 					`;
 					list.appendChild(card);
 				});
 			}
-			function openUserModal(editIdx) {
-				editingUserIndex = (typeof editIdx === 'number') ? editIdx : null;
-				document.getElementById('userModalTitle').textContent = editingUserIndex!==null ? 'تعديل مستخدم' : 'إضافة مستخدم';
-				document.getElementById('userNameInput').value = '';
-				document.getElementById('userPassInput').value = '';
-				document.getElementById('userRoleInput').value = 'admin';
-				if(editingUserIndex!==null) fetchUsers().then(users=>{
-					const u = users[editingUserIndex];
-					document.getElementById('userNameInput').value = u.username;
-					document.getElementById('userRoleInput').value = u.role;
-				});
-				document.getElementById('userModal').style.display = 'flex';
+
+			function openUserImageModal(idx) {
+				const users = window._usersCache || [];
+				const user = users[idx];
+				const modal = document.createElement('div');
+				modal.className = 'modal';
+				modal.style.display = 'flex';
+				modal.innerHTML = `
+					<div class='modal-content'>
+						<h3>تغيير صورة المستخدم</h3>
+						<img src="${user.image || 'images/1.jpg'}" alt="صورة المستخدم" style="max-width:100%;max-height:120px;margin-bottom:12px;border-radius:10px;">
+						<input type='text' id='newUserImageInput' placeholder='رابط الصورة الجديدة' value='${user.image || ''}' />
+						<button onclick='saveUserImage(${idx})'>حفظ</button>
+						<button onclick='this.parentElement.parentElement.remove();' style='background:#e53935;'>إلغاء</button>
+					</div>
+				`;
+				document.body.appendChild(modal);
 			}
-			function closeUserModal() {
-				document.getElementById('userModal').style.display = 'none';
-			}
-			async function saveUser() {
-				const username = document.getElementById('userNameInput').value.trim();
-				const password = document.getElementById('userPassInput').value.trim();
-				const role = document.getElementById('userRoleInput').value;
-				if(!username || (!password && editingUserIndex===null)) return notify('يرجى إدخال جميع البيانات','error');
-				if(editingUserIndex===null) {
-					await addUser(username, password, role);
-					notify('تمت إضافة المستخدم','success');
-				} else {
-					// تحديث المستخدم: حذف ثم إضافة جديد بنفس الاسم
-					const users = await fetchUsers();
-					users.splice(editingUserIndex,1);
-					await updateUsers(users);
-					await addUser(username, password, role);
-					notify('تم تحديث المستخدم','success');
-				}
-				closeUserModal();
+
+			function saveUserImage(idx) {
+				const input = document.getElementById('newUserImageInput');
+				if(!input) return;
+				const url = input.value.trim();
+				const users = window._usersCache || [];
+				users[idx].image = url;
+				updateUsers(users);
+				document.querySelectorAll('.modal').forEach(m=>m.remove());
 				renderUsers();
 			}
 			async function deleteUser(idx) {
