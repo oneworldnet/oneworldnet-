@@ -271,7 +271,6 @@ body {
   background: #fff;
   color: #0af;
 }
-}
 .nav-link:hover {
   color: #0af;
 }
@@ -295,11 +294,17 @@ footer {
   margin-top: 48px;
 }
 .footer-socials {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    margin-bottom: 8px;
+  display: flex;
+  gap: 18px;
+  justify-content: center;
 }
+.footer-socials a {
+  font-size: 2.2em;
+  color: #fff;
+  transition: color 0.2s;
+}
+.footer-socials a:hover {
+  color: #0af;
 .social-circle {
     display: inline-flex;
     align-items: center;
