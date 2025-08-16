@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -193,413 +192,403 @@
 				<select id="userRoleInput">
 					<option value="admin">مدير</option>
 					<option value="editor">محرر</option>
-				</select>
-				<button onclick="saveUser()">حفظ</button>
-				<button onclick="closeUserModal()" style="background:#e53935;">إلغاء</button>
-			</div>
-		</div>
-		<!-- مودال المحتوى -->
-		<div class="modal" id="contentModal">
-			<div class="modal-content">
-				<h3>تعديل محتوى الصفحة الرئيسية</h3>
-				<textarea id="contentJsonInput" rows="12" style="font-family:monospace;"></textarea>
-				<button onclick="saveContent()">حفظ التعديلات</button>
-				<button onclick="closeContentModal()" style="background:#e53935;">إلغاء</button>
-			</div>
-		</div>
-		<script>
-// --- إدارة الصفحات ---
-let pages = [];
-async function renderPages() {
-	pages = await fetchPages();
-	const list = document.getElementById('pagesList');
-	list.innerHTML = '';
-	pages.forEach((p, i) => {
-		const card = document.createElement('div');
-		card.className = 'item-card';
-		card.innerHTML = `
-			<b>${p.title}</b><br><span style='color:#888'>${p.path}</span>
-			<div class='actions'>
-				<button class='edit' onclick='editPage(${i})'><i class="fa fa-edit"></i></button>
-				<button onclick='deletePage(${i})'><i class="fa fa-trash"></i></button>
-			</div>
-			<div class='edit-overlay'>
-				<button class='edit-btn' onclick='editPage(${i});event.stopPropagation();'>تعديل</button>
-				<button class='edit-btn' style='background:#e53935;color:#fff;' onclick='deletePage(${i});event.stopPropagation();'>حذف</button>
-			</div>
-		`;
-		list.appendChild(card);
-	});
-}
-
-function openPageModal(editIdx) {
-	const modal = document.createElement('div');
-	modal.className = 'modal';
-	modal.style.display = 'flex';
-	modal.innerHTML = `
-		<div class='modal-content'>
-			<h3>${typeof editIdx==='number' ? 'تعديل صفحة' : 'إضافة صفحة جديدة'}</h3>
-			<input type='text' id='pageTitleInput' placeholder='عنوان الصفحة' value='${editIdx!==undefined ? pages[editIdx].title : ''}' />
-			<input type='text' id='pagePathInput' placeholder='مسار الصفحة (مثال: about.html)' value='${editIdx!==undefined ? pages[editIdx].path : ''}' />
-			<button onclick='savePage(${editIdx!==undefined ? editIdx : ''})'>حفظ</button>
-			<button onclick='this.parentElement.parentElement.remove();' style='background:#e53935;'>إلغاء</button>
-		</div>
-	`;
-	document.body.appendChild(modal);
-}
-
-async function savePage(idx) {
-	const title = document.getElementById('pageTitleInput').value.trim();
-	const path = document.getElementById('pagePathInput').value.trim();
-	if(!title || !path) return notify('يرجى إدخال جميع البيانات','error');
-	if(idx!==undefined && idx!==null) {
-		pages[idx] = {title, path};
-	} else {
-		pages.push({title, path});
-	}
-	await updatePages(pages);
-	document.querySelectorAll('.modal').forEach(m=>m.remove());
-	renderPages();
-}
-
-async function deletePage(idx) {
-	if(confirm('حذف الصفحة؟')) {
-		pages.splice(idx,1);
-		await updatePages(pages);
-		renderPages();
-	}
-}
-
-// جلب وتحديث الصفحات من backend
-async function fetchPages() {
-	const res = await fetch('/api/pages');
-	return await res.json();
-}
-async function updatePages(newPages) {
-	await fetch('/api/pages', {
-		method: 'POST',
-		headers: { 'Content-Type': 'application/json' },
-		body: JSON.stringify(newPages)
-	});
-}
-
-// تفعيل عرض قسم الصفحات عند الضغط
-document.getElementById('pagesSection').addEventListener('show', renderPages);
-			// إشعار فوري
-			function notify(msg, type='info') {
-				const n = document.getElementById('globalNotification');
-				n.textContent = msg;
-				n.style.background = type==='error' ? '#e53935' : (type==='success' ? '#43a047' : '#FFD600');
-				n.style.color = type==='error' ? '#fff' : '#18120b';
-				n.style.display = 'block';
-				setTimeout(()=>{n.style.display='none';}, 2500);
-			}
-			// تبديل الأقسام
-			function showSection(section, btn) {
-				document.querySelectorAll('.admin-nav button').forEach(b=>b.classList.remove('active'));
-				btn.classList.add('active');
-				['dashboard','users','employees','content','blog','projects','stats','settings'].forEach(s=>{
-					document.getElementById(s+'Section').style.display = (s===section)?'block':'none';
-				});
-			}
-			// الوضع الليلي
-			let dark = false;
-			function toggleDarkMode() {
-				dark = !dark;
-				document.body.classList.toggle('dark-mode', dark);
-			}
-			// بيانات الإحصائيات من backend
-			async function updateStats() {
-				// مثال: جلب عدد المستخدمين
-				const users = await fetchUsers();
-				document.getElementById('usersCount').textContent = users.length;
-				// يمكن إضافة جلب باقي الإحصائيات بنفس الطريقة
-			}
-			updateStats();
-			// اسم المستخدم
-			document.getElementById('adminUserName').textContent = 'مدير النظام';
-			// تسجيل الخروج
-			function logout() { notify('تم تسجيل الخروج!','info'); }
-			// --- إدارة المستخدمين ---
-			let editingUserIndex = null;
-			async function renderUsers() {
-				const users = await fetchUsers();
-				const list = document.getElementById('usersList');
-				list.innerHTML = '';
-				users.forEach((u, i) => {
-					const card = document.createElement('div');
-					card.className = 'item-card';
-					card.innerHTML = `
-						<img src="${u.image || 'images/1.jpg'}" alt="صورة المستخدم" onclick="openUserImageModal(${i})" style="cursor:pointer;">
-						<b>${u.name}</b><br><span style='color:#888'>${u.role}</span>
-						<div class='actions'>
-							<button class='edit' onclick='editUser(${i})'><i class="fa fa-edit"></i></button>
-							<button onclick='deleteUser(${i})'><i class="fa fa-trash"></i></button>
-						</div>
-						<div class='edit-overlay'>
-							<button class='edit-btn' onclick='editUser(${i});event.stopPropagation();'>تعديل</button>
-							<button class='edit-btn' style='background:#e53935;color:#fff;' onclick='deleteUser(${i});event.stopPropagation();'>حذف</button>
-							<button class='edit-btn' style='background:#FFD600;color:#18120b;' onclick='openUserImageModal(${i});event.stopPropagation();'>تغيير الصورة</button>
-						</div>
-					`;
-					list.appendChild(card);
-				});
-			}
-
-			function openUserImageModal(idx) {
-				const users = window._usersCache || [];
-				const user = users[idx];
-				const modal = document.createElement('div');
-				modal.className = 'modal';
-				modal.style.display = 'flex';
-				modal.innerHTML = `
-					<div class='modal-content'>
-						<h3>تغيير صورة المستخدم</h3>
-						<img src="${user.image || 'images/1.jpg'}" alt="صورة المستخدم" style="max-width:100%;max-height:120px;margin-bottom:12px;border-radius:10px;">
-						<input type='text' id='newUserImageInput' placeholder='رابط الصورة الجديدة' value='${user.image || ''}' />
-						<button onclick='saveUserImage(${idx})'>حفظ</button>
-						<button onclick='this.parentElement.parentElement.remove();' style='background:#e53935;'>إلغاء</button>
-					</div>
-				`;
-				document.body.appendChild(modal);
-			}
-
-			function saveUserImage(idx) {
-				const input = document.getElementById('newUserImageInput');
-				if(!input) return;
-				const url = input.value.trim();
-				const users = window._usersCache || [];
-				users[idx].image = url;
-				updateUsers(users);
-				document.querySelectorAll('.modal').forEach(m=>m.remove());
-				renderUsers();
-			}
-			async function deleteUser(idx) {
-				if(!confirm('هل أنت متأكد من حذف المستخدم؟')) return;
-				const users = await fetchUsers();
-				users.splice(idx,1);
-				await updateUsers(users);
-				notify('تم حذف المستخدم','success');
-				renderUsers();
-			}
-			// تحديث ملف المستخدمين بالكامل (مطلوب endpoint في backend)
-			async function updateUsers(users) {
-				await fetch('/api/users', {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify(users)
-				});
-			}
-			// --- إدارة المحتوى ---
-			async function renderContent() {
-				const content = await fetchContent();
-				document.getElementById('contentList').innerHTML = `
-					<div style='position:relative;'>
-						<pre style='white-space:pre-wrap;direction:ltr;text-align:left;background:#f5f5f5;padding:12px;border-radius:8px;'>${JSON.stringify(content,null,2)}</pre>
-						<div class='edit-overlay'>
-							<button class='edit-btn' onclick='openContentModal();event.stopPropagation();'>تعديل</button>
+					</select>
+					<div class="notification" id="globalNotification"></div>
+					<div class="notification" id="globalNotification"></div>
+					<!-- نموذج تسجيل الدخول -->
+					<div id="loginModal" class="modal" style="display:flex;">
+						<div class="modal-content">
+							<h3 style="text-align:center;">تسجيل الدخول للوحة التحكم</h3>
+							<input type="text" id="loginUsername" placeholder="اسم المستخدم" autocomplete="username">
+							<input type="password" id="loginPassword" placeholder="كلمة المرور" autocomplete="current-password">
+							<button onclick="handleLogin()">دخول</button>
+							<div id="loginError" style="color:red;text-align:center;margin-top:8px;display:none;"></div>
 						</div>
 					</div>
-				`;
-			}
-			function openContentModal() {
-				fetchContent().then(content=>{
-					document.getElementById('contentJsonInput').value = JSON.stringify(content,null,2);
-					document.getElementById('contentModal').style.display = 'flex';
-				});
-			}
-			function closeContentModal() {
-				document.getElementById('contentModal').style.display = 'none';
-			}
-			async function saveContent() {
-				try {
-					const newContent = JSON.parse(document.getElementById('contentJsonInput').value);
-					await updateContent(newContent);
-					notify('تم تحديث المحتوى','success');
-					closeContentModal();
-					renderContent();
-				} catch(e) {
-					notify('صيغة JSON غير صحيحة','error');
-				}
-			}
-			// --- إدارة الموظفين (ديناميكي مع backend) ---
-			let employees = [];
-			async function renderEmployees() {
-				employees = await fetchEmployees();
-				const list = document.getElementById('employeesList');
-				list.innerHTML = '';
-				employees.forEach((e, i) => {
-					const card = document.createElement('div');
-					card.className = 'item-card';
-					card.innerHTML = `
-						<b>${e.name}</b><br><span style='color:#888'>${e.role}</span>
-						<div class='actions'>
-							<button class='edit' onclick='editEmployee(${i})'><i class="fa fa-edit"></i></button>
-							<button onclick='deleteEmployee(${i})'><i class="fa fa-trash"></i></button>
+					<!-- لوحة التحكم -->
+					<div class="admin-container" id="adminContainer" style="display:none;">
+						<div class="admin-header">
+							<h2>لوحة تحكم الموقع</h2>
+							<div class="user"><i class="fa fa-user-circle"></i> <span id="adminUserName">مدير</span></div>
+							<button onclick="logout()">تسجيل الخروج</button>
 						</div>
-						<div class='edit-overlay'>
-							<button class='edit-btn' onclick='editEmployee(${i});event.stopPropagation();'>تعديل</button>
-							<button class='edit-btn' style='background:#e53935;color:#fff;' onclick='deleteEmployee(${i});event.stopPropagation();'>حذف</button>
+						<div class="admin-nav" id="adminNav">
+							<button class="active" onclick="showSection('dashboard',this)"><i class="fa fa-home"></i> الرئيسية</button>
+							<button onclick="showSection('users',this)"><i class="fa fa-users"></i> المستخدمون</button>
+							<button onclick="showSection('employees',this)"><i class="fa fa-id-badge"></i> الموظفون</button>
+							<button onclick="showSection('content',this)"><i class="fa fa-edit"></i> المحتوى</button>
+							<button onclick="showSection('blog',this)"><i class="fa fa-blog"></i> المدونة</button>
+							<button onclick="showSection('projects',this)"><i class="fa fa-briefcase"></i> المشاريع</button>
+							<button onclick="showSection('pages',this)"><i class="fa fa-file"></i> الصفحات</button>
+							<button onclick="showSection('stats',this)"><i class="fa fa-chart-bar"></i> الإحصائيات</button>
+							<button onclick="showSection('settings',this)"><i class="fa fa-cogs"></i> الإعدادات</button>
+						</div>
+						<div class="marquee" id="marqueeBox">Connecting the world with the best satellite internet | ربط العالم بأفضل إنترنت فضائي</div>
+						<div id="dashboardSection" class="section">
+<!-- محتوى لوحة التحكم يظهر ديناميكياً من admin.js -->
+						</div>
+						<div id="usersSection" class="section" style="display:none;">
+							<div class="section-title">إدارة المستخدمين</div>
+							<div class="section-controls">
+								<button class="add-btn" onclick="openUserModal()"><i class="fa fa-plus"></i> إضافة مستخدم</button>
+							</div>
+							<div class="item-list" id="usersList"></div>
+						</div>
+						<div id="employeesSection" class="section" style="display:none;">
+							<div class="section-title">إدارة الموظفين</div>
+							<div class="section-controls">
+								<button class="add-btn" onclick="openEmployeeModal()"><i class="fa fa-plus"></i> إضافة موظف</button>
+							</div>
+							<div class="item-list" id="employeesList"></div>
+						</div>
+						<div id="contentSection" class="section" style="display:none;">
+							<div class="section-title">إدارة محتوى الصفحة الرئيسية</div>
+							<div class="section-controls">
+								<button class="add-btn" onclick="openContentModal()"><i class="fa fa-edit"></i> تعديل المحتوى</button>
+							</div>
+							<div class="item-list" id="contentList"></div>
+						</div>
+						<div id="blogSection" class="section" style="display:none;">
+							<div class="section-title">إدارة المدونة</div>
+							<div class="section-controls">
+								<button class="add-btn" onclick="openBlogModal()"><i class="fa fa-plus"></i> إضافة تدوينة</button>
+							</div>
+							<div class="item-list" id="blogList"></div>
+						</div>
+						<div id="projectsSection" class="section" style="display:none;">
+							<div class="section-title">إدارة المشاريع</div>
+							<div class="section-controls">
+								<button class="add-btn" onclick="openProjectModal()"><i class="fa fa-plus"></i> إضافة مشروع</button>
+							</div>
+							<div class="item-list" id="projectsList"></div>
+						</div>
+						<div id="pagesSection" class="section" style="display:none;">
+							<div class="section-title">إدارة الصفحات</div>
+							<div class="section-controls">
+								<button class="add-btn" onclick="openPageModal()"><i class="fa fa-plus"></i> إضافة صفحة جديدة</button>
+							</div>
+							<div class="item-list" id="pagesList"></div>
+						</div>
+						<div id="statsSection" class="section" style="display:none;"></div>
+						<div id="settingsSection" class="section" style="display:none;"></div>
+						</div>
+					</div>
+				</div>
+				<!-- إشعار فوري
+				function notify(msg, type='info') {
+					const n = document.getElementById('globalNotification');
+					n.textContent = msg;
+					n.style.background = type==='error' ? '#e53935' : (type==='success' ? '#43a047' : '#FFD600');
+					n.style.color = type==='error' ? '#fff' : '#18120b';
+					n.style.display = 'block';
+					setTimeout(()=>{n.style.display='none';}, 2500);
+				}
+				// تبديل الأقسام
+				function showSection(section, btn) {
+					document.querySelectorAll('.admin-nav button').forEach(b=>b.classList.remove('active'));
+					btn.classList.add('active');
+					['dashboard','users','employees','content','blog','projects','stats','settings'].forEach(s=>{
+						document.getElementById(s+'Section').style.display = (s===section)?'block':'none';
+					});
+				}
+				// الوضع الليلي
+				let dark = false;
+				function toggleDarkMode() {
+					dark = !dark;
+					document.body.classList.toggle('dark-mode', dark);
+				}
+				// بيانات الإحصائيات من backend
+				async function updateStats() {
+					// مثال: جلب عدد المستخدمين
+					const users = await fetchUsers();
+					document.getElementById('usersCount').textContent = users.length;
+					// يمكن إضافة جلب باقي الإحصائيات بنفس الطريقة
+				}
+				updateStats();
+				// اسم المستخدم
+				document.getElementById('adminUserName').textContent = 'مدير النظام';
+				// تسجيل الخروج
+				function logout() { notify('تم تسجيل الخروج!','info'); }
+				// --- إدارة المستخدمين ---
+				let editingUserIndex = null;
+				async function renderUsers() {
+					const users = await fetchUsers();
+					const list = document.getElementById('usersList');
+					list.innerHTML = '';
+					users.forEach((u, i) => {
+						const card = document.createElement('div');
+						card.className = 'item-card';
+						card.innerHTML = `
+							<img src="${u.image || 'images/1.jpg'}" alt="صورة المستخدم" onclick="openUserImageModal(${i})" style="cursor:pointer;">
+							<b>${u.name}</b><br><span style='color:#888'>${u.role}</span>
+							<div class='actions'>
+								<button class='edit' onclick='editUser(${i})'><i class="fa fa-edit"></i></button>
+								<button onclick='deleteUser(${i})'><i class="fa fa-trash"></i></button>
+							</div>
+							<div class='edit-overlay'>
+								<button class='edit-btn' onclick='editUser(${i});event.stopPropagation();'>تعديل</button>
+								<button class='edit-btn' style='background:#e53935;color:#fff;' onclick='deleteUser(${i});event.stopPropagation();'>حذف</button>
+								<button class='edit-btn' style='background:#FFD600;color:#18120b;' onclick='openUserImageModal(${i});event.stopPropagation();'>تغيير الصورة</button>
+							</div>
+						`;
+						list.appendChild(card);
+					});
+				}
+
+				function openUserImageModal(idx) {
+					const users = window._usersCache || [];
+					const user = users[idx];
+					const modal = document.createElement('div');
+					modal.className = 'modal';
+					modal.style.display = 'flex';
+					modal.innerHTML = `
+						<div class='modal-content'>
+							<h3>تغيير صورة المستخدم</h3>
+							<img src="${user.image || 'images/1.jpg'}" alt="صورة المستخدم" style="max-width:100%;max-height:120px;margin-bottom:12px;border-radius:10px;">
+							<input type='text' id='newUserImageInput' placeholder='رابط الصورة الجديدة' value='${user.image || ''}' />
+							<button onclick='saveUserImage(${idx})'>حفظ</button>
+							<button onclick='this.parentElement.parentElement.remove();' style='background:#e53935;'>إلغاء</button>
 						</div>
 					`;
-					list.appendChild(card);
-				});
-			}
-			function openEmployeeModal(editIdx) {
-				document.getElementById('employeeModalTitle').textContent = typeof editIdx==='number' ? 'تعديل موظف' : 'إضافة موظف';
-				document.getElementById('employeeNameInput').value = '';
-				document.getElementById('employeeRoleInput').value = '';
-				if(typeof editIdx==='number') {
-					document.getElementById('employeeNameInput').value = employees[editIdx].name;
-					document.getElementById('employeeRoleInput').value = employees[editIdx].role;
-					window._editingEmployee = editIdx;
-				} else {
-					window._editingEmployee = null;
+					document.body.appendChild(modal);
 				}
-				document.getElementById('employeeModal').style.display = 'flex';
-			}
-			function closeEmployeeModal() { document.getElementById('employeeModal').style.display = 'none'; }
-			async function saveEmployee() {
-				const name = document.getElementById('employeeNameInput').value.trim();
-				const role = document.getElementById('employeeRoleInput').value.trim();
-				if(!name || !role) return notify('يرجى إدخال جميع البيانات','error');
-				if(window._editingEmployee!==null) {
-					employees[window._editingEmployee] = {name, role};
-				} else {
-					employees.push({name, role});
-				}
-				await updateEmployees(employees);
-				closeEmployeeModal();
-				renderEmployees();
-			}
-			function editEmployee(idx) { openEmployeeModal(idx); }
-			async function deleteEmployee(idx) { if(confirm('حذف الموظف؟')) { employees.splice(idx,1); await updateEmployees(employees); renderEmployees(); } }
 
-			// --- إدارة المدونة (ديناميكي مع backend) ---
-			let blogPosts = [];
-			async function renderBlog() {
-				blogPosts = await fetchBlog();
-				const list = document.getElementById('blogList');
-				list.innerHTML = '';
-				blogPosts.forEach((b, i) => {
-					const card = document.createElement('div');
-					card.className = 'item-card';
-					card.innerHTML = `
-						<b>${b.title}</b><br><span style='color:#888'>${b.desc}</span>
-						<div class='actions'>
-							<button class='edit' onclick='editBlog(${i})'><i class="fa fa-edit"></i></button>
-							<button onclick='deleteBlog(${i})'><i class="fa fa-trash"></i></button>
-						</div>
-						<div class='edit-overlay'>
-							<button class='edit-btn' onclick='editBlog(${i});event.stopPropagation();'>تعديل</button>
-							<button class='edit-btn' style='background:#e53935;color:#fff;' onclick='deleteBlog(${i});event.stopPropagation();'>حذف</button>
+				function saveUserImage(idx) {
+					const input = document.getElementById('newUserImageInput');
+					if(!input) return;
+					const url = input.value.trim();
+					const users = window._usersCache || [];
+					users[idx].image = url;
+					updateUsers(users);
+					document.querySelectorAll('.modal').forEach(m=>m.remove());
+					renderUsers();
+				}
+				async function deleteUser(idx) {
+					if(!confirm('هل أنت متأكد من حذف المستخدم؟')) return;
+					const users = await fetchUsers();
+					users.splice(idx,1);
+					await updateUsers(users);
+					notify('تم حذف المستخدم','success');
+					renderUsers();
+				}
+				// تحديث ملف المستخدمين بالكامل (مطلوب endpoint في backend)
+				async function updateUsers(users) {
+					await fetch('/api/users', {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify(users)
+					});
+				}
+				// --- إدارة المحتوى ---
+				async function renderContent() {
+					const content = await fetchContent();
+					document.getElementById('contentList').innerHTML = `
+						<div style='position:relative;'>
+							<pre style='white-space:pre-wrap;direction:ltr;text-align:left;background:#f5f5f5;padding:12px;border-radius:8px;'>${JSON.stringify(content,null,2)}</pre>
+							<div class='edit-overlay'>
+								<button class='edit-btn' onclick='openContentModal();event.stopPropagation();'>تعديل</button>
+							</div>
 						</div>
 					`;
-					list.appendChild(card);
-				});
-			}
-			function openBlogModal(editIdx) {
-				document.getElementById('blogModalTitle').textContent = typeof editIdx==='number' ? 'تعديل تدوينة' : 'إضافة تدوينة';
-				document.getElementById('blogTitleInput').value = '';
-				document.getElementById('blogDescInput').value = '';
-				document.getElementById('blogImageInput').value = '';
-				if(typeof editIdx==='number') {
-					document.getElementById('blogTitleInput').value = blogPosts[editIdx].title;
-					document.getElementById('blogDescInput').value = blogPosts[editIdx].desc;
-					document.getElementById('blogImageInput').value = blogPosts[editIdx].image;
-					window._editingBlog = editIdx;
-				} else {
-					window._editingBlog = null;
 				}
-				document.getElementById('blogModal').style.display = 'flex';
-			}
-			function closeBlogModal() { document.getElementById('blogModal').style.display = 'none'; }
-			async function saveBlog() {
-				const title = document.getElementById('blogTitleInput').value.trim();
-				const desc = document.getElementById('blogDescInput').value.trim();
-				const image = document.getElementById('blogImageInput').value.trim();
-				if(!title || !desc) return notify('يرجى إدخال جميع البيانات','error');
-				if(window._editingBlog!==null) {
-					blogPosts[window._editingBlog] = {title, desc, image};
-				} else {
-					blogPosts.push({title, desc, image});
+				function openContentModal() {
+					fetchContent().then(content=>{
+						document.getElementById('contentJsonInput').value = JSON.stringify(content,null,2);
+						document.getElementById('contentModal').style.display = 'flex';
+					});
 				}
-				await updateBlog(blogPosts);
-				closeBlogModal();
-				renderBlog();
-			}
-			function editBlog(idx) { openBlogModal(idx); }
-			async function deleteBlog(idx) { if(confirm('حذف التدوينة؟')) { blogPosts.splice(idx,1); await updateBlog(blogPosts); renderBlog(); } }
+				function closeContentModal() {
+					document.getElementById('contentModal').style.display = 'none';
+				}
+				async function saveContent() {
+					try {
+						const newContent = JSON.parse(document.getElementById('contentJsonInput').value);
+						await updateContent(newContent);
+						notify('تم تحديث المحتوى','success');
+						closeContentModal();
+						renderContent();
+					} catch(e) {
+						notify('صيغة JSON غير صحيحة','error');
+					}
+				}
+				// --- إدارة الموظفين (ديناميكي مع backend) ---
+				let employees = [];
+				async function renderEmployees() {
+					employees = await fetchEmployees();
+					const list = document.getElementById('employeesList');
+					list.innerHTML = '';
+					employees.forEach((e, i) => {
+						const card = document.createElement('div');
+						card.className = 'item-card';
+						card.innerHTML = `
+							<b>${e.name}</b><br><span style='color:#888'>${e.role}</span>
+							<div class='actions'>
+								<button class='edit' onclick='editEmployee(${i})'><i class="fa fa-edit"></i></button>
+								<button onclick='deleteEmployee(${i})'><i class="fa fa-trash"></i></button>
+							</div>
+							<div class='edit-overlay'>
+								<button class='edit-btn' onclick='editEmployee(${i});event.stopPropagation();'>تعديل</button>
+								<button class='edit-btn' style='background:#e53935;color:#fff;' onclick='deleteEmployee(${i});event.stopPropagation();'>حذف</button>
+							</div>
+						`;
+						list.appendChild(card);
+					});
+				}
+				function openEmployeeModal(editIdx) {
+					document.getElementById('employeeModalTitle').textContent = typeof editIdx==='number' ? 'تعديل موظف' : 'إضافة موظف';
+					document.getElementById('employeeNameInput').value = '';
+					document.getElementById('employeeRoleInput').value = '';
+					if(typeof editIdx==='number') {
+						document.getElementById('employeeNameInput').value = employees[editIdx].name;
+						document.getElementById('employeeRoleInput').value = employees[editIdx].role;
+						window._editingEmployee = editIdx;
+					} else {
+						window._editingEmployee = null;
+					}
+					document.getElementById('employeeModal').style.display = 'flex';
+				}
+				function closeEmployeeModal() { document.getElementById('employeeModal').style.display = 'none'; }
+				async function saveEmployee() {
+					const name = document.getElementById('employeeNameInput').value.trim();
+					const role = document.getElementById('employeeRoleInput').value.trim();
+					if(!name || !role) return notify('يرجى إدخال جميع البيانات','error');
+					if(window._editingEmployee!==null) {
+						employees[window._editingEmployee] = {name, role};
+					} else {
+						employees.push({name, role});
+					}
+					await updateEmployees(employees);
+					closeEmployeeModal();
+					renderEmployees();
+				}
+				function editEmployee(idx) { openEmployeeModal(idx); }
+				async function deleteEmployee(idx) { if(confirm('حذف الموظف؟')) { employees.splice(idx,1); await updateEmployees(employees); renderEmployees(); } }
 
-			// --- إدارة المشاريع (ديناميكي مع backend) ---
-			let projects = [];
-			async function renderProjects() {
-				projects = await fetchProjects();
-				const list = document.getElementById('projectsList');
-				list.innerHTML = '';
-				projects.forEach((p, i) => {
-					const card = document.createElement('div');
-					card.className = 'item-card';
-					card.innerHTML = `
-						<b>${p.title}</b><br><span style='color:#888'>${p.desc}</span>
-						<div class='actions'>
-							<button class='edit' onclick='editProject(${i})'><i class="fa fa-edit"></i></button>
-							<button onclick='deleteProject(${i})'><i class="fa fa-trash"></i></button>
-						</div>
-						<div class='edit-overlay'>
-							<button class='edit-btn' onclick='editProject(${i});event.stopPropagation();'>تعديل</button>
-							<button class='edit-btn' style='background:#e53935;color:#fff;' onclick='deleteProject(${i});event.stopPropagation();'>حذف</button>
-						</div>
-					`;
-					list.appendChild(card);
-				});
-			}
-			function openProjectModal(editIdx) {
-				document.getElementById('projectModalTitle').textContent = typeof editIdx==='number' ? 'تعديل مشروع' : 'إضافة مشروع';
-				document.getElementById('projectTitleInput').value = '';
-				document.getElementById('projectDescInput').value = '';
-				document.getElementById('projectImageInput').value = '';
-				if(typeof editIdx==='number') {
-					document.getElementById('projectTitleInput').value = projects[editIdx].title;
-					document.getElementById('projectDescInput').value = projects[editIdx].desc;
-					document.getElementById('projectImageInput').value = projects[editIdx].image;
-					window._editingProject = editIdx;
-				} else {
-					window._editingProject = null;
+				// --- إدارة المدونة (ديناميكي مع backend) ---
+				let blogPosts = [];
+				async function renderBlog() {
+					blogPosts = await fetchBlog();
+					const list = document.getElementById('blogList');
+					list.innerHTML = '';
+					blogPosts.forEach((b, i) => {
+						const card = document.createElement('div');
+						card.className = 'item-card';
+						card.innerHTML = `
+							<b>${b.title}</b><br><span style='color:#888'>${b.desc}</span>
+							<div class='actions'>
+								<button class='edit' onclick='editBlog(${i})'><i class="fa fa-edit"></i></button>
+								<button onclick='deleteBlog(${i})'><i class="fa fa-trash"></i></button>
+							</div>
+							<div class='edit-overlay'>
+								<button class='edit-btn' onclick='editBlog(${i});event.stopPropagation();'>تعديل</button>
+								<button class='edit-btn' style='background:#e53935;color:#fff;' onclick='deleteBlog(${i});event.stopPropagation();'>حذف</button>
+							</div>
+						`;
+						list.appendChild(card);
+					});
 				}
-				document.getElementById('projectModal').style.display = 'flex';
-			}
-			function closeProjectModal() { document.getElementById('projectModal').style.display = 'none'; }
-			async function saveProject() {
-				const title = document.getElementById('projectTitleInput').value.trim();
-				const desc = document.getElementById('projectDescInput').value.trim();
-				const image = document.getElementById('projectImageInput').value.trim();
-				if(!title || !desc) return notify('يرجى إدخال جميع البيانات','error');
-				if(window._editingProject!==null) {
-					projects[window._editingProject] = {title, desc, image};
-				} else {
-					projects.push({title, desc, image});
+				function openBlogModal(editIdx) {
+					document.getElementById('blogModalTitle').textContent = typeof editIdx==='number' ? 'تعديل تدوينة' : 'إضافة تدوينة';
+					document.getElementById('blogTitleInput').value = '';
+					document.getElementById('blogDescInput').value = '';
+					document.getElementById('blogImageInput').value = '';
+					if(typeof editIdx==='number') {
+						document.getElementById('blogTitleInput').value = blogPosts[editIdx].title;
+						document.getElementById('blogDescInput').value = blogPosts[editIdx].desc;
+						document.getElementById('blogImageInput').value = blogPosts[editIdx].image;
+						window._editingBlog = editIdx;
+					} else {
+						window._editingBlog = null;
+					}
+					document.getElementById('blogModal').style.display = 'flex';
 				}
-				await updateProjects(projects);
-				closeProjectModal();
-				renderProjects();
-			}
-			function editProject(idx) { openProjectModal(idx); }
-			async function deleteProject(idx) { if(confirm('حذف المشروع؟')) { projects.splice(idx,1); await updateProjects(projects); renderProjects(); } }
+				function closeBlogModal() { document.getElementById('blogModal').style.display = 'none'; }
+				async function saveBlog() {
+					const title = document.getElementById('blogTitleInput').value.trim();
+					const desc = document.getElementById('blogDescInput').value.trim();
+					const image = document.getElementById('blogImageInput').value.trim();
+					if(!title || !desc) return notify('يرجى إدخال جميع البيانات','error');
+					if(window._editingBlog!==null) {
+						blogPosts[window._editingBlog] = {title, desc, image};
+					} else {
+						blogPosts.push({title, desc, image});
+					}
+					await updateBlog(blogPosts);
+					closeBlogModal();
+					renderBlog();
+				}
+				function editBlog(idx) { openBlogModal(idx); }
+				async function deleteBlog(idx) { if(confirm('حذف التدوينة؟')) { blogPosts.splice(idx,1); await updateBlog(blogPosts); renderBlog(); } }
 
-			// عند فتح القسم المناسب
-			document.getElementById('usersSection').addEventListener('show', renderUsers);
-			document.getElementById('contentSection').addEventListener('show', renderContent);
-			document.getElementById('employeesSection').addEventListener('show', renderEmployees);
-			document.getElementById('blogSection').addEventListener('show', renderBlog);
-			document.getElementById('projectsSection').addEventListener('show', renderProjects);
-			// تفعيل عرض القسم عند الضغط
-			const origShowSection = showSection;
-			showSection = function(section, btn) {
-				origShowSection(section, btn);
-				const sec = document.getElementById(section+'Section');
-				if(sec) sec.dispatchEvent(new Event('show'));
-			}
-		</script>
+				// --- إدارة المشاريع (ديناميكي مع backend) ---
+				let projects = [];
+				async function renderProjects() {
+					projects = await fetchProjects();
+					const list = document.getElementById('projectsList');
+					list.innerHTML = '';
+					projects.forEach((p, i) => {
+						const card = document.createElement('div');
+						card.className = 'item-card';
+						card.innerHTML = `
+							<b>${p.title}</b><br><span style='color:#888'>${p.desc}</span>
+							<div class='actions'>
+								<button class='edit' onclick='editProject(${i})'><i class="fa fa-edit"></i></button>
+								<button onclick='deleteProject(${i})'><i class="fa fa-trash"></i></button>
+							</div>
+							<div class='edit-overlay'>
+								<button class='edit-btn' onclick='editProject(${i});event.stopPropagation();'>تعديل</button>
+								<button class='edit-btn' style='background:#e53935;color:#fff;' onclick='deleteProject(${i});event.stopPropagation();'>حذف</button>
+							</div>
+						`;
+						list.appendChild(card);
+					});
+				}
+				function openProjectModal(editIdx) {
+					document.getElementById('projectModalTitle').textContent = typeof editIdx==='number' ? 'تعديل مشروع' : 'إضافة مشروع';
+					document.getElementById('projectTitleInput').value = '';
+					document.getElementById('projectDescInput').value = '';
+					document.getElementById('projectImageInput').value = '';
+					if(typeof editIdx==='number') {
+						document.getElementById('projectTitleInput').value = projects[editIdx].title;
+						document.getElementById('projectDescInput').value = projects[editIdx].desc;
+						document.getElementById('projectImageInput').value = projects[editIdx].image;
+						window._editingProject = editIdx;
+					} else {
+						window._editingProject = null;
+					}
+					document.getElementById('projectModal').style.display = 'flex';
+				}
+				function closeProjectModal() { document.getElementById('projectModal').style.display = 'none'; }
+				async function saveProject() {
+					const title = document.getElementById('projectTitleInput').value.trim();
+					const desc = document.getElementById('projectDescInput').value.trim();
+					const image = document.getElementById('projectImageInput').value.trim();
+					if(!title || !desc) return notify('يرجى إدخال جميع البيانات','error');
+					if(window._editingProject!==null) {
+						projects[window._editingProject] = {title, desc, image};
+					} else {
+						projects.push({title, desc, image});
+					}
+					await updateProjects(projects);
+					closeProjectModal();
+					renderProjects();
+				}
+				function editProject(idx) { openProjectModal(idx); }
+				async function deleteProject(idx) { if(confirm('حذف المشروع؟')) { projects.splice(idx,1); await updateProjects(projects); renderProjects(); } }
+
+				// عند فتح القسم المناسب
+				document.getElementById('usersSection').addEventListener('show', renderUsers);
+				document.getElementById('contentSection').addEventListener('show', renderContent);
+				document.getElementById('employeesSection').addEventListener('show', renderEmployees);
+				document.getElementById('blogSection').addEventListener('show', renderBlog);
+				document.getElementById('projectsSection').addEventListener('show', renderProjects);
+				// تفعيل عرض القسم عند الضغط
+				const origShowSection = showSection;
+				showSection = function(section, btn) {
+					origShowSection(section, btn);
+					const sec = document.getElementById(section+'Section');
+					if(sec) sec.dispatchEvent(new Event('show'));
+				}
+			</script>
 </body>
 </html>

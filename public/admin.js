@@ -102,3 +102,54 @@ async function updateUsers(users) {
     body: JSON.stringify(users)
   });
 }
+
+// حالة تسجيل الدخول
+let isLoggedIn = false;
+
+// دالة تسجيل الدخول
+window.handleLogin = async function() {
+  const username = document.getElementById('loginUsername').value.trim();
+  const password = document.getElementById('loginPassword').value.trim();
+  const errorBox = document.getElementById('loginError');
+  errorBox.style.display = 'none';
+  if (!username || !password) {
+    errorBox.textContent = 'يرجى إدخال اسم المستخدم وكلمة المرور';
+    errorBox.style.display = 'block';
+    return;
+  }
+  const res = await login(username, password);
+  if (res.success) {
+    isLoggedIn = true;
+    document.getElementById('loginModal').style.display = 'none';
+    document.getElementById('adminContainer').style.display = 'block';
+    document.getElementById('adminUserName').textContent = username;
+    // تحميل البيانات بعد تسجيل الدخول
+    loadAdminData();
+  } else {
+    errorBox.textContent = res.error || 'بيانات الدخول غير صحيحة';
+    errorBox.style.display = 'block';
+  }
+}
+
+// دالة تسجيل الخروج
+window.logout = function() {
+  isLoggedIn = false;
+  document.getElementById('adminContainer').style.display = 'none';
+  document.getElementById('loginModal').style.display = 'flex';
+}
+
+// تفعيل لوحة التحكم بعد تسجيل الدخول
+function loadAdminData() {
+  renderPages();
+  renderUsers();
+  renderEmployees();
+  renderContent();
+  renderBlog();
+  renderProjects();
+}
+
+// منع تحميل أي بيانات عند فتح الصفحة
+window.onload = function() {
+  document.getElementById('adminContainer').style.display = 'none';
+  document.getElementById('loginModal').style.display = 'flex';
+}
