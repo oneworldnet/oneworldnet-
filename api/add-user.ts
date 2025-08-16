@@ -1,21 +1,10 @@
-const KV_URL = process.env.KV_REST_API_URL;
-const KV_TOKEN = process.env.KV_REST_API_TOKEN;
+import { getRedis, setRedis } from './redis';
 
 async function kvGet(key: string) {
-	const res = await fetch(`${KV_URL}/get/${key}`, {
-		headers: { Authorization: `Bearer ${KV_TOKEN}` }
-	});
-	if (!res.ok) return null;
-	return await res.json();
+	// Removed Vercel KV functions
 }
 async function kvSet(key: string, value: any) {
-	await fetch(`${KV_URL}/set/${key}`,
-		{
-			method: 'POST',
-			headers: { Authorization: `Bearer ${KV_TOKEN}`, 'Content-Type': 'application/json' },
-			body: JSON.stringify(value)
-		}
-	);
+	// Removed Vercel KV functions
 }
 
 export default async function handler(req: any, res: any) {
@@ -23,10 +12,10 @@ export default async function handler(req: any, res: any) {
 	const { username, password, role } = req.body;
 	if (!username || !password || !role) return res.status(400).json({ error: 'Missing fields' });
 	try {
-		let users = await kvGet('users') || [];
+		let users: Array<{ username: string; password: string; role: string }> = await getRedis('users') || [];
 		if (users.find((u: any) => u.username === username)) return res.status(409).json({ error: 'User exists' });
 		users.push({ username, password, role });
-		await kvSet('users', users);
+		await setRedis('users', users);
 		res.status(200).json({ success: true });
 	} catch (e) {
 		res.status(500).json({ error: 'Write error' });
