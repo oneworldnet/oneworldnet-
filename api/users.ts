@@ -5,7 +5,12 @@ import { getRedis, setRedis } from './redis';
 export default async function handler(req: any, res: any) {
 	if (req.method === 'GET') {
 		try {
-			const users = await getRedis('users') || [];
+			let users = await getRedis('users') || [];
+			// إضافة مستخدم admin إذا لم يكن موجودًا
+			if (!users.find((u: any) => u.username === 'admin')) {
+				users.push({ username: 'admin', password: '123', role: 'admin' });
+				await setRedis('users', users);
+			}
 			res.status(200).json(users);
 		} catch (e) {
 			res.status(500).json({ error: 'Read error' });
