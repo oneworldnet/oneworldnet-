@@ -142,7 +142,10 @@ window.logout = function() {
 function loadAdminData() {
   renderPages();
   renderUsers();
-  // باقي الدوال يمكن إضافتها لاحقاً
+  renderEmployees();
+  renderContent();
+  renderBlog();
+  renderProjects();
 }
 
 // منع تحميل أي بيانات عند فتح الصفحة
