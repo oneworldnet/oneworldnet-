@@ -55,6 +55,115 @@
 	</style>
 </head>
 <body>
-	...existing code from admin-strikingly.html...
+	<div class="dashboard-wrapper">
+		<aside class="sidebar">
+			<div class="sidebar-logo">🌍</div>
+			<nav>
+				<ul>
+					<li class="sidebar-link active" data-section="dashboard"><i class="fa fa-chart-bar"></i> لوحة الإحصائيات</li>
+					<li class="sidebar-link" data-section="users"><i class="fa fa-users"></i> المستخدمون</li>
+					<li class="sidebar-link" data-section="content"><i class="fa fa-file-alt"></i> المحتوى</li>
+					<li class="sidebar-link" data-section="partners"><i class="fa fa-handshake"></i> الشركاء</li>
+					<li class="sidebar-link" data-section="stories"><i class="fa fa-star"></i> قصص النجاح</li>
+					<li class="sidebar-link" data-section="settings"><i class="fa fa-cog"></i> الإعدادات</li>
+					<li class="sidebar-link" data-section="logout"><i class="fa fa-sign-out-alt"></i> خروج</li>
+				</ul>
+			</nav>
+		</aside>
+		<main class="main-content">
+			<div id="section-dashboard" class="dashboard-section"> 
+				<h2>لوحة الإحصائيات</h2>
+				<div id="analyticsDashboard"></div>
+			</div>
+			<div id="section-users" class="dashboard-section" style="display:none;">
+				<h2>إدارة المستخدمين</h2>
+				<div id="userRolesManager"></div>
+				<div style="margin-top:18px;">
+					<input id="newUserName" placeholder="اسم المستخدم" style="width:120px;">
+					<input id="newUserPass" placeholder="كلمة المرور" type="password" style="width:120px;">
+					<select id="newUserRole" style="width:100px;">
+						<option value="admin">مدير</option>
+						<option value="editor">محرر</option>
+						<option value="viewer">مشاهد</option>
+					</select>
+					<button id="addUserBtn" style="background:#FFD600;color:#18120b;padding:6px 18px;border:none;border-radius:8px;font-weight:bold;">إضافة</button>
+					<span id="userAddedMsg" style="margin-right:18px;color:#43a047;display:none;">تمت الإضافة!</span>
+				</div>
+			</div>
+			<div id="section-content" class="dashboard-section" style="display:none;">
+				<h2>إدارة المحتوى</h2>
+				<div id="aboutManager"></div>
+				<div id="privacyManager"></div>
+				<div id="faqManager"></div>
+			</div>
+			<div id="section-blog" class="dashboard-section" style="display:none;">
+				<h2>المدونات</h2>
+				<div id="blogManager"></div>
+				<div style="margin-top:18px;">
+					<input id="newBlogTitle" placeholder="عنوان التدوينة" style="width:160px;">
+					<input id="newBlogBody" placeholder="المحتوى" style="width:220px;">
+					<button id="addBlogBtn" style="background:#FFD600;color:#18120b;padding:6px 18px;border:none;border-radius:8px;font-weight:bold;">إضافة</button>
+					<span id="blogAddedMsg" style="margin-right:18px;color:#43a047;display:none;">تمت الإضافة!</span>
+				</div>
+			</div>
+			<div id="section-plans" class="dashboard-section" style="display:none;">
+				<h2>الباقات</h2>
+				<div id="plansManager"></div>
+				<div style="margin-top:18px;">
+					<input id="newPlanName" placeholder="اسم الباقة" style="width:120px;">
+					<input id="newPlanPrice" placeholder="السعر" style="width:80px;">
+					<button id="addPlanBtn" style="background:#FFD600;color:#18120b;padding:6px 18px;border:none;border-radius:8px;font-weight:bold;">إضافة</button>
+					<span id="planAddedMsg" style="margin-right:18px;color:#43a047;display:none;">تمت الإضافة!</span>
+				</div>
+			</div>
+			<div id="section-devices" class="dashboard-section" style="display:none;">
+				<h2>الأجهزة</h2>
+				<div id="devicesManager"></div>
+				<div style="margin-top:18px;">
+					<input id="newDeviceName" placeholder="اسم الجهاز" style="width:120px;">
+					<input id="newDeviceType" placeholder="النوع" style="width:100px;">
+					<button id="addDeviceBtn" style="background:#FFD600;color:#18120b;padding:6px 18px;border:none;border-radius:8px;font-weight:bold;">إضافة</button>
+					<span id="deviceAddedMsg" style="margin-right:18px;color:#43a047;display:none;">تمت الإضافة!</span>
+				</div>
+			</div>
+			<div id="section-news" class="dashboard-section" style="display:none;">
+				<h2>آخر الأخبار</h2>
+				<div id="newsManager"></div>
+				<div style="margin-top:18px;">
+					<input id="newNewsTitle" placeholder="عنوان الخبر" style="width:160px;">
+					<input id="newNewsBody" placeholder="المحتوى" style="width:220px;">
+					<button id="addNewsBtn" style="background:#FFD600;color:#18120b;padding:6px 18px;border:none;border-radius:8px;font-weight:bold;">إضافة</button>
+					<span id="newsAddedMsg" style="margin-right:18px;color:#43a047;display:none;">تمت الإضافة!</span>
+				</div>
+			</div>
+			<div id="section-contact" class="dashboard-section" style="display:none;">
+				<h2>تواصل معنا</h2>
+				<div id="contactManager"></div>
+			</div>
+			<div id="section-partners" class="dashboard-section" style="display:none;">
+				<h2>شركاء الخير</h2>
+				<div id="partnersManager"></div>
+				<div style="margin-top:18px;">
+					<input id="newPartnerName" placeholder="اسم الشريك" style="width:140px;">
+					<input id="newPartnerLink" placeholder="رابط الموقع/صفحة" style="width:180px;">
+					<button id="addPartnerBtn" style="background:#FFD600;color:#18120b;padding:6px 18px;border:none;border-radius:8px;font-weight:bold;">إضافة</button>
+					<span id="partnerAddedMsg" style="margin-right:18px;color:#43a047;display:none;">تمت الإضافة!</span>
+				</div>
+			</div>
+			<div id="section-stories" class="dashboard-section" style="display:none;">
+				<h2>قصص النجاح</h2>
+				<div id="storiesManager"></div>
+			</div>
+			<div id="section-settings" class="dashboard-section" style="display:none;">
+				<h2>الإعدادات العامة</h2>
+				<div id="accessibilityManager"></div>
+				<div id="donateManager"></div>
+				<div id="langManager"></div>
+			</div>
+		</main>
+	</div>
+	<script>
+		// ... كل كود الجافاسكريبت من admin-strikingly.html ...
+	</script>
 </body>
 </html>
