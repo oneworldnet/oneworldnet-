@@ -142,14 +142,45 @@ window.logout = function() {
 function loadAdminData() {
   renderPages();
   renderUsers();
-  renderEmployees();
-  renderContent();
-  renderBlog();
-  renderProjects();
+  // باقي الدوال يمكن إضافتها لاحقاً
 }
 
 // منع تحميل أي بيانات عند فتح الصفحة
 window.onload = function() {
   document.getElementById('adminContainer').style.display = 'none';
   document.getElementById('loginModal').style.display = 'flex';
+}
+
+// دالة عرض المستخدمين
+async function renderUsers() {
+  const users = await fetchUsers();
+  const usersList = document.getElementById('usersList');
+  usersList.innerHTML = '';
+  if (Array.isArray(users) && users.length > 0) {
+    users.forEach(user => {
+      const card = document.createElement('div');
+      card.className = 'item-card';
+      card.innerHTML = `<strong>${user.username}</strong><br>الرتبة: ${user.role || 'غير محدد'}`;
+      usersList.appendChild(card);
+    });
+  } else {
+    usersList.innerHTML = '<div>لا يوجد مستخدمين بعد.</div>';
+  }
+}
+
+// دالة عرض الصفحات
+async function renderPages() {
+  const pages = await fetchPages();
+  const pagesList = document.getElementById('pagesList');
+  pagesList.innerHTML = '';
+  if (Array.isArray(pages) && pages.length > 0) {
+    pages.forEach(page => {
+      const card = document.createElement('div');
+      card.className = 'item-card';
+      card.innerHTML = `<strong>${page.title || page.name}</strong><br>${page.desc || ''}`;
+      pagesList.appendChild(card);
+    });
+  } else {
+    pagesList.innerHTML = '<div>لا يوجد صفحات بعد.</div>';
+  }
 }
