@@ -1,5 +1,3 @@
-// API للصفحات متوافق مع Vercel/Next.js بدون استخدام fs
-export default async function handler(req, res) {
 // API للصفحات باستخدام Vercel KV
 import { kv } from '@vercel/kv';
 
@@ -8,8 +6,12 @@ const PAGES_KEY = 'site_pages';
 export default async function handler(req, res) {
   if (req.method === 'GET') {
     try {
-      const pages = await kv.get(PAGES_KEY);
-      res.status(200).json(pages || []);
+      let pages = await kv.get(PAGES_KEY);
+      if (!Array.isArray(pages) || pages.length === 0) {
+        pages = [{ title: 'الصفحة الرئيسية', desc: 'هذه صفحة تجريبية.' }];
+        await kv.set(PAGES_KEY, pages);
+      }
+      res.status(200).json(pages);
     } catch (e) {
       res.status(500).json({ error: 'read error' });
     }

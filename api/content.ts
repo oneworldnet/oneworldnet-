@@ -23,7 +23,11 @@ async function kvSet(key, value) {
 export default async function handler(req: any, res: any) {
   if (req.method === 'GET') {
     try {
-      const content = await kvGet('content') || {};
+      let content = await kvGet('content');
+      if (!content || Object.keys(content).length === 0) {
+        content = { welcome: 'مرحباً بك في لوحة التحكم!', info: 'هذا محتوى تجريبي.' };
+        await kvSet('content', content);
+      }
       res.status(200).json(content);
     } catch (e) {
       res.status(500).json({ error: 'Read error' });
