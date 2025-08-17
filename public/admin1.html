@@ -163,7 +163,412 @@
 		</main>
 	</div>
 	<script>
-		// ... كل كود الجافاسكريبت من admin-strikingly.html ...
+		// --- ربط قسم المستخدمين مع API (Redis) ---
+		async function fetchUsers() {
+			const res = await fetch('/api/users');
+			if (!res.ok) return [];
+			return await res.json();
+		}
+		async function updateUsers(newUsers) {
+			const res = await fetch('/api/users', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(newUsers)
+			});
+			return await res.json();
+		}
+		async function renderUsersSection() {
+			const users = await fetchUsers();
+			const container = document.getElementById('userRolesManager');
+			container.innerHTML = `<table style="width:100%;border-collapse:collapse;">
+				<tr style="background:#f7f7fa;"><th>اسم المستخدم</th><th>الدور</th></tr>
+				${users.map(u=>`<tr><td>${u.username}</td><td>${u.role}</td></tr>`).join('')}
+			</table>`;
+		}
+		async function addUser() {
+			const username = document.getElementById('newUserName').value.trim();
+			const password = document.getElementById('newUserPass').value.trim();
+			const role = document.getElementById('newUserRole').value;
+			if(!username||!password) return;
+			let users = await fetchUsers();
+			users.push({ username, password, role });
+			await updateUsers(users);
+			document.getElementById('userAddedMsg').style.display = 'inline';
+			setTimeout(()=>document.getElementById('userAddedMsg').style.display='none', 2000);
+			document.getElementById('newUserName').value = '';
+			document.getElementById('newUserPass').value = '';
+			renderUsersSection();
+		}
+		document.querySelector('[data-section="users"]').addEventListener('click', renderUsersSection);
+		document.getElementById('addUserBtn').onclick = addUser;
+		if(document.getElementById('section-users').style.display==='block') renderUsersSection();
+
+		// --- ربط قسم المحتوى مع API (Redis) ---
+		async function fetchContent() {
+			const res = await fetch('/api/content');
+			if (!res.ok) return { welcome: 'تعذر جلب البيانات', info: '' };
+			return await res.json();
+		}
+		async function updateContent(newContent) {
+			const res = await fetch('/api/content', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(newContent)
+			});
+			return await res.json();
+		}
+		async function renderContentSection() {
+			const content = await fetchContent();
+			const container = document.getElementById('aboutManager');
+			container.innerHTML = `
+				<div style="margin-bottom:12px;">رسالة الترحيب: <input id="welcomeInput" value="${content.welcome||''}" style="width:60%"></div>
+				<div style="margin-bottom:12px;">معلومات إضافية: <input id="infoInput" value="${content.info||''}" style="width:60%"></div>
+				<button id="saveContentBtn" style="background:#FFD600;color:#18120b;padding:8px 24px;border:none;border-radius:8px;font-weight:bold;">حفظ</button>
+				<span id="contentSavedMsg" style="margin-right:18px;color:#43a047;display:none;">تم الحفظ!</span>
+			`;
+			document.getElementById('saveContentBtn').onclick = async function() {
+				const newContent = {
+					welcome: document.getElementById('welcomeInput').value,
+					info: document.getElementById('infoInput').value
+				};
+				await updateContent(newContent);
+				document.getElementById('contentSavedMsg').style.display = 'inline';
+				setTimeout(()=>document.getElementById('contentSavedMsg').style.display='none', 2000);
+			};
+		}
+		document.querySelector('[data-section="content"]').addEventListener('click', renderContentSection);
+		if(document.getElementById('section-content').style.display==='block') renderContentSection();
+
+		// --- ربط المدونات ---
+		async function fetchBlog() {
+			const res = await fetch('/api/content');
+			if (!res.ok) return [];
+			const data = await res.json();
+			return data.blog || [];
+		}
+		async function updateBlog(newBlog) {
+			const res = await fetch('/api/content');
+			let content = res.ok ? await res.json() : {};
+			content.blog = newBlog;
+			await fetch('/api/content', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(content)
+			});
+		}
+		async function renderBlogSection() {
+			const blog = await fetchBlog();
+			const container = document.getElementById('blogManager');
+			var blogHtml = '<table style="width:100%;border-collapse:collapse;">';
+			blogHtml += '<tr style="background:#f7f7fa;"><th>العنوان</th><th>المحتوى</th><th>تعديل</th></tr>';
+			for(var i=0;i<blog.length;i++) {
+				blogHtml += '<tr>';
+				blogHtml += '<td><input value="'+(blog[i].title||'')+'" id="btitle'+i+'" style="width:120px"></td>';
+				blogHtml += '<td><input value="'+(blog[i].body||'')+'" id="bbody'+i+'" style="width:180px"></td>';
+				blogHtml += '<td><button onclick="saveBlog('+i+')" style="background:#43a047;color:#fff;border:none;padding:4px 12px;border-radius:6px;">حفظ</button></td>';
+				blogHtml += '</tr>';
+			}
+			blogHtml += '</table>';
+			container.innerHTML = blogHtml;
+		}
+		window.saveBlog = async function(idx) {
+			let blog = await fetchBlog();
+			blog[idx].title = document.getElementById('btitle'+idx).value;
+			blog[idx].body = document.getElementById('bbody'+idx).value;
+			await updateBlog(blog);
+			renderBlogSection();
+		}
+		async function addBlog() {
+			const title = document.getElementById('newBlogTitle').value.trim();
+			const body = document.getElementById('newBlogBody').value.trim();
+			if(!title||!body) return;
+			let blog = await fetchBlog();
+			blog.push({ title, body });
+			await updateBlog(blog);
+			document.getElementById('blogAddedMsg').style.display = 'inline';
+			setTimeout(()=>document.getElementById('blogAddedMsg').style.display='none', 2000);
+			document.getElementById('newBlogTitle').value = '';
+			document.getElementById('newBlogBody').value = '';
+			renderBlogSection();
+		}
+		document.querySelector('[data-section="blog"]').addEventListener('click', renderBlogSection);
+		document.getElementById('addBlogBtn').onclick = addBlog;
+		if(document.getElementById('section-blog').style.display==='block') renderBlogSection();
+
+		// --- ربط الباقات ---
+		async function fetchPlans() {
+			const res = await fetch('/api/content');
+			if (!res.ok) return [];
+			const data = await res.json();
+			return data.plans || [];
+		}
+		async function updatePlans(newPlans) {
+			const res = await fetch('/api/content');
+			let content = res.ok ? await res.json() : {};
+			content.plans = newPlans;
+			await fetch('/api/content', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(content)
+			});
+		}
+		async function renderPlansSection() {
+			const plans = await fetchPlans();
+			const container = document.getElementById('plansManager');
+			var plansHtml = '<table style="width:100%;border-collapse:collapse;">';
+			plansHtml += '<tr style="background:#f7f7fa;"><th>اسم الباقة</th><th>السعر</th><th>تعديل</th></tr>';
+			for(var i=0;i<plans.length;i++) {
+				plansHtml += '<tr>';
+				plansHtml += '<td><input value="'+(plans[i].name||'')+'" id="planname'+i+'" style="width:90px"></td>';
+				plansHtml += '<td><input value="'+(plans[i].price||'')+'" id="planprice'+i+'" style="width:60px"></td>';
+				plansHtml += '<td><button onclick="savePlan('+i+')" style="background:#43a047;color:#fff;border:none;padding:4px 12px;border-radius:6px;">حفظ</button></td>';
+				plansHtml += '</tr>';
+			}
+			plansHtml += '</table>';
+			container.innerHTML = plansHtml;
+		}
+		window.savePlan = async function(idx) {
+			let plans = await fetchPlans();
+			plans[idx].name = document.getElementById('planname'+idx).value;
+			plans[idx].price = document.getElementById('planprice'+idx).value;
+			await updatePlans(plans);
+			renderPlansSection();
+		}
+		async function addPlan() {
+			const name = document.getElementById('newPlanName').value.trim();
+			const price = document.getElementById('newPlanPrice').value.trim();
+			if(!name||!price) return;
+			let plans = await fetchPlans();
+			plans.push({ name, price });
+			await updatePlans(plans);
+			document.getElementById('planAddedMsg').style.display = 'inline';
+			setTimeout(()=>document.getElementById('planAddedMsg').style.display='none', 2000);
+			document.getElementById('newPlanName').value = '';
+			document.getElementById('newPlanPrice').value = '';
+			renderPlansSection();
+		}
+		document.querySelector('[data-section="plans"]').addEventListener('click', renderPlansSection);
+		document.getElementById('addPlanBtn').onclick = addPlan;
+		if(document.getElementById('section-plans').style.display==='block') renderPlansSection();
+
+		// --- ربط الأجهزة ---
+		async function fetchDevices() {
+			const res = await fetch('/api/content');
+			if (!res.ok) return [];
+			const data = await res.json();
+			return data.devices || [];
+		}
+		async function updateDevices(newDevices) {
+			const res = await fetch('/api/content');
+			let content = res.ok ? await res.json() : {};
+			content.devices = newDevices;
+			await fetch('/api/content', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(content)
+			});
+		}
+		async function renderDevicesSection() {
+			const devices = await fetchDevices();
+			const container = document.getElementById('devicesManager');
+			var devicesHtml = '<table style="width:100%;border-collapse:collapse;">';
+			devicesHtml += '<tr style="background:#f7f7fa;"><th>اسم الجهاز</th><th>النوع</th><th>تعديل</th></tr>';
+			for(var i=0;i<devices.length;i++) {
+				devicesHtml += '<tr>';
+				devicesHtml += '<td><input value="'+(devices[i].name||'')+'" id="devicename'+i+'" style="width:90px"></td>';
+				devicesHtml += '<td><input value="'+(devices[i].type||'')+'" id="devicetype'+i+'" style="width:80px"></td>';
+				devicesHtml += '<td><button onclick="saveDevice('+i+')" style="background:#43a047;color:#fff;border:none;padding:4px 12px;border-radius:6px;">حفظ</button></td>';
+				devicesHtml += '</tr>';
+			}
+			devicesHtml += '</table>';
+			container.innerHTML = devicesHtml;
+		}
+		window.saveDevice = async function(idx) {
+			let devices = await fetchDevices();
+			devices[idx].name = document.getElementById('devicename'+idx).value;
+			devices[idx].type = document.getElementById('devicetype'+idx).value;
+			await updateDevices(devices);
+			renderDevicesSection();
+		}
+		async function addDevice() {
+			const name = document.getElementById('newDeviceName').value.trim();
+			const type = document.getElementById('newDeviceType').value.trim();
+			if(!name||!type) return;
+			let devices = await fetchDevices();
+			devices.push({ name, type });
+			await updateDevices(devices);
+			document.getElementById('deviceAddedMsg').style.display = 'inline';
+			setTimeout(()=>document.getElementById('deviceAddedMsg').style.display='none', 2000);
+			document.getElementById('newDeviceName').value = '';
+			document.getElementById('newDeviceType').value = '';
+			renderDevicesSection();
+		}
+		document.querySelector('[data-section="devices"]').addEventListener('click', renderDevicesSection);
+		document.getElementById('addDeviceBtn').onclick = addDevice;
+		if(document.getElementById('section-devices').style.display==='block') renderDevicesSection();
+
+		// --- ربط الأخبار ---
+		async function fetchNews() {
+			const res = await fetch('/api/content');
+			if (!res.ok) return [];
+			const data = await res.json();
+			return data.news || [];
+		}
+		async function updateNews(newNews) {
+			const res = await fetch('/api/content');
+			let content = res.ok ? await res.json() : {};
+			content.news = newNews;
+			await fetch('/api/content', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(content)
+			});
+		}
+		async function renderNewsSection() {
+			const news = await fetchNews();
+			const container = document.getElementById('newsManager');
+			var newsHtml = '<table style="width:100%;border-collapse:collapse;">';
+			newsHtml += '<tr style="background:#f7f7fa;"><th>العنوان</th><th>المحتوى</th><th>تعديل</th></tr>';
+			for(var i=0;i<news.length;i++) {
+				newsHtml += '<tr>';
+				newsHtml += '<td><input value="'+(news[i].title||'')+'" id="newstitle'+i+'" style="width:120px"></td>';
+				newsHtml += '<td><input value="'+(news[i].body||'')+'" id="newsbody'+i+'" style="width:180px"></td>';
+				newsHtml += '<td><button onclick="saveNews('+i+')" style="background:#43a047;color:#fff;border:none;padding:4px 12px;border-radius:6px;">حفظ</button></td>';
+				newsHtml += '</tr>';
+			}
+			newsHtml += '</table>';
+			container.innerHTML = newsHtml;
+		}
+		window.saveNews = async function(idx) {
+			let news = await fetchNews();
+			news[idx].title = document.getElementById('newstitle'+idx).value;
+			news[idx].body = document.getElementById('newsbody'+idx).value;
+			await updateNews(news);
+			renderNewsSection();
+		}
+		async function addNews() {
+			const title = document.getElementById('newNewsTitle').value.trim();
+			const body = document.getElementById('newNewsBody').value.trim();
+			if(!title||!body) return;
+			let news = await fetchNews();
+			news.push({ title, body });
+			await updateNews(news);
+			document.getElementById('newsAddedMsg').style.display = 'inline';
+			setTimeout(()=>document.getElementById('newsAddedMsg').style.display='none', 2000);
+			document.getElementById('newNewsTitle').value = '';
+			document.getElementById('newNewsBody').value = '';
+			renderNewsSection();
+		}
+		document.querySelector('[data-section="news"]').addEventListener('click', renderNewsSection);
+		document.getElementById('addNewsBtn').onclick = addNews;
+		if(document.getElementById('section-news').style.display==='block') renderNewsSection();
+
+		// --- ربط قسم الشركاء مع API (Redis) ---
+		async function fetchPartners() {
+			const res = await fetch('/api/content');
+			if (!res.ok) return [];
+			const data = await res.json();
+			return data.partners || [];
+		}
+		async function updatePartners(newPartners) {
+			const res = await fetch('/api/content');
+			let content = res.ok ? await res.json() : {};
+			content.partners = newPartners;
+			await fetch('/api/content', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(content)
+			});
+		}
+		async function renderPartnersSection() {
+			const partners = await fetchPartners();
+			const container = document.getElementById('partnersManager');
+			var html = '<table style="width:100%;border-collapse:collapse;">';
+			html += '<tr style="background:#f7f7fa;"><th>اسم الشريك</th><th>الرابط</th><th>تعديل</th></tr>';
+			for(var i=0;i<partners.length;i++) {
+				html += '<tr>';
+				html += '<td><input value="'+(partners[i].name||'')+'" id="pname'+i+'" style="width:90px"></td>';
+				html += '<td><input value="'+(partners[i].link||'')+'" id="plink'+i+'" style="width:160px"></td>';
+				html += '<td><button style="background:#43a047;color:#fff;border:none;padding:4px 12px;border-radius:6px;" onclick="savePartner('+i+')">حفظ</button></td>';
+				html += '</tr>';
+			}
+			html += '</table>';
+			container.innerHTML = html;
+		}
+		window.savePartner = async function(idx) {
+			let partners = await fetchPartners();
+			partners[idx].name = document.getElementById('pname'+idx).value;
+			partners[idx].link = document.getElementById('plink'+idx).value;
+			await updatePartners(partners);
+			renderPartnersSection();
+		}
+		async function addPartner() {
+			const name = document.getElementById('newPartnerName').value.trim();
+			const link = document.getElementById('newPartnerLink').value.trim();
+			if(!name||!link) return;
+			let partners = await fetchPartners();
+			partners.push({ name, link });
+			await updatePartners(partners);
+			document.getElementById('partnerAddedMsg').style.display = 'inline';
+			setTimeout(()=>document.getElementById('partnerAddedMsg').style.display='none', 2000);
+			document.getElementById('newPartnerName').value = '';
+			document.getElementById('newPartnerLink').value = '';
+			renderPartnersSection();
+		}
+		document.querySelector('[data-section="partners"]').addEventListener('click', renderPartnersSection);
+		document.getElementById('addPartnerBtn').onclick = addPartner;
+		if(document.getElementById('section-partners').style.display==='block') renderPartnersSection();
+
+		// --- ربط تواصل معنا (عرض فقط) ---
+		async function fetchContact() {
+			const res = await fetch('/api/content');
+			if (!res.ok) return {};
+			const data = await res.json();
+			return data.contact || {};
+		}
+		async function renderContactSection() {
+			const contact = await fetchContact();
+			const container = document.getElementById('contactManager');
+			container.innerHTML = `<div>البريد الإلكتروني: <input value="${contact.email||''}" style="width:180px"></div>
+				<div>رقم الهاتف: <input value="${contact.phone||''}" style="width:140px"></div>`;
+		}
+		document.querySelector('[data-section="contact"]').addEventListener('click', renderContactSection);
+		if(document.getElementById('section-contact').style.display==='block') renderContactSection();
+
+		// --- تفعيل التنقل بين الأقسام ---
+		document.querySelectorAll('.sidebar-link').forEach(link => {
+			link.addEventListener('click', function() {
+				document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+				this.classList.add('active');
+				let section = this.getAttribute('data-section');
+				document.querySelectorAll('.dashboard-section').forEach(sec => sec.style.display = 'none');
+				if(section === 'logout') { /* هنا تضع كود تسجيل الخروج */ return; }
+				document.getElementById('section-' + section).style.display = 'block';
+			});
+		});
+		document.querySelectorAll('.dashboard-section').forEach((sec,i)=>sec.style.display = i===0?'block':'none');
+
+		// تحميل أولي للأقسام المفتوحة عند التحميل
+		if(document.getElementById('section-users').style.display==='block') renderUsersSection();
+		if(document.getElementById('section-partners').style.display==='block') renderPartnersSection();
+		if(document.getElementById('section-blog').style.display==='block') renderBlogSection();
+		if(document.getElementById('section-plans').style.display==='block') renderPlansSection();
+		if(document.getElementById('section-devices').style.display==='block') renderDevicesSection();
+		if(document.getElementById('section-news').style.display==='block') renderNewsSection();
+		if(document.getElementById('section-contact').style.display==='block') renderContactSection();
+		if(document.getElementById('section-content').style.display==='block') renderContentSection();
+		if(document.getElementById('section-partners').style.display==='block') renderPartnersSection();
+		if(document.getElementById('section-stories').style.display==='block');
+		if(document.getElementById('section-settings').style.display==='block');
+		// عند التنقل بين الأقسام يتم تحميل البيانات الخاصة بكل قسم فوراً
+		document.querySelector('[data-section="plans"]').addEventListener('click', renderPlansSection);
+		document.querySelector('[data-section="devices"]').addEventListener('click', renderDevicesSection);
+		document.querySelector('[data-section="news"]').addEventListener('click', renderNewsSection);
+		document.querySelector('[data-section="partners"]').addEventListener('click', renderPartnersSection);
+		document.querySelector('[data-section="blog"]').addEventListener('click', renderBlogSection);
+		document.querySelector('[data-section="content"]').addEventListener('click', renderContentSection);
+		document.querySelector('[data-section="contact"]').addEventListener('click', renderContactSection);
+		// ... يمكنك إضافة المزيد من الأحداث حسب الحاجة ...
 	</script>
 </body>
 </html>
