@@ -24,10 +24,9 @@ async function kvSet(key, value) {
 export default async function handler(req: any, res: any) {
 	 if (req.method === 'GET') {
 		 try {
-			 let users = await kvGet('users') || [];
-			 // إضافة مستخدم admin إذا لم يكن موجودًا
-			 if (!users.find((u) => u.username === 'admin')) {
-				 users.push({ username: 'admin', password: '123', role: 'admin' });
+			 let users = await kvGet('users');
+			 if (!Array.isArray(users) || users.length === 0) {
+				 users = [{ username: 'admin', password: '123', role: 'admin' }];
 				 await kvSet('users', users);
 			 }
 			 res.status(200).json(users);
