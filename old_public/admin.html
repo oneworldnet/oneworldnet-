@@ -652,33 +652,113 @@ function googleTranslateElementInit() {
   </style>
 </head>
 <body>
-  <div class="admin-header">لوحة تحكم الموقع</div>
-  <div class="admin-container">
-    <div class="section-title">تغيير صورة (برقم الصورة)</div>
-    <label for="imgNum">رقم الصورة (مثال: 1, 2, 3 ...)</label>
-    <input type="number" id="imgNum" min="1" max="20" value="1">
-    <label for="imgUpload">اختر صورة جديدة</label>
-    <input type="file" id="imgUpload" accept="image/*">
-    <img id="imgPreview" class="img-preview" src="images/1.jpg" alt="صورة معاينة">
-    <button class="save-btn" onclick="saveImage()">حفظ الصورة</button>
-    <div class="section-title">تعديل نصوص أو فقرات</div>
-    <label for="pageSelect">اختر الصفحة</label>
-    <select id="pageSelect">
-      <option value="index">الصفحة الرئيسية</option>
-      <option value="blog">المدونة</option>
-      <option value="projects">المشاريع</option>
-      <option value="devices">الأجهزة</option>
-      <option value="pricing">الأسعار</option>
-      <option value="contact">تواصل معنا</option>
-      <option value="faq">الأسئلة الشائعة</option>
-    </select>
-    <label for="sectionKey">معرّف الفقرة أو العنوان (مثال: hero_title, feature1_desc ...)</label>
-    <input type="text" id="sectionKey" placeholder="مثال: hero_title">
-    <label for="sectionText">النص الجديد</label>
-    <textarea id="sectionText" rows="3" placeholder="اكتب النص الجديد هنا..."></textarea>
-    <button class="save-btn" onclick="saveText()">حفظ النص</button>
-    <div class="note">أي تغيير يتم حفظه محلياً ويظهر مباشرة في الموقع عند إعادة تحميل الصفحة.</div>
+  <div class="dashboard-wrapper">
+    <aside class="sidebar">
+      <div class="sidebar-logo">🌍</div>
+      <nav>
+        <ul>
+          <li class="sidebar-link active" data-section="dashboard"><i class="fa fa-chart-bar"></i> لوحة الإحصائيات</li>
+          <li class="sidebar-link" data-section="users"><i class="fa fa-users"></i> المستخدمون</li>
+          <li class="sidebar-link" data-section="content"><i class="fa fa-file-alt"></i> المحتوى</li>
+          <li class="sidebar-link" data-section="partners"><i class="fa fa-handshake"></i> الشركاء</li>
+          <li class="sidebar-link" data-section="stories"><i class="fa fa-star"></i> قصص النجاح</li>
+          <li class="sidebar-link" data-section="settings"><i class="fa fa-cog"></i> الإعدادات</li>
+          <li class="sidebar-link" data-section="logout"><i class="fa fa-sign-out-alt"></i> خروج</li>
+        </ul>
+      </nav>
+    </aside>
+    <main class="main-content">
+      <div id="section-dashboard" class="dashboard-section"> 
+        <h2>لوحة الإحصائيات</h2>
+        <div id="analyticsDashboard"></div>
+      </div>
+      <div id="section-users" class="dashboard-section" style="display:none;">
+        <h2>إدارة المستخدمين</h2>
+        <div id="userRolesManager"></div>
+      </div>
+      <div id="section-content" class="dashboard-section" style="display:none;">
+        <h2>إدارة المحتوى</h2>
+        <div id="aboutManager"></div>
+        <div id="privacyManager"></div>
+        <div id="faqManager"></div>
+      </div>
+      <div id="section-partners" class="dashboard-section" style="display:none;">
+        <h2>شركاء الخير</h2>
+        <div id="partnersManager"></div>
+      </div>
+      <div id="section-stories" class="dashboard-section" style="display:none;">
+        <h2>قصص النجاح</h2>
+        <div id="storiesManager"></div>
+      </div>
+      <div id="section-settings" class="dashboard-section" style="display:none;">
+        <h2>الإعدادات العامة</h2>
+        <div id="accessibilityManager"></div>
+        <div id="donateManager"></div>
+        <div id="langManager"></div>
+      </div>
+    </main>
   </div>
+  <script>
+    // تفعيل التنقل بين الأقسام
+    document.querySelectorAll('.sidebar-link').forEach(link => {
+      link.addEventListener('click', function() {
+        document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+        let section = this.getAttribute('data-section');
+        document.querySelectorAll('.dashboard-section').forEach(sec => sec.style.display = 'none');
+        if(section === 'logout') { logout(); return; }
+        document.getElementById('section-' + section).style.display = 'block';
+      });
+    });
+    // إظهار القسم الأول افتراضياً
+    document.querySelectorAll('.dashboard-section').forEach((sec,i)=>sec.style.display = i===0?'block':'none');
+  </script>
+  <style>
+    body { background: #f7f7fa; margin: 0; font-family: 'Cairo', Arial, sans-serif; }
+    .dashboard-wrapper { display: flex; min-height: 100vh; }
+    .sidebar {
+      width: 220px;
+      background: #fff;
+      box-shadow: 2px 0 16px #0001;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 0 0 0;
+    }
+    .sidebar-logo {
+      font-size: 2.2em;
+      font-weight: bold;
+      color: #FFD600;
+      margin-bottom: 32px;
+    }
+    .sidebar nav ul { list-style: none; padding: 0; margin: 0; width: 100%; }
+    .sidebar-link {
+      width: 100%;
+      padding: 14px 28px 14px 18px;
+      color: #333;
+      font-size: 1.1em;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      border-right: 4px solid transparent;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+    .sidebar-link.active, .sidebar-link:hover {
+      background: #FFD60022;
+      color: #FFD600;
+      border-right: 4px solid #FFD600;
+    }
+    .main-content {
+      flex: 1;
+      padding: 48px 40px 32px 40px;
+      background: #f7f7fa;
+      min-height: 100vh;
+    }
+    .dashboard-section { background: #fff; border-radius: 18px; box-shadow: 0 2px 12px #0001; padding: 32px 24px; margin-bottom: 32px; }
+    h2 { color: #18120b; margin-top: 0; }
+  </style>
+</body>
   <script>
 // دعم ذوي الاحتياجات الخاصة
 function saveAccessibility() {
