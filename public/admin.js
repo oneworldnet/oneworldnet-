@@ -160,10 +160,17 @@ async function renderUsers() {
   const usersList = document.getElementById('usersList');
   usersList.innerHTML = '';
   if (Array.isArray(users) && users.length > 0) {
-    users.forEach(user => {
+    users.forEach((user, i) => {
       const card = document.createElement('div');
       card.className = 'item-card';
-      card.innerHTML = `<strong>${user.username}</strong><br>الرتبة: ${user.role || 'غير محدد'}`;
+      card.innerHTML = `
+        <b>${user.username || user.name || 'مستخدم بدون اسم'}</b><br>
+        <span style='color:#888'>${user.role || 'غير محدد'}</span>
+        <div class='actions'>
+          <button class='edit' onclick='editUser(${i})'><i class="fa fa-edit"></i></button>
+          <button onclick='deleteUser(${i})'><i class="fa fa-trash"></i></button>
+        </div>
+      `;
       usersList.appendChild(card);
     });
   } else {
